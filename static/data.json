@@ -1,0 +1,129 @@
+{
+  "links": [
+{
+    "name": "Google",
+    "url": "http://www.google.com"
+},
+{
+    "name": "Baidu",
+    "url": "http://www.baidu.com"
+},
+{
+    "name": "SoSo",
+    "url": "http://www.SoSo.com"
+},
+{
+      "name": "Google",
+      "url": "http://www.google.com"
+},
+{
+    "name": "Baidu",
+    "url": "http://www.baidu.com"
+},
+{
+    "name": "SoSo",
+    "url": "http://www.SoSo.com"
+},
+{
+    "name": "Google",
+    "url": "http://www.google.com"
+},
+{
+    "name": "Baidu",
+    "url": "http://www.baidu.com"
+},
+{
+    "name": "SoSo",
+    "url": "http://www.SoSo.com"
+},
+{
+  "name": "Google",
+  "url": "http://www.google.com"
+},
+{
+  "name": "Baidu",
+  "url": "http://www.baidu.com"
+},
+{
+  "name": "SoSo",
+  "url": "http://www.SoSo.com"
+},
+{
+  "name": "Google",
+  "url": "http://www.google.com"
+},
+{
+  "name": "Baidu",
+  "url": "http://www.baidu.com"
+},
+{
+  "name": "SoSo",
+  "url": "http://www.SoSo.com"
+},
+{
+  "name": "Google",
+  "url": "http://www.google.com"
+},
+{
+  "name": "Baidu",
+  "url": "http://www.baidu.com"
+},
+{
+  "name": "SoSo",
+  "url": "http://www.SoSo.com"
+},
+{
+  "name": "Google",
+  "url": "http://www.google.com"
+}
+],
+"list_bigimg":[
+  {
+
+    "img_url":"../static/mine_list_imges/big_img_1.jpg"
+  },
+  {
+    "name":"光明使者-riven",
+    "merchant":"德玛西亚",
+    "price":"￥1999",
+    "img_url":"../static/mine_list_imges/big_img_2.jpg"
+  }, {
+    "name":"高精度电流记录仪",
+    "merchant":"ES5001数字式",
+    "price":"￥1400",
+    "img_url":"../static/mine_list_imges/small_img.png"
+  },
+  {
+    "name":"高精度电流记录仪",
+    "merchant":"ES5001数字式",
+    "price":"￥1400",
+    "img_url":"../static/mine_list_imges/small_img.png"
+  }
+],
+"list_smallimg":[
+  {
+    "name":"高精度电流记录仪",
+    "merchant":"ES5001数字式",
+    "price":"1400",
+    "img":"../static/mine_list_imges/small_img.png"
+  },
+  {
+    "name":"高精度电流记录仪",
+    "merchant":"ES5001数字式",
+    "price":"1400",
+    "img":"../static/mine_list_imges/small_img.png"
+  },
+  {
+    "name":"高精度电流记录仪",
+    "merchant":"ES5001数字式",
+    "price":"1400",
+    "img":"../static/mine_list_imges/small_img.png"
+  },
+  {
+    "name":"高精度电流记录仪",
+    "merchant":"ES5001数字式",
+    "price":"1400",
+    "img":"../static/mine_list_imges/small_img.png"
+  }
+]
+}
