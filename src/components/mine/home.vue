@@ -92,11 +92,11 @@
           </div>
         </div>
         <div class="B_r"></div>
-      </div>
+      </div>.
       <!-- 商品列表 -->
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <li v-for="List_img in List.events" :key="List_img.id"><router-link :to="{name:'List',query:{listId:List_img.categoryId}}"><img :src="List_img.imageUrl" alt="" class="List_li"><span>{{List_img.chineseName}}</span><span>{{List_img.englishName}}</span></router-link></li>
+          <li v-for="List_img in List.events" :key="List_img.id"><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img :src="List_img.imageUrl" alt="" class="List_li"><span>{{List_img.chineseName}}</span><span>{{List_img.englishName}}</span></router-link></li>
         </ul>
       </div>
       <div class="Right" >

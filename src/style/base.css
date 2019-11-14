@@ -17,7 +17,7 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
 .content_container{
   position:relative;
   width: 1440px;
-  margin:0 auto;
+  margin:auto;
   text-align: left;
 }
 input, button, select, textarea {

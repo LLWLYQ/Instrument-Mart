@@ -55,6 +55,7 @@ export default new Router({
       name: 'List',
       component: List,
       meta:{
+        title:'列表页'
       }
     },
     {
@@ -62,6 +63,7 @@ export default new Router({
       name: 'Detail',
       component: Detail,
       meta:{
+        title:'详情页'
       }
     }
   ]

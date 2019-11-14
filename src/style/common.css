@@ -14,7 +14,12 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
 #app{
 height:100%;
 }
-
+.content_container{
+  position: relative;
+  width: 1220px;
+  margin:0 auto;
+  height: 100%;
+}
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar
 {
