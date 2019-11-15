@@ -4,7 +4,12 @@
       <div class="Shinetop">
         <div class="big_shinetop">
           <ul class="tabImages">
-            <li v-for="(TI,index) in tebImg" :key="index" @click="tabclick(index)">
+            <li
+            v-show="iscur==index"
+            v-for="(TI,index) in tebImg" :key="index"
+            @mouseover="tabChange(index)"
+            >
+            <!-- :class="{cur:iscur===index}" -->
               <img :src="TI.bigImgUrl" alt="">
             </li>
           </ul>
@@ -14,13 +19,32 @@
             <li
               v-for="(TI,index) in tebImg" :key="index"
               :class="{cur:iscur===index}"
-              @mouseover="iscur=index,tabChange('TI.bigImgUrl'+(index))"
+              @mouseover="iscur=index,tabChange(index)"
+              ref="cur"
             >
               <img :src="TI.smallImgUrl" alt="">
             </li>
           </ul>
         </div>
         <div class="small_shinetop"></div>
+      </div>
+      <div class="SKU">
+        <div class="introduce" >
+          <div class="brand">
+            <p>
+              <span>{{Infos.brand}}</span><span>{{Infos.name}}</span>
+            </p>
+          </div>
+          <div class="price">
+            <dl >
+              <del><dt><span>促销价</span><b>￥</b>{{Infos.marketPrice}}</dt></del>
+            </dl>
+            <dl>
+              <dt><span>价格</span><p><b>￥</b>{{Infos.price}}</p></dt>
+              <dd>cihuibushi</dd>
+            </dl>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -32,19 +56,17 @@ export default {
     return {
       detailID:this.$route.query.DetailID,
       tebImg:'',
-      iscur: 0,
-      diu:''
+      iscur:0,
+      Infos:''
     }
   },
   methods: {
-    tabChange(index){
-    },
-    tabclick(index){
-      console.log(index)
+    tabChange(index,event){
+      this.iscur = index
     }
   },
   created(){
-    this.tabclick()
+    // this.tabChange()
     this.$ajax({
       url:'http://www.mei.com/appapi/product/detail/v3?categoryId=2040204090000005896&productId='+this.detailID+'&userId=2086208699900088233&platform_code=H5&timestamp=1542097790966&summary=00026e677f9f99ea3afca8566878e32f',
       methods:'get',
@@ -52,7 +74,8 @@ export default {
       }
     }).then(res=>{
       this.tebImg = res.data.infos.images
-      console.log(this.tebImg)
+      this.Infos = res.data.infos
+      console.log(this.Infos)
     })
   }
 }
@@ -64,6 +87,7 @@ export default {
     width: 500px;
     height: 700px;
     position: relative;
+    float: left;
     .big_shinetop{
       ul{
         li{
@@ -81,6 +105,9 @@ export default {
       position: absolute;
       bottom: 20px;
       left: 0;
+      .cur{
+        border:2px solid black;
+      }
       li{
         width: 100px;
         height: 100px;
@@ -92,5 +119,48 @@ export default {
         }
       }
     }
+  }
+  .SKU{
+    float: left;
+    width: 700px;
+    height: 700px;
+    margin-left: 50px;
+    .brand{
+      p{
+        font-size: 20px;
+        font-weight: 600;
+      }
+      p span:nth-child(1){
+          margin-right: 20px;
+        }
+    }
+    .price{
+        height: 110px;
+        background-color: #e9e9e9;
+        dl{
+          margin:0;
+        }
+        dt{
+          font-size: 14px;
+          height: 50px;
+          line-height: 50px;
+          span{
+            float: left;
+            margin-left: 10px;
+          }
+          b{
+            margin-left: 50px;
+          }
+          p{
+            float: left;
+            color:#FF0036;
+            font-size: 30px;
+            b{
+              font-size: 22px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
   }
 </style>
