@@ -189,6 +189,7 @@ export default {
       }
     },
     keywords(){
+      localStorage.setItem('diu','GOODIDDDDDDDDDDDDDDDD')
       for(let i=0;i<this.wpList.length;i++){
         // let list_li = i
         // console.log(list_li[i])

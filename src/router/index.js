@@ -7,6 +7,7 @@ import sign_in from '@/components/User/sign_in'
 import Select_product_release from '@/components/SelectProductRelease/Select_product_release'
 import List from '@/components/goods/List/List'
 import Detail from '@/components/goods/Detail/Detail'
+import diudiudiu from '@/components/goods/List/diudiudiu'
 
 
 Vue.use(Router)
@@ -56,6 +57,12 @@ export default new Router({
       component: List,
       meta:{
         title:'列表页'
+      }
+    },{
+      path:'/diudiudiu',
+      name:'diudiudiu',
+      component:diudiudiu,
+      meta:{
       }
     },
     {

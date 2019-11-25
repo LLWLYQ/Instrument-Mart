@@ -37,13 +37,42 @@
           </div>
           <div class="price">
             <dl >
-              <del><dt><span>促销价</span><b>￥</b>{{Infos.marketPrice}}</dt></del>
+              <del><dt><span>价格</span><b>￥</b>{{Infos.marketPrice}}</dt></del>
             </dl>
             <dl>
-              <dt><span>价格</span><p><b>￥</b>{{Infos.price}}</p></dt>
-              <dd>cihuibushi</dd>
+              <dt><span>促销</span><p><b>￥</b>{{Infos.price}}</p></dt>
             </dl>
           </div>
+          <div class="freight">
+            <dl>
+              <dt><span>运费</span><p>电器城广州仓至 广州荔湾区 沙面街道 快递 0.00<br/>预约配送 30分钟内付款，预计11月23日送达</p></dt>
+            </dl>
+          </div>
+        </div>
+        <div>
+          <quantity></quantity>
+        </div>
+        <div class="buy">
+          <span>立即购买</span>
+          <span>加入购物车</span>
+        </div>
+        <div class="Promise">
+          <p class="sever">服务承诺</p>
+          <ul>
+            <li>赠保价险</li>
+            <li>超值包邮</li>
+            <li>闪电到家</li>
+            <li>全国联保</li>
+          </ul>
+          <ul>
+            <li>送货入户</li>
+            <li>正品保证</li>
+            <li>延保服务</li>
+            <li>极速退款</li>
+          </ul>
+          <ul style="width:400px;">
+            <li>七天无理由退换</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -51,6 +80,7 @@
 </template>
 
 <script>
+import quantity from './Quantity/quantity'
 export default {
   data () {
     return {
@@ -77,6 +107,9 @@ export default {
       this.Infos = res.data.infos
       console.log(this.Infos)
     })
+  },
+  components:{
+    quantity
   }
 }
 </script>
@@ -94,6 +127,7 @@ export default {
           position: absolute;
           height: 500px;
           width: 500px;
+          border:1px solid #ccc;
           img{
             width: 100%;
             height: 100%;
@@ -137,11 +171,12 @@ export default {
     .price{
         height: 110px;
         background-color: #e9e9e9;
+        background-image:url(data:image/png;base64,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);
         dl{
           margin:0;
         }
         dt{
-          font-size: 14px;
+          font-size: 16px;
           height: 50px;
           line-height: 50px;
           span{
@@ -149,7 +184,7 @@ export default {
             margin-left: 10px;
           }
           b{
-            margin-left: 50px;
+            margin-left: 40px;
           }
           p{
             float: left;
@@ -162,5 +197,58 @@ export default {
           }
         }
       }
+      .freight{
+        height: 60px;
+        dl{
+          dt{
+            font-size:16px;
+            span{
+              float: left;
+            }
+            p{
+              float: left;
+              margin-left: 60px;
+            }
+          }
+        }
+      }
+    .buy{
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+      span{
+        cursor: pointer;
+      }
+      span:nth-child(1){
+        background-color: #dd2828;
+        color:#fff;
+        padding:10px 60px;
+        margin-left: 100px;
+      }
+      span:nth-child(2){
+        background-color: #222;
+        color:#fff;
+        padding:10px 50px;
+        margin-left: 30px;
+      }
+    }
+    .Promise{
+      height: 100px;
+      .sever{
+        width: 100px;
+        height: 100px;
+        font-size: 16px;
+        float: left;
+      }
+      ul{
+        height: 30px;
+        float: left;
+        li{
+          float: left;
+          font-size: 16px;
+          margin-right: 20px;
+        }
+      }
+    }
   }
 </style>
