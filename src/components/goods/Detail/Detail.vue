@@ -3,6 +3,7 @@
     <div class="content_container">
       <div class="Shinetop">
         <div class="big_shinetop">
+
           <ul class="tabImages">
             <li
             v-show="iscur==index"
@@ -26,7 +27,6 @@
             </li>
           </ul>
         </div>
-        <div class="small_shinetop"></div>
       </div>
       <div class="SKU">
         <div class="introduce" >
@@ -75,6 +75,43 @@
           </ul>
         </div>
       </div>
+      <div class="comment">
+        <div class="comment_left">
+        </div>
+        <div class="comment_right">
+          <h1>PRODUCT INFO</h1>
+          <p class="commodity_information">商品信息</p>
+          <div class="GoodTab">
+            <table>
+              <tbody>
+                <tr v-for="SizeTab in sizeTable" :key="SizeTab.id">
+                  <td>{{SizeTab.product_size}}</td>
+                  <td>{{SizeTab.specifications}}</td>
+                  <td>{{SizeTab.def19}}</td>
+                  <td>{{SizeTab.def14}}</td>
+                  <td>{{SizeTab.def8}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="PRODUCT">
+            <ul>
+              <li v-for="product in attributesList" :key="product.id"><span>{{product.name}}</span>:<span style="color:#000;margin-left:5px;">{{product.value}}</span></li>
+            </ul>
+            <div class="bigimg">
+              <ul class="tabImages"  >
+                <li v-for="(TI,index) in tebImg" :key="index">
+                  <img :src="TI.bigImgUrl" alt="">
+                </li>
+              </ul>
+            </div>
+            <div class="packageURL">
+              <h1>PACKING</h1>
+              <img :src="Infos.packageURL" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -87,7 +124,9 @@ export default {
       detailID:this.$route.query.DetailID,
       tebImg:'',
       iscur:0,
-      Infos:''
+      Infos:'',
+      sizeTable:'',
+      attributesList:''
     }
   },
   methods: {
@@ -105,7 +144,8 @@ export default {
     }).then(res=>{
       this.tebImg = res.data.infos.images
       this.Infos = res.data.infos
-      console.log(this.Infos)
+      this.sizeTable = res.data.infos.sizeMeasure.sizeTable
+      this.attributesList = res.data.infos.description.attributesList
     })
   },
   components:{
@@ -116,6 +156,9 @@ export default {
 
 <style scope lang="scss">
 @import "../../../style/common.css";
+  #Detail{
+    margin-top:30px;
+  }
   .Shinetop{
     width: 500px;
     height: 700px;
@@ -137,7 +180,7 @@ export default {
     }
     .small_shinetop{
       position: absolute;
-      bottom: 20px;
+      bottom: 50px;
       left: 0;
       .cur{
         border:2px solid black;
@@ -156,7 +199,7 @@ export default {
   }
   .SKU{
     float: left;
-    width: 700px;
+    width: 670px;
     height: 700px;
     margin-left: 50px;
     .brand{
@@ -247,6 +290,81 @@ export default {
           float: left;
           font-size: 16px;
           margin-right: 20px;
+        }
+      }
+    }
+  }
+  .comment{
+    width: 100%;
+    height: 5000px;
+    border:1px solid #ccc;
+    overflow:hidden;
+    h1{
+      text-align: center;
+    }
+    .comment_left{
+      width: 270px;
+      background-color: black;
+      height: 100%;
+      float: left;
+    }
+    .comment_right{
+      float: left;
+      width: 938px;
+      margin-left: 10px;
+      height: 100%;
+      .commodity_information{
+        text-align: center;
+        font-size: 20px;
+        letter-spacing:20px;
+      }
+      .GoodTab{
+        width: 920px;
+        height: 310px;
+        td{
+          padding:20px 20px;
+          width: 150px;
+          text-align: center;
+          border:0.1px solid #ccc;
+        }
+        tbody tr:nth-child(1){
+          background: #222;
+          color:#fff;
+        }
+        tbody tr:nth-child(n+2){
+          border:none;
+        }
+
+      }
+      .PRODUCT{
+        li{
+          width: 280px;
+          height: 50px;
+          line-height: 50px;
+          float: left;
+          text-align: center;
+          border-bottom: 1px solid #e7e7e7;
+          margin-left: 20px;
+          font-size: 14px;
+          color:#ccc;
+        }
+        .bigimg{
+          li{
+            width: 440px;
+            height: 600px;
+            float: left;
+            overflow: hidden;
+            margin-bottom: 20px;
+            img{
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+        .packageURL{
+          img{
+            width: 100%;
+          }
         }
       }
     }

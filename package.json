@@ -1,12 +1,4 @@
 {
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {},
-      "postcss-px2rem": {
-        "remUnit": 19
-      }
-    }
-  },
   "name": "app",
   "version": "1.0.0",
   "description": "A Vue.js project",
@@ -24,8 +16,6 @@
     "element-ui": "^2.11.1",
     "jquery": "^3.4.1",
     "lib-flexible": "^0.3.2",
-    "postcss-px2rem": "^0.3.0",
-    "px2rem-loader": "^0.1.9",
     "qs": "^6.8.0",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.1",

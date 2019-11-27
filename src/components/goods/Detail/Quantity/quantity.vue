@@ -49,7 +49,9 @@ export default {
     }
     .model{
       p{
-        width: 95px;
+        width: 90px;
+        height: 50px;
+        line-height: 35px;
         float: left;
         font-size: 16px;
       }
