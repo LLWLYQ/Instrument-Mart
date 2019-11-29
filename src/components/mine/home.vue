@@ -250,7 +250,7 @@ export default {
 }
 </script>
 //局部样式
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import "../../style/base.css";
 .content_container{
   position:relative;

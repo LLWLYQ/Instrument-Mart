@@ -1,0 +1,6 @@
+export{default as AllOrder} from './AllOrder.vue'
+export{default as Distribution} from './Distribution.vue'
+export{default as Evaluation} from './Evaluation.vue'
+export{default as Payment} from './Payment.vue'
+export{default as Shipped} from './Shipped.vue'
+export{default as ToSendTheGoods} from './ToSendTheGoods.vue'
