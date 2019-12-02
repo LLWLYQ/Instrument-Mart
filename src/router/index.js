@@ -15,6 +15,9 @@ import Shipped from '@/components/accountCenter/Order/Shipped' //待发货
 import Distribution from '@/components/accountCenter/Order/Distribution' //配送完成
 import Evaluation from '@/components/accountCenter/Order/Evaluation'  //购物评价s
 import Brands from '@/components/accountCenter/Collecting/Brands' //所有品牌
+import OrderForm from '@/components/BuyItNow/OrderForm' //提交订单
+import Address from '@/components/BuyItNow/Address/Address';//收货地址
+import OrderInfromation from '@/components/BuyItNow/OrderInfromation/OrderInfromation'; //购物购物清单
 
 
 Vue.use(Router)
@@ -134,6 +137,28 @@ export default new Router({
       path:'/Brands',
       name:'Brands',
       component:Brands,
+      meta:{
+      }
+    },
+    {
+      path:'/OrderForm',
+      name:'OrderForm',
+      component:OrderForm,
+      meta:{
+      }
+    },
+    {
+      path:'/Address',
+      name:'Address',
+      component:Address,
+      meta:{
+      }
+      //收货地址
+    },
+    {
+      path:'/OrderInfromation',
+      name:'OrderInfromation',
+      component:OrderInfromation,
       meta:{
       }
     }

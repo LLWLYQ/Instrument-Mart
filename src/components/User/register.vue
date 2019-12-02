@@ -141,6 +141,7 @@ export default {
           height: 45px;
           margin: 0 auto;
           text-indent:10px;
+          border:1px solid #222;
           }
           button{
             display: block;

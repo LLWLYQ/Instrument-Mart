@@ -21,7 +21,7 @@
               <p @click="boxshow2 = !boxshow2">我的收藏</p>
               <transition name="draw">
                 <ul class="box" v-show="boxshow2">
-                  <li class="brand" @click="brand()">所有品牌</li>
+                  <li class="brand"  @click="tabOrder()">所有品牌</li>
                 </ul>
               </transition>
             </div>
@@ -53,7 +53,7 @@
             </li>
           </ul>
         </div>
-        <div v-if="!brands">
+        <div>
           <div class="order_tier">
             <All-Order v-if="iscur==0"></All-Order>
           </div>
@@ -71,13 +71,12 @@
           </div>
         </div>
         <div class="Brand">
-          <Brands v-if="brands==true"></Brands>
+          <Brands ></Brands>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import {AllOrder, Payment, ToSendTheGoods, Shipped, Distribution, Evaluation} from './Order'
 import {Account_Information, Coupon, ShippingAddress} from './Account'
@@ -90,8 +89,7 @@ export default {
       boxshow3:true,
       boxshow4:true,
       order:[{name:'所有订单',id:0},{name:'待付款',id:1},{name:'待发货',id:2},{name:'待收货',id:3},{name:'购物评价',id:4}],
-      iscur:0,
-      brands:false,
+      iscur:0
     }
   },
   methods: {
@@ -99,7 +97,14 @@ export default {
       console.log(index)
     },
     brand(){
-      this.brands = true
+      // this.brands = true
+      this.order.map(item=>{
+        item.push({name:'收货地址',id:5})
+        var order = document.querySelector('.order')
+        order.windows.height = ['word arr']
+        scrollY.windows.heightd = ''
+
+      })
     }
   },
   components:{
