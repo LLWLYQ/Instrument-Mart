@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import quantity from './Quantity/quantity'
+import quantity from './Quantity/quantity';
 export default {
   data () {
     return {

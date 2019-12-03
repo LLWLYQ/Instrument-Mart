@@ -214,7 +214,6 @@ export default {
             })
             ChineseName.events.map(Chinese=>{
               this.orgList = Chinese.chineseName
-              console.log(Chinese)
             })
         });
     },
