@@ -73,8 +73,8 @@ export default {
           },
 
         }).then(res => {
-          console.log(res);
-          // _this.userToken = 'Bearer ' + res.data.data.body.token;
+          _this.userToken = 'Bearer ' + res.data.data.body.token;
+          console.log(_this.userToken)
           // // 将用户token保存到vuex中
           // _this.changeLogin({ Authorization: _this.userToken });
           // _this.$router.push('/home');

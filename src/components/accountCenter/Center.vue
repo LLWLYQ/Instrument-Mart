@@ -89,6 +89,8 @@ export default {
       boxshow3:true,
       boxshow4:true,
       order:[{name:'所有订单',id:0},{name:'待付款',id:1},{name:'待发货',id:2},{name:'待收货',id:3},{name:'购物评价',id:4}],
+      OrderFrom:[{label:'个人信息',value:'5'},{label:'收货地址',value:'6'},{label:'收件人',value:'7'},{label:'电话号码',value:'8'}],
+      Address:[{Provinced:'广东省',id:'9'},{city:'广州市',id:'10'},{county:'海珠区',id:'11'}],
       iscur:0
     }
   },
@@ -101,8 +103,8 @@ export default {
       this.order.map(item=>{
         item.push({name:'收货地址',id:5})
         var order = document.querySelector('.order')
-        order.windows.height = ['word arr']
-        scrollY.windows.heightd = ''
+        // order.windows.height = ['word arr']
+        // scrollY.windows.heightd = ''
 
       })
     }

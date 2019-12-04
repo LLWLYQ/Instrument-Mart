@@ -17,7 +17,7 @@ Vue.use(VueResource)
 
 //引入vuex
 // import vuex from 'vuex'
-// import* as store from './store/store.js'
+import store from './store/index'
 // Vue.use(vuex)
 
 // 引入ajax
@@ -55,7 +55,7 @@ router.afterEach(() => {
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
   components: { App },
   template: '<App/>'
 })

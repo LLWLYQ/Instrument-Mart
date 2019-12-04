@@ -501,7 +501,7 @@ export default {
   }
 </style>
 //全局样式
-<style >
+<style lang="scss">
   #SC_button{
     height: 60px;
     font-size: 40px;

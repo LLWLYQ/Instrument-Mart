@@ -37,6 +37,7 @@
 </template>
 <script>
 import VDistpicker from 'v-distpicker'
+import CenterOrderFrom from '../OrderForm'
 export default {
   data () {
     return {
@@ -51,7 +52,8 @@ export default {
 
   },
   components:{
-    VDistpicker
+    VDistpicker,
+    'Order-from':CenterOrderFrom,
   }
 }
 </script>

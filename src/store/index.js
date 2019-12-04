@@ -1,25 +1,16 @@
-//引入vuex
 import Vue from 'vue'
-import Vuex from 'vuex';
-// import { Script } from 'vm';
-import print from './module/print'
-Vue.use(Vuex);
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+import getters from './getters'
+import actions from './actions'
+import users from './modules/user'
+// 导出 store 对象
 export default new Vuex.Store({
-  modules: {
-        print
-      }
-  })
-// const store = new Vuex.Store({
-//   state: {
-//     // 存储token
-//     Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
-//   },
-//   mutations: {
-//     // 修改token，并将token存入localStorage
-//     changeLogin (state, user) {
-//       state.Authorization = user.Authorizsation;
-//       localStorage.setItem('Authorization', user.Authorization);
-//     }
-//   }
-// });
-s
+    getters,
+    actions,
+    modules:{
+        users
+    }
+})
