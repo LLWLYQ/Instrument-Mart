@@ -14,7 +14,7 @@
               <input type="text" v-model="loginForm.username" placeholder="用户名"/>
               <input type="password" v-model="loginForm.password" placeholder="密码"/>
               <button @click="login" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
-              <a href="">立即注册</a>
+              <router-link to="/MemberRegistration">立即注册</router-link>
             </div>
             <div class="button">
               <h4>—————  其他登录方式  —————</h4>
