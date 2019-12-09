@@ -19,6 +19,8 @@ import OrderForm from '@/components/BuyItNow/OrderForm' //提交订单
 import Address from '@/components/BuyItNow/Address/Address';//收货地址
 import OrderInfromation from '@/components/BuyItNow/OrderInfromation/OrderInfromation'; //购物购物清单
 import MemberRegistration from '@/components/Member/MemberRegistration' //会员注册
+import cart from '@/components/ShoppingTrolley/cart' //购物车
+
 
 
 Vue.use(Router)
@@ -167,6 +169,13 @@ export default new Router({
       path:'/MemberRegistration',
       name:'MemberRegistration',
       component:MemberRegistration,
+      meta:{
+      }
+    },
+    {
+      path:'/cart',
+      nameL:'cart',
+      component:cart,
       meta:{
       }
     }

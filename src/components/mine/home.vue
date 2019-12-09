@@ -214,7 +214,7 @@ export default {
             })
             ChineseName.events.map(Chinese=>{
               this.orgList = Chinese.chineseName
-0            })
+            })
         });
     },
     M_L(){
