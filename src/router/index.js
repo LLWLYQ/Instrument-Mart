@@ -4,7 +4,6 @@ import Home from '@/components/mine/home'
 import home_serach from '@/components/home_child/home_serach'
 import register from '@/components/User/register'
 import sign_in from '@/components/User/sign_in'
-import Select_product_release from '@/components/SelectProductRelease/Select_product_release'
 import List from '@/components/goods/List/List'
 import Detail from '@/components/goods/Detail/Detail'
 import Center from '@/components/accountCenter/Center'
@@ -54,14 +53,6 @@ export default new Router({
       name: 'sign_in',
       component: sign_in,
       meta:{
-      }
-    },
-    {
-      path: '/Select_product_release',
-      name: 'Select_product_release',
-      component: Select_product_release,
-      meta:{
-
       }
     },
     {

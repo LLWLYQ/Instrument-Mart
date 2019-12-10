@@ -189,7 +189,6 @@ export default {
       }
     },
     keywords(){
-      localStorage.setItem('diu','GOODIDDDDDDDDDDDDDDDD')
       for(let i=0;i<this.wpList.length;i++){
         // let list_li = i
         // console.log(list_li[i])
@@ -223,14 +222,11 @@ export default {
         method:"get"
       }).then(res=>{
         this.M_L_li = res.data
-        // let diu = this.M_L_li.list_bigimg
-        // console.log(diu)
       })
     }
   },
   components:{
     HomeSerach,
-    // HomeRegister
   },
    mounted(){
         var mySwiper = new Swiper('.swiper-container', {
@@ -241,7 +237,7 @@ export default {
           speed:1000,
           autoplay:{
             disableOnInteraction: false,  // 用户操作swiper之后，是否禁止autoplay
-            delay: 3000, // 自动切换的时间间隔（单位ms）
+            delay: 3000, // 自动切换的时间间隔（单位ms），
           },
           loop:true,
         })

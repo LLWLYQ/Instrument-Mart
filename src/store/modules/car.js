@@ -2,18 +2,13 @@
 import types from "../types";
 
 const state ={
-    all:{
-      ID:'',
-      PictUrl:'',
-      Name:'',
-      DiscountPrice:'',//折前价
-      Price:'',//现价
-      Quantity:''//单个商品数量
-    }
+  car:{}
 }
 
 const getters = {
-
+  count(state){
+    return state.car
+  }
 }
 
 const actions = {
@@ -21,7 +16,20 @@ const actions = {
 }
 
 const mutations = {
-
+  addToShopCar(state,goodsinfos){
+    var flag = false;
+    state.car.some(item=>{
+        if(item.id == goodsinfos.id){
+            item.count += parseInt(goodsinfos.count)
+            flag = true
+            return true
+        }
+    })
+    if(!flag){
+        state.car.push(goodsinfos)
+    }
+    localStorage.setItem('car',JSON.stringify(state.car))
+  }
 }
 // 最后统一导出
 export default {

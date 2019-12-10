@@ -28,7 +28,8 @@ export default {
   },
   methods: {
     handleChange(value) {
-      }
+      this.$emit('AandS',value)
+    }
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div id="Detail">
+    <h1>{{count}}</h1>
     <div class="content_container">
       <div class="Shinetop">
         <div class="big_shinetop">
@@ -50,11 +51,11 @@
           </div>
         </div>
         <div>
-          <quantity></quantity>
+          <quantity @AandS="Change($event)"></quantity>
         </div>
         <div class="buy">
           <span>立即购买</span>
-          <span>加入购物车</span>
+          <span @click="addToShopCar()">加入购物车</span>
         </div>
         <div class="Promise">
           <p class="sever">服务承诺</p>
@@ -118,6 +119,7 @@
 
 <script>
 import quantity from './Quantity/quantity';
+import {mapGetters} from 'vuex'
 export default {
   data () {
     return {
@@ -126,12 +128,37 @@ export default {
       iscur:0,
       Infos:'',
       sizeTable:'',
-      attributesList:''
+      attributesList:'',
+      brandId:'',
+      name:'',
+      price:'',
+      pictUrl:'',
+      quantity:'',
+      num:1,
+      DiscountPrice:''
     }
   },
+  computed:mapGetters([
+    'count'
+  ]),
   methods: {
     tabChange(index,event){
       this.iscur = index
+    },
+    addToShopCar(){
+         var goodsinfos = {
+            id:this.brandId,
+            name:this.name,
+            price:this.price,
+            pictUrl:this.pictUrl,
+            quantity:this.num,
+            DiscountPrice:this.DiscountPrice,
+          };
+    this.$store.commit("addToShopCar",goodsinfos);
+    },
+    Change(data){
+      this.num = data
+      console.log(this.num)
     }
   },
   created(){
@@ -142,10 +169,17 @@ export default {
       params:{
       }
     }).then(res=>{
-      this.tebImg = res.data.infos.images
-      this.Infos = res.data.infos
-      this.sizeTable = res.data.infos.sizeMeasure.sizeTable
-      this.attributesList = res.data.infos.description.attributesList
+      let ResData = res.data.infos
+      console.log(ResData)
+      this.tebImg = ResData.images
+      this.Infos = ResData
+      this.sizeTable = ResData.sizeMeasure.sizeTable
+      this.attributesList = ResData.description.attributesList
+      this.brandId = ResData.brandId
+      this.name = ResData.name
+      this.price = ResData.price
+      this.pictUrl = ResData.brandImg
+      this.DiscountPrice = ResData.marketPrice
     })
   },
   components:{
