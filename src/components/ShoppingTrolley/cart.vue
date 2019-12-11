@@ -5,9 +5,18 @@
         <p>
           <span>全部商品(商品数量)</span>
         </p>
-        <!-- <h1>{{carData}}</h1> -->
-        <ul>
-          <li  v-for="(D,index) in order" :key="index" style="cursor: pointer;margin-top:20px;" :class="{cur:iscur===index}"  @click="iscur=index,tabChange(index)" >{{D.name}}</li>
+      </div>
+      <div class="mine">
+        <ul class="cartLsit"  v-for="(CD,index) in carData" :key="index">
+          <li v-for="(cd,index) in CD" :key="index">
+            <img :src="cd.pictUrl" alt="">
+            <p>{{cd.name}}</p>
+            <p>{{cd.DiscountPrice}}</p>
+            <p>{{cd.price}}</p>
+            <el-input-number v-model="cd.quantity"  :min="1" :max="99" ></el-input-number>
+            <!-- <p>{{cd.quantity}}</p> -->
+            <span @click="delProduct(CD,index)">删除商品</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -15,24 +24,48 @@
 </template>
 
 <script>
-import {mapState,mapGetters} from 'vuex'
+import {mapState,mapGetters,mapActions} from 'vuex'
+import quantity from '../goods/Detail/Quantity/quantity';
 export default {
   data () {
     return {
-      carData:'',
-      order:[{name:'所有订单',id:0},{name:'待付款',id:1},{name:'待发货',id:2},{name:'待收货',id:3},{name:'购物评价',id:4}],
-      iscur:0
+      carData:''
     }
   },
   methods: {
-    tabChange(index){
-       this.iscur = index
+    ...mapActions(['delProduct']),
+    removeGoods(CD,index){
+      // CD.splice(index,1)
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+
+          cancelButtonText: '取消',
+          confirmButtonText: '确定',
+          type: 'warning'
+        }).then(() => {
+          CD.splice(index,1)
+          showClose = false,
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
     }
   },
   created(){
-      this.carData = localStorage.getItem('carList')
-      console.log(this.carData)
-  }
+      this.carData = this.$store.state.car
+  },
+  computed:{
+    count (){
+      return this.$store.state.car
+    }
+  },
+  // components:{
+  // }
 }
 </script>
 

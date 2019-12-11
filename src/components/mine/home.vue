@@ -27,7 +27,7 @@
           </ul>
         </div>
         <div class="Shopping_Cart">
-           <el-button slot="append" icon="el-icon-goods" id="SC_button"><span id="SC_span">ShoppingCart</span></el-button>
+          <el-button slot="append" icon="el-icon-goods" id="SC_button"><router-link to="/cart"><span id="SC_span">ShoppingCart</span></router-link></el-button>
         </div>
         <ul class="com_ul">
           <li>首页</li>
@@ -246,7 +246,7 @@ export default {
 </script>
 //局部样式
 <style lang="scss" scoped>
-@import "../../style/base.css";
+@import "../../style/base";
 .content_container{
   position:relative;
   width: 1440px;

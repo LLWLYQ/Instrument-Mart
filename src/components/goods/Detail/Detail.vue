@@ -1,6 +1,5 @@
 <template>
   <div id="Detail">
-    <h1>{{count}}</h1>
     <div class="content_container">
       <div class="Shinetop">
         <div class="big_shinetop">
@@ -178,8 +177,9 @@ export default {
       this.brandId = ResData.brandId
       this.name = ResData.name
       this.price = ResData.price
-      this.pictUrl = ResData.brandImg
+      // this.pictUrl = ResData.brandImg
       this.DiscountPrice = ResData.marketPrice
+      this.pictUrl = this.tebImg[0].smallImgUrl
     })
   },
   components:{

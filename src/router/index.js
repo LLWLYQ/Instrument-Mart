@@ -168,6 +168,7 @@ export default new Router({
       nameL:'cart',
       component:cart,
       meta:{
+        title:'购物车'
       }
     }
   ]

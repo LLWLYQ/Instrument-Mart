@@ -1,18 +1,21 @@
 // 导入 types.js 文件
 import types from "../types";
 
+var car = JSON.parse(localStorage.getItem('car') || '[]')
 const state ={
-  car:{}
+  car:car
 }
 
 const getters = {
   count(state){
-    return state.car
+    return state
   }
 }
 
 const actions = {
-
+  delgoodsinfos({commit},goodsinfos){
+    commit('del',goodsinfos)
+  }
 }
 
 const mutations = {
@@ -20,9 +23,10 @@ const mutations = {
     var flag = false;
     state.car.some(item=>{
         if(item.id == goodsinfos.id){
-            item.count += parseInt(goodsinfos.count)
+            // item.count += parseInt(goodsinfos.count)
             flag = true
             return true
+        }else{
         }
     })
     if(!flag){
