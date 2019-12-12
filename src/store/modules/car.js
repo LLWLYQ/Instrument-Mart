@@ -7,15 +7,19 @@ const state ={
 }
 
 const getters = {
-  count(state){
-    return state
-  }
+  // totalPrice:(state,getters)=>{
+  //   let total = 0;
+  //   getters.cartProducts.forEach(n=>{
+  //       total += n.price * n.num
+  //   })
+  //   return total;
+  // },
 }
 
 const actions = {
-  delgoodsinfos({commit},goodsinfos){
-    commit('del',goodsinfos)
-  }
+  // delgoodsinfos({commit},goodsinfos){
+  //   commit('del',goodsinfos)
+  // }
 }
 
 const mutations = {
