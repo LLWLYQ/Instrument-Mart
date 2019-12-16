@@ -90,6 +90,7 @@ export default {
       border-bottom:1px solid #ccc;
       span{
         border-bottom:2px solid red;
+        cursor:pointer;
       }
     }
     // .diu:hover{
@@ -135,6 +136,7 @@ export default {
         padding:10px 20px;
         background-color: red;
         color:#fff;
+        cursor:poninter;
       }
   }
 </style>

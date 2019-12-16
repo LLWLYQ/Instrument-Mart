@@ -19,6 +19,8 @@ import Address from '@/components/BuyItNow/Address/Address';//收货地址
 import OrderInfromation from '@/components/BuyItNow/OrderInfromation/OrderInfromation'; //购物购物清单
 import MemberRegistration from '@/components/Member/MemberRegistration' //会员注册
 import cart from '@/components/ShoppingTrolley/cart' //购物车
+import ApplicationIn from '@/components/ApplicationIn/ApplicationIn' //申请入驻
+import application_approved from '@/components/ApplicationIn/application_approved'//申请入驻成功
 
 
 
@@ -165,10 +167,26 @@ export default new Router({
     },
     {
       path:'/cart',
-      nameL:'cart',
+      name:'cart',
       component:cart,
       meta:{
         title:'购物车'
+      }
+    },
+    {
+      path:'/ApplicationIn',
+      name:'ApplicationIn',
+      component:ApplicationIn,
+      meta:{
+        title:'申请入驻'
+      }
+    },
+    {
+      path:'/application_approved',
+      name:'application_approved',
+      component:application_approved,
+      meta:{
+        title:'申请入驻成功'
       }
     }
   ]
