@@ -145,6 +145,15 @@ export default {
       this.iscur = index
     },
     addToShopCar(){
+      this.$alert('欢迎选购其他商品', '加入购物车成功', {
+          confirmButtonText: '确定',
+          callback: action => {
+            // this.$message({
+            //   type: 'info',
+            //   // message: `action: ${ action }`
+            // });
+          }
+        });
          var goodsinfos = {
             id:this.brandId,
             name:this.name,
@@ -169,7 +178,7 @@ export default {
       }
     }).then(res=>{
       let ResData = res.data.infos
-      console.log(ResData)
+      // console.log(ResData)
       this.tebImg = ResData.images
       this.Infos = ResData
       this.sizeTable = ResData.sizeMeasure.sizeTable

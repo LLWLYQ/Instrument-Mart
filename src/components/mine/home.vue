@@ -186,15 +186,16 @@ export default {
       }
       else if(this.active == '顶部'){
         $("body,html").animate({scrollTop:0},100)
+        // $("body,html").animate({scrollTop:0},200)
       }
     },
     keywords(){
-      for(let i=0;i<this.wpList.length;i++){
-        // let list_li = i
-        // console.log(list_li[i])
-        $('.Right:eq("+i+") li:first').css('background','red')
+      // for(let i=0;i<this.wpList.length;i++){
+      //   // let list_li = i
+      //   // console.log(list_li[i])
+      //   $('.Right:eq("+i+") li:first').css('background','red')
 
-      }
+      // }
       // if($(window).scrollTop()>$('.List').offset().top-30 && $(window).scrollTop()<$('.mine').offset().top-30){
 
       // }

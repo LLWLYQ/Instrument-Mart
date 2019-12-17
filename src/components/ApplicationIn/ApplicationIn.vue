@@ -88,7 +88,7 @@
           <el-form-item label="邀请码:" prop="Invitation_code">
             <el-input v-model="ruleForm.Invitation_code"></el-input>
           </el-form-item>
-          <el-form-item style="text-align:center;">
+          <el-form-item>
             <router-link to="/application_approved"><el-button type="primary" @click="submitForm('ruleForm')">申请入驻</el-button></router-link>
           </el-form-item>
         </el-form>
@@ -106,7 +106,7 @@ export default {
       if (!value) {
             return new Error("请输入电话号码");
           } else {
-            const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+            const reg = /^1[3|4|5|6|7|8][0-9]\d{8}$/;
             const isPhone = reg.test(value);
             value = Number(value); //转换为数字
             if (typeof value === "number" && !isNaN(value)) {//判断是否为数字
@@ -237,6 +237,7 @@ export default {
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
+        this.NumberBctih = this.ContDisbel
       },
       handleDownload(file) {
         console.log(file);
@@ -259,10 +260,10 @@ export default {
   .mine{
     height: 1700px;
     border:1px solid #ccc;
-    padding:20px 350px;
+    padding:20px 300px;
     .el-form-item {
       height: 80px;
-      width: 650px;
+      width: 750px;
     }
   }
   .mine .el-form-item:nth-child(n+3):nth-child(-n+7){
