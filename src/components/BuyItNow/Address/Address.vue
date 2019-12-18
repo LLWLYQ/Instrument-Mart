@@ -22,11 +22,61 @@
             <el-input v-model="ruleForm.Invitation_code"></el-input>
           </el-form-item>
         </el-form>
-        <el-button type="danger" style="margin-left:100px;" @click="use()">使用该地址</el-button>
+        <el-button type="danger" style="margin-left:100px;" @click="use()" class="Btn">保存</el-button>
       </div>
       <div class="Generated">
-        <Generated>
-        </Generated>
+        <el-table
+          :data="tableData"
+          border
+          style="width: 100%">
+          <el-table-column
+            fixed
+            prop="date"
+            label="电话"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="收货人"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="city"
+            label="所在地区"
+            width="200">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="详细地址"
+            width="300">
+          </el-table-column>
+          <el-table-column
+            prop="zip"
+            label="邮编"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            width="50">
+      <template slot-scope="scope">
+        <el-button
+          @click.native.prevent="Remove(scope.$index, tableData)"
+          type="text"
+          size="small">
+          删除
+        </el-button>
+      </template>
+    </el-table-column>
+    <el-table-column
+            fixed="right"
+            label="默认地址"
+            width="100">
+      <template slot-scope="scope">
+        <el-button @click="handleClick(scope.row)" type="text" size="small">设为默认地址</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
       </div>
     </div>
   </div>
@@ -34,7 +84,6 @@
 
 <script>
 import VDistpicker from 'v-distpicker'
-import Generated from './Generated'
 export default {
   data () {
     var isMobileNumber= (rule, value, callback) => {
@@ -85,8 +134,37 @@ export default {
           Invitation_code:[
             { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
           ]
-        }
-      };
+        },
+        tableData: [{
+          date: '15277748256',
+          name: 'Max',
+          province: '上海',
+          city: '广东省 广州市 番禺区',
+          address: '大石卢地坊大街14-1号陆威超市',
+          zip: 200333
+        }, {
+          date: '13838383838',
+          name: '张燕',
+          province: '上海',
+          city: '贵州省 贵州市 南阳区',
+          address: '童话世界11栋20楼',
+          zip: 54438
+        }, {
+          date: '15277748256',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1519 弄',
+          zip: 200333
+        }, {
+          date: '15277748256',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1516 弄',
+          zip: 200333
+        }]
+      }
   },
   methods: {
      submitForm(formName) {
@@ -111,30 +189,29 @@ export default {
         console.log(file);
       },
       use(){
-        // if(this.ruleForm.name1!=''&&this.ruleForm.mobileNumber!=''&&this.ruleForm.detailed_address!=''&&this.ruleForm.Invitation_code!=''&&this.ruleForm.province!=''&&this.ruleForm.city!=''&& this.ruleForm.area!=''){
-          this.$router.push({
-            name:'Generated',
-            params:{
-              name:this.ruleForm.name1,
-              mobileNumber:this.ruleForm.mobileNumber,
-              detailed_address:this.ruleForm.detailed_address,
-              Invitation_code:this.ruleForm.Invitation_code,
-              province:this.ruleForm.province,
-              city:this.ruleForm.city,
-              area:this.ruleForm.area,
-            }
-          })
-        // }
+        if(this.ruleForm.name1!=''&&this.ruleForm.mobileNumber!=''&&this.ruleForm.detailed_address!=''&&this.ruleForm.Invitation_code!=''&&this.ruleForm.province!=''&&this.ruleForm.city!=''&& this.ruleForm.area!=''){
+          localStorage.getItem(
+              'name',this.ruleForm.name1,
+              'mobileNumber',this.ruleForm.mobileNumber,
+              'detailed_address',this.ruleForm.detailed_address,
+              'Invitation_code',this.ruleForm.Invitation_code,
+              'province',this.ruleForm.province,
+              'city',this.ruleForm.city,
+              'area',this.ruleForm.area
+          )
+        }
       },
       onSelected(data){
         this.ruleForm.province = data.province.value
         this.ruleForm.city = data.city.value
         this.ruleForm.area = data.area.value
+      },
+    Remove(index,rows) {
+          rows.splice(index, 1)
       }
   },
   components:{
      VDistpicker,
-     Generated
   }
 }
 </script>
@@ -182,11 +259,27 @@ export default {
     height: 178px;
     display: block;
   }
-  .el-button{
-    padding: 15px 50px;
-    background-color: #e1360f;
+  .Btn{
+    padding: 10px 30px;
+    background-color: #5584ff;
     color:#fff;
     border-radius: 3px;
+    cursor: pointer;
+  }
+  .Btn:hover{
+    background-color:blue;
+  }
+  .Generated{
+    margin-top: 20px;
+    width:1060px;
+    height: 230px;
+    padding: 5px;
+    .el-table{
+      border:1px solid #ccc;
+      .el-table th.is-leaf{
+        border:1px solid #ccc;
+      }
+    }
   }
 </style>
 <style lang="scss">

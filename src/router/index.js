@@ -16,7 +16,6 @@ import Evaluation from '@/components/accountCenter/Order/Evaluation'  //购物�
 import Brands from '@/components/accountCenter/Collecting/Brands' //所有品牌
 import OrderForm from '@/components/BuyItNow/OrderForm' //提交订单
 import Address from '@/components/BuyItNow/Address/Address'//收货地址
-import Generated from '@/components/BuyItNow/Address/Generated'//生成的新地址
 import OrderInfromation from '@/components/BuyItNow/OrderInfromation/OrderInfromation'; //购物购物清单
 import MemberRegistration from '@/components/Member/MemberRegistration' //会员注册
 import cart from '@/components/ShoppingTrolley/cart' //购物车
@@ -188,13 +187,6 @@ export default new Router({
       component:application_approved,
       meta:{
         title:'申请入驻成功'
-      }
-    },
-    {
-      path:'/Generated',
-      name:'Generated',
-      component:Generated,
-      meta:{
       }
     }
   ]
