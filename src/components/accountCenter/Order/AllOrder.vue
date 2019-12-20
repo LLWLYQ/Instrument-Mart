@@ -1,6 +1,8 @@
 <template>
   <div class="AllOrder">
-    <h1>所有订单</h1>
+    <div class="OrderChild">
+      <h1>DDDDDDDDDDDDDDDDDDDDDD</h1>
+    </div>
   </div>
 </template>
 
@@ -17,6 +19,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../../../style/common';
 
 </style>

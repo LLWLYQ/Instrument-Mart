@@ -11,8 +11,8 @@
           <div class="main_register">
             <div class="mine">
               <h2>登录账户</h2>
-              <input type="text" v-model="loginForm.username" placeholder="用户名"/>
-              <input type="password" v-model="loginForm.password" placeholder="密码"/>
+              <input type="text" v-model="username" placeholder="用户名"/>
+              <input type="password" v-model="password" placeholder="密码"/>
               <button @click="login" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
               <router-link to="/MemberRegistration">立即注册</router-link>
             </div>
@@ -28,17 +28,15 @@
       </div>
   </div>
 </template>
-
 <script>
 import Qs from 'qs';
 import { mapMutations } from 'vuex';
+import config from '../../config/config'
 export default {
  data () {
     return {
-      loginForm: {
-        mobile: '',
+        username: '',
         password: ''
-      }
     };
   },
   created(){
@@ -64,21 +62,19 @@ export default {
           // headers: {
           //   'Content-Type':'application/json'
           // },
-          setRequestHeade:{'Content-type':'applicato/json'},
-          url: 'http://test.yishangm.com/api/sign',
+          url:config.baseUrl + '/home/user/login',
           method: 'post',
-          params: {
-            mobile:'18702040468',
-            password:'123123'
+          data: {
+            username:this.username,
+            password:this.password
           },
 
         }).then(res => {
-          _this.userToken = 'Bearer ' + res.data.data.body.token;
-          console.log(_this.userToken)
-          // // 将用户token保存到vuex中
-          // _this.changeLogin({ Authorization: _this.userToken });
-          // _this.$router.push('/home');
-          // alert('登陆成功');
+          if(res.data.status == 'success'){
+            this.$router.push({
+              path:'/Center',
+            })
+          }
         })
         // .catch(error => {
         //   alert('账号或密码错误');

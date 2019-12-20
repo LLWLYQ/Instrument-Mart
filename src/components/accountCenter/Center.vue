@@ -6,72 +6,42 @@
           <div class="head_portrait">
             <img src="../../assets/imges/sp_2.jpg" alt="">
             <p>15277748256</p>
+            <div class="admin">
+            </div>
           </div>
         </div>
         <div class="order">
-            <div class="myOrder">
-              <p @click="boxshow = !boxshow">我的订单</p>
-              <transition name="draw">
-                <ul class="box" v-show="boxshow">
-                  <li v-for="(OD,index) in order" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabOrder(index)">{{OD.name}}</li>
-                </ul>
-              </transition>
-            </div>
-            <div class="Collecting">
-              <p @click="boxshow2 = !boxshow2">我的收藏</p>
-              <transition name="draw">
-                <ul class="box" v-show="boxshow2">
-                  <li class="brand"  @click="tabOrder()">所有品牌</li>
-                </ul>
-              </transition>
-            </div>
-            <div class="Aftermarket">
-              <p @click="boxshow3 = !boxshow3">我的售后</p>
-              <transition name="draw">
-                <ul class="box" v-show="boxshow3">
-                  <li>退货记录</li>
-                </ul>
-              </transition>
-            </div>
-            <div class="Account">
-              <p @click="boxshow4 = !boxshow4">我的账户</p>
-              <transition name="draw">
-                <ul class="box" v-show="boxshow4">
-                  <li>账户信息</li>
-                  <li>收货地址</li>
-                  <li>优惠券</li>
-                </ul>
-              </transition>
-            </div>
-          </div>
-      </div>
-      <div class="Center_right">
-        <div class="top">
-          <ul>
-            <li v-for="(OD,index) in order" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabOrder(index)">
-              {{OD.name}}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div class="order_tier">
-            <All-Order v-if="iscur==0"></All-Order>
-          </div>
-          <div class="Collecting_tier">
-            <Payment v-if="iscur==1"></Payment>
-          </div>
-          <div class="Aftermarket_tier">
-            <To-Send-The-Goods v-if="iscur==2"></To-Send-The-Goods>
-          </div>
-          <div class="Account_tier">
-            <Shipped v-if="iscur==3"></Shipped>
-          </div>
-          <div class="Goods">
-            <Evaluation v-if="iscur==4"></Evaluation>
-          </div>
-        </div>
-        <div class="Brand">
-          <Brands ></Brands>
+          <el-row class="tac">
+            <el-col :span="12">
+              <el-menu
+                :default-openeds="openeds"
+                default-active="1"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose"
+                :unique-opened="true"
+                :router="true">
+            <el-submenu index="1">
+              <template slot="title">
+                <span>导航一</span>
+              </template>
+              <el-menu-item-group>
+                <template slot="title">分组一</template>
+                <el-menu-item index="/AllOrder" >选项1</el-menu-item>
+                <el-menu-item index="/Payment">选项2</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="分组2">
+                <el-menu-item index="/ToSendTheGoods">选项3</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="Shipped">
+                <template slot="title">选项4</template>
+              <el-menu-item index="Distribution">选项1</el-menu-item>
+                  </el-submenu>
+            </el-submenu>
+            </el-menu>
+            </el-col>
+            <router-view></router-view>
+          </el-row>
         </div>
       </div>
     </div>
@@ -84,30 +54,42 @@ import Brands from './Collecting/Brands'
 export default {
   data () {
     return {
-      boxshow:true,
-      boxshow2:true,
-      boxshow3:true,
-      boxshow4:true,
-      order:[{name:'所有订单',id:0},{name:'待付款',id:1},{name:'待发货',id:2},{name:'待收货',id:3},{name:'购物评价',id:4}],
-      iscur:0
+      openeds:["1"],
+      // boxshow:true,
+      // boxshow2:true,
+      // boxshow3:true,
+      // boxshow4:true,
+      // iscur:0
     }
   },
   methods: {
-    tabOrder(index){
-      console.log(index)
+    // tabOrder(index){
+    //   console.log(index)
+    // },
+    handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
     },
+    goTo(path){
+      this.$router.replace(path);
+      // this.$router.push(
+      //   router-link  = 'yaotiaozhuandeyemian'
+      // )
+    }
   },
   components:{
-    'All-Order': AllOrder,
-    'Payment': Payment,
-    'To-Send-The-Goods':ToSendTheGoods,
-    'Shipped':Shipped,
-    'Distribution':Distribution,
-    'Evaluation':Evaluation,
-    'Account-Information':Account_Information,
-    'Coupon':Coupon,
-    'Shipping-Address':ShippingAddress,
-    'Brands':Brands,
+    // 'All-Order': AllOrder,
+    // 'Payment': Payment,
+    // 'To-Send-The-Goods':ToSendTheGoods,
+    // 'Shipped':Shipped,
+    // 'Distribution':Distribution,
+    // 'Evaluation':Evaluation,
+    // 'Account-Information':Account_Information,
+    // 'Coupon':Coupon,
+    // 'Shipping-Address':ShippingAddress,
+    // 'Brands':Brands,
   },
   created(){
     console.log(this.order)

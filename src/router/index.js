@@ -48,6 +48,7 @@ export default new Router({
       name: 'register',
       component: register,
       meta:{
+        title:'登录页'
       }
     },
     {
@@ -79,55 +80,57 @@ export default new Router({
       component: Center,
       meta: {
         title:'个人中心'
-      }
-    },
-    {
-      path:'/AllOrder',
-      name: 'AllOrder',
-      component: AllOrder,
-      meta: {
-      }
-    //所有订单
-    },
-    {
-      path:'/Payment',
-      name:'Payment',
-      component:Payment,
-      meta:{
-      }
-      //代付款
-    },
-    {
-      path:'/ToSendTheGoods',
-      name:'ToSendTheGoods',
-      component:ToSendTheGoods,
-      meta:{
-      }
-      //待发货
-    },
-    {
-      path:'/Shipped',
-      name:'Shipped',
-      component:Shipped,
-      meta:{
-      }
-      //已发货
-    },
-    {
-      path:'/Distribution',
-      name:'Distribution',
-      component:Distribution,
-      meta:{
-      }
-      //配送完成
-    },
-    {
-      path:'/Evaluation',
-      name:'Evaluation',
-      component:Evaluation,
-      meta:{
-      }
-      //购物评价
+      },
+      children:[
+        {
+          path:'/AllOrder',
+          name: 'AllOrder',
+          component: AllOrder,
+          meta: {
+          }
+        //所有订单
+        },
+        {
+          path:'/Payment',
+          name:'Payment',
+          component:Payment,
+          meta:{
+          }
+          //代付款
+        },
+        {
+          path:'/ToSendTheGoods',
+          name:'ToSendTheGoods',
+          component:ToSendTheGoods,
+          meta:{
+          }
+          //待发货
+        },
+        {
+          path:'/Shipped',
+          name:'Shipped',
+          component:Shipped,
+          meta:{
+          }
+          //已发货
+        },
+        {
+          path:'/Distribution',
+          name:'Distribution',
+          component:Distribution,
+          meta:{
+          }
+          //配送完成
+        },
+        {
+          path:'/Evaluation',
+          name:'Evaluation',
+          component:Evaluation,
+          meta:{
+          }
+          //购物评价
+        }
+      ]
     },
     {
       path:'/Brands',

@@ -33,6 +33,9 @@ axios.defaults.headers = {
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+const baseUrl = 'http://shop.yishangm.com/'
+Vue.prototype.baseUrl = baseUrl
+
 Vue.use(ElementUI)
 
 //引入rem布局

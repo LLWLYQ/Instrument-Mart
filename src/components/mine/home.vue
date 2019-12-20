@@ -96,7 +96,9 @@
       <!-- 商品列表 -->
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <li v-for="List_img in List.events" :key="List_img.id"><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img :src="List_img.imageUrl" alt="" class="List_li"><span>{{List_img.chineseName}}</span><span>{{List_img.englishName}}</span></router-link></li>
+          <!-- <li ><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><span></span></router-link></li> -->
+           <li ><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><br><span style="color:red;">{{List.sales_price}}</span></li>
+           <p></p>
         </ul>
       </div>
       <div class="Right" >
@@ -135,6 +137,7 @@
 import HomeSerach from '../home_child/home_serach.vue'
 import $ from 'jquery'
 import Swiper from 'swiper';
+import config from '../../config/config'
 export default {
   data () {
     return {
@@ -200,21 +203,22 @@ export default {
 
       // }
       this.$ajax({
-					url:"http://www.mei.com/appapi/home/eventForH5?params=%7B%7D&timestamp=1541912900086&summary=445aed26c2403f4500c76f14e6146ad2&platform_code=H5",
+					url:config.baseUrl + '/home/goods',
 					method: "get",
 					params: {
-            id:155
+
 					}
 				}).then(res => {
-            var ChineseName
-            var list
-            this.data_list = res.data.lists
-            res.data.lists.map(val=>{
-              ChineseName = val
-            })
-            ChineseName.events.map(Chinese=>{
-              this.orgList = Chinese.chineseName
-            })
+            console.log(res.data.data)
+            // var ChineseName
+            // var list
+            this.data_list = res.data.data.items
+            // res.data.lists.map(val=>{
+            //   ChineseName = val
+            // })
+            // ChineseName.events.map(Chinese=>{
+            //   this.orgList = Chinese.chineseName
+            // })
         });
     },
     M_L(){

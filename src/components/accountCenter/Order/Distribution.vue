@@ -1,6 +1,9 @@
 <template>
   <div class="Distribution">
-    <h1>已发货</h1>
+    <div class="OrderChild">
+      <h1>DDDDDDDDDDDDDDDDDDDDDD</h1>
+      <h1>已发货</h1>
+    </div>
   </div>
 </template>
 
@@ -18,5 +21,6 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../style/common';
 
 </style>

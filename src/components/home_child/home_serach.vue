@@ -79,7 +79,7 @@ export default {
           this.listIndex--;
           // console.log( this.listIndex-$(".list-group li").index(this)-1)
 					if(this.listIndex<0){
-						this.listIndex=this.arr.length-1;
+            this.listIndex=this.arr.length-1;
 					}
 					this.wd=this.arr[this.listIndex];
 				}

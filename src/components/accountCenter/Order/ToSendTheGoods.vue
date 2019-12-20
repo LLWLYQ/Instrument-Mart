@@ -1,6 +1,10 @@
 <template>
   <div class="ToSendTheGoods">
-    <h1>待发货</h1>
+    <div class="OrderChild">
+      <h1>DDDDDDDDDDDDDDDDDDDDDD</h1>
+      <h1>待发货</h1>
+    </div>
+
   </div>
 </template>
 
@@ -18,5 +22,6 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../style/common';
 
 </style>
