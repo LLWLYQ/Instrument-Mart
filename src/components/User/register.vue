@@ -13,7 +13,7 @@
               <h2>登录账户</h2>
               <input type="text" v-model="username" placeholder="用户名"/>
               <input type="password" v-model="password" placeholder="密码"/>
-              <button @click="login" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
+              <button @click="login()" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
               <router-link to="/MemberRegistration">立即注册</router-link>
             </div>
             <div class="button">
@@ -39,8 +39,15 @@ export default {
         password: ''
     };
   },
-  created(){
-    this.login()
+  created() {
+    let that = this;
+    document.onkeypress = function(e) {
+      var keycode = document.all ? event.keyCode : e.which;
+      if (keycode == 13) {
+        that.login();// 登录方法名
+         return false;
+      }
+    };
   },
   methods: {
     add(){
@@ -58,24 +65,24 @@ export default {
     //   if (this.loginForm.username === '' || this.loginForm.password === '') {
     //     alert('账号或密码不能为空');
     //   } else {
-        this.$ajax({
+          this.$ajax({
           // headers: {
           //   'Content-Type':'application/json'
           // },
-          url:config.baseUrl + '/home/user/login',
-          method: 'post',
-          data: {
-            username:this.username,
-            password:this.password
-          },
+            url:config.baseUrl + '/home/user/login',
+            method: 'post',
+            data: {
+              username:this.username,
+              password:this.password
+            },
 
-        }).then(res => {
-          if(res.data.status == 'success'){
-            this.$router.push({
-              path:'/Center',
-            })
-          }
-        })
+          }).then(res => {
+            if(res.data.status == 'success'){
+              this.$router.push({
+                path:'/AllOrder',
+              })
+            }
+          })
         // .catch(error => {
         //   alert('账号或密码错误');
         //   console.log(error);

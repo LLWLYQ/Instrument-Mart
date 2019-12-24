@@ -1,7 +1,7 @@
 <template>
   <div class="quantity">
     <div class="inventory">
-      <p><span>库存</span><span>90</span></p>
+      <p><span>库存</span><span>90&nbsp;{{goods_unit}}</span></p>
     </div>
     <div class="model">
       <p>选择型号</p>
@@ -21,6 +21,9 @@
 
 <script>
 export default {
+  props:{
+    goods_unit:String,
+  },
   data () {
     return {
       num: 1

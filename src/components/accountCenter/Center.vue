@@ -15,28 +15,35 @@
             <el-col :span="12">
               <el-menu
                 :default-openeds="openeds"
-                default-active="1"
+                :default-active="$route.path"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
-                :unique-opened="true"
                 :router="true">
             <el-submenu index="1">
-              <template slot="title">
-                <span>导航一</span>
-              </template>
-              <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="/AllOrder" >选项1</el-menu-item>
-                <el-menu-item index="/Payment">选项2</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item-group title="分组2">
-                <el-menu-item index="/ToSendTheGoods">选项3</el-menu-item>
-              </el-menu-item-group>
-              <el-submenu index="Shipped">
-                <template slot="title">选项4</template>
-              <el-menu-item index="Distribution">选项1</el-menu-item>
-                  </el-submenu>
+                <span>我的订单</span>
+                <el-menu-item index="/AllOrder" >代付款</el-menu-item>
+                <el-menu-item index="/Payment">待发货</el-menu-item>
+                <el-menu-item index="/ToSendTheGoods">已发货</el-menu-item>
+                <el-menu-item index="/Shipped">配送完成</el-menu-item>
+            </el-submenu>
+            <!-- 我的收藏 -->
+             <el-submenu index="1">
+                <span>我的收藏</span>
+                <el-menu-item index="/AllOrder" >所有品牌</el-menu-item>
+            </el-submenu>
+            <!-- 退货记录 -->
+             <!-- 我的收藏 -->
+             <el-submenu index="1">
+                <span>我的售后</span>
+                <el-menu-item index="/AllOrder" >退货记录</el-menu-item>
+            </el-submenu>
+            <!-- 我的账户 -->
+             <el-submenu index="1">
+                <span>我的账户</span>
+                <el-menu-item index="/AllOrder" >账户信息</el-menu-item>
+                <el-menu-item index="/Payment">收货地址</el-menu-item>
+                <el-menu-item index="/ToSendTheGoods">优惠券</el-menu-item>
             </el-submenu>
             </el-menu>
             </el-col>
@@ -53,50 +60,31 @@ import {Account_Information, Coupon, ShippingAddress} from './Account'
 import Brands from './Collecting/Brands'
 export default {
   data () {
-    return {
-      openeds:["1"],
-      // boxshow:true,
-      // boxshow2:true,
-      // boxshow3:true,
-      // boxshow4:true,
-      // iscur:0
-    }
-  },
-  methods: {
-    // tabOrder(index){
-    //   console.log(index)
-    // },
-    handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
+      return {
+        openeds:["1"],
+      }
     },
-    goTo(path){
-      this.$router.replace(path);
-      // this.$router.push(
-      //   router-link  = 'yaotiaozhuandeyemian'
-      // )
-    }
-  },
-  components:{
-    // 'All-Order': AllOrder,
-    // 'Payment': Payment,
-    // 'To-Send-The-Goods':ToSendTheGoods,
-    // 'Shipped':Shipped,
-    // 'Distribution':Distribution,
-    // 'Evaluation':Evaluation,
-    // 'Account-Information':Account_Information,
-    // 'Coupon':Coupon,
-    // 'Shipping-Address':ShippingAddress,
-    // 'Brands':Brands,
+  methods: {
+      handleOpen(key, keyPath) {
+          // console.log(key, keyPath);
+        },
+      handleClose(key, keyPath) {
+          // console.log(key, keyPath);
+      },
+      goTo(path){
+        this.$router.replace(path);
+      }
+    },
+  component:{
   },
   created(){
-    console.log(this.order)
-  }
+    // console.log(this.order)
+  },
+
+//监听路由的变化，对应菜单高亮显示
+
 }
 </script>
-
 <style scoped lang="scss">
 @import "../../style/common";
   .content_container{
@@ -204,4 +192,12 @@ export default {
       }
     }
   }
+</style>
+<style lang="scss">
+   .el-submenu__title{
+      display:none;
+    }
+   .el-menu-item{
+      padding-left:10px !important;
+    }
 </style>

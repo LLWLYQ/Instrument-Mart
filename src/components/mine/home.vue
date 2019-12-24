@@ -97,8 +97,7 @@
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
           <!-- <li ><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><span></span></router-link></li> -->
-           <li ><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><br><span style="color:red;">{{List.sales_price}}</span></li>
-           <p></p>
+           <li ><router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><img :src="baseUrl+List.files_path" alt="" class="List_li"><span>{{List.goods_name}}</span><br><span style="color:red;">{{List.sales_price}}</span></router-link></li>
         </ul>
       </div>
       <div class="Right" >
@@ -141,6 +140,7 @@ import config from '../../config/config'
 export default {
   data () {
     return {
+      baseUrl:'http://shop.yishangm.com',
       wpList: [
         {
         name: '食品饮料'

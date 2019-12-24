@@ -11,7 +11,7 @@
             @mouseover="tabChange(index)"
             >
             <!-- :class="{cur:iscur===index}" -->
-              <img :src="TI.bigImgUrl" alt="">
+              <img :src="baseUrl+TI.files_path" alt="">
             </li>
           </ul>
         </div>
@@ -23,7 +23,7 @@
               @mouseover="iscur=index,tabChange(index)"
               ref="cur"
             >
-              <img :src="TI.smallImgUrl" alt="">
+              <img :src="baseUrl+TI.files_path" alt="">
             </li>
           </ul>
         </div>
@@ -32,15 +32,15 @@
         <div class="introduce" >
           <div class="brand">
             <p>
-              <span>{{Infos.brand}}</span><span>{{Infos.name}}</span>
+              <span>{{Infos.brand}}</span><span>{{Infos.goods_name}}</span>
             </p>
           </div>
           <div class="price">
             <dl >
-              <del><dt><span>价格</span><b>￥</b>{{Infos.marketPrice}}</dt></del>
+              <del><dt><span>价格</span><b>￥</b>{{Infos.sales_price}}</dt></del>
             </dl>
             <dl>
-              <dt><span>促销</span><p><b>￥</b>{{Infos.price}}</p></dt>
+              <dt><span>促销</span><p><b>￥</b>{{Infos.market_price}}</p></dt>
             </dl>
           </div>
           <div class="freight">
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div>
-          <quantity @AandS="Change($event)"></quantity>
+          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit"></quantity>
         </div>
         <div class="buy">
           <span>立即购买</span>
@@ -80,7 +80,7 @@
         </div>
         <div class="comment_right">
           <h1>PRODUCT INFO</h1>
-          <p class="commodity_information">商品信息</p>
+          <p class="commodity_information" v-html="Infos.pc_goods_content"></p>
           <div class="GoodTab">
             <table>
               <tbody>
@@ -100,8 +100,8 @@
             </ul>
             <div class="bigimg">
               <ul class="tabImages"  >
-                <li v-for="(TI,index) in tebImg" :key="index">
-                  <img :src="TI.bigImgUrl" alt="">
+                <li >
+                  <img :src="baseUrl + Infos.goods_img_path" alt="">
                 </li>
               </ul>
             </div>
@@ -119,10 +119,12 @@
 <script>
 import quantity from './Quantity/quantity';
 import {mapGetters} from 'vuex'
+import config from '../../../config/config'
 export default {
   data () {
     return {
-      detailID:this.$route.query.DetailID,
+      baseUrl:config.baseUrl,
+      detailID:this.$route.query.listId,
       tebImg:'',
       iscur:0,
       Infos:'',
@@ -134,7 +136,7 @@ export default {
       pictUrl:'',
       quantity:'',
       num:1,
-      DiscountPrice:''
+      DiscountPrice:'',
     }
   },
   computed:mapGetters([
@@ -172,23 +174,21 @@ export default {
   created(){
     // this.tabChange()
     this.$ajax({
-      url:'http://www.mei.com/appapi/product/detail/v3?categoryId=2040204090000005896&productId='+this.detailID+'&userId=2086208699900088233&platform_code=H5&timestamp=1542097790966&summary=00026e677f9f99ea3afca8566878e32f',
-      methods:'get',
-      params:{
-      }
+      url:config.baseUrl+'/home/goods/'+ this.detailID,
+      methods:'post',
     }).then(res=>{
-      let ResData = res.data.infos
-      // console.log(ResData)
-      this.tebImg = ResData.images
-      this.Infos = ResData
-      this.sizeTable = ResData.sizeMeasure.sizeTable
-      this.attributesList = ResData.description.attributesList
-      this.brandId = ResData.brandId
-      this.name = ResData.name
-      this.price = ResData.price
-      // this.pictUrl = ResData.brandImg
-      this.DiscountPrice = ResData.marketPrice
-      this.pictUrl = this.tebImg[0].smallImgUrl
+      this.Infos = res.data.data.result
+      // console.log(ResData.goods_name)
+      // this.Infos = ResData
+      this.tebImg = res.data.data.result.piclist
+      // // this.sizeTable = ResData.sizeMeasure.sizeTable
+      // // this.attributesList = ResData.description.attributesList
+      // // this.brandId = ResData.brandId
+      // this.name = ResData.goods_name
+      // this.price = ResData.sales_price
+      // // // this.pictUrl = ResData.brandImg
+      // this.DiscountPrice = ResData.market_price
+      // // this.pictUrl = this.tebImg[0].smallImgUrl
     })
   },
   components:{
@@ -359,11 +359,11 @@ export default {
       .commodity_information{
         text-align: center;
         font-size: 20px;
-        letter-spacing:20px;
+        letter-spacing:10px;
       }
       .GoodTab{
-        width: 920px;
-        height: 310px;
+        // width: 920px;
+        // height: 310px;
         td{
           padding:20px 20px;
           width: 150px;
@@ -393,9 +393,9 @@ export default {
         }
         .bigimg{
           li{
-            width: 440px;
+            width: 100%;
             height: 600px;
-            float: left;
+            margin:0 auto;
             overflow: hidden;
             margin-bottom: 20px;
             img{
