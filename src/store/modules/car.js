@@ -7,18 +7,25 @@ const state ={
 }
 
 const getters = {
-  // totalPrice:(state,getters)=>{
-  //   let total = 0;
-  //   getters.cartProducts.forEach(n=>{
-  //       total += n.price * n.num
-  //   })
-  //   return total;
-  // },
+  totalPrice(state){
+    let totalPrice = 0;
+    state.car.forEach(item=>{
+      totalPrice += item.price * item.quantity
+    })
+    return totalPrice;
+  },
 }
 
 const actions = {
   // delgoodsinfos({commit},goodsinfos){
   //   commit('del',goodsinfos)
+  // }
+  // totalPrice(state){
+  //   let totalPrice = 0;
+  //   state.car.forEach(item =>{
+  //     totalPrice += item.price * item.quantity
+  //   })
+  //   return totalPrice;
   // }
 }
 

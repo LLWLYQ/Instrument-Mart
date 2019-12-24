@@ -172,23 +172,19 @@ export default {
     }
   },
   created(){
-    // this.tabChange()
     this.$ajax({
       url:config.baseUrl+'/home/goods/'+ this.detailID,
       methods:'post',
     }).then(res=>{
       this.Infos = res.data.data.result
-      // console.log(ResData.goods_name)
-      // this.Infos = ResData
+      // console.log(this.Infos)
+      this.brandId = this.Infos.goods_id
       this.tebImg = res.data.data.result.piclist
-      // // this.sizeTable = ResData.sizeMeasure.sizeTable
-      // // this.attributesList = ResData.description.attributesList
-      // // this.brandId = ResData.brandId
-      // this.name = ResData.goods_name
-      // this.price = ResData.sales_price
-      // // // this.pictUrl = ResData.brandImg
-      // this.DiscountPrice = ResData.market_price
-      // // this.pictUrl = this.tebImg[0].smallImgUrl
+      this.pictUrl = config.baseUrl + this.tebImg[0].files_path
+      this.name =  this.Infos.goods_name
+      this.price = this.Infos.sales_price
+      this.DiscountPrice =  this.Infos.market_price
+
     })
   },
   components:{

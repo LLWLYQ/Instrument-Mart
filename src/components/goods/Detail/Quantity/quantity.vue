@@ -26,12 +26,15 @@ export default {
   },
   data () {
     return {
-      num: 1
+      num: 1,
     }
   },
   methods: {
     handleChange(value) {
       this.$emit('AandS',value)
+      if(value == this.goods_unit){
+        this.handleChange()
+      }
     }
   }
 }

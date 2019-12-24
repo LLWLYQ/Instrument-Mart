@@ -22,7 +22,7 @@
           </li>
            <p>
               <span>总价</span>
-              <span @click="totalPrice()">￥{{total_prices}}</span>
+              <span>￥{{totalPrice}}</span>
             </p>
         </ul>
       </div>
@@ -51,35 +51,32 @@ export default {
           type: 'warning'
         }).then(() => {
           CD.splice(index,1)
-          showClose = false,
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          // showClose = false,
+          // this.$message({
+          //   type: 'success',
+          //   message: ''
+          // });
         }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
+          // this.$message({
+          //   type: 'info',
+          //   message: ''
+          // });
         });
     },
-    totalPrice(){
-
-    }
   },
   created(){
       this.carData = this.$store.state.car
-      this.carData.car.map(item => {
-        this.total_prices += item.price*item.quantity
-      })
+      console.log(this.carData)
+      // this.carData.car.map(item => {
+      //   this.total_prices += item.price*item.quantity
+      // })
   },
   computed:{
     count (){
       return this.$store.state.car
-    }
-  },
-  // components:{
-  // }
+    },
+    ...mapGetters(['totalPrice'])
+  }
 }
 </script>
 
