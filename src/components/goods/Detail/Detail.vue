@@ -165,11 +165,24 @@ export default {
             DiscountPrice:this.DiscountPrice,
           };
     this.$store.commit("addToShopCar",goodsinfos);
+    this.$ajax({
+      url:config.baseUrl+'/home/cart/add',
+      method:'post',
+      data:{
+        goods_id:this.Infos.goods_id,
+        member_id:localStorage.getItem('userId'),
+        option:[],
+        quantity:this.num
+      }
+    }).then(res=>{
+      console.log(res)
+    })
+
     },
     Change(data){
       this.num = data
       console.log(this.num)
-    }
+    },
   },
   created(){
     this.$ajax({
@@ -183,8 +196,7 @@ export default {
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
-      this.DiscountPrice =  this.Infos.market_price
-
+      // this.DiscountPrice =  this.Infos.market_price
     })
   },
   components:{

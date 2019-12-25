@@ -27,7 +27,7 @@
           </ul>
         </div>
         <div class="Shopping_Cart">
-          <el-button slot="append" icon="el-icon-goods" id="SC_button"><router-link to="/cart"><span id="SC_span">ShoppingCart</span></router-link></el-button>
+          <el-button slot="append" icon="el-icon-goods" id="SC_button" @click="goCart()"><span id="SC_span">ShoppingCart</span></el-button>
         </div>
         <ul class="com_ul">
           <li>首页</li>
@@ -173,6 +173,21 @@ export default {
     this.M_L()
   },
   methods: {
+    goCart(){
+      this.$ajax({
+        url:config.baseUrl+'/home/cart',
+        method:'get',
+        params:{
+          member_id:localStorage.getItem('userId')
+        }
+      }).then(res=>{
+        if(res.data.code == 20000){
+          this.$router.push({
+            path:'/cart'
+          })
+        }
+      })
+    },
     selected(name){
       this.active = name;
       let WS = $(window).scrollTop();
@@ -193,32 +208,12 @@ export default {
       }
     },
     keywords(){
-      // for(let i=0;i<this.wpList.length;i++){
-      //   // let list_li = i
-      //   // console.log(list_li[i])
-      //   $('.Right:eq("+i+") li:first').css('background','red')
-
-      // }
-      // if($(window).scrollTop()>$('.List').offset().top-30 && $(window).scrollTop()<$('.mine').offset().top-30){
-
-      // }
       this.$ajax({
 					url:config.baseUrl + '/home/goods',
 					method: "get",
-					params: {
-
-					}
 				}).then(res => {
-            console.log(res.data.data)
-            // var ChineseName
-            // var list
+            // console.log(res.data.data)
             this.data_list = res.data.data.items
-            // res.data.lists.map(val=>{
-            //   ChineseName = val
-            // })
-            // ChineseName.events.map(Chinese=>{
-            //   this.orgList = Chinese.chineseName
-            // })
         });
     },
     M_L(){

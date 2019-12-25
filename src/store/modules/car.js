@@ -6,16 +6,6 @@ const state ={
   car:car
 }
 
-const getters = {
-  totalPrice(state){
-    let totalPrice = 0;
-    state.car.forEach(item=>{
-      totalPrice += item.price * item.quantity
-    })
-    return totalPrice;
-  },
-}
-
 const actions = {
   // delgoodsinfos({commit},goodsinfos){
   //   commit('del',goodsinfos)
@@ -34,7 +24,7 @@ const mutations = {
     var flag = false;
     state.car.some(item=>{
         if(item.id == goodsinfos.id){
-            // item.count += parseInt(goodsinfos.count)
+            item.quantity += parseInt(goodsinfos.quantity)
             flag = true
             return true
         }else{
@@ -43,8 +33,18 @@ const mutations = {
     if(!flag){
         state.car.push(goodsinfos)
     }
-    localStorage.setItem('car',JSON.stringify(state.car))
-  }
+  },
+
+}
+
+const getters = {
+  totalPrice(state){
+    let totalPrice = 0;
+    state.car.forEach(item=>{
+      totalPrice += item.price * item.quantity
+    })
+    return totalPrice;
+  },
 }
 // 最后统一导出
 export default {

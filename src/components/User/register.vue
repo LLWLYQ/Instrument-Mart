@@ -77,7 +77,8 @@ export default {
             },
 
           }).then(res => {
-            if(res.data.status == 'success'){
+           localStorage.setItem(userId,res.data.data.member_id)
+          if(res.data.status == 'success'){
               this.$router.push({
                 path:'/AllOrder',
               })
