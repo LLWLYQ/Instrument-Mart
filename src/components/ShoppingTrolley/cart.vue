@@ -25,6 +25,10 @@
           <span>总价</span>
           <span>￥{{(totalPrice)}}</span>
         </p>
+        <p>
+          <span class="To_settle_accounts" @click="ToSettleAccounts()">去结算</span>
+          <router-link to="/OrderForm"></router-link>
+        </p>
       </div>
     </div>
   </div>
@@ -43,10 +47,33 @@ export default {
       cart_id:'',
       goods_id:'',
       List:true,
-      totalPrice:0
+      totalPrice:0,
+      name:''
     }
   },
   methods: {
+    ToSettleAccounts(){
+      this.$ajax({
+        url:config.baseUrl + '/home/order',
+        method:'post',
+        data:{
+          member_id:localStorage.getItem('userId'),
+          address_id:'',
+          shop_id:'',
+          payment_type:'',
+          shipping_method:'',
+          goods:'',
+          product_id:this.goods_id,
+          name:this.name,
+          quantity:'',
+          price:'',
+          total:this.totalPrice
+        }
+      }).then(res=>{
+        console.log(res)
+      })
+    },
+    //数量加减
     handelChange(CD){
       this.$ajax({
         url:config.baseUrl + '/home/cart/add',
@@ -68,7 +95,6 @@ export default {
             }
           }).then(res=>{
             this.carData = res.data.data.items.data
-            console.log(this.carData)
             this.carData.forEach(item=>{
               this.totalPrice += item.quantity*item.get_goods.sales_price
             })
@@ -91,6 +117,7 @@ export default {
             }
           }).then(res=>{
               this.carData.splice(index,1)
+              this.totalPrice -= CD.quantity*CD.get_goods.sales_price
           })
         }).catch(() => {
       });
@@ -108,9 +135,11 @@ export default {
         }
       }).then(res=>{
         this.carData = res.data.data.items.data
-        console.log(this.carData)
         this.carData.forEach(item=>{
           this.totalPrice += item.quantity*item.get_goods.sales_price
+          this.goods_id = item.goods_id
+          this.name = item.name
+          console.log(this.goods_id)
         })
       })
   },
@@ -122,7 +151,6 @@ export default {
   },
   watch:{
     quantity(val,oldval){
-      console.log(val)
     }
   }
 }
@@ -184,4 +212,15 @@ export default {
         cursor:poninter;
       }
   }
+   .To_settle_accounts{
+        float: right;
+        margin-right: 30px;
+        padding:10px 30px;
+        background-color: #f40;
+        color:white;
+        cursor: pointer;
+    }
+    .To_settle_accounts:hover{
+      background-color: red;
+    }
 </style>
