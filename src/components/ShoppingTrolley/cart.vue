@@ -13,17 +13,17 @@
             <p>{{CD.name}}</p>
             <p>
               <!-- <del><span style="color:#9c9c9c;">￥{{cd.DiscountPrice}}</span></del> -->
-              <span>￥{{sales_price}}</span>
+              <span>￥{{CD.get_goods.sales_price}}</span>
             </p>
-            <el-input-number v-model="CD.quantity"  :min="1" :max="99" ></el-input-number>
-            <p><span style="color:#f40;">￥{{CD.quantity*sales_price}}</span></p>
+            <el-input-number v-model="CD.quantity"  :min="1" :max="99" @change="handelChange(CD)"></el-input-number>
+            <p><span style="color:#f40;">￥{{CD.quantity*CD.get_goods.sales_price}}</span></p>
             <!-- <p>{{cd.quantity}}</p> -->
-            <span @click="removeGoods(index)" class="last">删除商品</span>
+            <span @click="removeGoods(CD,index)" class="last">删除商品</span>
           </li>
         </ul>
         <p>
           <span>总价</span>
-          <span>￥{{totalPrice}}</span>
+          <span>￥{{(totalPrice)}}</span>
         </p>
       </div>
     </div>
@@ -40,17 +40,43 @@ export default {
       carData:'',
       total_prices:0,
       baseUrl:config.baseUrl,
-      sales_price:'',
       cart_id:'',
       goods_id:'',
       List:true,
-      totalPrice:''
+      totalPrice:0
     }
   },
   methods: {
-    // ...mapActions(['delProduct']),
-    removeGoods(index){
-      console.log(index)
+    handelChange(CD){
+      this.$ajax({
+        url:config.baseUrl + '/home/cart/add',
+        method:'post',
+        data:{
+          goods_id:CD.goods_id,
+          member_id:CD.member_id,
+          option:[],
+          quantity:CD.quantity
+        }
+      }).then(res=>{
+        if(res.data.code === 20000){
+          this.totalPrice = 0
+          this.$ajax({
+            url:config.baseUrl+'/home/cart',
+            method:'get',
+            params:{
+              member_id:localStorage.getItem('userId')
+            }
+          }).then(res=>{
+            this.carData = res.data.data.items.data
+            console.log(this.carData)
+            this.carData.forEach(item=>{
+              this.totalPrice += item.quantity*item.get_goods.sales_price
+            })
+          })
+        }
+      })
+    },
+    removeGoods(CD,index){
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           cancelButtonText: '取消',
           confirmButtonText: '确定',
@@ -60,21 +86,20 @@ export default {
             url:config.baseUrl + '/home/cart/del',
             method:'post',
             data:{
-              cart_id:this.cart_id,
-              goods_id:this.goods_id
+              cart_id:CD.cart_id,
+              goods_id:CD.goods_id
             }
           }).then(res=>{
-            if(res.data.code == 20000){
               this.carData.splice(index,1)
-            }
           })
         }).catch(() => {
       });
     },
   },
   created(){
-      // console.log(this.totalPrice)
-      this.carData = this.$store.state.car
+
+      // this.carData = this.$store.state.car
+      // console.log(this.carData)
       this.$ajax({
         url:config.baseUrl+'/home/cart',
         method:'get',
@@ -83,12 +108,9 @@ export default {
         }
       }).then(res=>{
         this.carData = res.data.data.items.data
+        console.log(this.carData)
         this.carData.forEach(item=>{
-          this.sales_price = item.get_goods.sales_price
-          this.cart_id = item.cart_id
-          this.goods_id = item.goods_id
-          console.log(item.quantity*item.get_goods.sales_price)
-          // this.totalPrice += JSON.stringify(item.quantity) * JSON.stringify(item.get_goods.sales_price)
+          this.totalPrice += item.quantity*item.get_goods.sales_price
         })
       })
   },
@@ -96,6 +118,12 @@ export default {
     count (){
       return this.$store.state.car
     },
+    // ...mapGetters(['totalPrice'])
+  },
+  watch:{
+    quantity(val,oldval){
+      console.log(val)
+    }
   }
 }
 </script>

@@ -21,6 +21,7 @@ const actions = {
 
 const mutations = {
   addToShopCar(state,goodsinfos){
+    // console.log(state)
     var flag = false;
     state.car.some(item=>{
         if(item.id == goodsinfos.id){
@@ -33,12 +34,14 @@ const mutations = {
     if(!flag){
         state.car.push(goodsinfos)
     }
+    // localStorage.setItem('car',JSON.stringify(state.car))
   },
 
 }
 
 const getters = {
   totalPrice(state){
+    console.log(state)
     let totalPrice = 0;
     state.car.forEach(item=>{
       totalPrice += item.price * item.quantity

@@ -175,13 +175,13 @@ export default {
         quantity:this.num
       }
     }).then(res=>{
-      console.log(res)
+      // console.log(res)
     })
 
     },
     Change(data){
       this.num = data
-      console.log(this.num)
+      // console.log(this.num)
     },
   },
   created(){
