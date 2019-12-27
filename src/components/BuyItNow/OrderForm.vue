@@ -2,7 +2,7 @@
   <div class="OrderForm">
     <div class="content_container">
       <div class="top">
-        <p>确认订单信息</p>
+        <h3>确认订单信息</h3>
       </div>
       <div class="address">
         <Address></Address>
@@ -23,25 +23,13 @@ export default {
     }
   },
   methods: {
-    order(){
-      this.$ajax({
-        url:config.baseUrl + '/home/order',
-        method:'get',
-        params:{
-          member_id:localStorage.getItem('userId'),
-          title:''
-        }
-      }).then(res=>{
-        // console.log(res.data)
-      })
-    }
+
   },
   components:{
     'Address':Address,
     'OrderInfromation':OrderInfromation
   },
   created(){
-    this.order()
   }
 }
 </script>
@@ -49,8 +37,6 @@ export default {
 <style scoped lang="scss">
 @import '../../style/common';
   .top{
-    p{
-      border-bottom:1px solid #000;
-    }
+    margin-bottom: 30px;
   }
 </style>

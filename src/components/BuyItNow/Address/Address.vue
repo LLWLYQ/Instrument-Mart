@@ -2,7 +2,7 @@
   <div class="Address">
     <div class="content_container">
       <div class="top">
-        <p>收货地址</p>
+        <h4>收货地址</h4>
       </div>
       <div class="mine" v-if="ruleForm!=''">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left">
@@ -13,7 +13,33 @@
             <el-input v-model="ruleForm.mobileNumber" />
           </el-form-item>
           <el-form-item label="地区"  prop="Address">
-            <v-distpicker province="" city="" area="" @selected="onSelected"></v-distpicker>
+            <el-select v-model="province" placeholder="请选择" @focus="handleprovince()">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+            <el-select v-model="city" placeholder="请选择" @focus="handleCity()">
+              <el-option
+                v-for="item in options1"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+            <el-select v-model="district" placeholder="请选择" @focus="handleDistrict()">
+              <el-option
+                v-for="item in options2"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="详细地址:" prop="detailed_address">
             <el-input v-model="ruleForm.detailed_address"></el-input>
@@ -24,66 +50,13 @@
         </el-form>
         <el-button type="danger" style="margin-left:100px;" @click="use()" class="Btn">保存</el-button>
       </div>
-      <div class="Generated">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%">
-          <el-table-column
-            fixed
-            prop="date"
-            label="电话"
-            width="150">
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="收货人"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="city"
-            label="所在地区"
-            width="200">
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            label="详细地址"
-            width="300">
-          </el-table-column>
-          <el-table-column
-            prop="zip"
-            label="邮编"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            fixed="right"
-            label="操作"
-            width="50">
-      <template slot-scope="scope">
-        <el-button
-          @click.native.prevent="Remove(scope.$index, tableData)"
-          type="text"
-          size="small">
-          删除
-        </el-button>
-      </template>
-    </el-table-column>
-    <el-table-column
-            fixed="right"
-            label="默认地址"
-            width="100">
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">设为默认地址</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import VDistpicker from 'v-distpicker'
+import config from '../../../config/config'
 export default {
   data () {
     var isMobileNumber= (rule, value, callback) => {
@@ -106,6 +79,10 @@ export default {
         }
       };
       return {
+        province:'',
+        city:'',
+        district:'',
+        cityID:'',
         ruleForm: {
             name1: '',
             mobileNumber:'',
@@ -135,35 +112,9 @@ export default {
             { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
           ]
         },
-        tableData: [{
-          date: '15277748256',
-          name: 'Max',
-          province: '上海',
-          city: '广东省 广州市 番禺区',
-          address: '大石卢地坊大街14-1号陆威超市',
-          zip: 200333
-        }, {
-          date: '13838383838',
-          name: '张燕',
-          province: '上海',
-          city: '贵州省 贵州市 南阳区',
-          address: '童话世界11栋20楼',
-          zip: 54438
-        }, {
-          date: '15277748256',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1519 弄',
-          zip: 200333
-        }, {
-          date: '15277748256',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        }]
+        options: [{}],
+        options1: [{}],
+        options2: [{}],
       }
   },
   methods: {
@@ -188,26 +139,46 @@ export default {
       handleDownload(file) {
         console.log(file);
       },
-      use(){
-        if(this.ruleForm.name1!=''&&this.ruleForm.mobileNumber!=''&&this.ruleForm.detailed_address!=''&&this.ruleForm.Invitation_code!=''&&this.ruleForm.province!=''&&this.ruleForm.city!=''&& this.ruleForm.area!=''){
-          localStorage.getItem(
-              'name',this.ruleForm.name1,
-              'mobileNumber',this.ruleForm.mobileNumber,
-              'detailed_address',this.ruleForm.detailed_address,
-              'Invitation_code',this.ruleForm.Invitation_code,
-              'province',this.ruleForm.province,
-              'city',this.ruleForm.city,
-              'area',this.ruleForm.area
-          )
-        }
+      handleprovince(){
+        this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:1,
+            pid:0
+          }
+        }).then(res=>{
+          console.log(res)
+          this.options = res.data.data
+          this.options.map(item=>{
+            this.cityID = item.code
+          })
+        })
       },
-      onSelected(data){
-        this.ruleForm.province = data.province.value
-        this.ruleForm.city = data.city.value
-        this.ruleForm.area = data.area.value
+      handleCity(){
+        this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:2,
+            pid:1
+          }
+        }).then(res=>{
+          console.log(res)
+          this.options1 = res.data.data
+        })
       },
-    Remove(index,rows) {
-          rows.splice(index, 1)
+      handleDistrict(){
+         this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:3,
+            pid:2
+          }
+        }).then(res=>{
+          this.options2 = res.data.data
+        })
       }
   },
   components:{
@@ -219,9 +190,10 @@ export default {
 <style scoped lang="scss">
 @import '../../../style/common';
   .top{
-    p{
+    h4{
       font-size: 16px;
       border-bottom:1px solid #222;
+      padding-bottom: 10px;
     }
   }
   .mine{
@@ -267,7 +239,7 @@ export default {
     cursor: pointer;
   }
   .Btn:hover{
-    background-color:blue;
+    background: rgb(83, 168, 255)
   }
   .Generated{
     margin-top: 20px;
@@ -281,11 +253,17 @@ export default {
       }
     }
   }
+.el-input--suffix{
+  width: 50px;
+}
 </style>
 <style lang="scss">
   .distpicker-address-wrapper{
     select{
       width: 100px;
     }
+  }
+  .el-select-dropdown__list{
+    padding-left: 10px;
   }
 </style>
