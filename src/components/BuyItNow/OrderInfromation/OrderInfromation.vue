@@ -61,7 +61,6 @@ export default {
         this.ListData =  res.data.data.items.data
         this.ListData.map(item=>{
           this.SumData += item.quantity*item.get_goods.sales_price
-          console.log(this.SumData)
         })
       })
     }

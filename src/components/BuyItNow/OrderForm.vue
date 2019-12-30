@@ -5,7 +5,7 @@
         <h3>确认订单信息</h3>
       </div>
       <div class="address">
-        <Address></Address>
+        <Address v-if="AddressList"></Address>
       </div>
       <div class="order_information">
         <OrderInfromation></OrderInfromation>
@@ -20,6 +20,7 @@ import config from '../../config/config'
 export default {
   data () {
     return {
+      AddressList:true,
     }
   },
   methods: {
@@ -30,6 +31,18 @@ export default {
     'OrderInfromation':OrderInfromation
   },
   created(){
+    this.$ajax({
+      url:config.baseUrl + '/home/address',
+      method:'get',
+      params:{
+        member_id:localStorage.getItem('userId')
+      }
+    }).then(res=>{
+      console.log(res.data.data.items)
+      if(res.data.data.items != ''){
+        this.AddressList = false
+      }
+    })
   }
 }
 </script>

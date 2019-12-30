@@ -4,7 +4,7 @@
       <div class="top">
         <h4>收货地址</h4>
       </div>
-      <div class="mine" v-if="ruleForm!=''">
+      <div class="mine" >
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left">
           <el-form-item label="收货人" prop="name1">
             <el-input v-model="ruleForm.name1"></el-input>
@@ -12,8 +12,8 @@
           <el-form-item label="手机号码" prop="mobileNumber">
             <el-input v-model="ruleForm.mobileNumber" />
           </el-form-item>
-          <el-form-item label="地区"  prop="Address">
-            <el-select v-model="province" placeholder="请选择" @focus="handleprovince()">
+          <el-form-item label="地区"  prop="Address" >
+            <el-select v-model="province" placeholder="请选择" @focus="handleprovince()" style="width:100px;" >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -22,7 +22,7 @@
               >
               </el-option>
             </el-select>
-            <el-select v-model="city" placeholder="请选择" @focus="handleCity()">
+            <el-select v-model="city" placeholder="请选择" @focus="handleCity()" style="width:100px;">
               <el-option
                 v-for="item in options1"
                 :key="item.value"
@@ -31,7 +31,7 @@
               >
               </el-option>
             </el-select>
-            <el-select v-model="district" placeholder="请选择" @focus="handleDistrict()">
+            <el-select v-model="district" placeholder="请选择" @focus="handleDistrict()" style="width:100px;">
               <el-option
                 v-for="item in options2"
                 :key="item.value"
@@ -48,7 +48,7 @@
             <el-input v-model="ruleForm.Invitation_code"></el-input>
           </el-form-item>
         </el-form>
-        <el-button type="danger" style="margin-left:100px;" @click="use()" class="Btn">保存</el-button>
+        <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">使用此收货地址</el-button>
       </div>
     </div>
   </div>
@@ -82,15 +82,15 @@ export default {
         province:'',
         city:'',
         district:'',
-        cityID:'',
+        cityID:0,
         ruleForm: {
             name1: '',
             mobileNumber:'',
             detailed_address:'',
             Invitation_code:'',
-            province:'',
-            city:'',
-            area:''
+            // province:'',
+            // city:'',
+            // area:'',
           },
         rules: {
            name1: [
@@ -112,12 +112,33 @@ export default {
             { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
           ]
         },
-        options: [{}],
+        options: [{
+        }],
         options1: [{}],
         options2: [{}],
       }
   },
   methods: {
+     Save(){
+       this.$ajax({
+         url:config.baseUrl + '/home/address',
+         method:'post',
+         data:{
+           member_id:localStorage.getItem('userId'),//会员ID
+           receiver:this.ruleForm.name1,//接受者姓名
+           tel:this.ruleForm.mobileNumber,//电话
+           province_id:this.province,//省ID
+           city_id:this.city,//市ID
+           area_id:this.district,//区ID
+           street_id:4,//街ID
+           address:this.ruleForm.detailed_address,//详细地址
+           zip_code:this.ruleForm.Invitation_code,//邮编
+           status:1,//是否设置为默认地址
+         }
+       }).then(res=>{
+
+       })
+     },
      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -129,17 +150,18 @@ export default {
         });
       },
       handleRemove(file) {
-        console.log(file);
+
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
-        this.NumberBctih = this.ContDisbel
       },
       handleDownload(file) {
         console.log(file);
       },
+      //省级接口
       handleprovince(){
+        console.log(this.province)
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
@@ -148,33 +170,33 @@ export default {
             pid:0
           }
         }).then(res=>{
-          console.log(res)
           this.options = res.data.data
+          // console.log(this.options)
           this.options.map(item=>{
-            this.cityID = item.code
           })
         })
       },
+      //市级接口
       handleCity(){
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
           data:{
             level:2,
-            pid:1
+            pid:this.province
           }
         }).then(res=>{
-          console.log(res)
           this.options1 = res.data.data
         })
       },
+      //区级接口
       handleDistrict(){
          this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
           data:{
             level:3,
-            pid:2
+            pid:this.city
           }
         }).then(res=>{
           this.options2 = res.data.data
@@ -183,6 +205,9 @@ export default {
   },
   components:{
      VDistpicker,
+  },
+  created(){
+
   }
 }
 </script>
@@ -232,7 +257,7 @@ export default {
     display: block;
   }
   .Btn{
-    padding: 10px 30px;
+    padding: 10px 20px;
     background-color: #5584ff;
     color:#fff;
     border-radius: 3px;
