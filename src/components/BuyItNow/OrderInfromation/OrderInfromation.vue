@@ -1,9 +1,5 @@
 <template>
   <div class="OrderInfromation">
-    <div class="payment">
-      <h4>支付方式</h4>
-      <ul class="MOP"></ul>
-    </div>
     <div class="sku">
       <h4>订单信息</h4>
       <ul class="St">
@@ -13,8 +9,8 @@
         <li>数量</li>
         <li>小计</li>
       </ul>
-      <ul class="cartLsit" v-for="(LD,index) in ListData" :key="index" >
-        <li class="carLi">
+      <ul class="cartLsit" v-for="(LD,index) in ListData" :key="index">
+        <li class="carLi" @click="diu(LD)">
           <p><img :src="baseUrl+LD.img" alt=""></p>
           <p>{{LD.name}}</p>
           <p>
@@ -29,14 +25,6 @@
         </li>
       </ul>
     </div>
-    <div class="OrderFrom">
-      <ul>
-        <li>实付款:<span class="price"><a>￥</a>{{SumData}}</span></li>
-        <li>寄送至:</li>
-        <li>收货人:</li>
-      </ul>
-      <span class="order">提交订单</span>
-    </div>
   </div>
 </template>
 
@@ -50,6 +38,18 @@ export default {
     }
   },
   methods: {
+     diu(LD){
+       let Gid  = LD.goods_id
+       this.$ajax({
+         url:config.baseUrl + '/home/goods/',
+         method:'get',
+         params:{
+           id:Gid
+         }
+       }).then(res=>{
+         console.log(res)
+       })
+     },
      order(){
       this.$ajax({
         url:config.baseUrl + '/home/cart',
@@ -67,6 +67,24 @@ export default {
   },
   created(){
     this.order()
+     this.$ajax({
+      url:config.baseUrl + '/home/address',
+      method:'get',
+      params:{
+        member_id:localStorage.getItem('userId'),
+      }
+    }).then(res=>{
+      this.address = res.data.data.items
+      let cityID = res.data.data.items
+      cityID.map(item=>{
+        this.province_id = item.province_id
+        this.city = item.city_id
+        this.area = item.area_id
+      })
+      if(res.data.data.items != ''){
+        this.AddressList = false
+      }
+    })
   }
 }
 </script>
@@ -79,19 +97,7 @@ export default {
       border-bottom:1px solid #000;
     }
   }
-  .payment{
-    h4{
-      padding-bottom: 10px;
-      border-bottom:1px solid #222;
-    }
-    .MOP{
-      height: 10px;
-      margin-top: 10px;
-      padding-bottom: 15px;
-      border-bottom:1px solid #222;
-      height: 100px;
-    }
-  }
+
   .sku{
     margin-top: 20px;
     .St{
@@ -147,35 +153,5 @@ export default {
 
     }
   }
-  .OrderFrom{
-    float: right;
-    margin-bottom: 50px;
-    ul{
-      width: 350px;
-      height: 160px;
-      border:1px solid #ff0036;
-      padding:10px;
-      li{
-        width: 100%;
-        text-align: right;
-        margin-top: 15px;
-        font-size: 14px;
-        font-weight: bold;
-        .price{
-          font-size: 30px;
-          color:#ff0036;
-          font-weight: normal;
-          a{
-            color:#999;
-          }
-        }
-      }
-    }
-    .order{
-      float: right;
-      background-color: rgb(255, 0, 54);
-      color:#fff;
-      padding:10px 50px;
-    }
-  }
+
 </style>

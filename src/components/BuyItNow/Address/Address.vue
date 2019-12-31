@@ -1,9 +1,6 @@
 <template>
   <div class="Address">
     <div class="content_container">
-      <div class="top">
-        <h4>收货地址</h4>
-      </div>
       <div class="mine" >
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left">
           <el-form-item label="收货人" prop="name1">
@@ -211,16 +208,8 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="scss">
 @import '../../../style/common';
-  .top{
-    h4{
-      font-size: 16px;
-      border-bottom:1px solid #222;
-      padding-bottom: 10px;
-    }
-  }
   .mine{
     height: 400px;
     padding:20px 0px;
