@@ -65,7 +65,21 @@ export default {
       Sum:'',
       iscur:0,
       adrID:5,
-      goods:[]
+      DataList:{
+        member_id:localStorage.getItem('userId'),
+        address_id:this.adrID,
+        shop_id:'2',
+        payment_type:this.ZFB,
+        shipping_method:1,
+        goods:{}
+      },
+       goods:{
+        total:Number,
+        quantity:Number,
+        product_id:Number,
+        name:String,
+        price:Number
+      },
     }
   },
   methods: {
@@ -84,14 +98,7 @@ export default {
           shop_id:'2',
           payment_type:this.ZFB,
           shipping_method:1,
-          goods:[{
-           product_id:this.goods_id,
-           name:this.goods_name,
-           quantity:this.quantity,
-           price:this.sales_price,
-           total:this.Sum
-          }],
-
+          goods:this.goods
         }
       }).then(res=>{
         console.log(res)
@@ -121,7 +128,7 @@ export default {
         this.AddressList = false
       }
     })
-      this.$ajax({
+    this.$ajax({
         url:config.baseUrl + '/home/cart',
         method:'get',
         params:{
@@ -129,32 +136,20 @@ export default {
         }
       }).then(res=>{
         this.ListData =  res.data.data.items.data
-        this.ListData.map(item=>{
-          this.SumData += item.quantity*item.get_goods.sales_price
-          this.Sum += item.quantity*item.get_goods.sales_price + ","
-          this.quantity += item.quantity + ","
-          this.goods_id += item.get_goods.goods_id + ","
-          this.goods_name += item.get_goods.goods_name + ","
-          this.sales_price += item.get_goods.sales_price + ","
-        })
+        // console.log(this.ListData)
 
         this.ListData.map((item,index)=>{
-
-
-          this.goods[index].price=item.get_goods.sales_price
+          this.SumData += item.quantity*item.get_goods.sales_price
+          this.goods[index][total] = item.quantity*item.get_goods.sales_price
+          this.goods[index][quantity] = item.quantity
+          this.goods[index][product_id] = item.get_goods.goods_id
+          this.goods[index][name] = item.get_goods.goods_name
+          this.goods[index][price] = item.get_goods.sales_price
         })
-        console.log(this.goods)
-
-
-
-        // goods:[{
-        //    product_id:this.goods_id,
-        //    name:this.goods_name,
-        //    quantity:this.quantity,
-        //    price:this.sales_price,
-        //    total:this.Sum
-        //   }]
+        this.DataList.goods = this.goods
+        console.log(this.DataList)
       })
+
   }
 }
 </script>
