@@ -77,13 +77,13 @@ export default {
             },
 
           }).then(res => {
-           localStorage.setItem(userId,res.data.data.member_id)
-          if(res.data.status == 'success'){
-              this.$router.push({
-                path:'/AllOrder',
-              })
-            }
-          })
+           localStorage.setItem("userId",res.data.data.member_id)
+            if(res.data.status == 'success'){
+                this.$router.push({
+                  path:'/AllOrder',
+                })
+              }
+            })
         // .catch(error => {
         //   alert('账号或密码错误');
         //   console.log(error);

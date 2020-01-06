@@ -80,6 +80,7 @@ export default {
         city:'',
         district:'',
         cityID:0,
+        Address:true,
         ruleForm: {
             name1: '',
             mobileNumber:'',
@@ -133,8 +134,11 @@ export default {
            status:1,//是否设置为默认地址
          }
        }).then(res=>{
-
+         if(res.data.code == 20000){
+           this.Address = false
+         }
        })
+       this.$emit('Addr',this.Address)
      },
      submitForm(formName) {
         this.$refs[formName].validate((valid) => {

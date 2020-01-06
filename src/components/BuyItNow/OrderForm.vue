@@ -10,11 +10,13 @@
           <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
             <li>
               <h5>({{adr.receiver}}收)</h5>
-              <p style="font-size:14px;">{{adr.address}}&nbsp;{{adr.tel}}&nbsp;{{adr.zip_code}}</p>
+              <p style="font-size:14px;">{{adr.address}}</p>
+              <p>{{adr.tel}}</p>
+              <p>{{adr.zip_code}}</p>
             </li>
           </ul>
         </div>
-        <Address v-if="AddressList"></Address>
+        <Address v-if="AddressList" @Addr="Addr()"></Address>
       </div>
       <div class="order_information">
         <div class="payment">
@@ -46,6 +48,7 @@
 import Address from './Address/Address'
 import OrderInfromation from './OrderInfromation/OrderInfromation'
 import config from '../../config/config'
+import Qs from 'qs'
 export default {
   data () {
     return {
@@ -65,24 +68,16 @@ export default {
       Sum:'',
       iscur:0,
       adrID:5,
-      DataList:{
-        member_id:localStorage.getItem('userId'),
-        address_id:this.adrID,
-        shop_id:'2',
-        payment_type:this.ZFB,
-        shipping_method:1,
-        goods:{}
-      },
-       goods:{
-        total:Number,
-        quantity:Number,
-        product_id:Number,
-        name:String,
-        price:Number
-      },
+      DataList:[],
+      Logistics:[],
+      member_id:localStorage.getItem('userId')
     }
   },
   methods: {
+    Addr(Addr){
+     let w =  Addr
+     console.log(w)
+    },
     tabChange(index,adr){
       this.iscur = index
       this.adrID = adr.id
@@ -96,9 +91,10 @@ export default {
           member_id:localStorage.getItem('userId'),
           address_id:this.adrID,
           shop_id:'2',
+          shop_name:'',
           payment_type:this.ZFB,
           shipping_method:1,
-          goods:this.goods
+          goods:this.DataList
         }
       }).then(res=>{
         console.log(res)
@@ -125,7 +121,7 @@ export default {
         this.area = item.area_id
       })
       if(res.data.data.items != ''){
-        this.AddressList = false
+        // this.AddressList = false
       }
     })
     this.$ajax({
@@ -137,19 +133,60 @@ export default {
       }).then(res=>{
         this.ListData =  res.data.data.items.data
         // console.log(this.ListData)
+        this.DataList.push({
 
+        })
+        let result = []
+        var goods = {}
         this.ListData.map((item,index)=>{
           this.SumData += item.quantity*item.get_goods.sales_price
-          this.goods[index][total] = item.quantity*item.get_goods.sales_price
-          this.goods[index][quantity] = item.quantity
-          this.goods[index][product_id] = item.get_goods.goods_id
-          this.goods[index][name] = item.get_goods.goods_name
-          this.goods[index][price] = item.get_goods.sales_price
+          goods.total = item.quantity*item.get_goods.sales_price
+          goods.quantity = item.quantity
+          goods.product_id = item.get_goods.goods_id
+          goods.name = item.get_goods.goods_name
+          goods.price = item.get_goods.sales_price
+          result.push(goods)
         })
-        this.DataList.goods = this.goods
-        console.log(this.DataList)
+        this.DataList =  result
+        var Diu = {}
+        this.DataList.forEach((item,index)=>{
+            Diu[index] = item
+          })
+         this.DataList =  Diu
       })
-
+      this.$ajax({
+        url:config.baseUrl + '/home/cart',
+        method:'get',
+        params:{
+          member_id:localStorage.getItem('userId'),
+        }
+      }).then(res=>{
+        this.ListData =  res.data.data.items.data
+        let result = []
+        var goods = {}
+        this.ListData.map((item,index)=>{
+          goods.quantity = item.quantity
+          goods.product_id = item.get_goods.goods_id
+          goods.name = item.get_goods.goods_name
+          result.push(goods)
+        })
+        this.Logistics =  result
+        var Diu = {}
+        this.Logistics.forEach((item,index)=>{
+            Diu[index] = item
+          })
+        this.Logistics =  Diu
+        this.$ajax({
+          url:config.baseUrl + '/home/shipping',
+          method:'get',
+          params:{
+            member_id:this.member_id,
+            goods:this.Logistics
+          }
+        }).then(res=>{
+          console.log(res)
+        })
+      })
   }
 }
 </script>

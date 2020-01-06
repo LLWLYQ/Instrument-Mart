@@ -204,6 +204,8 @@ export default {
           password_two:this.ruleForm2.checkPass,
           code:this.ruleForm2.smscode
         }
+      }).then(res=>{
+        console.log(res)
       })
     }
   }

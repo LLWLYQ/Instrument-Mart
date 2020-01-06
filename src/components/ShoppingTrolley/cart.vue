@@ -6,7 +6,11 @@
           <span>全部商品(商品数量)</span>
         </p>
       </div>
-      <div class="mine">
+      <div class="cart_null" v-if="carData == ''">
+        <img src="../../assets/imges/cart.png" style="width:300px;height:200px;">
+        <p><span>去逛逛</span></p>
+      </div>
+      <div class="mine" ref="mine"  v-if="kong">
         <ul class="cartLsit" v-for="(CD,index) in carData" :key="index" >
           <li>
             <img :src="baseUrl+CD.img" alt="">
@@ -48,30 +52,20 @@ export default {
       goods_id:'',
       List:true,
       totalPrice:0,
-      name:''
+      price:0,
+      name:'',
+      quantity:0,
+      kong:true
     }
   },
   methods: {
+    //提交订单
     ToSettleAccounts(){
-      this.$ajax({
-        url:config.baseUrl + '/home/order',
-        method:'post',
-        data:{
-          member_id:localStorage.getItem('userId'),
-          address_id:'',
-          shop_id:'',
-          payment_type:'',
-          shipping_method:'',
-          goods:'',
-          product_id:this.goods_id,
-          name:this.name,
-          quantity:'',
-          price:'',
-          total:this.totalPrice
-        }
-      }).then(res=>{
-        console.log(res)
-      })
+      if(this.carData!=''){
+        this.$router.push({
+          path:'/OrderForm'
+        })
+      }
     },
     //数量加减
     handelChange(CD){
@@ -82,11 +76,11 @@ export default {
           goods_id:CD.goods_id,
           member_id:CD.member_id,
           option:[],
-          quantity:CD.quantity
+          quantity:CD.quantity,
         }
       }).then(res=>{
         if(res.data.code === 20000){
-          this.totalPrice = 0
+          this.totalPrice = ''
           this.$ajax({
             url:config.baseUrl+'/home/cart',
             method:'get',
@@ -103,10 +97,9 @@ export default {
       })
     },
     removeGoods(CD,index){
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('主人你真的不要我了么,真的真的么?', '提示', {
           cancelButtonText: '取消',
           confirmButtonText: '确定',
-          type: 'warning'
         }).then(() => {
           this.$ajax({
             url:config.baseUrl + '/home/cart/del',
@@ -137,11 +130,9 @@ export default {
         this.carData = res.data.data.items.data
         this.carData.forEach(item=>{
           this.totalPrice += item.quantity*item.get_goods.sales_price
-          this.goods_id = item.goods_id
-          this.name = item.name
-          console.log(this.goods_id)
         })
       })
+
   },
   computed:{
     count (){
