@@ -7,16 +7,8 @@
       <div class="address">
         <div class="Top">
           <h4>收货地址</h4>
-          <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
-            <li>
-              <h5>({{adr.receiver}}收)</h5>
-              <p style="font-size:14px;">{{adr.address}}</p>
-              <p>{{adr.tel}}</p>
-              <p>{{adr.zip_code}}</p>
-            </li>
-          </ul>
         </div>
-        <Address v-if="AddressList" @Addr="Addr()"></Address>
+        <Address v-if="AddressList" @Addr="Addr()" style="height:auto;border-bottom: 1px solid #222;margin-bottom:20px;padding:0px 0 50px 0;overflow:hidden;"></Address>
       </div>
       <div class="order_information">
         <div class="payment">
@@ -56,7 +48,6 @@ export default {
       province_id:'',
       city:'',
       area:'',
-      address:'',
       ZFB: 1,
       ListData:'',
       SumData:0,
@@ -66,7 +57,6 @@ export default {
       quantity:'',
       List:'',
       Sum:'',
-      iscur:0,
       adrID:5,
       DataList:[],
       Logistics:[],
@@ -78,11 +68,7 @@ export default {
      let w =  Addr
      console.log(w)
     },
-    tabChange(index,adr){
-      this.iscur = index
-      this.adrID = adr.id
-      // console.log(adr.id)
-    },
+
     submitOrder(){
       this.$ajax({
         url:config.baseUrl + '/home/order',
@@ -97,7 +83,11 @@ export default {
           goods:this.DataList
         }
       }).then(res=>{
-        console.log(res)
+        // if( res.data.code ==20000 ){
+        //   this.$router.push({
+        //     path:'/Alternate'
+        //   })
+        // }
       })
     }
   },
@@ -106,24 +96,7 @@ export default {
     'OrderInfromation':OrderInfromation
   },
   created(){
-    this.$ajax({
-      url:config.baseUrl + '/home/address',
-      method:'get',
-      params:{
-        member_id:localStorage.getItem('userId'),
-      }
-    }).then(res=>{
-      this.address = res.data.data.items
-      let cityID = res.data.data.items
-      cityID.map(item=>{
-        this.province_id = item.province_id
-        this.city = item.city_id
-        this.area = item.area_id
-      })
-      if(res.data.data.items != ''){
-        // this.AddressList = false
-      }
-    })
+
     this.$ajax({
         url:config.baseUrl + '/home/cart',
         method:'get',
@@ -132,10 +105,9 @@ export default {
         }
       }).then(res=>{
         this.ListData =  res.data.data.items.data
-        // console.log(this.ListData)
-        this.DataList.push({
-
-        })
+        // // console.log(this.ListData)
+        // this.DataList.push({
+        // })
         let result = []
         var goods = {}
         this.ListData.map((item,index)=>{
@@ -176,6 +148,7 @@ export default {
             Diu[index] = item
           })
         this.Logistics =  Diu
+        if(res.data.code == 20000){
         this.$ajax({
           url:config.baseUrl + '/home/shipping',
           method:'get',
@@ -186,6 +159,7 @@ export default {
         }).then(res=>{
           console.log(res)
         })
+        }
       })
   }
 }
@@ -202,21 +176,9 @@ export default {
       border-bottom:1px solid #222;
       padding-bottom: 10px;
     }
-    ul{
-      float: left;
-      margin: 15px 20px 10px 20px;
-      width: 220px;
-      height: 110px;
-      padding: 10px;
-      border:5px dashed  #ccc;
-      cursor: pointer;
-    }
-    .cur{
-      border:5px dashed  #ff0036;
-    }
      border-bottom:1px solid #222;
      overflow: hidden;
-     margin-bottom: 20px;
+     margin-bottom: 10px;
   }
    .payment{
       h4{

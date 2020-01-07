@@ -27,6 +27,7 @@
           </ul>
         </div>
         <div class="Shopping_Cart">
+          <!-- <span>{{totalQuantity}}</span> -->
           <el-button slot="append" icon="el-icon-goods" id="SC_button" @click="goCart()"><span id="SC_span">ShoppingCart</span></el-button>
         </div>
         <ul class="com_ul">
@@ -92,7 +93,7 @@
           </div>
         </div>
         <div class="B_r"></div>
-      </div>.
+      </div>
       <!-- 商品列表 -->
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
@@ -137,6 +138,7 @@ import HomeSerach from '../home_child/home_serach.vue'
 import $ from 'jquery'
 import Swiper from 'swiper';
 import config from '../../config/config'
+import {mapGetters, mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -166,11 +168,36 @@ export default {
       osTop:'',
       SLT:'',
       M_L_li:'',
+      num:'',
+      carData:''
     }
   },
   created(){
     this.keywords()
     this.M_L()
+     this.$ajax({
+          url:config.baseUrl+'/home/cart',
+          method:'get',
+          params:{
+            member_id:localStorage.getItem('userId')
+          }
+        }).then(res=>{
+          this.carData= res.data.data.items.data
+          console.log(this.carData)
+          var goodsinfos = {
+            // id:this.brandId,
+            // name:this.name,
+            // price:this.price,
+            // pictUrl:this.pictUrl,
+            // quantity
+            // DiscountPrice:this.DiscountPrice,
+          };
+          this.$store.commit("addToShopCar",goodsinfos);
+          this.carData.forEach(item=>{
+            goodsinfos.quantity = item.quantity
+            // console.log(item)
+          })
+        })
   },
   methods: {
     goCart(){
@@ -212,7 +239,7 @@ export default {
 					url:config.baseUrl + '/home/goods',
 					method: "get",
 				}).then(res => {
-            // console.log(res.data.data)
+            console.log(res)
             this.data_list = res.data.data.items
         });
     },
@@ -227,6 +254,9 @@ export default {
   },
   components:{
     HomeSerach,
+  },
+  computed:{
+    ...mapGetters(['totalQuantity'])
   },
    mounted(){
         var mySwiper = new Swiper('.swiper-container', {
@@ -503,6 +533,7 @@ export default {
     font-size: 40px;
     background-color:#e94c15;
     color:#fff;
+    padding:10px;
   }
   #SC_span{
     font-size:16px;

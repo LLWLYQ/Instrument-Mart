@@ -1,8 +1,8 @@
 <template>
-  <div class="Address">
-    <div class="content_container">
-      <div class="mine" >
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left">
+  <div class="Address" >
+    <div class="content_container" @click="addA()">
+      <div class="mine" v-if="panduan" >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left" >
           <el-form-item label="收货人" prop="name1">
             <el-input v-model="ruleForm.name1"></el-input>
           </el-form-item>
@@ -47,6 +47,16 @@
         </el-form>
         <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">使用此收货地址</el-button>
       </div>
+      <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
+        <li>
+          <h5>({{adr.receiver}}收)</h5>
+          <p style="font-size:14px;">{{adr.address}}</p>
+          <p>{{adr.tel}}</p>
+          <p>{{adr.zip_code}}</p>
+          <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
+        </li>
+        <p class="NewAddress">使用新地址</p>
+      </ul>
     </div>
   </div>
 </template>
@@ -76,11 +86,13 @@ export default {
         }
       };
       return {
+        iscur:0,
         province:'',
         city:'',
+        address:'',
+        panduan:true,
         district:'',
         cityID:0,
-        Address:true,
         ruleForm: {
             name1: '',
             mobileNumber:'',
@@ -117,8 +129,29 @@ export default {
       }
   },
   methods: {
+    //删除地址
+    delAddress(adr,index){
+      console.log(adr.id)
+      this.$ajax({
+        url:config.baseUrl + '/home/address/'+ adr.id,
+        method:'put',
+      }).then(res=>{
+        if(res.data.code == 20000){
+          this.addA()
+          if(this.address = []){
+            this.panduan = true
+          }
+        }
+      })
+    },
+    tabChange(index,adr){
+      this.iscur = index
+      this.adrID = adr.id
+      // console.log(adr.id)
+    },
      Save(){
-       this.$ajax({
+       if(this.address = []){
+         this.$ajax({
          url:config.baseUrl + '/home/address',
          method:'post',
          data:{
@@ -135,10 +168,35 @@ export default {
          }
        }).then(res=>{
          if(res.data.code == 20000){
-           this.Address = false
+             this.panduan = false
+             this.addA()
          }
        })
-       this.$emit('Addr',this.Address)
+      }
+     },
+     addA(){
+       this.$ajax({
+              url:config.baseUrl + '/home/address',
+              method:'get',
+              params:{
+                member_id:localStorage.getItem('userId'),
+              }
+            }).then(res=>{
+              this.address = res.data.data.items
+              // console.log(this.address)
+              if(res.data.data.items != ''){
+                this.panduan  = false
+              }
+              let cityID = res.data.data.items
+              cityID.map(item=>{
+                this.province_id = item.province_id
+                this.city = item.city_id
+                this.area = item.area_id
+              })
+              // if(res.data.data.items != ''){
+              //   this.AddressList = false
+              // }
+          })
      },
      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -208,7 +266,7 @@ export default {
      VDistpicker,
   },
   created(){
-
+    this.addA()
   }
 }
 </script>
@@ -274,6 +332,40 @@ export default {
 .el-input--suffix{
   width: 50px;
 }
+ul{
+      float: left;
+      margin: 15px 20px 10px 20px;
+      width: 238px;
+      height: 107px;
+      padding: 15px 0 0 20px;
+      cursor: pointer;
+      position: relative;
+      background: url(//img.alicdn.com/tps/i2/T1VPiBXvpeXXbjLKQ7-237-106.png) no-repeat;
+      .el-icon-delete{
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        font-size: 20px;
+      }
+      .el-icon-delete:hover{
+        color:#e94c15;
+      }
+     .NewAddress{
+       padding:5px 10px ;
+       border:1px solid #222;
+       text-align: center;
+       width: 120px;
+       margin:25px 0 0 -20px;
+       font-size: 14px;
+       border-radius: 3px;
+     }
+     .NewAddress:hover{
+         background-color: #f2f3f7;
+       }
+    }
+    .cur{
+      background-image: url(//img.alicdn.com/tfs/TB1OVRCRpXXXXaMXFXXXXXXXXXX-237-106.png)
+    }
 </style>
 <style lang="scss">
   .distpicker-address-wrapper{

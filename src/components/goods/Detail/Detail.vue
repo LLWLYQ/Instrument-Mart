@@ -147,24 +147,11 @@ export default {
       this.iscur = index
     },
     addToShopCar(){
-      this.$alert('欢迎选购其他商品', '加入购物车成功', {
-          confirmButtonText: '确定',
-          callback: action => {
-            // this.$message({
-            //   type: 'info',
-            //   // message: `action: ${ action }`
-            // });
-          }
+      this.$notify({
+          title: '加入购物车成功',
+          message: '商品已成功加入购物侧，欢迎选购其他商品',
+          type: 'success'
         });
-         var goodsinfos = {
-            id:this.brandId,
-            name:this.name,
-            price:this.price,
-            pictUrl:this.pictUrl,
-            quantity:this.num,
-            DiscountPrice:this.DiscountPrice,
-          };
-    this.$store.commit("addToShopCar",goodsinfos);
     this.$ajax({
       url:config.baseUrl+'/home/cart/add',
       method:'post',
@@ -175,7 +162,7 @@ export default {
         quantity:this.num
       }
     }).then(res=>{
-      // console.log(res)
+
     })
 
     },
@@ -198,6 +185,7 @@ export default {
       this.price = this.Infos.sales_price
       // this.DiscountPrice =  this.Infos.market_price
     })
+
   },
   components:{
     quantity

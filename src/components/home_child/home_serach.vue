@@ -3,7 +3,7 @@
     	<form action="">
     		<div>
     			<input v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" type="text" class="_inp" placeholder="请输入要搜索的商品" @mouseover="mouseOver()" @mouseleave="mouseLeave()"/>
-          <el-button id="ELB" slot="append" icon="el-icon-search "  @click="search" ></el-button>
+          <el-button id="ELB" slot="append" icon="el-icon-search "  @click="search" style="height:38px;width:50px;"></el-button>
 	    		<ul class="list-group" ref="ListGroup"  @mouseover="mouseOver()" @mouseleave="mouseLeave()">
 	    			<li  v-for="(item,index) in arr" :key="item.id" :class="{'list-group-item-info':index==listIndex}" @click="click($event)">{{item}}</li>
 	    		</ul>
@@ -128,28 +128,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+@import '../../style/common';
  ._inp{
    border:1px solid #e94c15;
    border-radius: 2px;
-   height: 40px;
+   height: 38px;
    width: 500px;
    text-indent:10px;
    font-size: 10px;
    color: #000;
    float: left;
-
   }
   .list-group{
    position: relative;
    float: left;
    z-index: 10000;
    background-color: white;
-   font-size: 16px;
+   font-size: 14px;
    width: 500px;
   :hover{
-        background-color: #E8E8E8;
-        font-weight:bold;
+        background-color: #e94c15;
+        // font-weight:bold;
+        font-size: 14px;
+        color:#fff;
     }
    :nth-last-child(1){
      margin-bottom: 10px;
@@ -164,9 +165,10 @@ export default {
      position:absolute;
      top:20%;
      left:20%;
-
+     width: 50px;
    }
   }
 </style>
+
 
 

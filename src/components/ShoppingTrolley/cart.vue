@@ -80,7 +80,7 @@ export default {
         }
       }).then(res=>{
         if(res.data.code === 20000){
-          this.totalPrice = ''
+          this.totalPrice = 0
           this.$ajax({
             url:config.baseUrl+'/home/cart',
             method:'get',
@@ -130,6 +130,7 @@ export default {
         this.carData = res.data.data.items.data
         this.carData.forEach(item=>{
           this.totalPrice += item.quantity*item.get_goods.sales_price
+          console.log( this.totalPrice)
         })
       })
 
