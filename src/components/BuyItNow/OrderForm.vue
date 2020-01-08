@@ -8,7 +8,7 @@
         <div class="Top">
           <h4>收货地址</h4>
         </div>
-        <Address v-if="AddressList" @Addr="Addr()" style="height:auto;border-bottom: 1px solid #222;margin-bottom:20px;padding:0px 0 50px 0;overflow:hidden;"></Address>
+        <Address v-if="AddressList" @Addr="Addr()" style="height:auto;border-bottom: 1px solid #222;margin-bottom:20px;padding:0px 0 20px 0;overflow:hidden;"></Address>
       </div>
       <div class="order_information">
         <div class="payment">
@@ -68,8 +68,7 @@ export default {
      let w =  Addr
      console.log(w)
     },
-
-    submitOrder(){
+  submitOrder(){
       this.$ajax({
         url:config.baseUrl + '/home/order',
         method:'post',

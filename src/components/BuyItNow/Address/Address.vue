@@ -47,17 +47,75 @@
         </el-form>
         <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">使用此收货地址</el-button>
       </div>
-      <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
-        <li>
-          <h5>({{adr.receiver}}收)</h5>
-          <p style="font-size:14px;">{{adr.address}}</p>
-          <p>{{adr.tel}}</p>
-          <p>{{adr.zip_code}}</p>
-          <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
-        </li>
-        <p class="NewAddress">使用新地址</p>
-      </ul>
+      <div>
+        <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
+          <li>
+            <h5>({{adr.receiver}}收)</h5>
+            <p style="font-size:14px;">{{adr.address}}</p>
+            <p>{{adr.tel}}</p>
+            <p>{{adr.zip_code}}</p>
+            <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
+          </li>
+        </ul>
+        <div style="width:100%;overflow:hidden;margin: 10px 0 0 20px;">
+          <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
+        </div>
+      </div>
     </div>
+    <div v-show="popup" >
+              <!--这里是要展示的内容层-->
+              <div class="login">
+                <div class="mine">
+                  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left" >
+                    <el-form-item label="收货人" prop="name1">
+                      <el-input v-model="ruleForm.name1"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机号码" prop="mobileNumber">
+                      <el-input v-model="ruleForm.mobileNumber" />
+                    </el-form-item>
+                    <el-form-item label="地区"  prop="Address" >
+                      <el-select v-model="province" placeholder="请选择" @focus="handleprovince()" style="width:100px;" >
+                        <el-option
+                          v-for="item in options"
+                          :key="item.value"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                      <el-select v-model="city" placeholder="请选择" @focus="handleCity()" style="width:100px;">
+                        <el-option
+                          v-for="item in options1"
+                          :key="item.value"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                      <el-select v-model="district" placeholder="请选择" @focus="handleDistrict()" style="width:100px;">
+                        <el-option
+                          v-for="item in options2"
+                          :key="item.value"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="详细地址:" prop="detailed_address">
+                      <el-input v-model="ruleForm.detailed_address"></el-input>
+                    </el-form-item>
+                    <el-form-item label="邮政编码:" prop="Invitation_code">
+                      <el-input v-model="ruleForm.Invitation_code"></el-input>
+                    </el-form-item>
+                  </el-form>
+                  <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">保存</el-button>
+                  <el-button type="danger" style="margin-left:30px;" @click="Cancel()" class="CloBtn">取消</el-button>
+                </div>
+              </div>
+              <!--这里是半透明背景层-->
+              <div class="over"></div>
+        </div>
   </div>
 </template>
 
@@ -86,6 +144,7 @@ export default {
         }
       };
       return {
+        popup: 0,
         iscur:0,
         province:'',
         city:'',
@@ -129,9 +188,17 @@ export default {
       }
   },
   methods: {
+    //关闭地址弹窗
+    Cancel(){
+      this.popup = 0;
+    },
+    //打开地址弹窗
+    showpopup() {
+      this.popup = 1;
+    },
     //删除地址
     delAddress(adr,index){
-      console.log(adr.id)
+      // console.log(adr.id)
       this.$ajax({
         url:config.baseUrl + '/home/address/'+ adr.id,
         method:'put',
@@ -150,7 +217,7 @@ export default {
       // console.log(adr.id)
     },
      Save(){
-       if(this.address = []){
+       if(this.address = [] && this.ruleForm.name1 != '' && this.ruleForm.mobileNumber != '' && this.ruleForm.detailed_address != '' &&  this.ruleForm.Invitation_code != ''){
          this.$ajax({
          url:config.baseUrl + '/home/address',
          method:'post',
@@ -170,12 +237,14 @@ export default {
          if(res.data.code == 20000){
              this.panduan = false
              this.addA()
+             this.popup = 0;
          }
        })
       }
      },
      addA(){
-       this.$ajax({
+
+         this.$ajax({
               url:config.baseUrl + '/home/address',
               method:'get',
               params:{
@@ -197,6 +266,8 @@ export default {
               //   this.AddressList = false
               // }
           })
+      //  }
+
      },
      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -216,7 +287,7 @@ export default {
         this.dialogVisible = true;
       },
       handleDownload(file) {
-        console.log(file);
+        // console.log(file);
       },
       //省级接口
       handleprovince(){
@@ -317,6 +388,16 @@ export default {
   .Btn:hover{
     background: rgb(83, 168, 255)
   }
+  .CloBtn{
+    padding: 10px 20px;
+    background-color: #ccc;
+    color:#fff;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .CloBtn:hover{
+    background: rgb(83, 168, 255)
+  }
   .Generated{
     margin-top: 20px;
     width:1060px;
@@ -350,22 +431,51 @@ ul{
       .el-icon-delete:hover{
         color:#e94c15;
       }
+    }
      .NewAddress{
-       padding:5px 10px ;
+      //  padding:5px 10px ;
        border:1px solid #222;
        text-align: center;
        width: 120px;
-       margin:25px 0 0 -20px;
+       height: 40px;
+       line-height: 40px;
+      //  margin:25px 0 0 -20px;
        font-size: 14px;
        border-radius: 3px;
+      //  position: absolute;
+      //  top:140px;
+      //  left: 20px;
      }
      .NewAddress:hover{
          background-color: #f2f3f7;
        }
-    }
     .cur{
       background-image: url(//img.alicdn.com/tfs/TB1OVRCRpXXXXaMXFXXXXXXXXXX-237-106.png)
     }
+    .login {
+      position: fixed;
+      font-size: 24px;
+      height: 450px;
+      width: 500px;
+      background-color: #fff;
+      border-radius: 0.25rem;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%, -20%);
+      z-index: 1000;
+      padding: 10px 0 0 30px;
+    }
+      .over {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;//透明度为70%
+        filter: alpha(opacity=70);
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background-color: #111111;
+      }
 </style>
 <style lang="scss">
   .distpicker-address-wrapper{

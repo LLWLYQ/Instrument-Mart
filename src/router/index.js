@@ -21,7 +21,7 @@ import MemberRegistration from '@/components/Member/MemberRegistration' //会员
 import cart from '@/components/ShoppingTrolley/cart' //购物车
 import ApplicationIn from '@/components/ApplicationIn/ApplicationIn' //申请入驻
 import application_approved from '@/components/ApplicationIn/application_approved'//申请入驻成功
-// import Alternate from '@/components/BuyItNow/Alternate' //支付页面
+import Alternate from '@/components/BuyItNow/Alternate' //支付页面
 
 
 
@@ -193,13 +193,13 @@ export default new Router({
         title:'申请入驻成功'
       }
     },
-    // {
-    //   path:'/Alternate',
-    //   name:'Alternate',
-    //   component:Alternate,
-    //   meta:{
-    //     title:'支付页面'
-    //   }
-    // }
+    {
+      path:'/Alternate',
+      name:'Alternate',
+      component:Alternate,
+      meta:{
+        title:'支付页面'
+      }
+    }
   ]
 })
