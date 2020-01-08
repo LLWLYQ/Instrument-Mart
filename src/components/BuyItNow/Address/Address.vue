@@ -54,6 +54,7 @@
             <p style="font-size:14px;">{{adr.address}}</p>
             <p>{{adr.tel}}</p>
             <p>{{adr.zip_code}}</p>
+            <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
             <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
           </li>
         </ul>
@@ -115,7 +116,56 @@
               </div>
               <!--这里是半透明背景层-->
               <div class="over"></div>
-        </div>
+      </div>
+      <div class="modification_address">
+             <div class="mine">
+                  <el-form :model="ruleFormFic" :rules="rulesFic" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left" >
+                    <el-form-item label="收货人" prop="nameFic">
+                      <el-input v-model="ruleForm.nameFic"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机号码" prop="mobileNumberFic">
+                      <el-input v-model="ruleForm.mobileNumberFic" />
+                    </el-form-item>
+                    <el-form-item label="地区"  prop="AddressFic" >
+                      <el-select v-model="provinceFicName" placeholder="请选择" @focus="handleprovinceFic()" style="width:100px;" >
+                        <el-option
+                          v-for="item in optionsFic"
+                          :key="item.value"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                      <el-select v-model="cityFicName" placeholder="请选择" @focus="handleCityFic()" style="width:100px;">
+                        <el-option
+                          v-for="item in optionsFic1"
+                          :key="item.value"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                      <el-select v-model="districtFicName" placeholder="请选择" @focus="handleDistrictFic()" style="width:100px;">
+                        <el-option
+                          v-for="item in optionsFic2"
+                          :key="item.value"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="详细地址:" prop="detailed_addressFic">
+                      <el-input v-model="ruleForm.detailed_addressFic"></el-input>
+                    </el-form-item>
+                    <el-form-item label="邮政编码:" prop="Invitation_codeFic">
+                      <el-input v-model="ruleForm.Invitation_codeFic"></el-input>
+                    </el-form-item>
+                  </el-form>
+                  <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">保存</el-button>
+                  <el-button type="danger" style="margin-left:30px;" @click="Cancel()" class="CloBtn">取消</el-button>
+                </div>
+          </div>
   </div>
 </template>
 
@@ -148,6 +198,12 @@ export default {
         iscur:0,
         province:'',
         city:'',
+        provinceFic:'',
+        cityFic:'',
+        districtFic:'',
+        provinceFicName:'',
+        cityFicName:'',
+        districtFicName:'',
         address:'',
         panduan:true,
         district:'',
@@ -157,6 +213,15 @@ export default {
             mobileNumber:'',
             detailed_address:'',
             Invitation_code:'',
+            // province:'',
+            // city:'',
+            // area:'',
+          },
+        ruleFormFic: {
+            nameFic: '',
+            mobileNumberFic:'',
+            detailed_addressFic:'',
+            Invitation_codeFic:'',
             // province:'',
             // city:'',
             // area:'',
@@ -181,13 +246,84 @@ export default {
             { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
           ]
         },
-        options: [{
-        }],
+        rulesFic: {
+           nameFic: [
+            { required: true, message: '请输入收货人姓名', trigger: 'blur' },
+            { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+          ],
+          mobileNumberFic: [
+            { required: true, message: "请输入手机号码", trigger: "blur" },
+            { validator: isMobileNumber, trigger: "blur" }
+          ],
+          AddressFic: [
+            { required: true, message: '请输入地址', trigger: 'blur' },
+          ],
+          detailed_addressFic: [
+            { required: true, message: '请输入详细地址', trigger: 'blur' },
+            { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+          ],
+          Invitation_codeFic:[
+            { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
+          ]
+        },
+        options: [{}],
         options1: [{}],
         options2: [{}],
+        optionsFic: [{}],
+        optionsFic1: [{}],
+        optionsFic2: [{}],
       }
   },
   methods: {
+    //修改收货地址
+    Modification(adr,index){
+      // this.$ajax({
+      //   url:config.baseUrl + '/home/address/'+ adr.id,
+      //   method:'put',
+      // }).then(res=>{
+      //   console.log(res)
+      // })
+      this.$ajax({
+        url:config.baseUrl + '/home/address/'+ adr.id,
+        method:'get',
+      }).then(res=>{
+        this.provinceFicName = res.data.data.province_id
+        this.cityFicName = res.data.data.city_id
+        this.districtFicName = res.data.data.area_id
+         this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:1,
+            pid:0
+          }
+        }).then(res=>{
+          this.optionsFic = res.data.data
+          console.log(this.optionsFic )
+        })
+
+          this.$ajax({
+                url:config.baseUrl + '/home/regions/index',
+                method:'post',
+                data:{
+                  level:2,
+                  pid:this.provinceFicName
+                }
+              }).then(res=>{
+                this.optionsFic1 = res.data.data
+              })
+          this.$ajax({
+                url:config.baseUrl + '/home/regions/index',
+                method:'post',
+                data:{
+                  level:3,
+                  pid:this.cityFicName
+                }
+              }).then(res=>{
+          this.optionsFic2 = res.data.data
+        })
+      })
+    },
     //关闭地址弹窗
     Cancel(){
       this.popup = 0;
@@ -217,7 +353,6 @@ export default {
       // console.log(adr.id)
     },
      Save(){
-       if(this.address = [] && this.ruleForm.name1 != '' && this.ruleForm.mobileNumber != '' && this.ruleForm.detailed_address != '' &&  this.ruleForm.Invitation_code != ''){
          this.$ajax({
          url:config.baseUrl + '/home/address',
          method:'post',
@@ -240,7 +375,6 @@ export default {
              this.popup = 0;
          }
        })
-      }
      },
      addA(){
 
@@ -291,7 +425,7 @@ export default {
       },
       //省级接口
       handleprovince(){
-        console.log(this.province)
+        // console.log(this.province)
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
@@ -302,8 +436,6 @@ export default {
         }).then(res=>{
           this.options = res.data.data
           // console.log(this.options)
-          this.options.map(item=>{
-          })
         })
       },
       //市级接口
@@ -331,6 +463,48 @@ export default {
         }).then(res=>{
           this.options2 = res.data.data
         })
+      },
+
+
+     //修改地址调用省市区 接口
+      handleprovinceFic(){
+        this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:1,
+            pid:0
+          }
+        }).then(res=>{
+          this.optionsFic = res.data.data
+          // console.log(this.optionsFic )
+        })
+      },
+      //市级接口
+      handleCityFic(){
+        this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:2,
+            pid:this.provinceFicName
+          }
+        }).then(res=>{
+          this.optionsFic1 = res.data.data
+        })
+      },
+      //区级接口
+      handleDistrictFic(){
+         this.$ajax({
+          url:config.baseUrl + '/home/regions/index',
+          method:'post',
+          data:{
+            level:3,
+            pid:this.cityFicName
+          }
+        }).then(res=>{
+          this.optionsFic2 = res.data.data
+        })
       }
   },
   components:{
@@ -338,6 +512,7 @@ export default {
   },
   created(){
     this.addA()
+
   }
 }
 </script>
@@ -418,7 +593,7 @@ ul{
       margin: 15px 20px 10px 20px;
       width: 238px;
       height: 107px;
-      padding: 15px 0 0 20px;
+      padding: 15px 40px 15px 20px;
       cursor: pointer;
       position: relative;
       background: url(//img.alicdn.com/tps/i2/T1VPiBXvpeXXbjLKQ7-237-106.png) no-repeat;
@@ -429,6 +604,15 @@ ul{
         font-size: 20px;
       }
       .el-icon-delete:hover{
+        color:#e94c15;
+      }
+      .el-icon-edit{
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 20px;
+      }
+      .el-icon-edit:hover{
         color:#e94c15;
       }
     }
