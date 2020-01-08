@@ -147,10 +147,12 @@ export default {
       this.iscur = index
     },
     addToShopCar(){
+      const h = this.$createElement;
       this.$notify({
           title: '加入购物车成功',
           message: '商品已成功加入购物侧，欢迎选购其他商品',
-          type: 'success'
+          type: 'success',
+          position:'top-left'
         });
     this.$ajax({
       url:config.baseUrl+'/home/cart/add',
