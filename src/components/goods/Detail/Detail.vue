@@ -152,7 +152,7 @@ export default {
           title: '加入购物车成功',
           message: '商品已成功加入购物侧，欢迎选购其他商品',
           type: 'success',
-          position:'top-left'
+          customClass:'Notification'
         });
     this.$ajax({
       url:config.baseUrl+'/home/cart/add',
@@ -300,6 +300,7 @@ export default {
       width: 100%;
       height: 100px;
       line-height: 100px;
+      position: relative;
       span{
         cursor: pointer;
       }
@@ -410,4 +411,10 @@ export default {
       }
     }
   }
+
+ .Notification{
+      position: absolute;
+      left:50%;
+      margin-top:520px;
+    }
 </style>

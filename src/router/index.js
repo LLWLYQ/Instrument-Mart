@@ -22,6 +22,7 @@ import cart from '@/components/ShoppingTrolley/cart' //购物车
 import ApplicationIn from '@/components/ApplicationIn/ApplicationIn' //申请入驻
 import application_approved from '@/components/ApplicationIn/application_approved'//申请入驻成功
 import Alternate from '@/components/BuyItNow/Alternate' //支付页面
+import TuningUpThePayment from '@/components/BuyItNow/OrderInfromation/TuningUpThePayment' //支付页面
 
 
 
@@ -199,6 +200,14 @@ export default new Router({
       component:Alternate,
       meta:{
         title:'支付页面'
+      }
+    },
+    {
+      path:'/TuningUpThePayment',
+      name:'TuningUpThePayment',
+      component:TuningUpThePayment,
+      meta:{
+        title:''
       }
     }
   ]

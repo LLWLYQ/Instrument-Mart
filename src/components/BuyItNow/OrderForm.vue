@@ -23,6 +23,15 @@
             </li>
           </ul>
         </div>
+        <!-- <div class="Logistics_Selecting">
+          <h4>物流选择</h4>
+          <ul class="LS" v-for="Ls in Logistics_Selecting" :key="Ls.id">
+            <li>
+              <p>{{Ls.shipping_name}}</p>
+              <p>{{Ls.shipping_desc}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Ls.price}}</p>
+            </li>
+          </ul>
+        </div> -->
         <OrderInfromation></OrderInfromation>
       </div>
       <div class="OrderFrom">
@@ -60,7 +69,9 @@ export default {
       adrID:5,
       DataList:[],
       Logistics:[],
-      member_id:localStorage.getItem('userId')
+      member_id:localStorage.getItem('userId'),
+      Logistics_Selecting:'',
+      LogS:'1'
     }
   },
   methods: {
@@ -75,18 +86,20 @@ export default {
         data:{
           member_id:localStorage.getItem('userId'),
           address_id:this.adrID,
-          shop_id:'2',
-          shop_name:'',
           payment_type:this.ZFB,
           shipping_method:1,
           goods:this.DataList
         }
       }).then(res=>{
-        // if( res.data.code ==20000 ){
-        //   this.$router.push({
-        //     path:'/Alternate'
-        //   })
-        // }
+        console.log(res.data.data.order_id)
+        if( res.data.code ==20000 ){
+          this.$router.push({
+            path:'/TuningUpThePayment',
+            query:{
+              order_id:res.data.data.order_id
+            }
+          })
+        }
       })
     }
   },
@@ -116,6 +129,7 @@ export default {
           goods.product_id = item.get_goods.goods_id
           goods.name = item.get_goods.goods_name
           goods.price = item.get_goods.sales_price
+          goods.shop_id = item.get_goods.goods_shop_id
           result.push(goods)
         })
         this.DataList =  result
@@ -148,7 +162,9 @@ export default {
           })
         this.Logistics =  Diu
         if(res.data.code == 20000){
-        this.$ajax({
+
+      //订单物流选择
+      this.$ajax({
           url:config.baseUrl + '/home/shipping',
           method:'get',
           params:{
@@ -156,7 +172,7 @@ export default {
             goods:this.Logistics
           }
         }).then(res=>{
-          console.log(res)
+        //  this.Logistics_Selecting = res.data.data.items
         })
         }
       })
@@ -200,6 +216,24 @@ export default {
             line-height: 80px;
             margin-right: 0px;
           }
+        }
+      }
+    }
+    .Logistics_Selecting{
+      margin-top: 20px;
+      border-bottom:1px solid #222;
+      h4{
+        padding-bottom: 10px;
+        border-bottom:1px solid #222;
+      }
+      .LS{
+        height: 10px;
+        margin: 10px 0px;
+        padding-bottom: 15px;
+        height: 50px;
+        li{
+          line-height: 25px;
+          font-size: 14px;
         }
       }
     }

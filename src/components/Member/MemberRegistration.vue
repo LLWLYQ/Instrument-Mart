@@ -205,7 +205,17 @@ export default {
           code:this.ruleForm2.smscode
         }
       }).then(res=>{
-        console.log(res)
+        if(res.data.code == 20000){
+           this.$alert(res.data.message +'请前往登录页登录', '',{
+              confirmButtonText:'确定',
+              callback: action => {
+                // this.$message({
+                //   type: 'info',
+                //   // message: `action: ${ action }`
+                // });
+              }
+            });
+        }
       })
     }
   }

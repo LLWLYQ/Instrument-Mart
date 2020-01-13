@@ -2,7 +2,7 @@
   <div class="Address" >
     <div class="content_container" @click="addA()">
       <div class="mine" v-if="panduan" >
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left" >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm1" label-width="100px" class="demo-ruleForm" label-position="left" >
           <el-form-item label="收货人" prop="name1">
             <el-input v-model="ruleForm.name1"></el-input>
           </el-form-item>
@@ -45,15 +45,15 @@
             <el-input v-model="ruleForm.Invitation_code"></el-input>
           </el-form-item>
         </el-form>
-        <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">使用此收货地址</el-button>
+        <el-button type="danger" style="margin-left:100px;" @click="Save('ruleForm1')" class="Btn">使用此收货地址</el-button>
       </div>
       <div>
         <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
-          <li>
-            <h5>({{adr.receiver}}收)</h5>
-            <p style="font-size:14px;">{{adr.address}}</p>
-            <p>{{adr.tel}}</p>
-            <p>{{adr.zip_code}}</p>
+          <li >
+            <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
+            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
+            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
+            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.zip_code}}</p>
             <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
             <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
           </li>
@@ -110,21 +110,22 @@
                       <el-input v-model="ruleForm.Invitation_code"></el-input>
                     </el-form-item>
                   </el-form>
-                  <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">保存</el-button>
+                  <el-button type="danger" style="margin-left:100px;" @click="SaveTwo('ruleForm')" class="Btn">保存</el-button>
                   <el-button type="danger" style="margin-left:30px;" @click="Cancel()" class="CloBtn">取消</el-button>
                 </div>
               </div>
               <!--这里是半透明背景层-->
               <div class="over"></div>
       </div>
-      <div class="modification_address">
+      <div class="modification_address" v-show="popup1">
+          <div class="login">
              <div class="mine">
-                  <el-form :model="ruleFormFic" :rules="rulesFic" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left" >
+                  <el-form :model="ruleFormFic" :rules="rulesFic" ref="ruleForm2" label-width="100px" class="demo-ruleForm" label-position="left" >
                     <el-form-item label="收货人" prop="nameFic">
-                      <el-input v-model="ruleForm.nameFic"></el-input>
+                      <el-input v-model="ruleFormFic.nameFic"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号码" prop="mobileNumberFic">
-                      <el-input v-model="ruleForm.mobileNumberFic" />
+                      <el-input v-model="ruleFormFic.mobileNumberFic" />
                     </el-form-item>
                     <el-form-item label="地区"  prop="AddressFic" >
                       <el-select v-model="provinceFicName" placeholder="请选择" @focus="handleprovinceFic()" style="width:100px;" >
@@ -156,15 +157,17 @@
                       </el-select>
                     </el-form-item>
                     <el-form-item label="详细地址:" prop="detailed_addressFic">
-                      <el-input v-model="ruleForm.detailed_addressFic"></el-input>
+                      <el-input v-model="ruleFormFic.detailed_addressFic"></el-input>
                     </el-form-item>
                     <el-form-item label="邮政编码:" prop="Invitation_codeFic">
-                      <el-input v-model="ruleForm.Invitation_codeFic"></el-input>
+                      <el-input v-model="ruleFormFic.Invitation_codeFic"></el-input>
                     </el-form-item>
                   </el-form>
-                  <el-button type="danger" style="margin-left:100px;" @click="Save()" class="Btn">保存</el-button>
-                  <el-button type="danger" style="margin-left:30px;" @click="Cancel()" class="CloBtn">取消</el-button>
+                  <el-button type="danger" style="margin-left:100px;" @click="ModifSave('ruleForm2')" class="Btn">保存</el-button>
+                  <el-button type="danger" style="margin-left:30px;" @click="CancelModi()" class="CloBtn">取消</el-button>
                 </div>
+            </div>
+            <div class="over"></div>
           </div>
   </div>
 </template>
@@ -194,6 +197,7 @@ export default {
         }
       };
       return {
+        popup1: 0,
         popup: 0,
         iscur:0,
         province:'',
@@ -235,9 +239,9 @@ export default {
             { required: true, message: "请输入手机号码", trigger: "blur" },
             { validator: isMobileNumber, trigger: "blur" }
           ],
-          Address: [
-            { required: true, message: '请输入地址', trigger: 'blur' },
-          ],
+          // Address: [
+          //   { required: true, message: '请输入地址', trigger: 'blur' },
+          // ],
           detailed_address: [
             { required: true, message: '请输入详细地址', trigger: 'blur' },
             { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }
@@ -255,9 +259,9 @@ export default {
             { required: true, message: "请输入手机号码", trigger: "blur" },
             { validator: isMobileNumber, trigger: "blur" }
           ],
-          AddressFic: [
-            { required: true, message: '请输入地址', trigger: 'blur' },
-          ],
+          // AddressFic: [
+          //   { required: true, message: '请输入地址', trigger: 'blur' },
+          // ],
           detailed_addressFic: [
             { required: true, message: '请输入详细地址', trigger: 'blur' },
             { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }
@@ -272,24 +276,57 @@ export default {
         optionsFic: [{}],
         optionsFic1: [{}],
         optionsFic2: [{}],
+        MfId:''
       }
   },
   methods: {
+    //会员地址编辑 = 修改收货地址
+    ModifSave(formName){
+       this.$refs[formName].validate((valid) => {
+              if (valid) {
+                this.$ajax({
+                  url:config.baseUrl + '/home/address/'+ this.MfId,
+                  method:'put',
+                  data:{
+                    member_id:localStorage.getItem('userId'),
+                    status:1,
+                    receiver:this.ruleFormFic.nameFic,
+                    province_id:this.provinceFicName,
+                    city_id:this.cityFicName,
+                    area_id:this.districtFicName,
+                    street_id:55,
+                    zip_code:this.ruleFormFic.Invitation_codeFic,
+                    tel:this.ruleFormFic.mobileNumberFic,
+                    address:this.ruleFormFic.detailed_addressFic
+                  }
+                }).then(res=>{
+                  if(res.data.code == 20000){
+                    this.popup1 = 0
+                    this.addA()
+                  }
+                })
+       } else {
+          return false;
+        }
+      });
+    },
     //修改收货地址
     Modification(adr,index){
-      // this.$ajax({
-      //   url:config.baseUrl + '/home/address/'+ adr.id,
-      //   method:'put',
-      // }).then(res=>{
-      //   console.log(res)
-      // })
+      this.MfId = adr.id
+      this.popup1 = 1;
+      //地址查看接口
       this.$ajax({
         url:config.baseUrl + '/home/address/'+ adr.id,
         method:'get',
       }).then(res=>{
-        this.provinceFicName = res.data.data.province_id
-        this.cityFicName = res.data.data.city_id
-        this.districtFicName = res.data.data.area_id
+        let resData = res.data.data
+        this.provinceFicName = resData.province_id
+        this.cityFicName = resData.city_id
+        this.districtFicName = resData.area_id
+        this.ruleFormFic.mobileNumberFic = resData.tel
+        this.ruleFormFic.nameFic = resData.receiver
+        this.ruleFormFic.detailed_addressFic = resData.address
+        this.ruleFormFic.Invitation_codeFic =  resData.zip_code
          this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
@@ -299,9 +336,8 @@ export default {
           }
         }).then(res=>{
           this.optionsFic = res.data.data
-          console.log(this.optionsFic )
+          // console.log(this.optionsFic )
         })
-
           this.$ajax({
                 url:config.baseUrl + '/home/regions/index',
                 method:'post',
@@ -328,6 +364,9 @@ export default {
     Cancel(){
       this.popup = 0;
     },
+    CancelModi(){
+      this.popup1 = 0;
+    },
     //打开地址弹窗
     showpopup() {
       this.popup = 1;
@@ -337,10 +376,10 @@ export default {
       // console.log(adr.id)
       this.$ajax({
         url:config.baseUrl + '/home/address/'+ adr.id,
-        method:'put',
+        method:'delete',
       }).then(res=>{
+        this.addA();
         if(res.data.code == 20000){
-          this.addA()
           if(this.address = []){
             this.panduan = true
           }
@@ -352,32 +391,65 @@ export default {
       this.adrID = adr.id
       // console.log(adr.id)
     },
-     Save(){
-         this.$ajax({
-         url:config.baseUrl + '/home/address',
-         method:'post',
-         data:{
-           member_id:localStorage.getItem('userId'),//会员ID
-           receiver:this.ruleForm.name1,//接受者姓名
-           tel:this.ruleForm.mobileNumber,//电话
-           province_id:this.province,//省ID
-           city_id:this.city,//市ID
-           area_id:this.district,//区ID
-           street_id:4,//街ID
-           address:this.ruleForm.detailed_address,//详细地址
-           zip_code:this.ruleForm.Invitation_code,//邮编
-           status:1,//是否设置为默认地址
-         }
-       }).then(res=>{
-         if(res.data.code == 20000){
-             this.panduan = false
-             this.addA()
-             this.popup = 0;
-         }
-       })
+     Save(formName){
+          this.$refs[formName].validate((valid) => {
+              if (valid) {
+                  this.$ajax({
+                    url:config.baseUrl + '/home/address',
+                    method:'post',
+                    data:{
+                      member_id:localStorage.getItem('userId'),//会员ID
+                      receiver:this.ruleForm.name1,//接受者姓名
+                      tel:this.ruleForm.mobileNumber,//电话
+                      province_id:this.province,//省ID
+                      city_id:this.city,//市ID
+                      area_id:this.district,//区ID
+                      street_id:4,//街ID
+                      address:this.ruleForm.detailed_address,//详细地址
+                      zip_code:this.ruleForm.Invitation_code,//邮编
+                      status:1,//是否设置为默认地址
+                    }
+                  }).then(res=>{
+                    if(res.data.code == 20000){
+                        this.panduan = false
+                        this.addA();
+                        this.popup = 0 ;        }
+                  })
+                } else {
+                  return false;
+                }
+         });
+     },
+     SaveTwo(formName){
+       this.$refs[formName].validate((valid) => {
+              if (valid) {
+                  this.$ajax({
+                    url:config.baseUrl + '/home/address',
+                    method:'post',
+                    data:{
+                      member_id:localStorage.getItem('userId'),//会员ID
+                      receiver:this.ruleForm.name1,//接受者姓名
+                      tel:this.ruleForm.mobileNumber,//电话
+                      province_id:this.province,//省ID
+                      city_id:this.city,//市ID
+                      area_id:this.district,//区ID
+                      street_id:4,//街ID
+                      address:this.ruleForm.detailed_address,//详细地址
+                      zip_code:this.ruleForm.Invitation_code,//邮编
+                      status:1,//是否设置为默认地址
+                    }
+                  }).then(res=>{
+                    if(res.data.code == 20000){
+                        this.panduan = false
+                        this.addA();
+                        this.popup = 0 ;        }
+                  })
+                } else {
+                  return false;
+                }
+         });
      },
      addA(){
-
          this.$ajax({
               url:config.baseUrl + '/home/address',
               method:'get',
@@ -386,7 +458,7 @@ export default {
               }
             }).then(res=>{
               this.address = res.data.data.items
-              // console.log(this.address)
+              console.log(this.address)
               if(res.data.data.items != ''){
                 this.panduan  = false
               }
@@ -421,7 +493,6 @@ export default {
         this.dialogVisible = true;
       },
       handleDownload(file) {
-        // console.log(file);
       },
       //省级接口
       handleprovince(){

@@ -3,16 +3,17 @@
       <div class="top">
         <div class="comment">
           <ul class="top_left">
-            <li>网站导航</li>
-            <li>网站导航</li>
-            <li>网站导航</li>
+            <router-link to="/" ><li>仪商城首页</li></router-link>
+            <router-link to="/register" target="_blank" tag="a"><li>请登录</li></router-link>
+            <router-link to=""><li>欢迎来到仪商城</li></router-link>
+            <router-link to="/MemberRegistration" target="_blank" tag="a"><li>免费注册</li></router-link>
           </ul>
           <ul class="top_right">
-            <li>网站导航</li>
-            <li>网站导航</li>
-            <li>网站导航</li>
-            <li>网站导航</li>
-            <li>网站导航</li>
+            <router-link to="/"><li>我的仪商城</li></router-link>
+            <router-link to="/cart" target="_blank" tag="a"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;"></i>购物车</li></router-link>
+            <router-link to="/"><li>收藏夹</li></router-link>
+            <router-link to="/"><li>仪商网</li></router-link>
+            <router-link to="/"><li>商家支持</li></router-link>
           </ul>
         </div>
       </div>
@@ -298,13 +299,16 @@ export default {
       :nth-child(n+2){
           margin-left:20px;
         }
-      li{
-      float: left;
-      color:black;
-      padding-top:5px;
-      font-size:14px;
-      font-weight: bold;
-    }
+      a{
+        float: left;
+        color:black;
+        padding-top:5px;
+        font-size:14px;
+        font-weight: bold;
+      }
+      a:hover{
+        color: #e94c15;
+      }
     }
     .top_right{
       width:750px;
@@ -313,12 +317,15 @@ export default {
       :nth-child(n+2){
           margin-right:30px;
         }
-      li{
+      a{
         float: right;
         color:black;
         padding-top:5px;
         font-size:14px;
         font-weight: bold;
+      }
+       a:hover{
+        color: #e94c15;
       }
     }
   }
