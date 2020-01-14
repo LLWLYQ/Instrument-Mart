@@ -1,6 +1,10 @@
 <template>
   <div class="cart">
     <div class="content_container">
+      <div class="TopImg">
+        <img src="../../assets/imges/logo.png" alt="">
+        <h1>购物车</h1>
+      </div>
       <div class="top">
         <p>
           <span>全部商品(商品数量)</span>
@@ -26,11 +30,11 @@
           </li>
         </ul>
         <p>
-          <span>总价</span>
+          <span v-if="kong">总价</span>
           <span>￥{{(totalPrice)}}</span>
         </p>
         <p>
-          <span class="To_settle_accounts" @click="ToSettleAccounts()">去结算</span>
+          <span class="To_settle_accounts" @click="ToSettleAccounts()" v-if="kong">去结算</span>
           <router-link to="/OrderForm"></router-link>
         </p>
       </div>
@@ -111,6 +115,11 @@ export default {
           }).then(res=>{
               this.carData.splice(index,1)
               this.totalPrice -= CD.quantity*CD.get_goods.sales_price
+              if(this.totalPrice == 0 ){
+                this.kong = false
+              }else{
+                this.kong = true
+              }
           })
         }).catch(() => {
       });
@@ -127,10 +136,15 @@ export default {
           member_id:localStorage.getItem('userId')
         }
       }).then(res=>{
+        this.kong = false
         this.carData = res.data.data.items.data
         this.carData.forEach(item=>{
           this.totalPrice += item.quantity*item.get_goods.sales_price
-          console.log( this.totalPrice)
+            if(this.totalPrice == 0 ){
+
+              }else{
+                this.kong = true
+              }
         })
       })
 
@@ -150,6 +164,18 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common' ;
+  .TopImg{
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    img{
+      float: left;
+    }
+    h1{
+      float: left;
+      margin-top: 30px;
+    }
+  }
   .top{
     p{
       border-bottom:1px solid #ccc;
@@ -175,7 +201,7 @@ export default {
       height: 200px;
       img{
         height: 160px;
-        width: 130px;
+        width: 150px;
         float: left;
         margin: 20px 0 0 20px;
         border:1px solid #ccc;

@@ -2,7 +2,7 @@
   <div>
     <div class="register-wrapper">
       <div id="register">
-        <p class="title">仪商城注册</p>
+        <p class="title"><img src="../../assets/imges/B_l.png" alt="" class="Pimg"></p>
         <el-form
           :model="ruleForm2"
           :rules="rules2"
@@ -18,7 +18,7 @@
           </el-form-item>
           <el-form-item prop="smscode" class="code">
             <el-input v-model="ruleForm2.smscode" placeholder="验证码"></el-input>
-            <el-button type="primary" :disabled='isDisabled' @click="sendCode">{{buttonText}}</el-button>
+            <el-button type="primary" :disabled='isDisabled' @click="sendCode" style="background:#e94c15;border-color:#e94c15;">{{buttonText}}</el-button>
           </el-form-item>
           <el-form-item prop="pass">
             <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="输入密码"></el-input>
@@ -27,7 +27,7 @@
             <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')" style="width:100%;">注册</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;">注册</el-button>
             <p class="login" @click="gotoLogin">已有账号？立即登录</p>
           </el-form-item>
         </el-form>
@@ -176,6 +176,7 @@ export default {
         if(res.data.code == '60204'){
           this.$alert('手机号码已被注册请重新输入', '', {
             confirmButtonText: '确定',
+            customClass:'telName'
           });
         }
       })
@@ -208,6 +209,7 @@ export default {
         if(res.data.code == 20000){
            this.$alert(res.data.message +'请前往登录页登录', '',{
               confirmButtonText:'确定',
+              customClass:'GoLoginName',
               callback: action => {
                 // this.$message({
                 //   type: 'info',
@@ -222,8 +224,7 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped >
 .loading-wrapper {
   position: fixed;
   top: 0;
@@ -245,6 +246,10 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
+  background-image:url(../../assets/imges/sp_1.jpg) ;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
 }
 #register {
   width: 340px;
@@ -254,13 +259,16 @@ export default {
   border-radius: 10px;
   position: relative;
   z-index: 9;
+  border:1px solid #222;
 }
 .title {
   font-size: 26px;
   line-height: 50px;
-  font-weight: bold;
-  margin: 10px;
-  text-align: center;
+  height: 50px;
+}
+.Pimg{
+  width: 340px;
+  height: 50px;
 }
 .el-form-item {
   text-align: center;
@@ -270,14 +278,14 @@ export default {
   margin-top: 10px;
   font-size: 14px;
   line-height: 22px;
-  color: #1ab2ff;
+  color: #ee7f57;
   cursor: pointer;
   text-align: left;
   text-indent: 8px;
   width: 160px;
 }
 .login:hover {
-  color: #2c2fd6;
+  color: #e94c15;
 }
 .code >>> .el-form-item__content {
   display: flex;
@@ -294,4 +302,16 @@ export default {
   border-color: #409EFF;
   color: #fff;
 }
+</style>
+<style lang="scss">
+  .telName{
+    position: absolute;
+    top:30%;
+    left: 40%;
+  }
+  .GoLoginName{
+    position: absolute;
+    top:30%;
+    left: 40%;
+  }
 </style>

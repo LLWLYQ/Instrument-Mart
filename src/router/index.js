@@ -23,7 +23,8 @@ import ApplicationIn from '@/components/ApplicationIn/ApplicationIn' //申请入
 import application_approved from '@/components/ApplicationIn/application_approved'//申请入驻成功
 import Alternate from '@/components/BuyItNow/Alternate' //支付页面
 import TuningUpThePayment from '@/components/BuyItNow/OrderInfromation/TuningUpThePayment' //支付页面
-
+import LoginForm from '@/components/LoginForm/LoginForm' //登录窗口
+import Header from '@/components/Header/Header'//头部
 
 
 Vue.use(Router)
@@ -146,6 +147,7 @@ export default new Router({
       name:'OrderForm',
       component:OrderForm,
       meta:{
+        title:'订单页'
       }
     },
     {
@@ -168,6 +170,7 @@ export default new Router({
       name:'MemberRegistration',
       component:MemberRegistration,
       meta:{
+        title:'注册'
       }
     },
     {
@@ -206,6 +209,22 @@ export default new Router({
       path:'/TuningUpThePayment',
       name:'TuningUpThePayment',
       component:TuningUpThePayment,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/LoginForm',
+      name:'LoginForm',
+      component:LoginForm,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Header',
+      name:'Header',
+      component:Header,
       meta:{
         title:''
       }

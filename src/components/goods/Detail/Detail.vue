@@ -1,6 +1,11 @@
 <template>
   <div id="Detail">
     <div class="content_container">
+      <div class="LoginForm" v-if="LF">
+        <i class="el-icon-circle-close" @click="closeLF()"></i>
+        <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
+      </div>
+      <div class="over" v-if="LF" @click="closeLF()"></div>
       <div class="Shinetop">
         <div class="big_shinetop">
 
@@ -117,6 +122,7 @@
 </template>
 
 <script>
+import LoginForm from '../../LoginForm/LoginForm'
 import quantity from './Quantity/quantity';
 import {mapGetters} from 'vuex'
 import config from '../../../config/config'
@@ -137,41 +143,54 @@ export default {
       quantity:'',
       num:1,
       DiscountPrice:'',
+      LF:false,
+      UserId:localStorage.getItem('userId'),
+
     }
   },
   computed:mapGetters([
     'count'
   ]),
   methods: {
+    closeLF(){
+      this.LF = false
+    },
     tabChange(index,event){
       this.iscur = index
     },
     addToShopCar(){
-      const h = this.$createElement;
-      this.$notify({
-          title: '加入购物车成功',
-          message: '商品已成功加入购物侧，欢迎选购其他商品',
-          type: 'success',
-          customClass:'Notification'
-        });
-    this.$ajax({
-      url:config.baseUrl+'/home/cart/add',
-      method:'post',
-      data:{
-        goods_id:this.Infos.goods_id,
-        member_id:localStorage.getItem('userId'),
-        option:[],
-        quantity:this.num
-      }
-    }).then(res=>{
-
-    })
-
-    },
-    Change(data){
+    if(this.UserId){
+      this.$ajax({
+        url:config.baseUrl+'/home/cart/add',
+        method:'post',
+        data:{
+          goods_id:this.Infos.goods_id,
+          member_id:localStorage.getItem('userId'),
+          option:[],
+          quantity:this.num
+        }
+      }).then(res=>{
+        if( res.data.code = 20000){
+          const h = this.$createElement;
+          this.$notify({
+              title: '加入购物车成功',
+              message: '商品已成功加入购物侧，欢迎选购其他商品',
+              type: 'success',
+              customClass:'Notification'
+            });
+        }
+      })
+    }else{
+      this.LF = true
+    }
+  },
+  Change(data){
       this.num = data
       // console.log(this.num)
     },
+  closeLogin(closeLogin){
+    this.LF = closeLogin
+  }
   },
   created(){
     this.$ajax({
@@ -187,16 +206,46 @@ export default {
       this.price = this.Infos.sales_price
       // this.DiscountPrice =  this.Infos.market_price
     })
-
   },
   components:{
-    quantity
+    quantity,
+    LoginForm
   }
 }
 </script>
 
 <style scope lang="scss">
 @import "../../../style/common.css";
+.LoginForm {
+      position: fixed;
+      font-size: 24px;
+      height: 430px;
+      width: 350px;
+      background-color: #fff;
+      border-radius: 0.25rem;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%, -20%);
+      z-index: 1000;
+      padding: 10px 0 0 30px;
+       .el-icon-circle-close{
+            font-size: 20px;
+            float: right;
+            margin: 0px 10px 0 0;
+            cursor: pointer;
+          }
+    }
+.over {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;//透明度为70%
+        filter: alpha(opacity=70);
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background-color: #111111;
+      }
   #Detail{
     margin-top:30px;
   }

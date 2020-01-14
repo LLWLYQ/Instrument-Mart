@@ -1,27 +1,30 @@
 <template>
   <div>
-      <div class="logo">
+      <!-- <div class="logo">
         <a href="">
           <img src="../../assets/imges/register_logo.png" alt="">
           <p>一站式工业仪器仪表交易平台-买卖仪器仪表就上仪商城</p>
         </a>
-      </div>
+      </div> -->
       <div class="main">
         <div class="con">
           <div class="main_register">
             <div class="mine">
+              <div class="i-icon">
+                <img src="../../assets/imges/logo.png" alt="" style="height:30px;">
+              </div>
               <h2>登录账户</h2>
               <input type="text" v-model="username" placeholder="用户名"/>
               <input type="password" v-model="password" placeholder="密码"/>
               <button @click="login()" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
-              <router-link to="/MemberRegistration">立即注册</router-link>
+              <router-link to="/MemberRegistration"  target="_blank" tag="a">立即注册</router-link>
             </div>
             <div class="button">
-              <h4>—————  其他登录方式  —————</h4>
+              <!-- <h4>—————  其他登录方式  —————</h4>
               <a ><li><img src="../../assets/imges/zhi.png" alt=""></li></a>
               <a ><li><img src="../../assets/imges/wx.png" alt=""></li></a>
               <a ><li><img src="../../assets/imges/weibo.png" alt=""></li></a>
-              <a ><li><img src="../../assets/imges/weibo.png" alt=""></li></a>
+              <a ><li><img src="../../assets/imges/weibo.png" alt=""></li></a> -->
             </div>
           </div>
         </div>
@@ -36,7 +39,8 @@ export default {
  data () {
     return {
         username: '',
-        password: ''
+        password: '',
+        LF:false
     };
   },
   created() {
@@ -57,47 +61,44 @@ export default {
     del(){
       this.$refs.btn.style.background = '#000'
       this.$refs.btn.style.color = '#fff'
-      // this.$refs.btn.style.overflow = 'hidde'
+            // this.$refs.btn.style.overflow = 'hidde'
+      this.isRouterAlive = true
     },
     // ...mapMutations(['changeLogin']),
     login () {
-    //   let _this = this;
-    //   if (this.loginForm.username === '' || this.loginForm.password === '') {
-    //     alert('账号或密码不能为空');
-    //   } else {
           this.$ajax({
-          // headers: {
-          //   'Content-Type':'application/json'
-          // },
             url:config.baseUrl + '/home/user/login',
             method: 'post',
             data: {
               username:this.username,
-              password:this.password
+              password:this.password,
             },
 
           }).then(res => {
+            console.log(res)
            localStorage.setItem("userId",res.data.data.member_id)
             if(res.data.status == 'success'){
-                this.$router.push({
-                  path:'/AllOrder',
-                })
+               this.$emit('closeLogin',this.LF)
+               window.location.reload();
+              //  const h = this.$createElement;
+              //  this.$notify({
+              //     title: '加入购物车成功',
+              //     message: '商品已成功加入购物侧，欢迎选购其他商品',
+              //     type: 'success',
+              //     customClass:'Notification'
+              //   });
               }
             })
-        // .catch(error => {
-        //   alert('账号或密码错误');
-        //   console.log(error);
-        // });
-      // }
-    }
+      }
   }
+
 }
 </script>
 <style lang="scss" scope>
 @import "../../style/base.css";
   .logo{
     width: 1440px;
-    margin: 50px auto 0 auto;
+    margin: 0 auto;
     height: 36px;
     padding: 20px 0 70px;
     img{
@@ -115,7 +116,8 @@ export default {
     }
   }
   .main{
-    background: url(../../assets/imges/register_main.jpg) center 0px / 1920px 802px no-repeat;
+
+    // background: url(../../assets/imges/register_main.jpg) center 0px / 1920px 802px no-repeat;
     width: 100%;
     height: 800px;
     overflow: hidden;
@@ -124,12 +126,14 @@ export default {
       width: 1440px;
       margin: 0 auto;
       .main_register{
+        border:1px solid #ccc;
         width: 350px;
         height: 430px;
         background: #fff;
         float: right;
-        margin: 100px 200px 0 0;
-        position: relative;
+        // margin: 100px 200px 0 0;
+        // position: relative;
+        // left: -25%;
         .mine{
           position: absolute;
           top:20px;
@@ -139,6 +143,13 @@ export default {
           }
           h2{
             font-family:"KaiTi",Georgia,Serif;
+            font-size: 25px;
+          }
+          .el-icon-circle-close{
+            font-size: 20px;
+            float: right;
+            margin: -10px 10px 0 0;
+            cursor: pointer;
           }
           input{
           width: 300px;
@@ -167,6 +178,8 @@ export default {
             float: right;
             font-size:16px;
             margin-right: 25px;
+            line-height: 50px;
+            z-index: 10000;
           }
         }
         .button{

@@ -1,6 +1,11 @@
 <template>
   <div class="content_container">
-      <div class="top">
+      <!-- <div class="LoginForm" v-if="LF">
+        <i class="el-icon-circle-close" @click="closeLF()"></i>
+        <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
+      </div>
+      <div class="over" v-if="LF" @click="closeLF()"></div> -->
+      <!-- <div class="top">
         <div class="comment">
           <ul class="top_left">
             <router-link to="/" ><li>仪商城首页</li></router-link>
@@ -10,13 +15,13 @@
           </ul>
           <ul class="top_right">
             <router-link to="/"><li>我的仪商城</li></router-link>
-            <router-link to="/cart" target="_blank" tag="a"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;"></i>购物车</li></router-link>
+            <a style="cursor:pointer;" @click="GoCart()"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;" ></i>购物车</li></a>
             <router-link to="/"><li>收藏夹</li></router-link>
             <router-link to="/"><li>仪商网</li></router-link>
             <router-link to="/"><li>商家支持</li></router-link>
           </ul>
         </div>
-      </div>
+      </div> -->
       <div class="com">
         <div class="logo_img"><img src="../../assets/imges/logo.png" alt=""></div>
         <div class="Search_Goods">
@@ -99,11 +104,11 @@
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
           <!-- <li ><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><span></span></router-link></li> -->
-           <li ><router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><img :src="baseUrl+List.files_path" alt="" class="List_li"><span>{{List.goods_name}}</span><br><span style="color:red;">{{List.sales_price}}</span></router-link></li>
+           <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><li ><img :src="baseUrl+List.files_path" alt="" class="List_li"><span>{{List.goods_name}}</span><br><span style="color:red;">￥{{List.sales_price}}</span></li></router-link>
         </ul>
       </div>
       <div class="Right" >
-        <li v-for="item in wpList" :key="item.name" :class="{active : active == item.name}" @click="selected(item.name)">{{item.name}}</li>
+        <li v-for="(item,index) in wpList" :key="index"  :class="{cur:iscur===index}" @click="iscur=index,selected(item.name,index)" >{{item.name}}</li>
       </div>
       <div class="mine" >
         <h1>电力电工仪表</h1>
@@ -140,22 +145,25 @@ import $ from 'jquery'
 import Swiper from 'swiper';
 import config from '../../config/config'
 import {mapGetters, mapState} from 'vuex'
+import LoginForm from '../../components/LoginForm/LoginForm'
 export default {
   data () {
     return {
+      iscur:0,
+      LF:false,
       baseUrl:'http://shop.yishangm.com',
       wpList: [
         {
-        name: '食品饮料'
+        name: '电子测量仪器'
         },
         {
-        name: '鲜花'
+        name: '电力电工仪表'
         },
         {
-        name: '蛋糕'
+        name: '工业自动化仪表与控制系统'
         },
         {
-        name: '水果生鲜'
+        name: ' 传感器与仪器仪表器件及材料'
         },
         {
         name: '顶部'
@@ -170,10 +178,12 @@ export default {
       SLT:'',
       M_L_li:'',
       num:'',
-      carData:''
+      carData:'',
+      UserId:localStorage.getItem('userId'),
     }
   },
   created(){
+
     this.keywords()
     this.M_L()
      this.$ajax({
@@ -184,7 +194,6 @@ export default {
           }
         }).then(res=>{
           this.carData= res.data.data.items.data
-          console.log(this.carData)
           var goodsinfos = {
             // id:this.brandId,
             // name:this.name,
@@ -201,6 +210,25 @@ export default {
         })
   },
   methods: {
+    // GoCart(){
+    //   if(!this.UserId){
+    //     this.LF = true
+    //   }else{
+    //     this.LF = false
+    //     if(this.UserId){
+    //       this.$router.push({
+    //           path:'/cart'
+    //         })
+    //     }
+    //   }
+
+    // },
+    closeLF(){
+      this.LF = false
+    },
+    closeLogin(closeLogin){
+      this.LF = closeLogin
+    },
     goCart(){
       this.$ajax({
         url:config.baseUrl+'/home/cart',
@@ -216,18 +244,19 @@ export default {
         }
       })
     },
-    selected(name){
+    selected(name,index){
+      this.iscur = index
       this.active = name;
       let WS = $(window).scrollTop();
-      if(this.active == '鲜花'){
+      if(this.active == '电子测量仪器'){
         $("body,html").animate({scrollTop:$('.List').offset().top-30},100)
-      }else if(this.active == '食品饮料'){
+      }else if(this.active == '电力电工仪表'){
         $("body,html").animate({scrollTop:$('.mine').offset().top-30},100)
       }
-      else if(this.active == '食品饮料'){
+      else if(this.active == '电力电工仪表'){
         $("body,html").animate({scrollTop:2000},100)
       }
-      else if(this.active == '食品饮料'){
+      else if(this.active == '工业自动化仪表与控制系统'){
         $("body,html").animate({scrollTop:2000},100)
       }
       else if(this.active == '顶部'){
@@ -240,7 +269,6 @@ export default {
 					url:config.baseUrl + '/home/goods',
 					method: "get",
 				}).then(res => {
-            console.log(res)
             this.data_list = res.data.data.items
         });
     },
@@ -255,6 +283,7 @@ export default {
   },
   components:{
     HomeSerach,
+    LoginForm
   },
   computed:{
     ...mapGetters(['totalQuantity'])
@@ -278,57 +307,87 @@ export default {
 //局部样式
 <style lang="scss" scoped>
 @import "../../style/base";
+.LoginForm {
+      position: fixed;
+      font-size: 24px;
+      height: 430px;
+      width: 350px;
+      background-color: #fff;
+      border-radius: 0.25rem;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%, -20%);
+      z-index: 1000;
+      padding: 10px 0 0 30px;
+       .el-icon-circle-close{
+            font-size: 20px;
+            float: right;
+            margin: 0px 10px 0 0;
+            cursor: pointer;
+          }
+    }
+.over {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;//透明度为70%
+        filter: alpha(opacity=70);
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background-color: #111111;
+      }
 .content_container{
   position:relative;
   width: 1440px;
   margin:0 auto;
   text-align: left;
 }
-  .top{
-    height:30px;
-    background-color:#fff;
-    border-bottom: 2px solid #ccc;
-    width:1440px;
-    position: fixed;
-    z-index:1111;
-    overflow: hidden;
-    .top_left{
-      width:500px;
-      float: left;
-      color:red;
-      :nth-child(n+2){
-          margin-left:20px;
-        }
-      a{
-        float: left;
-        color:black;
-        padding-top:5px;
-        font-size:14px;
-        font-weight: bold;
-      }
-      a:hover{
-        color: #e94c15;
-      }
-    }
-    .top_right{
-      width:750px;
-      float: right;
-      color:red;
-      :nth-child(n+2){
-          margin-right:30px;
-        }
-      a{
-        float: right;
-        color:black;
-        padding-top:5px;
-        font-size:14px;
-        font-weight: bold;
-      }
-       a:hover{
-        color: #e94c15;
-      }
-    }
-  }
+  // .top{
+  //   height:30px;
+  //   background-color:#fff;
+  //   border-bottom: 2px solid #ccc;
+  //   width:1440px;
+  //   // position: fixed;
+  //   // z-index:50;
+  //   overflow: hidden;
+  //   .top_left{
+  //     width:500px;
+  //     float: left;
+  //     color:red;
+  //     :nth-child(n+2){
+  //         margin-left:20px;
+  //       }
+  //     a{
+  //       float: left;
+  //       color:black;
+  //       padding-top:5px;
+  //       font-size:14px;
+  //       font-weight: bold;
+  //     }
+  //     a:hover{
+  //       color: #e94c15;
+  //     }
+  //   }
+  //   .top_right{
+  //     width:750px;
+  //     float: right;
+  //     color:red;
+  //     :nth-child(n+2){
+  //         margin-right:30px;
+  //       }
+  //     a{
+  //       float: right;
+  //       color:black;
+  //       padding-top:5px;
+  //       font-size:14px;
+  //       font-weight: bold;
+  //     }
+  //      a:hover{
+  //       color: #e94c15;
+  //     }
+  //   }
+  // }
   .com{
     height: 180px;
     padding-top:60px;
@@ -447,33 +506,48 @@ export default {
   }
   .List{
     height:2100px;
-    li{
-      height: 230px;
+    a{
+      height: 350px;
       width: 320px;
       float: left;
-      margin:25px 0 0 25px;
+      padding:20;
+      margin:20px;
+      overflow: hidden;
+      li{
+        height: 340px;
+        width: 310px;
+        span{
+          color:#222;
+        }
+      }
+    }
+    a:hover{
+      border:1px solid #222;
     }
       img{
-        height: 192px;
-        width: 320px;
+        height: 300px;
+        width: 318px;
     }
   }
 
   .Right{
     position:fixed;
     right:0;
-    top:50%;
+    top:30%;
     cursor: pointer;
     li{
       border:1px solid #ccc;
-      width: 60px;
-      height: 60px;
+      font-size: 12px;
+      width: 80px;
+      height: 80px;
+      text-align: left;
+      padding: 5px;
        :hover{
       background-color:#c81623;
       color:#fff;
     }
     }
-    .active{
+    .cur{
        background-color:#c81623;
         color:#fff;
     }
