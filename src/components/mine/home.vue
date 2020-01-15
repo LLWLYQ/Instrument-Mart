@@ -1,5 +1,6 @@
 <template>
   <div class="content_container">
+
       <!-- <div class="LoginForm" v-if="LF">
         <i class="el-icon-circle-close" @click="closeLF()"></i>
         <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
@@ -34,7 +35,7 @@
         </div>
         <div class="Shopping_Cart">
           <!-- <span>{{totalQuantity}}</span> -->
-          <el-button slot="append" icon="el-icon-goods" id="SC_button" @click="goCart()"><span id="SC_span">ShoppingCart</span></el-button>
+          <!-- <el-button slot="append" icon="el-icon-goods" id="SC_button" @click="goCart()"><span id="SC_span">ShoppingCart</span></el-button> -->
         </div>
         <ul class="com_ul">
           <li>首页</li>
@@ -149,6 +150,7 @@ import LoginForm from '../../components/LoginForm/LoginForm'
 export default {
   data () {
     return {
+      date: new Date(),
       iscur:0,
       LF:false,
       baseUrl:'http://shop.yishangm.com',
@@ -182,7 +184,19 @@ export default {
       UserId:localStorage.getItem('userId'),
     }
   },
+    mounted() {
+        var that = this;
+        this.timer = setInterval(() => {
+          that.date = new Date(); //修改数据date
+        }, 1000);
+      },
+    beforeDestroy() {
+        if (this.timer) {
+          clearInterval(this.timer); //在Vue实例销毁前，清除我们的定时器
+        }
+      },
   created(){
+    console.log(Date.parse(new Date(this.date))/1000)
 
     this.keywords()
     this.M_L()
@@ -205,7 +219,6 @@ export default {
           this.$store.commit("addToShopCar",goodsinfos);
           this.carData.forEach(item=>{
             goodsinfos.quantity = item.quantity
-            // console.log(item)
           })
         })
   },

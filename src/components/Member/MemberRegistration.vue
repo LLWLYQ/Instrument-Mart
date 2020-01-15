@@ -190,7 +190,7 @@ export default {
           mobile:this.ruleForm2.tel
         }
       }).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
       })
     },
     //登录成功传参
@@ -220,11 +220,14 @@ export default {
         }
       })
     }
+  },
+  created(){
+    // window.location.reload();
   }
 };
 </script>
 
-<style scoped >
+<style scoped>
 .loading-wrapper {
   position: fixed;
   top: 0;
@@ -253,11 +256,14 @@ export default {
 }
 #register {
   width: 340px;
-  margin: 60px auto;
+  /* margin: 60px auto; */
+  position: absolute;
+  top: 150px;
+  right: 250px;
   background: #fff;
   padding: 20px 40px;
   border-radius: 10px;
-  position: relative;
+  /* position: relative; */
   z-index: 9;
   border:1px solid #222;
 }

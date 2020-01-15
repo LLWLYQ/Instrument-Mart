@@ -2,7 +2,7 @@
   <div class="Alternate">
     <div class="content_container">
       <div class="righttop">
-        <a class="rule"  @click="showpopup">DDDDDDDDDDDDDD</a>
+        <a class="rule"  @click="showpopup"></a>
       </div>
         <div v-show="popup" >
               <!--这里是要展示的内容层-->

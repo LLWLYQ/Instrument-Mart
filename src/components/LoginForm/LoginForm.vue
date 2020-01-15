@@ -40,7 +40,7 @@ export default {
     return {
         username: '',
         password: '',
-        LF:false
+        LF:false,
     };
   },
   created() {
@@ -76,7 +76,10 @@ export default {
 
           }).then(res => {
             console.log(res)
-           localStorage.setItem("userId",res.data.data.member_id)
+            localStorage.setItem("userId",res.data.data.member_id)
+            localStorage.setItem("userName",res.data.data.account)
+            localStorage.setItem("userToken",res.data.data.member_token)
+            localStorage.setItem("userTime",res.data.data.expire_time)
             if(res.data.status == 'success'){
                this.$emit('closeLogin',this.LF)
                window.location.reload();

@@ -12,7 +12,7 @@
       </div>
       <div class="cart_null" v-if="carData == ''">
         <img src="../../assets/imges/cart.png" style="width:300px;height:200px;">
-        <p><span>去逛逛</span></p>
+        <!-- <span><span>去逛逛</span></p> -->
       </div>
       <div class="mine" ref="mine"  v-if="kong">
         <ul class="cartLsit" v-for="(CD,index) in carData" :key="index" >

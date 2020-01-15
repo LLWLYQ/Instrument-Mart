@@ -25,6 +25,9 @@ export default {
       // }
 
   },
+  created(){
+    
+  },
   components: {
     'app-header':Header,
     // 'app-footer':Footer,

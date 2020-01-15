@@ -77,11 +77,16 @@ export default {
             },
 
           }).then(res => {
-           localStorage.setItem("userId",res.data.data.member_id)
+            console.log(res)
+            localStorage.setItem("userId",res.data.data.member_id)
+            localStorage.setItem("userName",res.data.data.account)
+            localStorage.setItem("userToken",res.data.data.member_token)
+            localStorage.setItem("userTime",res.data.data.expire_time)
             if(res.data.status == 'success'){
                 this.$router.push({
-                  path:'/AllOrder',
+                  path:'/',
                 })
+                window.location.reload();
               }
             })
         // .catch(error => {
@@ -93,8 +98,10 @@ export default {
   }
 }
 </script>
-<style lang="scss" scope>
+
+<style lang="scss" scoped>
 @import "../../style/base.css";
+// color: #D64848;
   .logo{
     width: 1440px;
     margin: 50px auto 0 auto;
