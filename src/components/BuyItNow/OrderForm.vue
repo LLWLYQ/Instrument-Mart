@@ -77,7 +77,7 @@ export default {
   methods: {
     Addr(Addr){
      let w =  Addr
-     console.log(w)
+    //  console.log(w)
     },
   submitOrder(){
       this.$ajax({
@@ -91,7 +91,7 @@ export default {
           goods:this.DataList
         }
       }).then(res=>{
-        console.log(res.data.data.order_id)
+        // console.log(res.data.data.order_id)
         if( res.data.code ==20000 ){
           this.$router.push({
             path:'/TuningUpThePayment',
@@ -129,7 +129,7 @@ export default {
           goods.product_id = item.get_goods.goods_id
           goods.name = item.get_goods.goods_name
           goods.price = item.get_goods.sales_price
-          goods.shop_id = item.get_goods.goods_shop_id
+          goods.shop_id = item.get_goods.goods_shop_id;
           result.push(goods)
         })
         this.DataList =  result

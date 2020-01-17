@@ -222,6 +222,7 @@ export default {
     }
   },
   created(){
+    //如果在这里加刷新页面页面将会一直刷新
     // window.location.reload();
   }
 };

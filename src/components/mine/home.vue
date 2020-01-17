@@ -196,7 +196,7 @@ export default {
         }
       },
   created(){
-    console.log(Date.parse(new Date(this.date))/1000)
+    // console.log(Date.parse(new Date(this.date))/1000)
 
     this.keywords()
     this.M_L()
@@ -259,20 +259,20 @@ export default {
     },
     selected(name,index){
       this.iscur = index
-      this.active = name;
+      this.active = index;
       let WS = $(window).scrollTop();
-      if(this.active == '电子测量仪器'){
+      if(this.active == 0){
         $("body,html").animate({scrollTop:$('.List').offset().top-30},100)
-      }else if(this.active == '电力电工仪表'){
+      }else if(this.active == 1){
         $("body,html").animate({scrollTop:$('.mine').offset().top-30},100)
       }
-      else if(this.active == '电力电工仪表'){
+      else if(this.active == 2){
         $("body,html").animate({scrollTop:2000},100)
       }
-      else if(this.active == '工业自动化仪表与控制系统'){
+      else if(this.active == 3){
         $("body,html").animate({scrollTop:2000},100)
       }
-      else if(this.active == '顶部'){
+      else if(this.active == 4){
         $("body,html").animate({scrollTop:0},100)
         // $("body,html").animate({scrollTop:0},200)
       }

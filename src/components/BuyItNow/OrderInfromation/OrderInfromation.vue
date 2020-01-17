@@ -47,7 +47,7 @@ export default {
            id:Gid
          }
        }).then(res=>{
-         console.log(res)
+        //  console.log(res)
        })
      },
      order(){

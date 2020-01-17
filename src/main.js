@@ -42,6 +42,13 @@ Vue.use(ElementUI)
 // import 'amfe-flexible'
 // import 'lib-flexible/flexible.js'
 
+//设置全局路由
+// router.beforeEach((to, from, next) => {
+//   if(localStorage.getItem('userToken')){
+//     console.log(localStorage.getItem('userToken'))
+//   }
+// })
+
 //修改头部title的名称
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

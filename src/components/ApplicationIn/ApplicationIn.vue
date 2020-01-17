@@ -232,7 +232,7 @@ export default {
         });
       },
       handleRemove(file) {
-        console.log(file);
+        // console.log(file);
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
@@ -240,7 +240,7 @@ export default {
         this.NumberBctih = this.ContDisbel
       },
       handleDownload(file) {
-        console.log(file);
+        // console.log(file);
       }
   },
   components:{

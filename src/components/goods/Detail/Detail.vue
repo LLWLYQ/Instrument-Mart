@@ -127,6 +127,7 @@ import quantity from './Quantity/quantity';
 import {mapGetters} from 'vuex'
 import config from '../../../config/config'
 export default {
+
   data () {
     return {
       baseUrl:config.baseUrl,
@@ -152,6 +153,7 @@ export default {
     'count'
   ]),
   methods: {
+
     closeLF(){
       this.LF = false
     },
@@ -176,7 +178,7 @@ export default {
               title: '加入购物车成功',
               message: '商品已成功加入购物侧，欢迎选购其他商品',
               type: 'success',
-              customClass:'Notification'
+              customClass:'Notification',
             });
         }
       })
@@ -205,6 +207,7 @@ export default {
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
       // this.DiscountPrice =  this.Infos.market_price
+
     })
   },
   components:{

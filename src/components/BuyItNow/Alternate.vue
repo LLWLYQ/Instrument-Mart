@@ -162,7 +162,7 @@ data () {
       }
      },
      handleprovince(){
-        console.log(this.province)
+        // console.log(this.province)
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',

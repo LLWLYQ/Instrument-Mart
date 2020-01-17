@@ -32,7 +32,7 @@ export default {
       search(){
         window.open("https://www.baidu.com/s?wd="+this.wd);
         let Search = localStorage.get('GSC_CODE')
-        console.log(Search)
+        // console.log(Search)
         // new Search = Object
         // Search = {name,list,btn}
         // this.name ={Search,sousuo,oregin}
@@ -66,7 +66,7 @@ export default {
 				    window.open("https://www.baidu.com/s?wd="+this.wd);
 				}else if(event.target.innerText!=undefined){
           this.wd=event.target.innerText;
-				    window.open("https://www.baidu.com/s?wd="+this.wd);
+            window.open("https://www.baidu.com/s?wd="+this.wd);
 				}
 			},
 			//监听键盘的事件

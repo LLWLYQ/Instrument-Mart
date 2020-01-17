@@ -520,6 +520,7 @@ export default {
           }
         }).then(res=>{
           this.options1 = res.data.data
+          console.log('NanDaoWozhonglemozou')
         })
       },
       //区级接口
