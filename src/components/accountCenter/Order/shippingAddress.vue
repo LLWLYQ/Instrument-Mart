@@ -1,13 +1,13 @@
 <template>
-  <div class="Payment">
+  <div class="shippingAddress">
     <div class="OrderChild">
-      <h1>收款情况</h1>
-      <h1>代付款</h1>
+      <AddressCOPY></AddressCOPY>
     </div>
   </div>
 </template>
 
 <script>
+import AddressCOPY from '../../BuyItNow/Address/AddressCOPY'
 export default {
   data () {
     return {
@@ -16,7 +16,10 @@ export default {
   },
   methods: {
 
-  }
+  },
+   components:{
+    AddressCOPY
+  },
 }
 </script>
 

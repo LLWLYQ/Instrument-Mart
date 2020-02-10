@@ -165,7 +165,8 @@ export default {
           official_website:'',
           dialogImageUrl: '',
           dialogVisible: false,
-          disabled: false
+          disabled: false,
+          musice:'xiangguoliKIaYizheZHongFangShiCUnZai'
         },
         rules: {
           name: [

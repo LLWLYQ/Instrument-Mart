@@ -59,7 +59,8 @@ export default {
       price:0,
       name:'',
       quantity:0,
-      kong:true
+      kong:true,
+      // Name:'_hjid_HeJieNiZhenTaMaDeShiYiGeDaZhaNvCaoNiMaDeWoZaiNiS'
     }
   },
   methods: {
@@ -95,15 +96,17 @@ export default {
             this.carData = res.data.data.items.data
             this.carData.forEach(item=>{
               this.totalPrice += item.quantity*item.get_goods.sales_price
+              // this.MusicName = 'xiangguolikaiyizhezhongfangshicunzaishi'
             })
           })
         }
       })
     },
     removeGoods(CD,index){
-      this.$confirm('主人你真的不要我了么,真的真的么?', '提示', {
+      this.$confirm('主人你真的不要我了么,真的真的么?', '', {
           cancelButtonText: '取消',
           confirmButtonText: '确定',
+          center:true
         }).then(() => {
           this.$ajax({
             url:config.baseUrl + '/home/cart/del',
@@ -147,7 +150,6 @@ export default {
               }
         })
       })
-
   },
   computed:{
     count (){
@@ -164,6 +166,9 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common' ;
+  // .cart{
+  //   overflow-x: hidden;
+  // }
   .TopImg{
     overflow: hidden;
     margin-bottom: 20px;

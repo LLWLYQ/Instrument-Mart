@@ -5,7 +5,7 @@
         <div class="user-info">
           <div class="head_portrait">
             <img src="../../assets/imges/sp_2.jpg" alt="">
-            <p>15277748256</p>
+            <p>{{userName}}</p>
             <div class="admin">
             </div>
           </div>
@@ -42,7 +42,7 @@
              <el-submenu index="1">
                 <span>我的账户</span>
                 <el-menu-item index="/AllOrder" >账户信息</el-menu-item>
-                <el-menu-item index="/Payment">收货地址</el-menu-item>
+                <el-menu-item index="/shippingAddress">收货地址</el-menu-item>
                 <el-menu-item index="/ToSendTheGoods">优惠券</el-menu-item>
             </el-submenu>
             </el-menu>
@@ -62,6 +62,7 @@ export default {
   data () {
       return {
         openeds:["1"],
+        userName:localStorage.getItem('userName')
       }
     },
   methods: {
@@ -98,9 +99,9 @@ export default {
       width: 200px;
       height: 2000px;
       .user-info{
-        margin-top: 20px;
-        width: 200px;
-        height: 200px;
+        margin-top: 50px;
+        width: 150px;
+        height: 150px;
         .head_portrait{
           width: 200px;
           height: 100px;

@@ -28,9 +28,9 @@ height:100%;
 .OrderChild{
   width: 1000px;
   height: 2000px;
-  background-color: yellow;
+  /* background-color: yellow; */
   position: absolute;
-  top:-200px;
+  top:-150px;
   left: 200px;
 }
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/

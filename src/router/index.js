@@ -9,6 +9,7 @@ import Detail from '@/components/goods/Detail/Detail'
 import Center from '@/components/accountCenter/Center'
 import AllOrder from '@/components/accountCenter/Order/AllOrder' //所有订单
 import Payment from '@/components/accountCenter/Order/Payment'  //代付款
+import shippingAddress from '@/components/accountCenter/Order/shippingAddress'
 import ToSendTheGoods from '@/components/accountCenter/Order/ToSendTheGoods'
 import Shipped from '@/components/accountCenter/Order/Shipped' //待发货
 import Distribution from '@/components/accountCenter/Order/Distribution' //配送完成
@@ -16,6 +17,7 @@ import Evaluation from '@/components/accountCenter/Order/Evaluation'  //购物�
 import Brands from '@/components/accountCenter/Collecting/Brands' //所有品牌
 import OrderForm from '@/components/BuyItNow/OrderForm' //提交订单
 import Address from '@/components/BuyItNow/Address/Address'//收货地址
+import AddressCOPY from '@/components/BuyItNow/Address/AddressCOPY'//收货地址_copy
 import OrderInfromation from '@/components/BuyItNow/OrderInfromation/OrderInfromation'; //购物购物清单
 import MemberRegistration from '@/components/Member/MemberRegistration' //会员注册
 import cart from '@/components/ShoppingTrolley/cart' //购物车
@@ -102,6 +104,14 @@ export default new Router({
           //代付款
         },
         {
+          path:'/shippingAddress',
+          name:'shippingAddress',
+          component:shippingAddress,
+          meta:{
+          }
+          //收货地址
+        },
+        {
           path:'/ToSendTheGoods',
           name:'ToSendTheGoods',
           component:ToSendTheGoods,
@@ -157,6 +167,14 @@ export default new Router({
       meta:{
       }
       //收货地址
+    },
+    {
+      path:'/AddressCOPY',
+      name:'AddressCOPY',
+      component:AddressCOPY,
+      meta:{
+      }
+      //收货地址_copy
     },
     {
       path:'/OrderInfromation',
