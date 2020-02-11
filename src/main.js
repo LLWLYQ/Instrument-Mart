@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import date from './assets/DATE/date'//引入登录成功获取的当前时间戳
 
 
 Vue.config.productionTip = false
@@ -66,6 +67,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  date,
   components: { App },
   template: '<App/>'
 })

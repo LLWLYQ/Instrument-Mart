@@ -40,9 +40,12 @@ export default {
     };
   },
   created() {
+    this.$emit('public_header', false);
+    this.$emit('public_footer', false);
     let that = this;
     document.onkeypress = function(e) {
       var keycode = document.all ? event.keyCode : e.which;
+      // var thisdkeyvalue = document.temt ? $ever.keyCode.d : e.wathck
       if (keycode == 13) {
         that.login();// 登录方法名
          return false;
@@ -83,6 +86,7 @@ export default {
             localStorage.setItem("userToken",res.data.data.member_token)
             localStorage.setItem("userTime",res.data.data.expire_time)
             if(res.data.status == 'success'){
+                localStorage.setItem("lastTime",new Date().getTime());
                 this.$router.push({
                   path:'/',
                 })
@@ -104,7 +108,7 @@ export default {
 // color: #D64848;
   .logo{
     width: 1440px;
-    margin: 50px auto 0 auto;
+    margin: 0px auto ;
     height: 36px;
     padding: 20px 0 70px;
     img{
@@ -193,7 +197,7 @@ export default {
                 margin-left:25px;
             }
           .diudiu{
-            position: absolute0;
+            position: absolute;
             top:5%;
             left:5%;
           }

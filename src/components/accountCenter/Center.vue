@@ -55,7 +55,7 @@
   </div>
 </template>
 <script>
-import {AllOrder, Payment, ToSendTheGoods, Shipped, Distribution, Evaluation} from './Order'
+import {AllOrder, Payment, ToSendTheGoods, Shipped, Distribution, Evaluation} from './Order' //yinruindex.js wenjian yiciiyinruduoge zizujian
 import {Account_Information, Coupon, ShippingAddress} from './Account'
 import Brands from './Collecting/Brands'
 export default {

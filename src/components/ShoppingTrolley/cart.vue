@@ -1,42 +1,47 @@
 <template>
   <div class="cart">
     <div class="content_container">
-      <div class="TopImg">
-        <img src="../../assets/imges/logo.png" alt="">
-        <h1>购物车</h1>
-      </div>
-      <div class="top">
-        <p>
-          <span>全部商品(商品数量)</span>
-        </p>
-      </div>
-      <div class="cart_null" v-if="carData == ''">
-        <img src="../../assets/imges/cart.png" style="width:300px;height:200px;">
-        <!-- <span><span>去逛逛</span></p> -->
-      </div>
-      <div class="mine" ref="mine"  v-if="kong">
-        <ul class="cartLsit" v-for="(CD,index) in carData" :key="index" >
-          <li>
-            <img :src="baseUrl+CD.img" alt="">
-            <p>{{CD.name}}</p>
-            <p>
-              <!-- <del><span style="color:#9c9c9c;">￥{{cd.DiscountPrice}}</span></del> -->
-              <span>￥{{CD.get_goods.sales_price}}</span>
-            </p>
-            <el-input-number v-model="CD.quantity"  :min="1" :max="99" @change="handelChange(CD)"></el-input-number>
-            <p><span style="color:#f40;">￥{{CD.quantity*CD.get_goods.sales_price}}</span></p>
-            <!-- <p>{{cd.quantity}}</p> -->
-            <span @click="removeGoods(CD,index)" class="last">删除商品</span>
-          </li>
-        </ul>
-        <p>
-          <span v-if="kong">总价</span>
-          <span>￥{{(totalPrice)}}</span>
-        </p>
-        <p>
-          <span class="To_settle_accounts" @click="ToSettleAccounts()" v-if="kong">去结算</span>
-          <router-link to="/OrderForm"></router-link>
-        </p>
+      <div class="mine">
+        <div class="TopImg">
+          <img src="../../assets/imges/logo.png" alt="">
+          <h1>购物车</h1>
+        </div>
+        <div class="top">
+          <p>
+            <span>全部商品(商品数量)</span>
+          </p>
+        </div>
+        <div class="cart_null" v-if="carData == ''">
+          <img src="../../assets/imges/cart.png" style="width:300px;height:200px;">
+          <!-- <span><span>去逛逛</span></p> -->
+        </div>
+        <div class="mine" ref="mine"  v-if="kong">
+          <ul class="cartLsit" v-for="(CD,index) in carData" :key="index" >
+            <li>
+              <img :src="baseUrl+CD.img" alt="">
+              <p>{{CD.name}}</p>
+              <p>
+                <!-- <del><span style="color:#9c9c9c;">￥{{cd.DiscountPrice}}</span></del> -->
+                <span>￥{{CD.get_goods.sales_price}}</span>
+              </p>
+              <el-input-number v-model="CD.quantity"  :min="1" :max="99" @change="handelChange(CD)"></el-input-number>
+              <p><span style="color:#f40;">￥{{CD.quantity*CD.get_goods.sales_price}}</span></p>
+              <!-- <p>{{cd.quantity}}</p> -->
+              <span @click="removeGoods(CD,index)" class="last">删除商品</span>
+            </li>
+          </ul>
+          <p>
+            <span v-if="kong">总价</span>
+            <span>￥{{(totalPrice)}}</span>
+          </p>
+          <p>
+            <span class="To_settle_accounts" @click="ToSettleAccounts()" v-if="kong">去结算</span>
+            <router-link to="/OrderForm"></router-link>
+          </p>
+        </div>
+        <div class="hot-selling">
+
+        </div>
       </div>
     </div>
   </div>
@@ -129,7 +134,6 @@ export default {
     },
   },
   created(){
-
       // this.carData = this.$store.state.car
       // console.log(this.carData)
       this.$ajax({
@@ -166,9 +170,11 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common' ;
-  // .cart{
-  //   overflow-x: hidden;
-  // }
+  .hot-selling{
+    margin-top: 20px;
+    height: 450px;
+    background-color: yellow;
+  }
   .TopImg{
     overflow: hidden;
     margin-bottom: 20px;

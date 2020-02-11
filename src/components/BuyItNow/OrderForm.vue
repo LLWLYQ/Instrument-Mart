@@ -238,8 +238,9 @@ export default {
       }
     }
     .OrderFrom{
-    float: right;
-    margin-bottom: 50px;
+    // float: right;
+    margin-left: 1090px;
+    margin-bottom: 100px;
     ul{
       width: 350px;
       height: 160px;

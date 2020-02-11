@@ -27,6 +27,7 @@ import Alternate from '@/components/BuyItNow/Alternate' //支付页面
 import TuningUpThePayment from '@/components/BuyItNow/OrderInfromation/TuningUpThePayment' //支付页面
 import LoginForm from '@/components/LoginForm/LoginForm' //登录窗口
 import Header from '@/components/Header/Header'//头部
+import Foot from '@/components/Foot/Foot'//底部
 
 
 Vue.use(Router)
@@ -243,6 +244,14 @@ export default new Router({
       path:'/Header',
       name:'Header',
       component:Header,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Foot',
+      name:'Foot',
+      component:Foot,
       meta:{
         title:''
       }

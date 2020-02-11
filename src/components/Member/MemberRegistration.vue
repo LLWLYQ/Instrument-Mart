@@ -222,6 +222,8 @@ export default {
     }
   },
   created(){
+    this.$emit('public_header', false);
+    this.$emit('public_footer', false);
     //如果在这里加刷新页面页面将会一直刷新
     // window.location.reload();
   }
