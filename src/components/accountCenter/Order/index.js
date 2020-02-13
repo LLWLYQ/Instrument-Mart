@@ -1,6 +1,16 @@
-export{default as AllOrder} from './AllOrder.vue'
-export{default as Distribution} from './Distribution.vue'
-export{default as Evaluation} from './Evaluation.vue'
-export{default as Payment} from './Payment.vue'
-export{default as Shipped} from './Shipped.vue'
-export{default as ToSendTheGoods} from './ToSendTheGoods.vue'
+export{default as Account_setting} from './Account_setting.vue'
+export{default as Have_to_buy_goods} from './Have_to_buy_goods.vue'
+export{default as My_need} from './My_need.vue'
+export{default as Enquiry} from './Enquiry.vue'
+export{default as Shipping_address} from './Shipping_address.vue'
+export{default as Discount_coupon} from './Discount_coupon.vue'
+
+export{default as Favorite} from './Favorite.vue'
+export{default as Integral} from './Integral.vue'
+export{default as Sales_returns} from './Sales_returns.vue'
+export{default as Complaint} from './Complaint.vue'
+export{default as Invoice} from './Invoice.vue'
+
+
+
+

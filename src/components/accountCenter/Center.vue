@@ -2,14 +2,14 @@
   <div class="Center">
     <div class="content_container">
       <div class="Center_left">
-        <div class="user-info">
+        <!-- <div class="user-info">
           <div class="head_portrait">
             <img src="../../assets/imges/sp_2.jpg" alt="">
             <p>{{userName}}</p>
             <div class="admin">
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="order">
           <el-row class="tac">
             <el-col :span="12">
@@ -21,30 +21,38 @@
                 @close="handleClose"
                 :router="true">
             <el-submenu index="1">
-                <span>我的订单</span>
-                <el-menu-item index="/AllOrder" >代付款</el-menu-item>
-                <el-menu-item index="/Payment">待发货</el-menu-item>
-                <el-menu-item index="/ToSendTheGoods">已发货</el-menu-item>
-                <el-menu-item index="/Shipped">配送完成</el-menu-item>
+                <span>会员中心</span>
+                <el-menu-item index="/Center_home_page" >中心首页</el-menu-item>
+                <el-menu-item index="/Account_setting" >账户设置</el-menu-item>
+                <el-menu-item index="/Have_to_buy_goods">已买商品</el-menu-item>
+                <el-menu-item index="/My_need">我的需求</el-menu-item>
+                <el-menu-item index="/Enquiry">我要询价</el-menu-item>
+                <el-menu-item index="/Shipping_address" >收货地址</el-menu-item>
+                <el-menu-item index="/Discount_coupon" >优惠券</el-menu-item>
+                <el-menu-item index="/Favorite" >我的收藏</el-menu-item>
+                <el-menu-item index="/Integral" >我的积分</el-menu-item>
+                <el-menu-item index="/Sales_returns" >退换货管理</el-menu-item>
+                <el-menu-item index="/Complaint" >投诉管理</el-menu-item>
+                <el-menu-item index="/Invoice" >发票设置</el-menu-item>
             </el-submenu>
             <!-- 我的收藏 -->
-             <el-submenu index="1">
-                <span>我的收藏</span>
-                <el-menu-item index="/AllOrder" >所有品牌</el-menu-item>
-            </el-submenu>
+             <!-- <el-submenu index="1">
+                <span>账户设置</span>
+                <el-menu-item index="/AllOrder" >收藏商品</el-menu-item>
+            </el-submenu> -->
             <!-- 退货记录 -->
              <!-- 我的收藏 -->
-             <el-submenu index="1">
-                <span>我的售后</span>
+             <!-- <el-submenu index="1">
+                <span>收货地址</span>
                 <el-menu-item index="/AllOrder" >退货记录</el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
             <!-- 我的账户 -->
-             <el-submenu index="1">
-                <span>我的账户</span>
+             <!-- <el-submenu index="1">
+                <span>发票设置</span>
                 <el-menu-item index="/AllOrder" >账户信息</el-menu-item>
                 <el-menu-item index="/shippingAddress">收货地址</el-menu-item>
-                <el-menu-item index="/ToSendTheGoods">优惠券</el-menu-item>
-            </el-submenu>
+                <el-menu-item index="/ToSendTheGoods">发票信息</el-menu-item>
+            </el-submenu> -->
             </el-menu>
             </el-col>
             <router-view></router-view>
@@ -55,9 +63,9 @@
   </div>
 </template>
 <script>
-import {AllOrder, Payment, ToSendTheGoods, Shipped, Distribution, Evaluation} from './Order' //yinruindex.js wenjian yiciiyinruduoge zizujian
+import {Account_setting, Have_to_buy_goods, My_need, Enquiry, Shipping_address, Discount_coupon, Favorite, Integral, Sales_returns, Complaint, Invoice, Center_home_page} from './Order' //yinruindex.js wenjian yiciiyinruduoge zizujian
 import {Account_Information, Coupon, ShippingAddress} from './Account'
-import Brands from './Collecting/Brands'
+// import Brands from './Collecting/Brands'
 export default {
   data () {
       return {
@@ -93,11 +101,12 @@ export default {
       background-color: #222;
       color:#fff;
     }
-    height: 2000px;
+    height: 1800px;
     .Center_left{
       float: left;
       width: 200px;
-      height: 2000px;
+      height: 1000px;
+      margin-top: 80px;
       .user-info{
         margin-top: 50px;
         width: 150px;
@@ -200,5 +209,14 @@ export default {
     }
    .el-menu-item{
       padding-left:10px !important;
+    }
+    .el-menu-item:hover{
+       background-color:#fff !important;
+    }
+    .el-menu-item.is-active {
+      background-color:#fff !important;
+    }
+    .el-submenu .el-menu-item{
+      min-width: 0px !important;
     }
 </style>

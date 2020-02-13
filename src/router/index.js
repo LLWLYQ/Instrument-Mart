@@ -7,14 +7,19 @@ import sign_in from '@/components/User/sign_in'
 import List from '@/components/goods/List/List'
 import Detail from '@/components/goods/Detail/Detail'
 import Center from '@/components/accountCenter/Center'
-import AllOrder from '@/components/accountCenter/Order/AllOrder' //所有订单
-import Payment from '@/components/accountCenter/Order/Payment'  //代付款
-import shippingAddress from '@/components/accountCenter/Order/shippingAddress'
-import ToSendTheGoods from '@/components/accountCenter/Order/ToSendTheGoods'
-import Shipped from '@/components/accountCenter/Order/Shipped' //待发货
-import Distribution from '@/components/accountCenter/Order/Distribution' //配送完成
-import Evaluation from '@/components/accountCenter/Order/Evaluation'  //购物评价s
-import Brands from '@/components/accountCenter/Collecting/Brands' //所有品牌
+import Account_setting from '@/components/accountCenter/Order/Account_setting' //账户设置
+import Have_to_buy_goods from '@/components/accountCenter/Order/Have_to_buy_goods'  //已买商品
+import My_need from '@/components/accountCenter/Order/My_need' //我的需求
+import Enquiry from '@/components/accountCenter/Order/Enquiry'//我要询价
+import Shipping_address from '@/components/accountCenter/Order/Shipping_address' //收货地址
+import Discount_coupon from '@/components/accountCenter/Order/Discount_coupon' //优惠券
+import Favorite from '@/components/accountCenter/Order/Favorite'  //我的收藏
+import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
+import Sales_returns from '@/components/accountCenter/Order/Sales_returns'  //退换货管理
+import Complaint from '@/components/accountCenter/Order/Complaint'  //投诉管理
+import Invoice from '@/components/accountCenter/Order/Invoice'  //发票设置
+import Center_home_page from '@/components/accountCenter/Order/Center_home_page'
+
 import OrderForm from '@/components/BuyItNow/OrderForm' //提交订单
 import Address from '@/components/BuyItNow/Address/Address'//收货地址
 import AddressCOPY from '@/components/BuyItNow/Address/AddressCOPY'//收货地址_copy
@@ -89,70 +94,92 @@ export default new Router({
       },
       children:[
         {
-          path:'/AllOrder',
-          name: 'AllOrder',
-          component: AllOrder,
+          path:'/Account_setting',
+          name: 'Account_setting',
+          component: Account_setting,
           meta: {
           }
-        //所有订单
         },
         {
-          path:'/Payment',
-          name:'Payment',
-          component:Payment,
+          path:'/Have_to_buy_goods',
+          name:'Have_to_buy_goods',
+          component:Have_to_buy_goods,
           meta:{
           }
-          //代付款
         },
         {
-          path:'/shippingAddress',
-          name:'shippingAddress',
-          component:shippingAddress,
+          path:'/My_need',
+          name:'My_need',
+          component:My_need,
           meta:{
           }
-          //收货地址
         },
         {
-          path:'/ToSendTheGoods',
-          name:'ToSendTheGoods',
-          component:ToSendTheGoods,
+          path:'/Enquiry',
+          name:'Enquiry',
+          component:Enquiry,
           meta:{
           }
-          //待发货
         },
         {
-          path:'/Shipped',
-          name:'Shipped',
-          component:Shipped,
+          path:'/Shipping_address',
+          name:'Shipping_address',
+          component:Shipping_address,
           meta:{
           }
-          //已发货
         },
         {
-          path:'/Distribution',
-          name:'Distribution',
-          component:Distribution,
+          path:'/Discount_coupon',
+          name:'Discount_coupon',
+          component:Discount_coupon,
           meta:{
           }
-          //配送完成
         },
         {
-          path:'/Evaluation',
-          name:'Evaluation',
-          component:Evaluation,
+          path:'/Favorite',
+          name:'Favorite',
+          component:Favorite,
           meta:{
           }
-          //购物评价
+        },
+        {
+          path:'/Integral',
+          name:'Integral',
+          component:Integral,
+          meta:{
+          }
+        },
+        {
+          path:'/Sales_returns',
+          name:'Sales_returns',
+          component:Sales_returns,
+          meta:{
+          }
+        },
+        {
+          path:'/Complaint',
+          name:'Complaint',
+          component:Complaint,
+          meta:{
+          }
+        },
+        {
+          path:'/Invoice',
+          name:'Invoice',
+          component:Invoice,
+          meta:{
+          }
+        },
+        {
+          path:'/Center_home_page',
+          name:'Center_home_page',
+          component:Center_home_page,
+          meta:{
+          }
         }
       ]
     },
-    {
-      path:'/Brands',
-      name:'Brands',
-      component:Brands,
-      meta:{
-      }
-    },
+
     {
       path:'/OrderForm',
       name:'OrderForm',
