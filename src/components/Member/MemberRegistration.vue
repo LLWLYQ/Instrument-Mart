@@ -2,35 +2,75 @@
   <div>
     <div class="register-wrapper">
       <div id="register">
-        <p class="title"><img src="../../assets/imges/B_l.png" alt="" class="Pimg"></p>
-        <el-form
-          :model="ruleForm2"
-          :rules="rules2"
-          ref="ruleForm2"
-          label-width="0"
-          class="demo-ruleForm"
-        >
-          <el-form-item prop="name">
-            <el-input v-model="ruleForm2.name" auto-complete="off" placeholder="请输入用户名"></el-input>
-          </el-form-item>
-          <el-form-item prop="tel">
-            <el-input v-model="ruleForm2.tel" auto-complete="off" placeholder="请输入手机号"></el-input>
-          </el-form-item>
-          <el-form-item prop="smscode" class="code">
-            <el-input v-model="ruleForm2.smscode" placeholder="验证码"></el-input>
-            <el-button type="primary" :disabled='isDisabled' @click="sendCode" style="background:#e94c15;border-color:#e94c15;">{{buttonText}}</el-button>
-          </el-form-item>
-          <el-form-item prop="pass">
-            <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="输入密码"></el-input>
-          </el-form-item>
-          <el-form-item prop="checkPass">
-            <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;">注册</el-button>
-            <p class="login" @click="gotoLogin">已有账号？立即登录</p>
-          </el-form-item>
-        </el-form>
+        <!-- <p class="title"><img src="../../assets/imges/B_l.png" alt="" class="Pimg"></p> -->
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="个人注册" name="second">
+             <el-form
+              :model="ruleForm1"
+              :rules="rules1"
+              ref="ruleForm1"
+              label-width="0"
+              class="demo-ruleForm"
+            >
+              <el-form-item prop="name">
+                <el-input v-model="ruleForm1.name" auto-complete="off" placeholder="请输入用户名"></el-input>
+              </el-form-item>
+              <el-form-item prop="tel">
+                <el-input v-model="ruleForm1.tel" auto-complete="off" placeholder="请输入手机号"></el-input>
+              </el-form-item>
+              <el-form-item prop="smscode" class="code">
+                <el-input v-model="ruleForm1.smscode" placeholder="验证码"></el-input>
+                <el-button type="primary" :disabled='isDisabled' @click="sendCode" style="background:#e94c15;border-color:#e94c15;">{{buttonText}}</el-button>
+              </el-form-item>
+              <el-form-item prop="pass">
+                <el-input type="password" v-model="ruleForm1.pass" auto-complete="off" placeholder="输入密码"></el-input>
+              </el-form-item>
+              <el-form-item prop="checkPass">
+                <el-input type="password" v-model="ruleForm1.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="submitForm('ruleForm1')" style="width:100%;background:#e94c15;border-color:#e94c15;">注册</el-button>
+                <p class="login" @click="gotoLogin">已有账号？立即登录</p>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+          <el-tab-pane label="企业注册" name="first">
+            <el-form
+              :model="ruleForm2"
+              :rules="rules2"
+              ref="ruleForm2"
+              label-width="0"
+              class="demo-ruleForm"
+            >
+              <el-form-item prop="name">
+                <el-input v-model="ruleForm2.name" auto-complete="off" placeholder="请输入用户名"></el-input>
+              </el-form-item>
+              <el-form-item prop="tel">
+                <el-input v-model="ruleForm2.tel" auto-complete="off" placeholder="请输入手机号"></el-input>
+              </el-form-item>
+              <el-form-item prop="smscode" class="code">
+                <el-input v-model="ruleForm2.smscode" placeholder="验证码"></el-input>
+                <el-button type="primary" :disabled='isDisabled' @click="En_sendCode" style="background:#e94c15;border-color:#e94c15;">{{buttonText}}</el-button>
+              </el-form-item>
+              <el-form-item prop="pass">
+                <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="输入密码"></el-input>
+              </el-form-item>
+              <el-form-item prop="checkPass">
+                <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
+              </el-form-item>
+              <el-form-item prop="company_name">
+                <el-input v-model="ruleForm2.company_name" auto-complete="off" placeholder="请输入企业名称"></el-input>
+              </el-form-item>
+              <el-form-item prop="company_contacts">
+                <el-input v-model="ruleForm2.company_contacts" auto-complete="off" placeholder="请输入企业联系人"></el-input>
+              </el-form-item>
+               <el-form-item>
+                <el-button type="primary" @click="submitForm1('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;">注册</el-button>
+                <p class="login" @click="gotoLogin">已有账号？立即登录</p>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
       </div>
     </div>
   </div>
@@ -63,9 +103,33 @@ export default {
       } else {
         callback()
       }
+    };
+    let checkcompany_name =( rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入企业名称'))
+      }else {
+        callback()
+      }
+    };
+    let checkcompany_contacts = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入企业联系人'))
+      }else {
+        callback()
+      }
     }
     // <!--验证密码-->
     let validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"))
+      } else {
+        if (this.ruleForm1.checkPass !== "") {
+          this.$refs.ruleForm1.validateField("checkPass");
+        }
+        callback()
+      }
+    };
+      let validatePass1 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"))
       } else {
@@ -79,6 +143,15 @@ export default {
     let validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm1.pass) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+     let validatePass12 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.ruleForm2.pass) {
         callback(new Error("两次输入密码不一致!"));
       } else {
@@ -87,12 +160,29 @@ export default {
     };
     return {
       telCode:'',
+      activeName: 'second',
+       ruleForm1: {
+        name:"",
+        pass: "",
+        checkPass: "",
+        tel: "",
+        smscode: "",
+      },
       ruleForm2: {
         name:"",
         pass: "",
         checkPass: "",
         tel: "",
-        smscode: ""
+        smscode: "",
+        company_name:"",
+        company_contacts:""
+      },
+      rules1: {
+        name:[{ validator: checkname, trigger: 'change' }],
+        pass: [{ validator: validatePass, trigger: 'change' }],
+        checkPass: [{ validator: validatePass2, trigger: 'change' }],
+        tel: [{ validator: checkTel, trigger: 'change' }],
+        smscode: [{ validator: checkSmscode, trigger: 'change' }],
       },
       rules2: {
         name:[{ validator: checkname, trigger: 'change' }],
@@ -100,6 +190,8 @@ export default {
         checkPass: [{ validator: validatePass2, trigger: 'change' }],
         tel: [{ validator: checkTel, trigger: 'change' }],
         smscode: [{ validator: checkSmscode, trigger: 'change' }],
+        company_name: [{ validator: checkcompany_name, trigger: 'change' }],
+        company_contacts: [{ validator: checkcompany_contacts, trigger: 'change' }],
       },
       buttonText: '发送验证码',
       isDisabled: false, // 是否禁止点击发送验证码按钮
@@ -108,10 +200,38 @@ export default {
   },
   methods: {
     // <!--发送验证码-->
+    handleClick(tab, event) {
+        // console.log(tab, event);
+    },
     sendCode () {
-      let tel = this.ruleForm2.tel
+      let tel = this.ruleForm1.tel
       if(tel.length == 11 ){
         this.UserCode()
+      }
+      if (this.checkMobile(tel)) {
+        // console.log(tel)
+        let time = 60
+        this.buttonText = '已发送'
+        this.isDisabled = true
+        if (this.flag) {
+          this.flag = false;
+          let timer = setInterval(() => {
+            time--;
+            this.buttonText = time + ' 秒'
+            if (time === 0) {
+              clearInterval(timer);
+              this.buttonText = '重新获取'
+              this.isDisabled = false
+              this.flag = true;
+            }
+          }, 1000)
+        }
+      }
+    },
+    En_sendCode () {
+      let tel = this.ruleForm2.tel
+      if(tel.length == 11 ){
+        this.En_UserCode()
       }
       if (this.checkMobile(tel)) {
         // console.log(tel)
@@ -148,6 +268,21 @@ export default {
             }
         })
     },
+     // <!--企业提交注册-->
+    submitForm1(formName) {
+        this.Tmpnhbr()
+        this.$refs[formName].validate(valid => {
+            if (valid && this.telCode == '20000') {
+              setTimeout(() => {
+                // alert('注册成功')
+                this.En_UserReg()
+              },200);
+            } else {
+              // console.log("error submit!!")
+              return false;
+            }
+        })
+    },
     // <!--进入登录页-->
     gotoLogin() {
       this.$router.push({
@@ -165,6 +300,23 @@ export default {
     },
     //判断手机号码是否被注册
     Tmpnhbr(){
+      this.$ajax({
+        url:config.baseUrl + '/home/user/find_mobile',
+        method:'post',
+        data:{
+          mobile:this.ruleForm1.tel
+        }
+      }).then(res=>{
+        this.telCode = res.data.code
+        if(res.data.code == '60204'){
+          this.$alert('手机号码已被注册请重新输入', '', {
+            confirmButtonText: '确定',
+            customClass:'telName'
+          });
+        }
+      })
+    },
+    En_Tmpnhbr(){
       this.$ajax({
         url:config.baseUrl + '/home/user/find_mobile',
         method:'post',
@@ -187,6 +339,17 @@ export default {
         url:config.baseUrl + '/home/user/code',
         method:'post',
         data:{
+          mobile:this.ruleForm1.tel
+        }
+      }).then(res=>{
+        // console.log(res.data)
+      })
+    },
+  En_UserCode(){
+      this.$ajax({
+        url:config.baseUrl + '/home/user/code',
+        method:'post',
+        data:{
           mobile:this.ruleForm2.tel
         }
       }).then(res=>{
@@ -199,11 +362,40 @@ export default {
         url:config.baseUrl + '/home/user/reg',
         method:'post',
         data:{
+          username:this.ruleForm1.name,
+          mobile:this.ruleForm1.tel,
+          password:this.ruleForm1.pass,
+          password_two:this.ruleForm1.checkPass,
+          code:this.ruleForm1.smscode
+        }
+      }).then(res=>{
+        if(res.data.code == 20000){
+           this.$alert(res.data.message +'请前往登录页登录', '',{
+              confirmButtonText:'确定',
+              customClass:'GoLoginName',
+              callback: action => {
+                // this.$message({
+                //   type: 'info',
+                //   // message: `action: ${ action }`
+                // });
+              }
+            });
+        }
+      })
+    },
+    En_UserReg(){
+      this.$ajax({
+        url:config.baseUrl + '/home/user/reg',
+        method:'post',
+        data:{
           username:this.ruleForm2.name,
           mobile:this.ruleForm2.tel,
           password:this.ruleForm2.pass,
           password_two:this.ruleForm2.checkPass,
-          code:this.ruleForm2.smscode
+          code:this.ruleForm2.smscode,
+          company_name:this.ruleForm2.company_name,
+          company_contacts:this.ruleForm2.company_contacts
+
         }
       }).then(res=>{
         if(res.data.code == 20000){
