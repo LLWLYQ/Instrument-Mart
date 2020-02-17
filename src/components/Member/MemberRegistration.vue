@@ -186,8 +186,8 @@ export default {
       },
       rules2: {
         name:[{ validator: checkname, trigger: 'change' }],
-        pass: [{ validator: validatePass, trigger: 'change' }],
-        checkPass: [{ validator: validatePass2, trigger: 'change' }],
+        pass: [{ validator: validatePass1, trigger: 'change' }],
+        checkPass: [{ validator: validatePass12, trigger: 'change' }],
         tel: [{ validator: checkTel, trigger: 'change' }],
         smscode: [{ validator: checkSmscode, trigger: 'change' }],
         company_name: [{ validator: checkcompany_name, trigger: 'change' }],

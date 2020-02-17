@@ -65,7 +65,7 @@ export default {
 <style scoped lang="scss">
 @import '../../../src/style/common';
   .foot{
-    margin-top:30px;
+    // margin-top:30px;
     background-color: #e94c15;
     height: 250px;
     width: 100%;

@@ -68,20 +68,22 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common';
+
 .TT{
+  background: #e3e4e5;
   width: 100%;
   height: 30px;
   position: fixed;
   z-index:50;
   top: 0px;
   // overflow: hidden;
-  background-color:#fff
+  // background-color:#fff
 }
 .top{
     margin:0 auto;
     height:30px;
-    background-color:#fff;
-    border-bottom: 2px solid #ccc;
+    background-color:#e3e4e5;
+    border-bottom: 1px solid #ddd;
     width:1440px;
     .top_left{
       width:500px;

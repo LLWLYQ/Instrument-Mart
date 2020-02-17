@@ -33,6 +33,8 @@ import TuningUpThePayment from '@/components/BuyItNow/OrderInfromation/TuningUpT
 import LoginForm from '@/components/LoginForm/LoginForm' //登录窗口
 import Header from '@/components/Header/Header'//头部
 import Foot from '@/components/Foot/Foot'//底部
+import Security_settings from '@/components/Security_settings/Security_settings'//安全设置
+import Enterprise_real_name from  '@/components/Enterprise_real_name/Enterprise_real_name' //企业实名
 
 
 Vue.use(Router)
@@ -279,6 +281,22 @@ export default new Router({
       path:'/Foot',
       name:'Foot',
       component:Foot,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Security_settings',
+      name:'Security_settings',
+      component:Security_settings,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Enterprise_real_name',
+      name:'Enterprise_real_name',
+      component:Enterprise_real_name,
       meta:{
         title:''
       }
