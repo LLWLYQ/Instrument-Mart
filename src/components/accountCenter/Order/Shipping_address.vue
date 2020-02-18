@@ -1,12 +1,13 @@
 <template>
   <div class="Shipping_address">
     <div class="content_container">
-      <h1>收货地址</h1>
+      <AddCopy></AddCopy>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
+import AddressCOPY from '../../BuyItNow/Address/AddressCOPY'
 export default {
   data() {
     return {
@@ -17,11 +18,15 @@ export default {
 
   },
   components: {
-
+    'AddCopy':AddressCOPY
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../../style/common';
+.Shipping_address{
+  margin-left: 120px;
+  margin-top: -20px;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="Address_COPYY" >
     <div class="content_container" @click="addA()">
-      <div class="mine" v-if="panduan" >
+      <div class="mine">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm1" label-width="100px" class="demo-ruleForm" label-position="left" >
           <el-form-item label="收货人" prop="name1">
             <el-input v-model="ruleForm.name1"></el-input>
@@ -45,78 +45,9 @@
             <el-input v-model="ruleForm.Invitation_code"></el-input>
           </el-form-item>
         </el-form>
-        <el-button type="danger" style="margin-left:100px;" @click="Save('ruleForm1')" class="Btn">使用此收货地址</el-button>
+        <el-button type="danger" style="margin-left:100px;" @click="Save('ruleForm1')" class="Btn">保存</el-button>
       </div>
-      <!-- <div>
-        <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
-          <li >
-            <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.zip_code}}</p>
-            <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
-            <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
-          </li>
-        </ul>
-        <div style="width:100%;overflow:hidden;margin: 10px 0 0 20px;">
-          <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
-        </div>
-      </div> -->
-    </div>
-    <div v-show="popup" >
-              <!--这里是要展示的内容层-->
-              <div class="login">
-                <div class="mine">
-                  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left" >
-                    <el-form-item label="收货人" prop="name1">
-                      <el-input v-model="ruleForm.name1"></el-input>
-                    </el-form-item>
-                    <el-form-item label="手机号码" prop="mobileNumber">
-                      <el-input v-model="ruleForm.mobileNumber" />
-                    </el-form-item>
-                    <el-form-item label="地区"  prop="Address" >
-                      <el-select v-model="province" placeholder="请选择" @focus="handleprovince()" style="width:100px;" >
-                        <el-option
-                          v-for="item in options"
-                          :key="item.value"
-                          :label="item.name"
-                          :value="item.id"
-                        >
-                        </el-option>
-                      </el-select>
-                      <el-select v-model="city" placeholder="请选择" @focus="handleCity()" style="width:100px;">
-                        <el-option
-                          v-for="item in options1"
-                          :key="item.value"
-                          :label="item.name"
-                          :value="item.id"
-                        >
-                        </el-option>
-                      </el-select>
-                      <el-select v-model="district" placeholder="请选择" @focus="handleDistrict()" style="width:100px;">
-                        <el-option
-                          v-for="item in options2"
-                          :key="item.value"
-                          :label="item.name"
-                          :value="item.id"
-                        >
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
-                    <el-form-item label="详细地址:" prop="detailed_address">
-                      <el-input v-model="ruleForm.detailed_address"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮政编码:" prop="Invitation_code">
-                      <el-input v-model="ruleForm.Invitation_code"></el-input>
-                    </el-form-item>
-                  </el-form>
-                  <el-button type="danger" style="margin-left:100px;" @click="SaveTwo('ruleForm')" class="Btn">保存</el-button>
-                  <!-- <el-button type="danger" style="margin-left:30px;" @click="Cancel()" class="CloBtn">取消</el-button> -->
-                </div>
-              </div>
-              <!--这里是半透明背景层-->
-              <div class="over"></div>
-      </div>
+      <div>
       <div class="modification_address" v-show="popup1">
           <div class="login">
              <div class="mine">
@@ -169,6 +100,78 @@
             </div>
             <div class="over"></div>
           </div>
+        <!-- <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
+          <li >
+            <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
+            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
+            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
+            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.zip_code}}</p>
+            <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
+            <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
+          </li>
+        </ul>
+        <div style="width:100%;overflow:hidden;margin: 10px 0 0 20px;">
+          <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
+        </div> -->
+        <el-table
+          :data="address"
+          style="width: 100%">
+          <el-table-column
+            label="收货人"
+            width="180">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time"></i> -->
+              <span >{{ scope.row.receiver}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="所在地区"
+            width="180">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time"></i> -->
+              <span >{{ scope.row.address}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="详细地址"
+            width="180">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time"></i> -->
+              <span >{{ scope.row.address}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="邮编"
+            width="180">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time"></i> -->
+              <span >{{ scope.row.zip_code}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="电话/手机"
+            width="180">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time"></i> -->
+              <span >{{ scope.row.tel}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+                style="padding:10px;border:1px solid #666;"
+                size="mini"
+                @click="Modification(scope.$index,scope.row)">修改</el-button>
+              <el-button
+                style="padding:10px;border:1px solid red;background:red;"
+                size="mini"
+                type="danger"
+                @click="delAddress(scope.$index, scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -208,7 +211,7 @@ export default {
         provinceFicName:'',
         cityFicName:'',
         districtFicName:'',
-        address:'',
+        address:[],
         panduan:true,
         district:'',
         cityID:0,
@@ -280,6 +283,12 @@ export default {
       }
   },
   methods: {
+    // handleEdit(index, row) {
+    //     console.log(index, row);
+    //   },
+      // handleDelete(index, row) {
+      //   console.log(index, row);
+      // },
     //会员地址编辑 = 修改收货地址
     ModifSave(formName){
        this.$refs[formName].validate((valid) => {
@@ -311,12 +320,12 @@ export default {
       });
     },
     //修改收货地址
-    Modification(adr,index){
-      this.MfId = adr.id
+    Modification(index,row){
+      this.MfId = row.id
       this.popup1 = 1;
       //地址查看接口
       this.$ajax({
-        url:config.baseUrl + '/home/address/'+ adr.id,
+        url:config.baseUrl + '/home/address/'+ row.id,
         method:'get',
       }).then(res=>{
         let resData = res.data.data
@@ -327,7 +336,7 @@ export default {
         this.ruleFormFic.nameFic = resData.receiver
         this.ruleFormFic.detailed_addressFic = resData.address
         this.ruleFormFic.Invitation_codeFic =  resData.zip_code
-         this.$ajax({
+        this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
           data:{
@@ -336,6 +345,7 @@ export default {
           }
         }).then(res=>{
           this.optionsFic = res.data.data
+
           // console.log(this.optionsFic )
         })
           this.$ajax({
@@ -356,7 +366,7 @@ export default {
                   pid:this.cityFicName
                 }
               }).then(res=>{
-          this.optionsFic2 = res.data.data
+          this.optiosFic2 = res.data.data
         })
       })
     },
@@ -372,10 +382,10 @@ export default {
       this.popup = 1;
     },
     //删除地址
-    delAddress(adr,index){
+    delAddress(index, row){
       // console.log(adr.id)
       this.$ajax({
-        url:config.baseUrl + '/home/address/'+ adr.id,
+        url:config.baseUrl + '/home/address/'+ row.id,
         method:'delete',
       }).then(res=>{
         this.addA();
@@ -386,11 +396,11 @@ export default {
         }
       })
     },
-    tabChange(index,adr){
-      this.iscur = index
-      this.adrID = adr.id
-      // console.log(adr.id)
-    },
+    // tabChange(index,adr){
+    //   this.iscur = index
+    //   this.adrID = adr.id
+    //   // console.log(adr.id)
+    // },
      Save(formName){
           this.$refs[formName].validate((valid) => {
               if (valid) {
@@ -411,52 +421,60 @@ export default {
                     }
                   }).then(res=>{
                     if(res.data.code == 20000){
-                        this.panduan = false
-                        this.addA();
-                        this.popup = 0 ;        }
-                  })
-                } else {
-                  return false;
-                }
-         });
-     },
-     SaveTwo(formName){
-       this.$refs[formName].validate((valid) => {
-              if (valid) {
-                  this.$ajax({
-                    url:config.baseUrl + '/home/address',
-                    method:'post',
-                    data:{
-                      member_id:localStorage.getItem('userId'),//会员ID
-                      receiver:this.ruleForm.name1,//接受者姓名
-                      tel:this.ruleForm.mobileNumber,//电话
-                      province_id:this.province,//省ID
-                      city_id:this.city,//市ID
-                      area_id:this.district,//区ID
-                      street_id:4,//街ID
-                      address:this.ruleForm.detailed_address,//详细地址
-                      zip_code:this.ruleForm.Invitation_code,//邮编
-                      status:1,//是否设置为默认地址
-                    }
-                  }).then(res=>{
-                    if(res.data.code == 20000){
-                        this.panduan = false
+                        // this.panduan = false
                         this.addA();
                         const h = this.$createElement;
                         this.$notify({
-                          title: '保存地址成功',
-                          // message: '商品已成功加入购物侧，欢迎选购其他商品',
-                          type: 'success',
-                          customClass:'Notification',
-                        });
-                        window.location.reload()
-                      }
+                            title: '保存地址成功',
+                            // message: '商品已成功加入购物侧，欢迎选购其他商品',
+                            type: 'success',
+                            customClass:'Dotification',
+                          });
+                        // this.popup = 0 ;
+                        }
                   })
                 } else {
                   return false;
                 }
          });
      },
+    //  SaveTwo(formName){
+    //    this.$refs[formName].validate((valid) => {
+    //           if (valid) {
+    //               this.$ajax({
+    //                 url:config.baseUrl + '/home/address',
+    //                 method:'post',
+    //                 data:{
+    //                   member_id:localStorage.getItem('userId'),//会员ID
+    //                   receiver:this.ruleForm.name1,//接受者姓名
+    //                   tel:this.ruleForm.mobileNumber,//电话
+    //                   province_id:this.province,//省ID
+    //                   city_id:this.city,//市ID
+    //                   area_id:this.district,//区ID
+    //                   street_id:4,//街ID
+    //                   address:this.ruleForm.detailed_address,//详细地址
+    //                   zip_code:this.ruleForm.Invitation_code,//邮编
+    //                   status:1,//是否设置为默认地址
+    //                 }
+    //               }).then(res=>{
+    //                 if(res.data.code == 20000){
+    //                     this.panduan = false
+    //                     this.addA();
+    //                     const h = this.$createElement;
+    //                     this.$notify({
+    //                       title: '保存地址成功',
+    //                       // message: '商品已成功加入购物侧，欢迎选购其他商品',
+    //                       type: 'success',
+    //                       customClass:'Notification',
+    //                     });
+    //                     window.location.reload()
+    //                   }
+    //               })
+    //             } else {
+    //               return false;
+    //             }
+    //      });
+    //  },
      addA(){
          this.$ajax({
               url:config.baseUrl + '/home/address',
@@ -483,25 +501,25 @@ export default {
       //  }
 
      },
-     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // alert('submit!');
-          } else {
-            // console.log('error submit!!')
-            return false;
-          }
-        });
-      },
-      handleRemove(file) {
+    //  submitForm(formName) {
+    //     this.$refs[formName].validate((valid) => {
+    //       if (valid) {
+    //         // alert('submit!');
+    //       } else {
+    //         // console.log('error submit!!')
+    //         return false;
+    //       }
+    //     });
+    //   },
+      // handleRemove(file) {
 
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
-      handleDownload(file) {
-      },
+      // },
+      // handlePictureCardPreview(file) {
+      //   this.dialogImageUrl = file.url;
+      //   this.dialogVisible = true;
+      // },
+      // handleDownload(file) {
+      // },
       //省级接口
       handleprovince(){
         // console.log(this.province)
@@ -592,7 +610,6 @@ export default {
   },
   created(){
     this.addA()
-
   }
 }
 </script>
@@ -743,10 +760,16 @@ ul{
 
 </style>
 <style lang="scss">
-.Notification{
+.el-form-item__content{
+  position: static !important;
+}
+.el-form-item__error{
+    position: static !important;
+  }
+.Dotification{
       position: absolute;
-      left:30%;
-      margin-top:30px;
+      left:45%;
+      margin-top: 200px;
     }
   .distpicker-address-wrapper{
     select{

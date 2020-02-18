@@ -112,6 +112,8 @@
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </p>
+        <p><label>开户行: </label><input type="text" v-model="open"></p>
+        <p><label>银行账号: </label><input type="text" v-model="bank"></p>
         <p><label>联系人姓名: </label><input type="text" v-model="name"></p>
         <p><label>联系方式: </label><input type="text" v-model="tel"></p>
         <p class="save"><span>立即申请</span></p>
@@ -132,7 +134,8 @@ export default {
       disabled: false,
       name:'',
       tel:'',
-      Max: 1
+      open:'',
+      bank:''
     }
   },
   methods: {
@@ -203,11 +206,11 @@ export default {
 }
 .Enterprise_real_name{
   background: #e6e6e6;
-  height: 1000px;
+  height: 1200px;
   margin-top: 50px;
   .Enrn{
     padding:50px 310px;
-    height: 800px;
+    height: 1200px;
     width: 100%;
     background: #fff;
     .save{
@@ -253,12 +256,22 @@ export default {
         margin-right: 20px;
       }
     }
-     p:nth-child(3){
+    p:nth-child(3){
+      label{
+        margin-right: 103px;
+      }
+    }
+     p:nth-child(4){
+      label{
+        margin-right: 87px;
+      }
+    }
+     p:nth-child(5){
       label{
         margin-right: 70px;
       }
     }
-     p:nth-child(4){
+     p:nth-child(6){
       label{
         margin-right: 87px;
       }

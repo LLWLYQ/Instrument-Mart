@@ -327,7 +327,7 @@ export default {
         this.ruleFormFic.nameFic = resData.receiver
         this.ruleFormFic.detailed_addressFic = resData.address
         this.ruleFormFic.Invitation_codeFic =  resData.zip_code
-         this.$ajax({
+        this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
           data:{
@@ -386,11 +386,11 @@ export default {
         }
       })
     },
-    tabChange(index,adr){
-      this.iscur = index
-      this.adrID = adr.id
-      // console.log(adr.id)
-    },
+    // tabChange(index,adr){
+    //   this.iscur = index
+    //   this.adrID = adr.id
+    //   // console.log(adr.id)
+    // },
      Save(formName){
           this.$refs[formName].validate((valid) => {
               if (valid) {
