@@ -20,9 +20,12 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload> -->
           <el-upload
+            multiple
             :class="{disabled:uploadDisabled}"
+            accept="image/jpeg,image/gif,image/png"
             :on-change="handleLimit"
-            action="#"
+            action="http://shop.yishangm.com/home/files/cardPic"
+            :data="cardPic"
             :limit = 3
             list-type="picture-card"
             :auto-upload="false">
@@ -72,10 +75,13 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload> -->
           <el-upload
+            multiple
             :class="{disabled:UploadDisabled}"
+            accept="image/jpeg,image/gif,image/png"
             :on-change="HandleLimit"
             :limit = 2
-            action="#"
+            action="http://shop.yishangm.com/home/files/cardPic"
+            :data="cardPic"
             list-type="picture-card"
             :auto-upload="false">
               <i slot="default" class="el-icon-plus"></i>
@@ -116,7 +122,7 @@
         <p><label>银行账号: </label><input type="text" v-model="bank"></p>
         <p><label>联系人姓名: </label><input type="text" v-model="name"></p>
         <p><label>联系方式: </label><input type="text" v-model="tel"></p>
-        <p class="save"><span>立即申请</span></p>
+        <p class="save"><span @click="save()">立即申请</span></p>
       </div>
     </div>
   </div>
@@ -127,6 +133,7 @@ export default {
   data() {
     return {
       // imageUrl: '',
+      cardPic:{},
       dialogImageUrl: '',
       uploadDisabled:false,
       UploadDisabled:false,
@@ -139,6 +146,9 @@ export default {
     }
   },
   methods: {
+    save(){
+      console.log(this.cardPic)
+    },
     //  handleAvatarSuccess(res, file) {
     //     this.imageUrl = URL.createObjectURL(file.raw);
     //   },
@@ -155,8 +165,13 @@ export default {
     //     return isJPG && isLt2M;
     //   }
     handleLimit(file,fileList){
+      this.cardPic = file
+      let Image = []
+      Image.push(this.cardPic)
+      console.log(Image)
+      // this.cardPic.append('file', file.file)
       if(fileList.length>=3){
-        this.uploadDisabled = true;
+        this.uploadDisabled = true;0
       }
     },
     HandleLimit(file,fileList){
@@ -165,7 +180,8 @@ export default {
       }
     },
     handleRemove(file) {
-        console.log(file);
+        this.uploadDisabled = false;
+        // this.NiceloadDissabled = true;
       },
     handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
@@ -258,7 +274,7 @@ export default {
     }
     p:nth-child(3){
       label{
-        margin-right: 103px;
+        margin-right: 104px;
       }
     }
      p:nth-child(4){
@@ -268,7 +284,7 @@ export default {
     }
      p:nth-child(5){
       label{
-        margin-right: 70px;
+        margin-right: 69px;
       }
     }
      p:nth-child(6){

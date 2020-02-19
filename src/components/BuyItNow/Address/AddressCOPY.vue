@@ -1,7 +1,7 @@
 <template>
   <div class="Address_COPYY" >
     <div class="content_container" @click="addA()">
-      <div class="mine">
+      <div class="mine" v-show="pop">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm1" label-width="100px" class="demo-ruleForm" label-position="left" >
           <el-form-item label="收货人" prop="name1">
             <el-input v-model="ruleForm.name1"></el-input>
@@ -94,7 +94,7 @@
                       <el-input v-model="ruleFormFic.Invitation_codeFic"></el-input>
                     </el-form-item>
                   </el-form>
-                  <el-button type="danger" style="margin-left:100px;" @click="ModifSave('ruleForm2')" class="Btn">保存</el-button>
+                  <el-button type="danger" style="margin-left:100px;" @click="ModifSave('ruleForm2')" class="Btn">确认修改</el-button>
                   <el-button type="danger" style="margin-left:30px;" @click="CancelModi()" class="CloBtn">取消</el-button>
                 </div>
             </div>
@@ -114,8 +114,9 @@
           <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
         </div> -->
         <el-table
+          :border="true"
           :data="address"
-          style="width: 100%">
+          style="width: 85%;border:1px solid #ccc;margin:50px 0 0 20px;">
           <el-table-column
             label="收货人"
             width="180">
@@ -169,6 +170,18 @@
                 @click="delAddress(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
+          <el-table-column
+            label=""
+            width="180"
+            >
+            <template slot-scope="scope">
+              <el-button
+                style="padding:10px;border:1px solid #666;"
+                size="mini"
+                @click="Default_address(scope.$index,scope.row)">设为默认
+              </el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
@@ -200,6 +213,7 @@ export default {
         }
       };
       return {
+        pop:1,
         popup1: 0,
         popup: 1,
         iscur:0,
@@ -311,6 +325,7 @@ export default {
                 }).then(res=>{
                   if(res.data.code == 20000){
                     this.popup1 = 0
+                    this.pop = 1
                     this.addA()
                   }
                 })
@@ -323,6 +338,7 @@ export default {
     Modification(index,row){
       this.MfId = row.id
       this.popup1 = 1;
+      this.pop = 0;
       //地址查看接口
       this.$ajax({
         url:config.baseUrl + '/home/address/'+ row.id,
@@ -376,6 +392,7 @@ export default {
     },
     CancelModi(){
       this.popup1 = 0;
+      this.pop = 1;
     },
     //打开地址弹窗
     showpopup() {
@@ -484,7 +501,7 @@ export default {
               }
             }).then(res=>{
               this.address = res.data.data.items
-              console.log(this.address)
+              // console.log(this.address)
               if(res.data.data.items != ''){
                 this.panduan  = false
               }
@@ -778,5 +795,11 @@ ul{
   }
   .el-select-dropdown__list{
     padding-left: 10px;
+  }
+  .el-table__body-wrapper{
+    .el-table__row{
+      border:1px solid #ccc;
+    }
+      border:1px solid #ccc;
   }
 </style>
