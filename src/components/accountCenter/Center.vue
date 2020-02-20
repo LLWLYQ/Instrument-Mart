@@ -28,10 +28,10 @@
                 <el-menu-item index="/My_need">我的需求</el-menu-item>
                 <el-menu-item index="/Enquiry">我要询价</el-menu-item>
                 <el-menu-item index="/Shipping_address" >收货地址</el-menu-item>
-                <el-menu-item index="/Discount_coupon" >优惠券</el-menu-item>
+                <el-menu-item index="/Discount_coupon" >领优惠券</el-menu-item>
                 <el-menu-item index="/Favorite" >我的收藏</el-menu-item>
                 <el-menu-item index="/Integral" >我的积分</el-menu-item>
-                <el-menu-item index="/Sales_returns" >退换货管理</el-menu-item>
+                <el-menu-item index="/Sales_returns" >退换货物</el-menu-item>
                 <el-menu-item index="/Complaint" >投诉管理</el-menu-item>
                 <el-menu-item index="/Invoice" >发票设置</el-menu-item>
             </el-submenu>

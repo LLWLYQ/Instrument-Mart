@@ -256,9 +256,9 @@ export default {
             { required: true, message: "请输入手机号码", trigger: "blur" },
             { validator: isMobileNumber, trigger: "blur" }
           ],
-          // Address: [
-          //   { required: true, message: '请输入地址', trigger: 'blur' },
-          // ],
+          Address: [
+            { required: true, message: '请输入地址', trigger: 'blur' },
+          ],
           detailed_address: [
             { required: true, message: '请输入详细地址', trigger: 'blur' },
             { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }
@@ -276,9 +276,9 @@ export default {
             { required: true, message: "请输入手机号码", trigger: "blur" },
             { validator: isMobileNumber, trigger: "blur" }
           ],
-          // AddressFic: [
-          //   { required: true, message: '请输入地址', trigger: 'blur' },
-          // ],
+          AddressFic: [
+            { required: true, message: '请输入地址', trigger: 'blur' },
+          ],
           detailed_addressFic: [
             { required: true, message: '请输入详细地址', trigger: 'blur' },
             { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }

@@ -22,10 +22,8 @@
           <el-upload
             multiple
             :class="{disabled:uploadDisabled}"
-            accept="image/jpeg,image/gif,image/png"
+            action="http://shop.yishangm.com/home/files/licensePic"
             :on-change="handleLimit"
-            action="http://shop.yishangm.com/home/files/cardPic"
-            :data="cardPic"
             :limit = 3
             list-type="picture-card"
             :auto-upload="false">
@@ -81,7 +79,6 @@
             :on-change="HandleLimit"
             :limit = 2
             action="http://shop.yishangm.com/home/files/cardPic"
-            :data="cardPic"
             list-type="picture-card"
             :auto-upload="false">
               <i slot="default" class="el-icon-plus"></i>
@@ -118,7 +115,7 @@
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </p>
-        <p><label>开户行: </label><input type="text" v-model="open"></p>
+        <p><label>开户行:</label><input type="text" v-model="open"></p>
         <p><label>银行账号: </label><input type="text" v-model="bank"></p>
         <p><label>联系人姓名: </label><input type="text" v-model="name"></p>
         <p><label>联系方式: </label><input type="text" v-model="tel"></p>
@@ -129,11 +126,13 @@
 </template>
 
 <script type="text/javascript">
+import config from '../../config/config'
 export default {
   data() {
     return {
       // imageUrl: '',
-      cardPic:{},
+      cardPic:'',//身份证正反面
+      licensePic:'',//企业营业执照
       dialogImageUrl: '',
       uploadDisabled:false,
       UploadDisabled:false,
@@ -142,12 +141,26 @@ export default {
       name:'',
       tel:'',
       open:'',
-      bank:''
+      bank:'',
     }
   },
   methods: {
     save(){
-      console.log(this.cardPic)
+       this.$ajax({
+					url:config.baseUrl + '/home/user/license',
+          method: "post",
+          data:{
+            company_member_id:localStorage.getItem("userId"),
+            company_license:this.licensePic,
+            company_card:this.cardPic,
+            contacts:this.name,
+            contact_number:this.tel,
+            bank_name:this.open,
+            bank_num:this.bank
+          }
+				}).then(res => {
+            console.log(res)
+        });
     },
     //  handleAvatarSuccess(res, file) {
     //     this.imageUrl = URL.createObjectURL(file.raw);
@@ -164,20 +177,36 @@ export default {
     //     }
     //     return isJPG && isLt2M;
     //   }
-    handleLimit(file,fileList){
-      this.cardPic = file
-      let Image = []
-      Image.push(this.cardPic)
-      console.log(Image)
-      // this.cardPic.append('file', file.file)
+    handleLimit(file,fileList,index){
+      // http://shop.yishangm.com/home/files/licensePic
+      this.licensePic = fileList
       if(fileList.length>=3){
         this.uploadDisabled = true;0
       }
+      this.$ajax({
+        url:config.baseUrl + 'home/files/licensePic',
+        method:'post',
+        data:{
+          licensePic:this.licensePic
+        }
+      }).then(res=>{
+        console.log(res)
+      })
     },
     HandleLimit(file,fileList){
+      this.cardPic = fileList
       if(fileList.length>=2){
         this.UploadDisabled = true;
       }
+      this.$ajax({
+        url:config.baseUrl + 'home/files/licensePic',
+        method:'post',
+        data:{
+          licensePic:this.cardPic
+        }
+      }).then(res=>{
+        console.log(res)
+      })
     },
     handleRemove(file) {
         this.uploadDisabled = false;
@@ -274,7 +303,7 @@ export default {
     }
     p:nth-child(3){
       label{
-        margin-right: 104px;
+        margin-right: 110px;
       }
     }
      p:nth-child(4){

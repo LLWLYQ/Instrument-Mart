@@ -1,6 +1,7 @@
 <template>
   <div class="Shipping_address">
     <div class="content_container">
+      <p>管理收货地址</p>
       <AddCopy></AddCopy>
     </div>
   </div>
@@ -27,6 +28,11 @@ export default {
 @import '../../../style/common';
 .Shipping_address{
   margin-left: 120px;
-  margin-top: -20px;
+  margin-top: -10px;
+  p{
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
 }
 </style>

@@ -10,6 +10,7 @@ body, div, span, header, footer, nav, section, aside, article, ul,  li, a, p, h1
   -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing: antialiased;
   height: auto;
+  font-size: 14px;
 }
 #app{
 height:100%;
