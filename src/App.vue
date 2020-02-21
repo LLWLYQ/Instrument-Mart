@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-view v-on:public_header="public_header"/>
+    <router-view @public_header="public_header"/>
     <app-header v-if="header_show"></app-header>
-    <app-foot v-if="header_show"></app-foot>
+    <app-foot v-if="footer_show"></app-foot>
   </div>
 </template>
 
@@ -18,10 +18,11 @@ export default {
     }
   },
   methods:{
-     public_header:function (bool) {
+     public_header (bool) {
         this.header_show = bool;
+        // let qinghua = wobiakhaihaoya
       },
-      public_footer:function (bool) {
+      public_footer (bool) {
           this.footer_show = bool;
       }
   },
