@@ -22,7 +22,7 @@
           <el-upload
             multiple
             :class="{disabled:uploadDisabled}"
-            action="http://shop.yishangm.com/home/files/licensePic"
+            :action="this.uploadUrl"
             :on-change="handleLimit"
             :limit = 3
             list-type="picture-card"
@@ -130,7 +130,7 @@ import config from '../../config/config'
 export default {
   data() {
     return {
-      // imageUrl: '',
+      uploadUrl:'http://shop.yishangm.com/home/files/licensePic',
       cardPic:'',//身份证正反面
       licensePic:'',//企业营业执照
       dialogImageUrl: '',
@@ -145,6 +145,9 @@ export default {
     }
   },
   methods: {
+    // handleHttpRequest(a){
+    //   this.licensePic = a.file
+    // },
     save(){
        this.$ajax({
 					url:config.baseUrl + '/home/user/license',
@@ -178,17 +181,17 @@ export default {
     //     return isJPG && isLt2M;
     //   }
     handleLimit(file,fileList,index){
+      let fl = new FormData();
+      fl.append("file", JSON.stringify(fileList))
+      console.log(fl)
       // http://shop.yishangm.com/home/files/licensePic
-      this.licensePic = fileList
       if(fileList.length>=3){
-        this.uploadDisabled = true;0
+        this.uploadDisabled = true;
       }
       this.$ajax({
         url:config.baseUrl + 'home/files/licensePic',
         method:'post',
-        data:{
-          licensePic:this.licensePic
-        }
+        data:fl
       }).then(res=>{
         console.log(res)
       })
@@ -206,6 +209,7 @@ export default {
         }
       }).then(res=>{
         console.log(res)
+
       })
     },
     handleRemove(file) {
