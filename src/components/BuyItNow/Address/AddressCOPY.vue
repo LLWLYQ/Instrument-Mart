@@ -100,19 +100,6 @@
             </div>
             <div class="over"></div>
           </div>
-        <!-- <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
-          <li >
-            <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.zip_code}}</p>
-            <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
-            <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
-          </li>
-        </ul>
-        <div style="width:100%;overflow:hidden;margin: 10px 0 0 20px;">
-          <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
-        </div> -->
         <el-table
           :border="true"
           :data="address"
@@ -187,7 +174,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import VDistpicker from 'v-distpicker'
 import config from '../../../config/config'
@@ -234,18 +220,12 @@ export default {
             mobileNumber:'',
             detailed_address:'',
             Invitation_code:'',
-            // province:'',
-            // city:'',
-            // area:'',
           },
         ruleFormFic: {
             nameFic: '',
             mobileNumberFic:'',
             detailed_addressFic:'',
             Invitation_codeFic:'',
-            // province:'',
-            // city:'',
-            // area:'',
           },
         rules: {
            name1: [
@@ -256,15 +236,15 @@ export default {
             { required: true, message: "请输入手机号码", trigger: "blur" },
             { validator: isMobileNumber, trigger: "blur" }
           ],
-          Address: [
-            { required: true, message: '请输入地址', trigger: 'blur' },
-          ],
+          // Address: [
+          //   { required: true, message: '请输入地址', trigger: 'blur' },
+          // ],
           detailed_address: [
             { required: true, message: '请输入详细地址', trigger: 'blur' },
             { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }
           ],
           Invitation_code:[
-            { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
+            { required: true, message: '请输入邮政编码', trigger: 'blur' },
           ]
         },
         rulesFic: {
@@ -276,15 +256,15 @@ export default {
             { required: true, message: "请输入手机号码", trigger: "blur" },
             { validator: isMobileNumber, trigger: "blur" }
           ],
-          AddressFic: [
-            { required: true, message: '请输入地址', trigger: 'blur' },
-          ],
+          // AddressFic: [
+          //   { required: true, message: '请输入地址', trigger: 'blur' },
+          // ],
           detailed_addressFic: [
             { required: true, message: '请输入详细地址', trigger: 'blur' },
             { min: 0, max: 20, message: '长度在 1 到 50 个字符', trigger: 'blur' }
           ],
           Invitation_codeFic:[
-            { required: true, message: '请输入邮政编码（可选）', trigger: 'blur' },
+            { required: true, message: '请输入邮政编码', trigger: 'blur' },
           ]
         },
         options: [{}],
@@ -293,17 +273,10 @@ export default {
         optionsFic: [{}],
         optionsFic1: [{}],
         optionsFic2: [{}],
-        MfId:''
+        MfId:'',
       }
   },
   methods: {
-    // handleEdit(index, row) {
-    //     console.log(index, row);
-    //   },
-      // handleDelete(index, row) {
-      //   console.log(index, row);
-      // },
-    //会员地址编辑 = 修改收货地址
     ModifSave(formName){
        this.$refs[formName].validate((valid) => {
               if (valid) {
@@ -320,7 +293,7 @@ export default {
                     street_id:55,
                     zip_code:this.ruleFormFic.Invitation_codeFic,
                     tel:this.ruleFormFic.mobileNumberFic,
-                    address:this.ruleFormFic.detailed_addressFic
+                    address:this.ruleFormFic.detailed_addressFic,
                   }
                 }).then(res=>{
                   if(res.data.code == 20000){
@@ -361,8 +334,6 @@ export default {
           }
         }).then(res=>{
           this.optionsFic = res.data.data
-
-          // console.log(this.optionsFic )
         })
           this.$ajax({
                 url:config.baseUrl + '/home/regions/index',
@@ -400,7 +371,6 @@ export default {
     },
     //删除地址
     delAddress(index, row){
-      // console.log(adr.id)
       this.$ajax({
         url:config.baseUrl + '/home/address/'+ row.id,
         method:'delete',
@@ -413,11 +383,6 @@ export default {
         }
       })
     },
-    // tabChange(index,adr){
-    //   this.iscur = index
-    //   this.adrID = adr.id
-    //   // console.log(adr.id)
-    // },
      Save(formName){
           this.$refs[formName].validate((valid) => {
               if (valid) {
@@ -455,43 +420,6 @@ export default {
                 }
          });
      },
-    //  SaveTwo(formName){
-    //    this.$refs[formName].validate((valid) => {
-    //           if (valid) {
-    //               this.$ajax({
-    //                 url:config.baseUrl + '/home/address',
-    //                 method:'post',
-    //                 data:{
-    //                   member_id:localStorage.getItem('userId'),//会员ID
-    //                   receiver:this.ruleForm.name1,//接受者姓名
-    //                   tel:this.ruleForm.mobileNumber,//电话
-    //                   province_id:this.province,//省ID
-    //                   city_id:this.city,//市ID
-    //                   area_id:this.district,//区ID
-    //                   street_id:4,//街ID
-    //                   address:this.ruleForm.detailed_address,//详细地址
-    //                   zip_code:this.ruleForm.Invitation_code,//邮编
-    //                   status:1,//是否设置为默认地址
-    //                 }
-    //               }).then(res=>{
-    //                 if(res.data.code == 20000){
-    //                     this.panduan = false
-    //                     this.addA();
-    //                     const h = this.$createElement;
-    //                     this.$notify({
-    //                       title: '保存地址成功',
-    //                       // message: '商品已成功加入购物侧，欢迎选购其他商品',
-    //                       type: 'success',
-    //                       customClass:'Notification',
-    //                     });
-    //                     window.location.reload()
-    //                   }
-    //               })
-    //             } else {
-    //               return false;
-    //             }
-    //      });
-    //  },
      addA(){
          this.$ajax({
               url:config.baseUrl + '/home/address',
@@ -501,7 +429,6 @@ export default {
               }
             }).then(res=>{
               this.address = res.data.data.items
-              // console.log(this.address)
               if(res.data.data.items != ''){
                 this.panduan  = false
               }
@@ -511,35 +438,9 @@ export default {
                 this.city = item.city_id
                 this.area = item.area_id
               })
-              // if(res.data.data.items != ''){
-              //   this.AddressList = false
-              // }
           })
-      //  }
-
      },
-    //  submitForm(formName) {
-    //     this.$refs[formName].validate((valid) => {
-    //       if (valid) {
-    //         // alert('submit!');
-    //       } else {
-    //         // console.log('error submit!!')
-    //         return false;
-    //       }
-    //     });
-    //   },
-      // handleRemove(file) {
-
-      // },
-      // handlePictureCardPreview(file) {
-      //   this.dialogImageUrl = file.url;
-      //   this.dialogVisible = true;
-      // },
-      // handleDownload(file) {
-      // },
-      //省级接口
       handleprovince(){
-        // console.log(this.province)
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
@@ -549,24 +450,22 @@ export default {
           }
         }).then(res=>{
           this.options = res.data.data
-          // console.log(this.options)
         })
       },
-      //市级接口
       handleCity(){
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
           data:{
             level:2,
-            pid:this.province
+            pid:this.province,
+            city:GuangDongSheng,
+            address:HaiZhuQuLiYingGuangChangHuiZhanShiDaiXieZiLou
           }
         }).then(res=>{
           this.options1 = res.data.data
-          console.log('NanDaoWozhonglemozou')
         })
       },
-      //区级接口
       handleDistrict(){
          this.$ajax({
           url:config.baseUrl + '/home/regions/index',
@@ -579,9 +478,6 @@ export default {
           this.options2 = res.data.data
         })
       },
-
-
-     //修改地址调用省市区 接口
       handleprovinceFic(){
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
@@ -592,23 +488,20 @@ export default {
           }
         }).then(res=>{
           this.optionsFic = res.data.data
-          // console.log(this.optionsFic )
         })
       },
-      //市级接口
       handleCityFic(){
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
           data:{
             level:2,
-            pid:this.provinceFicName
+            pid:this.provinceFicName,
           }
         }).then(res=>{
           this.optionsFic1 = res.data.data
         })
       },
-      //区级接口
       handleDistrictFic(){
          this.$ajax({
           url:config.baseUrl + '/home/regions/index',

@@ -126,6 +126,7 @@
 </template>
 
 <script type="text/javascript">
+import Qs from 'qs'
 import config from '../../config/config'
 export default {
   data() {
@@ -145,9 +146,6 @@ export default {
     }
   },
   methods: {
-    // handleHttpRequest(a){
-    //   this.licensePic = a.file
-    // },
     save(){
        this.$ajax({
 					url:config.baseUrl + '/home/user/license',
@@ -159,7 +157,7 @@ export default {
             contacts:this.name,
             contact_number:this.tel,
             bank_name:this.open,
-            bank_num:this.bank
+            bank_num:this.bank,
           }
 				}).then(res => {
             console.log(res)
@@ -181,17 +179,15 @@ export default {
     //     return isJPG && isLt2M;
     //   }
     handleLimit(file,fileList,index){
-      let fl = new FormData();
-      fl.append("file", JSON.stringify(fileList))
-      console.log(fl)
-      // http://shop.yishangm.com/home/files/licensePic
+      var formData = new FormData();
+      formData.append("licensePic",fileList)
       if(fileList.length>=3){
         this.uploadDisabled = true;
       }
       this.$ajax({
         url:config.baseUrl + 'home/files/licensePic',
         method:'post',
-        data:fl
+        data:formData,
       }).then(res=>{
         console.log(res)
       })
@@ -208,20 +204,18 @@ export default {
           licensePic:this.cardPic
         }
       }).then(res=>{
-        console.log(res)
+        // console.log('hengaoxingyouxinshibangwokunzhuziji')
 
       })
     },
     handleRemove(file) {
         this.uploadDisabled = false;
-        // this.NiceloadDissabled = true;
       },
     handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
     handleDownload(file) {
-        console.log(file);
       }
   },
   components: {
@@ -265,7 +259,7 @@ export default {
     .save{
       padding:10px 0 0 170px;
       span{
-        padding:5px 60px;
+        padding:10px 20px;
         // border:1px solid #ccc;
         background: #e94c15;
         cursor: pointer;

@@ -9,7 +9,6 @@
             <li>购物流程</li>
             <li>购物流程</li>
             <li>购物流程</li>
-            <li>购物流程</li>
           </ul>
           <ul>
             <i class="el-icon-bank-card"><span>支付帮助</span></i>
@@ -57,7 +56,6 @@ export default {
     }
   },
   methods: {
-
   }
 }
 </script>

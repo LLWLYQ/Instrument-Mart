@@ -2,7 +2,7 @@
   <div id="app">
     <router-view @public_header="public_header"/>
     <app-header v-if="header_show"></app-header>
-    <app-foot v-if="footer_show"></app-foot>
+    <app-foot v-if="header_show"></app-foot>
   </div>
 </template>
 

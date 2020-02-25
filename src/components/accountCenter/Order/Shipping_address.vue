@@ -12,7 +12,6 @@ import AddressCOPY from '../../BuyItNow/Address/AddressCOPY'
 export default {
   data() {
     return {
-
     }
   },
   methods: {
