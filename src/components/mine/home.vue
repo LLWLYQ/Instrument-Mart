@@ -513,8 +513,8 @@ export default {
         height: 440px;
         width:280px;
         background-color: yellow;
-        float: left;
-        margin:0 0 0 100px;
+        float: right;
+        // margin:0 0 0 100px;
       }
   }
   .List{

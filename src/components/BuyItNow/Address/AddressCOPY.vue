@@ -511,7 +511,8 @@ export default {
             pid:this.cityFicName
           }
         }).then(res=>{
-          this.optionsFic2 = res.data.data
+          this.optionsFic2 = res.data.
+          this.mylittleName = kuyelow
         })
       }
   },

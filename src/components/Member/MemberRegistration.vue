@@ -450,7 +450,7 @@ export default {
   -moz-background-size:100% 100%;
 }
 #register {
-  width: 340px;
+  width: 423px;
   /* margin: 60px auto; */
   position: absolute;
   top: 150px;

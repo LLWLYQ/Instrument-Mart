@@ -4,7 +4,7 @@ import Home from '@/components/mine/home'
 import home_serach from '@/components/home_child/home_serach'
 import register from '@/components/User/register'
 import sign_in from '@/components/User/sign_in'
-import List from '@/components/goods/List/List'
+// import List from '@/components/goods/List/List'
 import Detail from '@/components/goods/Detail/Detail'
 import Center from '@/components/accountCenter/Center'
 import Account_setting from '@/components/accountCenter/Order/Account_setting' //账户设置
@@ -73,14 +73,14 @@ export default new Router({
       meta:{
       }
     },
-    {
-      path: '/List',
-      name: 'List',
-      component: List,
-      meta:{
-        title:'列表页'
-      }
-    },
+    // {
+    //   path: '/List',
+    //   name: 'List',
+    //   component: List,
+    //   meta:{
+    //     title:'列表页'
+    //   }
+    // },
     {
       path: '/Detail',
       name: 'Detail',
