@@ -20,14 +20,13 @@
     </div>
   </div>
 </template>
-
 <script type="text/javascript">
 export default {
   data() {
     return {
       ruleForm: {
-          name: '',
-          heading_code: '',
+          name:'',
+          heading_code:'',
         },
       rules: {
           name: [
@@ -48,13 +47,13 @@ export default {
             alert('submit!');
           } else {
             console.log('error submit!!');
+            console.log('mangguodetianjingtoudejiaoluoningwangnichengshidelunkuo')
             return false;
           }
         });
      }
   },
   components: {
-
   }
 }
 </script>

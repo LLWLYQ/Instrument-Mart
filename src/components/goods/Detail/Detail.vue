@@ -8,14 +8,12 @@
       <div class="over" v-if="LF" @click="closeLF()"></div>
       <div class="Shinetop">
         <div class="big_shinetop">
-
           <ul class="tabImages">
             <li
             v-show="iscur==index"
             v-for="(TI,index) in tebImg" :key="index"
             @mouseover="tabChange(index)"
             >
-            <!-- :class="{cur:iscur===index}" -->
               <img :src="baseUrl+TI.files_path" alt="">
             </li>
           </ul>
@@ -48,36 +46,20 @@
               <dt><span>促销</span><p><b>￥</b>{{Infos.market_price}}</p></dt>
             </dl>
           </div>
-          <div class="freight">
-            <dl>
-              <dt><span>运费</span><p>电器城广州仓至 广州荔湾区 沙面街道 快递 0.00<br/>预约配送 30分钟内付款，预计11月23日送达</p></dt>
-            </dl>
-          </div>
         </div>
         <div>
-          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit"></quantity>
+          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" ></quantity>
+          <div class="select">
+            <ul v-for="Go in goods_option" :key="Go.id">
+              <li v-for="(go,index) in Go.goods_option_value" :key="index" :class="{Select:isSelect===index}" @click="select(index)">
+                {{go.name}}
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="buy">
           <span>立即购买</span>
           <span @click="addToShopCar()">加入购物车</span>
-        </div>
-        <div class="Promise">
-          <p class="sever">服务承诺</p>
-          <ul>
-            <li>赠保价险</li>
-            <li>超值包邮</li>
-            <li>闪电到家</li>
-            <li>全国联保</li>
-          </ul>
-          <ul>
-            <li>送货入户</li>
-            <li>正品保证</li>
-            <li>延保服务</li>
-            <li>极速退款</li>
-          </ul>
-          <ul style="width:400px;">
-            <li>七天无理由退换</li>
-          </ul>
         </div>
       </div>
       <div class="comment">
@@ -130,6 +112,7 @@ export default {
 
   data () {
     return {
+      isSelect:0,
       baseUrl:config.baseUrl,
       detailID:this.$route.query.listId,
       tebImg:'',
@@ -146,14 +129,16 @@ export default {
       DiscountPrice:'',
       LF:false,
       UserId:localStorage.getItem('userId'),
-
+      goods_option:'',
     }
   },
   computed:mapGetters([
     'count'
   ]),
   methods: {
-
+    select(index){
+      this.isSelect = index
+    },
     closeLF(){
       this.LF = false
     },
@@ -161,30 +146,30 @@ export default {
       this.iscur = index
     },
     addToShopCar(){
-    if(this.UserId){
-      this.$ajax({
-        url:config.baseUrl+'/home/cart/add',
-        method:'post',
-        data:{
-          goods_id:this.Infos.goods_id,
-          member_id:localStorage.getItem('userId'),
-          option:[],
-          quantity:this.num
-        }
-      }).then(res=>{
-        if( res.data.code = 20000){
-          const h = this.$createElement;
-          this.$notify({
-              title: '加入购物车成功',
-              message: '商品已成功加入购物侧，欢迎选购其他商品',
-              type: 'success',
-              customClass:'Notification',
-            });
-        }
-      })
-    }else{
-      this.LF = true
-    }
+      if(this.UserId){
+        this.$ajax({
+          url:config.baseUrl+'/home/cart/add',
+          method:'post',
+          data:{
+            goods_id:this.Infos.goods_id,
+            member_id:localStorage.getItem('userId'),
+            option:[],
+            quantity:this.num
+          }
+        }).then(res=>{
+          if( res.data.code = 20000){
+            const h = this.$createElement;
+            this.$notify({
+                title: '加入购物车成功',
+                message: '商品已成功加入购物侧，欢迎选购其他商品',
+                type: 'success',
+                customClass:'Notification',
+              });
+          }
+        })
+      }else{
+        this.LF = true
+      }
   },
   Change(data){
       this.num = data
@@ -200,7 +185,8 @@ export default {
       methods:'post',
     }).then(res=>{
       this.Infos = res.data.data.result
-      // console.log(this.Infos)
+      this.goods_option = this.Infos.goods_option
+      console.log(this.goods_option)
       this.brandId = this.Infos.goods_id
       this.tebImg = res.data.data.result.piclist
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
@@ -297,11 +283,16 @@ export default {
     margin-left: 50px;
     .brand{
       p{
-        font-size: 20px;
+        height: 40px;
+        line-height: 40px;
         font-weight: 600;
+        span{
+          font-size: 20px;
+        }
       }
       p span:nth-child(1){
-          margin-right: 20px;
+          // margin-right: 20px;
+          font-size: 20px;
         }
     }
     .price{
@@ -333,21 +324,21 @@ export default {
           }
         }
       }
-      .freight{
-        height: 60px;
-        dl{
-          dt{
-            font-size:16px;
-            span{
-              float: left;
-            }
-            p{
-              float: left;
-              margin-left: 60px;
-            }
-          }
-        }
-      }
+      // .freight{
+      //   height: 60px;
+      //   dl{
+      //     dt{
+      //       font-size:16px;
+      //       span{
+      //         float: left;
+      //       }
+      //       p{
+      //         float: left;
+      //         margin-left: 60px;
+      //       }
+      //     }
+      //   }
+      // }
     .buy{
       width: 100%;
       height: 100px;
@@ -468,5 +459,23 @@ export default {
       position: absolute;
       left:50%;
       margin-top:520px;
+    }
+    .select{
+      ul{
+        width: 100%;
+        height: 70px;
+        li{
+          float: left;
+          line-height: 40px;
+          margin-right: 50px;
+          padding:0px 10px;
+          border:1px solid #ccc;
+          cursor: pointer;
+        }
+      }
+    }
+    .Select{
+      background:#222;
+      color: #fff;
     }
 </style>

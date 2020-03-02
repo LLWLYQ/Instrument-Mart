@@ -76,7 +76,7 @@ export default {
   position: fixed;
   z-index:50;
   top: 0px;
-  // overflow: hidden;
+  overflow: hidden;
   // background-color:#fff
 }
 .top{

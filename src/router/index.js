@@ -14,7 +14,7 @@ import Enquiry from '@/components/accountCenter/Order/Enquiry'//我要询价
 import Shipping_address from '@/components/accountCenter/Order/Shipping_address' //收货地址
 import Discount_coupon from '@/components/accountCenter/Order/Discount_coupon' //优惠券
 import Favorite from '@/components/accountCenter/Order/Favorite'  //我的收藏
-import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
+
 import Sales_returns from '@/components/accountCenter/Order/Sales_returns'  //退换货管理
 import Complaint from '@/components/accountCenter/Order/Complaint'  //投诉管理
 import Invoice from '@/components/accountCenter/Order/Invoice'  //发票设置
@@ -36,6 +36,12 @@ import Foot from '@/components/Foot/Foot'//底部
 import Security_settings from '@/components/Security_settings/Security_settings'//安全设置
 import Enterprise_real_name from  '@/components/Enterprise_real_name/Enterprise_real_name' //企业实名
 import Lottery from '@/components/Marketing/Lottery/Lottery' //抽奖
+import Marketing from '@/components/Marketing/Marketing' //营销页面
+import Discounts from '@/components/Marketing/Discounts/Discounts' //优惠券
+import Hot_word from '@/components/Marketing/Hot_word/Hot_word' //热词
+import Promotion from '@/components/Marketing/Promotion/Promotion' //促销管理
+import Sign_in from '@/components/Marketing/Sign_in/Sign_in' //签到
+import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
 //Mouqiuxingbudaikouzhaotiqiuzaodaocanpangeigongpaizhid
 
 
@@ -310,6 +316,47 @@ export default new Router({
       meta:{
         title:''
       }
+    },
+    {
+      path:'/Marketing',
+      name:'Marketing',
+      component:Marketing,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Discounts',
+      name:'Discounts',
+      component:Discounts,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Hot_word',
+      name:'Hot_word',
+      component:Hot_word,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Promotion',
+      name:'Promotion',
+      component:Promotion,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/Sign_in',
+      name:'Sign_in',
+      component:Sign_in,
+      meta:{
+        title:''
+      }
     }
   ]
 })
+

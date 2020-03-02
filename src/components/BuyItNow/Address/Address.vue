@@ -58,7 +58,8 @@
             <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
           </li>
         </ul>
-        <div style="width:100%;overflow:hidden;margin: 10px 0 0 20px;">
+        <router-link to="/Shipping_address" target="_blank" tag="a"><p style="float:left;margin-top:100px;" >管理收货地址</p></router-link>
+        <div style="width:100%;overflow:hidden;margin: 10px 0 0 10px;">
           <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
         </div>
       </div>
@@ -336,7 +337,6 @@ export default {
           }
         }).then(res=>{
           this.optionsFic = res.data.data
-          // console.log(this.optionsFic )
         })
           this.$ajax({
                 url:config.baseUrl + '/home/regions/index',
@@ -373,7 +373,6 @@ export default {
     },
     //删除地址
     delAddress(adr,index){
-      // console.log(adr.id)
       this.$ajax({
         url:config.baseUrl + '/home/address/'+ adr.id,
         method:'delete',
@@ -386,11 +385,10 @@ export default {
         }
       })
     },
-    // tabChange(index,adr){
-    //   this.iscur = index
-    //   this.adrID = adr.id
-    //   // console.log(adr.id)
-    // },
+    tabChange(index,adr){
+      this.iscur = index
+      this.adrID = adr.id
+    },
      Save(formName){
           this.$refs[formName].validate((valid) => {
               if (valid) {
@@ -458,7 +456,6 @@ export default {
               }
             }).then(res=>{
               this.address = res.data.data.items
-              console.log(this.address)
               if(res.data.data.items != ''){
                 this.panduan  = false
               }
@@ -480,7 +477,6 @@ export default {
           if (valid) {
             // alert('submit!');
           } else {
-            // console.log('error submit!!')
             return false;
           }
         });
@@ -496,7 +492,6 @@ export default {
       },
       //省级接口
       handleprovince(){
-        // console.log(this.province)
         this.$ajax({
           url:config.baseUrl + '/home/regions/index',
           method:'post',
@@ -506,7 +501,6 @@ export default {
           }
         }).then(res=>{
           this.options = res.data.data
-          // console.log(this.options)
         })
       },
       //市级接口
@@ -520,7 +514,6 @@ export default {
           }
         }).then(res=>{
           this.options1 = res.data.data
-          console.log('NanDaoWozhonglemozou')
         })
       },
       //区级接口
@@ -549,7 +542,6 @@ export default {
           }
         }).then(res=>{
           this.optionsFic = res.data.data
-          // console.log(this.optionsFic )
         })
       },
       //市级接口
@@ -662,7 +654,7 @@ export default {
 }
 ul{
       float: left;
-      margin: 15px 20px 10px 20px;
+      margin: 15px 20px 10px 10px;
       width: 238px;
       height: 107px;
       padding: 15px 40px 15px 20px;

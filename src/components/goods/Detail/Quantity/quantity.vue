@@ -4,13 +4,11 @@
       <p><span>库存</span><span>90&nbsp;{{goods_unit}}</span></p>
     </div>
     <div class="model">
-      <p>选择型号</p>
-      <ul>
-        <li>008B</li>
-        <li>040B</li>
-        <li>066B</li>
-        <li>300F</li>
-      </ul>
+      <!-- <ul v-for="Go in goods_option" :key="Go.id">
+        <li v-for="go in Go" :key="go.id">
+          <p>{{go.price}}</p>
+        </li>
+      </ul> -->
     </div>
     <div>
       <span class="numb">数量</span>
@@ -23,6 +21,7 @@
 export default {
   props:{
     goods_unit:String,
+    // goods_option:Array,
   },
   data () {
     return {
@@ -31,6 +30,7 @@ export default {
   },
   methods: {
     handleChange(value) {
+      console.log(value)
       this.$emit('AandS',value)
       if(value == this.goods_unit){
         this.handleChange()
@@ -42,7 +42,10 @@ export default {
 
 <style scope lang="scss">
   .quantity{
-    height: 200px;
+    margin-top: 10px;
+    border-top:1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
+    height: 140px;
     .inventory{
       margin-bottom: 10px;
       p{
@@ -79,7 +82,7 @@ export default {
       }
     }
     .numb{
-      font-size: 16px;
+      font-size: 14px;
       margin-right: 60px;
     }
   }

@@ -45,6 +45,6 @@ export default {
   }
   .content_container{
     height: 1000px;
-    background: yellow;
+    // background: yellow;
   }
 </style>

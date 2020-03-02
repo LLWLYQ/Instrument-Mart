@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-view @public_header="public_header"/>
+    <router-view @public_header="public_header" @public_footer="public_footer"/>
     <app-header v-if="header_show"></app-header>
-    <app-foot v-if="header_show"></app-foot>
+    <app-foot v-if="footer_show"></app-foot>
   </div>
 </template>
 

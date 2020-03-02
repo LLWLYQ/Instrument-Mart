@@ -10,52 +10,12 @@
       <div class="Enrn">
         <p>
           <label>上传营销执照:</label>
-          <!-- <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload> -->
           <el-upload
-            multiple
-            :class="{disabled:uploadDisabled}"
-            :action="this.uploadUrl"
-            :on-change="handleLimit"
-            :limit = 3
+            action=""
             list-type="picture-card"
-            :auto-upload="false">
-              <i slot="default" class="el-icon-plus" ></i>
-              <div slot="file" slot-scope="{file}">
-                <img
-                  class="el-upload-list__item-thumbnail"
-                  :src="file.url" alt=""
-                >
-                <span class="el-upload-list__item-actions">
-                  <span
-                    class="el-upload-list__item-preview"
-                    @click="handlePictureCardPreview(file)"
-                  >
-                    <i class="el-icon-zoom-in"></i>
-                  </span>
-                  <span
-                    v-if="!disabled"
-                    class="el-upload-list__item-delete"
-                    @click="handleDownload(file)"
-                  >
-                    <i class="el-icon-download"></i>
-                  </span>
-                  <span
-                    v-if="!disabled"
-                    class="el-upload-list__item-delete"
-                    @click="handleRemove(file)"
-                  >
-                    <i class="el-icon-delete"></i>
-                  </span>
-                </span>
-              </div>
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove">
+            <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
@@ -63,57 +23,6 @@
         </p>
         <p>
           <label>法人身份证正反面:</label>
-          <!-- <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload> -->
-          <el-upload
-            multiple
-            :class="{disabled:UploadDisabled}"
-            accept="image/jpeg,image/gif,image/png"
-            :on-change="HandleLimit"
-            :limit = 2
-            action="http://shop.yishangm.com/home/files/cardPic"
-            list-type="picture-card"
-            :auto-upload="false">
-              <i slot="default" class="el-icon-plus"></i>
-              <div slot="file" slot-scope="{file}">
-                <img
-                  class="el-upload-list__item-thumbnail"
-                  :src="file.url" alt=""
-                >
-                <span class="el-upload-list__item-actions">
-                  <span
-                    class="el-upload-list__item-preview"
-                    @click="handlePictureCardPreview(file)"
-                  >
-                    <i class="el-icon-zoom-in"></i>
-                  </span>
-                  <span
-                    v-if="!disabled"
-                    class="el-upload-list__item-delete"
-                    @click="handleDownload(file)"
-                  >
-                    <i class="el-icon-download"></i>
-                  </span>
-                  <span
-                    v-if="!disabled"
-                    class="el-upload-list__item-delete"
-                    @click="handleRemove(file)"
-                  >
-                    <i class="el-icon-delete"></i>
-                  </span>
-                </span>
-              </div>
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
-          </el-dialog>
         </p>
         <p><label>开户行:</label><input type="text" v-model="open"></p>
         <p><label>银行账号: </label><input type="text" v-model="bank"></p>
@@ -131,14 +40,6 @@ import config from '../../config/config'
 export default {
   data() {
     return {
-      uploadUrl:'http://shop.yishangm.com/home/files/licensePic',
-      cardPic:'',//身份证正反面
-      licensePic:'',//企业营业执照
-      dialogImageUrl: '',
-      uploadDisabled:false,
-      UploadDisabled:false,
-      dialogVisible: false,
-      disabled: false,
       name:'',
       tel:'',
       open:'',
@@ -163,67 +64,12 @@ export default {
             console.log(res)
         });
     },
-    //  handleAvatarSuccess(res, file) {
-    //     this.imageUrl = URL.createObjectURL(file.raw);
-    //   },
-    //   beforeAvatarUpload(file) {
-    //     const isJPG = file.type === 'image/jpeg';
-    //     const isLt2M = file.size / 1024 / 1024 < 2;
-
-    //     if (!isJPG) {
-    //       this.$message.error('上传头像图片只能是 JPG 格式!');
-    //     }
-    //     if (!isLt2M) {
-    //       this.$message.error('上传头像图片大小不能超过 2MB!');
-    //     }
-    //     return isJPG && isLt2M;
-    //   }
-    handleLimit(file,fileList,index){
-      var formData = new FormData();
-      formData.append("licensePic",fileList)
-      if(fileList.length>=3){
-        this.uploadDisabled = true;
-      }
-      this.$ajax({
-        url:config.baseUrl + 'home/files/licensePic',
-        method:'post',
-        data:formData,
-      }).then(res=>{
-        console.log(res)
-      })
-    },
-    HandleLimit(file,fileList){
-      this.cardPic = fileList
-      if(fileList.length>=2){
-        this.UploadDisabled = true;
-      }
-      this.$ajax({
-        url:config.baseUrl + 'home/files/licensePic',
-        method:'post',
-        data:{
-          licensePic:this.cardPic
-        }
-      }).then(res=>{
-        // console.log('hengaoxingyouxinshibangwokunzhuziji')
-
-      })
-    },
-    handleRemove(file) {
-        this.uploadDisabled = false;
-      },
-    handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
-    handleDownload(file) {
-      }
   },
   components: {
 
   }
 }
 </script>
-
 <style lang="scss" scoped>
 @import '../../style/common';
 .YSC_top{
