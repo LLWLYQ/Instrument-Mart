@@ -173,7 +173,6 @@ export default {
   },
   Change(data){
       this.num = data
-      // console.log(this.num)
     },
   closeLogin(closeLogin){
     this.LF = closeLogin
@@ -192,8 +191,7 @@ export default {
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
-      // this.DiscountPrice =  this.Infos.market_price
-
+      // this.DiscountPrice =  this.Infos
     })
   },
   components:{

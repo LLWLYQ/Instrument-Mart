@@ -459,8 +459,6 @@ export default {
           data:{
             level:2,
             pid:this.province,
-            city:GuangDongSheng,
-            address:HaiZhuQuLiYingGuangChangHuiZhanShiDaiXieZiLou
           }
         }).then(res=>{
           this.options1 = res.data.data

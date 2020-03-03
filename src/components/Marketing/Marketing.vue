@@ -15,7 +15,6 @@
     <div class="content_container">
     </div>
     <div class="mine">
-
     </div>
   </div>
 </template>
@@ -25,10 +24,22 @@ import {Lottery,Discounts,Hot_word,Promotion,Sign_in} from '../Marketing'
 export default {
   data() {
     return {
+      save(){
+        this.$ajax({
+          url:www.baidu.com,
+          method:'get',
+          params:{
+            
+          }
+        }).then(res=>{
+          console.log(res)
+        })
+      }
     }
   },
   methods: {
-
+    save(){
+    }
   },
   components: {
     'Lottery':Lottery

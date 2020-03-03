@@ -53,14 +53,13 @@ height:100%;
 ::-webkit-scrollbar-thumb
 {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(172, 133, 133, 0.3);
   background-color: hsla(220,4%,58%,.3);
 }
 
 input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
   -webkit-appearance: none;
 }
-
 textarea { -webkit-appearance: none;}
 
 html,body{
