@@ -172,7 +172,6 @@
           </div>
   </div>
 </template>
-
 <script>
 import VDistpicker from 'v-distpicker'
 import config from '../../../config/config'
@@ -189,7 +188,7 @@ export default {
             value = value.toString(); //转换成字符串
               if (value.length < 0 || value.length > 12 || !isPhone) { //判断是否为11位手机号
                 callback(new Error("手机号码格式如:138xxxx8754"));
-              } else {
+              }else {
                 callback();
               }
             } else {
@@ -277,7 +276,7 @@ export default {
         optionsFic: [{}],
         optionsFic1: [{}],
         optionsFic2: [{}],
-        MfId:''
+        MfId:'',
       }
   },
   methods: {
@@ -367,7 +366,7 @@ export default {
     CancelModi(){
       this.popup1 = 0;
     },
-    //打开地址弹窗
+    //打开地址弹窗`
     showpopup() {
       this.popup = 1;
     },
@@ -411,7 +410,8 @@ export default {
                     if(res.data.code == 20000){
                         this.panduan = false
                         this.addA();
-                        this.popup = 0 ;        }
+                        this.popup = 0;
+                      }
                   })
                 } else {
                   return false;
@@ -465,12 +465,7 @@ export default {
                 this.city = item.city_id
                 this.area = item.area_id
               })
-              // if(res.data.data.items != ''){
-              //   this.AddressList = false
-              // }
           })
-      //  }
-
      },
      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -529,8 +524,6 @@ export default {
           this.options2 = res.data.data
         })
       },
-
-
      //修改地址调用省市区 接口
       handleprovinceFic(){
         this.$ajax({
@@ -576,7 +569,6 @@ export default {
   },
   created(){
     this.addA()
-
   }
 }
 </script>

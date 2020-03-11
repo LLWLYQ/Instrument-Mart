@@ -436,7 +436,7 @@ export default {
               cityID.map(item=>{
                 this.province_id = item.province_id
                 this.city = item.city_id
-                this.area = item.area_id
+                console.log();
               })
           })
      },
@@ -509,8 +509,7 @@ export default {
             pid:this.cityFicName
           }
         }).then(res=>{
-          this.optionsFic2 = res.data.
-          this.mylittleName = kuyelow
+          this.optionsFic2 = res.data.data
         })
       }
   },
@@ -587,7 +586,7 @@ export default {
     .el-table{
       border:1px solid #ccc;
       .el-table th.is-leaf{
-        border:1px solid #ccc;
+      border:1px solid #ccc;
       }
     }
   }
@@ -623,7 +622,6 @@ ul{
       }
     }
      .NewAddress{
-      //  padding:5px 10px ;
        border:1px solid #222;
        text-align: center;
        width: 120px;
