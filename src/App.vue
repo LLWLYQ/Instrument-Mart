@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view @public_header="public_header" @public_footer="public_footer"/>
-    <app-header v-if="header_show"></app-header>
+    <app-header v-if="header_show" ></app-header>
     <app-foot v-if="footer_show"></app-foot>
   </div>
 </template>
@@ -15,6 +15,7 @@ export default {
     return {
       header_show:true,
       footer_show:true,
+      Height: 0
     }
   },
   methods:{
@@ -36,10 +37,16 @@ export default {
   },
   updated() {
     window.scroll(0,0);
+  },
+  mounted(){
+    //动态设置内容高度 让footer始终居底   header+footer的高度是100
+    this.Height = document.documentElement.clientHeight - 100;
+　　//监听浏览器窗口变化　
+    window.onresize = ()=> {this.Height = document.documentElement.clientHeight -100}
   }
 }
 </script>
 
-<style>
+<style  lang="scss" scoped>
 
 </style>

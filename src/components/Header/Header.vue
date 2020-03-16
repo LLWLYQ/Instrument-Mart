@@ -25,6 +25,7 @@
           </div>
         </div>
       </div>
+      <div class="clearfloat"></div>
   </div>
 </template>
 
@@ -76,7 +77,6 @@ export default {
   position: fixed;
   z-index:50;
   top: 0px;
-  overflow: hidden;
   // background-color:#fff
 }
 .top{

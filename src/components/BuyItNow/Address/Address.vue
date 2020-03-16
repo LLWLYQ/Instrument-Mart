@@ -297,7 +297,7 @@ export default {
                     street_id:55,
                     zip_code:this.ruleFormFic.Invitation_codeFic,
                     tel:this.ruleFormFic.mobileNumberFic,
-                    address:this.ruleFormFic.detailed_addressFic
+                    address:this.ruleFormFic.detailed_addressFic,
                   }
                 }).then(res=>{
                   if(res.data.code == 20000){

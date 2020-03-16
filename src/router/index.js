@@ -43,7 +43,7 @@ import Promotion from '@/components/Marketing/Promotion/Promotion' //促销管�
 import Sign_in from '@/components/Marketing/Sign_in/Sign_in' //签到
 import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
 //Mouqiuxingbudaikouzhaotiqiuzaodaocanpangeigongpaizhid
-
+import comments from '@/components/goods/Detail/Comments/comments'
 
 Vue.use(Router)
 
@@ -93,6 +93,14 @@ export default new Router({
       component: Detail,
       meta:{
         title:'详情页'
+      }
+    },
+    {
+      path: '/comments',
+      name: 'comments',
+      component: comments,
+      meta:{
+        title:'评价'
       }
     },
     {

@@ -10,15 +10,15 @@ body, div, span, header, footer, nav, section, aside, article, ul,  li, a, p, h1
   -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing: antialiased;
   height: auto;
-  font-size: 14px;
+  font-size: 12px;
 }
 #app{
 height:100%;
 }
 .content_container{
   position: relative;
-  width: 1440px;
-  margin:0 auto;
+  width: 990px;
+  margin:auto;
   height: 100%;
 }
 [v-cloak]{

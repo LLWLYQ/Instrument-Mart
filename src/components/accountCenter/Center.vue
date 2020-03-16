@@ -2,14 +2,6 @@
   <div class="Center">
     <div class="content_container">
       <div class="Center_left">
-        <!-- <div class="user-info">
-          <div class="head_portrait">
-            <img src="../../assets/imges/sp_2.jpg" alt="">
-            <p>{{userName}}</p>
-            <div class="admin">
-            </div>
-          </div>
-        </div> -->
         <div class="order">
           <el-row class="tac">
             <el-col :span="12">
@@ -88,6 +80,7 @@ export default {
   },
   created(){
     // console.log(this.order)
+    this.$emit('public_footer', false);
   },
 
 //监听路由的变化，对应菜单高亮显示
@@ -97,14 +90,16 @@ export default {
 <style scoped lang="scss">
 @import "../../style/common";
   .content_container{
+    width: 1190px;
+    margin: 0 auto;
     .cur{
       background-color: #222;
       color:#fff;
     }
-    height: 1800px;
+    // height: 1800px;
     .Center_left{
       float: left;
-      width: 200px;
+      width: 100px;
       height: 1000px;
       margin-top: 80px;
       .user-info{

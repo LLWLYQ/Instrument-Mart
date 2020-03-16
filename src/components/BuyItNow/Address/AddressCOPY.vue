@@ -436,7 +436,6 @@ export default {
               cityID.map(item=>{
                 this.province_id = item.province_id
                 this.city = item.city_id
-                console.log();
               })
           })
      },

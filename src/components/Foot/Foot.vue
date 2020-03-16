@@ -1,6 +1,6 @@
 <template>
   <div class="foot">
-    <div class="content_container">
+    <div class="content">
       <div class="mine">
         <div class="foot_top">
           <ul>
@@ -68,6 +68,10 @@ export default {
     height: 250px;
     width: 100%;
     position:absolute;
+    .content{
+      width: 990px;
+      margin: 0 auto;
+    }
     .foot_top{
       ul{
         float: left;

@@ -44,17 +44,8 @@
         </ul>
       </div>
       <div class="Od">
-        <h1>点击上方按钮 请求对应商品接口</h1>
-        <br />
-        <h1>下方优惠券使用条件日期还有优惠金额可以随意修改</h1>
+
       </div>
-    </div>
-    <div class="discount_coupon">
-      <ul>
-        <li><img src="../../../assets/imges/YHQ.jpg" alt=""><span class="Describe">本代金券仅供本店不打折单品使用<br />使用日期:2020-05-20至2020-06-20</span><span class="Cash">10</span></li>
-        <li><img src="../../../assets/imges/YHQ.jpg" alt=""><span class="Describe">本代金券仅供本店不打折单品使用<br />使用日期:2020-05-20至2020-06-20</span><span class="Cash">50</span></li>
-        <li><img src="../../../assets/imges/YHQ.jpg" alt=""><span class="Describe">本代金券仅供本店不打折单品使用<br />使用日期:2020-05-20至2020-06-20</span><span class="Cash">80</span></li>
-      </ul>
     </div>
     <div class="hst">
       <h3>您浏览过的商品</h3>
@@ -89,6 +80,9 @@ export default {
   },
   components: {
 
+  },
+  created(){
+    this.$emit('public_footer', true);
   }
 }
 </script>
@@ -96,16 +90,17 @@ export default {
 <style lang="scss" scoped>
 @import '../../../style/common';
 .Center_home_page{
-  width: 1340px;
-  height: 1000px;
+  width: 1090px;
+  // display: inline-block;
+  // height: 1000px;
   margin-left: 100px;
 }
 .Account_of_integral{
   height: 200px;
-  width: 100%;
+  width: 180;
   .Account{
     height: 190px;
-    width: 650px;
+    width: 520px;
     border:1px solid #ccc;
     float: left;
   }
@@ -134,14 +129,14 @@ export default {
 }
 .Integral{
   height: 190px;
-  width: 650px;
+  width: 520px;
   border:1px solid #ccc;
   float: left;
-  margin-left: 40px;
+  margin-left: 50px;
   .integral{
     ul{
       float: left;
-      width: 300px;
+      width: 180px;
       height: 200px;
       padding:40px 0 0 50px;
       li{
@@ -170,8 +165,9 @@ export default {
   height: 500px;
   width: 100%;
   .Logistics{
+    border-bottom: 1px solid #ccc;
     ul{
-      height: 100px;
+      height: 70px;
       width: 100%;
       padding-top: 10px;
       li{
@@ -181,7 +177,7 @@ export default {
         cursor: pointer;
 
         i{
-          font-size: 50px;
+          font-size: 40px;
         }
         i:hover{
             color:#e94c15;
@@ -192,39 +188,7 @@ export default {
   .Od{
     height: 400px;
     width: 100%;
-    background: yellow;
-  }
-}
-.discount_coupon{
-  width: 100%;
-  margin-top: 30px;
-  overflow: hidden;
-  li{
-    float: left;
-    width: 400;
-    margin-left: 15px;
-    border:1px solid #ccc;
-    position: relative;
-    img{
-      width: 400px;
-      height: 200px;
-      margin-left: 20px;
-    }
-    .Describe{
-      position: absolute;
-      font-size: 12px;
-      top:100px;
-      left: 50px;
-      text-align: center;
-    }
-    .Cash{
-      position: absolute;
-      font-size: 40px;
-      font-weight: bold;
-      top:85px;
-      right: 50px;
-      text-align: center;
-    }
+    // background: yellow;
   }
 }
 .hst{
@@ -234,26 +198,29 @@ export default {
   margin-top: 20px;
   h3{
     margin-bottom: 20px;
+    font-size: 18px;
   }
   ul{
     width: 100%;
     overflow: hidden;
     li{
       float: left;
-      width: 320px;
-      height: 300px;
+      width: 250px;
+      height: 280px;
       text-align: center;
       padding-top: 25px;
       border:1px solid #E6E6E6;
-      margin-left: 10px;
       img{
-        height: 220px;
-        width: 250px;
+        height: 200px;
+        width: 248px;
       }
       p{
         margin-top: 10px;
         font-size: 18px;
       }
+    }
+    li:nth-child(n+2){
+      margin-left:30px;
     }
   }
 }
@@ -264,25 +231,28 @@ export default {
   margin-top: 70px;
   h3{
     margin-bottom: 20px;
+    font-size: 18px;
   }
   ul{
     width: 100%;
     li{
-      width: 320px;
-      float: left;
-      height: 300px;
+      width: 250px;
+      height: 280px;
       text-align: center;
       padding-top: 25px;
       border:1px solid #E6E6E6;
-      margin-left: 10px;
+      float: left;
       img{
-        height: 220px;
-        width: 250px;
+        height: 200px;
+        width: 248px;
       }
       p{
         margin-top: 10px;
         font-size: 18px;
       }
+    }
+    li:nth-child(n+2){
+      margin-left:30px;
     }
   }
 }

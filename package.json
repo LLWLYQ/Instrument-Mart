@@ -19,6 +19,7 @@
     "qs": "^6.8.0",
     "v-distpicker": "^1.2.2",
     "vue": "^2.5.2",
+    "vue-beauty": "^2.0.0-beta.19",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.1.1"

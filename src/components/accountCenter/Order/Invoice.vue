@@ -47,7 +47,6 @@ export default {
             alert('submit!');
           } else {
             console.log('error submit!!');
-            console.log('mangguodetianjingtoudejiaoluoningwangnichengshidelunkuo')
             return false;
           }
         });
