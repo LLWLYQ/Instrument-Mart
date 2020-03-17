@@ -36,15 +36,26 @@
     <div class="indent">
       <div class="Logistics">
         <ul class="flow">
-          <li><i class="el-icon-bank-card"></i><p>待付款</p></li>
-          <li><i class="el-icon-message"></i><p>待收货</p></li>
-          <li><i class="el-icon-chat-square"></i><p>待评价</p></li>
-          <li><i class="el-icon-service"></i><p>退换\售后</p></li>
-          <li><i class="el-icon-caret-right"></i><p>全部订单</p></li>
+          <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="代付款" name="first">
+
+            </el-tab-pane>
+            <el-tab-pane label="待收货" name="second">
+
+            </el-tab-pane>
+            <el-tab-pane label="待评价" name="third">
+
+            </el-tab-pane>
+            <el-tab-pane label="退换\售后" name="fourth">
+
+            </el-tab-pane>
+            <el-tab-pane label="全部订单" name="five">
+
+            </el-tab-pane>
+          </el-tabs>
         </ul>
       </div>
       <div class="Od">
-
       </div>
     </div>
     <div class="hst">
@@ -72,11 +83,13 @@
 export default {
   data() {
     return {
-
+       activeName: 'second'
     }
   },
   methods: {
-
+      handleClick(tab, event) {
+        console.log(tab, event);
+      }
   },
   components: {
 
@@ -165,7 +178,7 @@ export default {
   height: 500px;
   width: 100%;
   .Logistics{
-    border-bottom: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
     ul{
       height: 70px;
       width: 100%;

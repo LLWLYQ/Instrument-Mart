@@ -159,7 +159,8 @@ export default {
       UserId:localStorage.getItem('userId'),
       goods_option:'',
       title:'',
-      reviewData:''
+      reviewData:'',
+      option:{"10":"1"}
     }
   },
   computed:mapGetters([
@@ -187,7 +188,7 @@ export default {
           data:{
             goods_id:this.Infos.goods_id,
             member_id:localStorage.getItem('userId'),
-            option:[],
+            option:this.option,
             quantity:this.num
           }
         }).then(res=>{

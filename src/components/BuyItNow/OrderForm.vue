@@ -108,7 +108,6 @@ export default {
     'OrderInfromation':OrderInfromation
   },
   created(){
-
     this.$ajax({
         url:config.baseUrl + '/home/cart',
         method:'get',
@@ -117,22 +116,28 @@ export default {
         }
       }).then(res=>{
         this.ListData =  res.data.data.items.data
-        // // console.log(this.ListData)
+        console.log(this.ListData)
         // this.DataList.push({
         // })
         let result = []
+        let optres = []
         var goods = {}
+        var option = {}
         this.ListData.map((item,index)=>{
+          goods = {product_id:'',name:'',}
+          option = {total:'',quantity:'',price:'',shop_id:''}
           this.SumData += item.quantity*item.get_goods.sales_price
-          goods.total = item.quantity*item.get_goods.sales_price
-          goods.quantity = item.quantity
+          option.total = item.quantity*item.get_goods.sales_price
+          option.quantity = item.quantity
           goods.product_id = item.get_goods.goods_id
           goods.name = item.get_goods.goods_name
-          goods.price = item.get_goods.sales_price
-          goods.shop_id = item.get_goods.goods_shop_id;
+          option.price = item.get_goods.sales_price
+          option.shop_id = item.get_goods.goods_shop_id;
           result.push(goods)
+          optres.push(option)
         })
         this.DataList =  result
+        // console.log(this.DataList)
         var Diu = {}
         this.DataList.forEach((item,index)=>{
             Diu[index] = item
@@ -162,20 +167,19 @@ export default {
           })
         this.Logistics =  Diu
         if(res.data.code == 20000){
-
       //订单物流选择
-      this.$ajax({
-          url:config.baseUrl + '/home/shipping',
-          method:'get',
-          params:{
-            member_id:this.member_id,
-            goods:this.Logistics
+        this.$ajax({
+            url:config.baseUrl + '/home/shipping',
+            method:'get',
+            params:{
+              member_id:this.member_id,
+              goods:this.Logistics
+            }
+          }).then(res=>{
+          //  this.Logistics_Selecting = res.data.data.items
+          })
           }
-        }).then(res=>{
-        //  this.Logistics_Selecting = res.data.data.items
         })
-        }
-      })
   }
 }
 </script>

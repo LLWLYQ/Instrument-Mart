@@ -130,7 +130,6 @@
     </div>
   </div>
 </template>
-
 <script>
   import LoginForm from '../../../LoginForm/LoginForm'
   import quantity from '../Quantity/quantity';
@@ -188,7 +187,6 @@
             ip_address:'1583913258',
             parent_id:0,
             user_id:90
-
           }
         }).then(res=>{
           console.log(res)
