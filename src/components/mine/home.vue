@@ -1,89 +1,46 @@
 <template>
   <div class="content_container">
 
-      <!-- <div class="LoginForm" v-if="LF">
-        <i class="el-icon-circle-close" @click="closeLF()"></i>
-        <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
-      </div>
-      <div class="over" v-if="LF" @click="closeLF()"></div> -->
-      <!-- <div class="top">
-        <div class="comment">
-          <ul class="top_left">
-            <router-link to="/" ><li>仪商城首页</li></router-link>
-            <router-link to="/register" target="_blank" tag="a"><li>请登录</li></router-link>
-            <router-link to=""><li>欢迎来到仪商城</li></router-link>
-            <router-link to="/MemberRegistration" target="_blank" tag="a"><li>免费注册</li></router-link>
-          </ul>
-          <ul class="top_right">
-            <router-link to="/"><li>我的仪商城</li></router-link>
-            <a style="cursor:pointer;" @click="GoCart()"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;" ></i>购物车</li></a>
-            <router-link to="/"><li>收藏夹</li></router-link>
-            <router-link to="/"><li>仪商网</li></router-link>
-            <router-link to="/"><li>商家支持</li></router-link>
-          </ul>
-        </div>
-      </div> -->
+
       <div class="com">
         <div class="logo_img"><img src="../../assets/imges/logo.png" alt=""></div>
         <div class="Search_Goods">
             <HomeSerach></HomeSerach>
-          <ul class="SG_ul" style="float:left">
+          <!-- <ul class="SG_ul" style="float:left">
             <li>仪器搜索</li>
             <li>仪器资讯</li>
             <li>行业动态</li>
-          </ul>
+          </ul> -->
         </div>
         <div class="Shopping_Cart">
           <!-- <span>{{totalQuantity}}</span> -->
           <!-- <el-button slot="append" icon="el-icon-goods" id="SC_button" @click="goCart()"><span id="SC_span">ShoppingCart</span></el-button> -->
         </div>
         <ul class="com_ul">
-          <li>首页</li>
-          <li>品牌供应商</li>
-          <li>4S旗舰店</li>
-          <li>供求信息</li>
-          <li>专家交流</li>
+          <li><i class="el-icon-s-home"></i> 首页</li>
+          <li><i class="el-icon-s-platform"></i> 品牌供应商</li>
+          <li><i class="el-icon-s-flag"></i> 4S旗舰店</li>
+          <li><i class="el-icon-s-promotion"></i> 供求信息</li>
+          <li><i class="el-icon-s-custom"></i> 专家交流</li>
         </ul>
       </div>
       <div class="brand">
         <div class="B_l">
-          <p><img src="../../assets/imges/B_l.png" alt=""></p>
+          <p><i class="el-icon-s-grid"></i> 商品分类</p>
           <div class="B_l_list">
             <ul>
-              <p>只能家居</p>
-              <li>路由器</li>
-              <li>路由器</li>
-              <li>路由器</li>
-            </ul>
-            <ul>
-              <p>只能家居</p>
-              <li>路由器</li>
-              <li>路由器</li>
-              <li>路由器</li>
-            </ul>
-            <ul>
-              <p>只能家居</p>
-              <li>路由器</li>
-              <li>路由器</li>
-              <li>路由器</li>
-            </ul>
-            <ul>
-              <p>只能家居</p>
-              <li>路由器</li>
-              <li>路由器</li>
-              <li>路由器</li>
-            </ul>
-            <ul>
-              <p>只能家居</p>
-              <li>路由器</li>
-              <li>路由器</li>
-              <li>路由器</li>
-            </ul>
-            <ul>
-              <p>只能家居</p>
-              <li>路由器</li>
-              <li>路由器</li>
-              <li>路由器</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
+              <li>路由器/电脑</li>
             </ul>
           </div>
         </div>
@@ -105,41 +62,14 @@
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
           <!-- <li ><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><span></span></router-link></li> -->
-           <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><li ><img :src="baseUrl+List.files_path" alt="" class="List_li"><span>{{List.goods_name}}</span><br><span style="color:red;">￥{{List.sales_price}}</span></li></router-link>
+           <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><li ><img :src="baseUrl+List.files_path" alt="" class="List_li"><div class="List_div">{{List.goods_name}}</div><div class="List_div1" style="color:red;">￥{{List.sales_price}}</div></li></router-link>
         </ul>
       </div>
       <div class="Right" >
         <li v-for="(item,index) in wpList" :key="index"  :class="{cur:iscur===index}" @click="iscur=index,selected(item.name,index)" >{{item.name}}</li>
       </div>
-      <div class="mine" >
-        <h1>电力电工仪表</h1>
-        <div class="m_l">
-          <ul class="ml_ul">
-            <a :href="mla.url" @click="M_L()" v-for="mla in M_L_li.links" :key="mla.id" class="ml_a"><li class="ml_li">{{mla.name}}</li></a>
-            <a href=""><li style="color:orange;float:left;margin-top:10px;">更多分类</li></a>
-            <a href="#"><li ><img src="../../../static/mine_list_imges/big_img_3.jpg" alt="" style="margin-top:20px;"></li></a>
-          </ul>
-        </div>
-        <div class="m_r">
-          <a href=""  @click="M_L()" v-for="mra in M_L_li.list_bigimg" :key="mra.id" class="mr_a">
-            <img :src="mra.img_url" alt="">
-            <p>{{mra.name}}</p>
-            <p>{{mra.merchant}}</p>
-            <p>{{mra.price}}</p>
-          </a>
-        </div>
-        <div class="m_b">
-          <a href="" @click="M_L()" v-for="mba in M_L_li.list_smallimg" :key="mba.id" class="mb_a">
-            <img :src="mba.img" alt="">
-            <p>{{mba.name}}</p>
-            <p>{{mba.merchant}}</p>
-            <p>{{mba.price}}</p>
-          </a>
-        </div>
-      </div>
   </div>
 </template>
-
 <script>
 import HomeSerach from '../home_child/home_serach.vue'
 import $ from 'jquery'
@@ -169,8 +99,7 @@ export default {
         },
         {
         name: '顶部'
-        },
-      ],
+        }],
       active:'',
       selectVal:'',
       orgList:'',
@@ -196,8 +125,7 @@ export default {
         }
       },
   created(){
-    // console.log(Date.parse(new Date(this.date))/1000)
-
+    // this.JiaSuo()
     this.keywords()
     this.M_L()
      this.$ajax({
@@ -209,12 +137,6 @@ export default {
         }).then(res=>{
           this.carData= res.data.data.items.data
           var goodsinfos = {
-            // id:this.brandId,
-            // name:this.name,
-            // price:this.price,
-            // pictUrl:this.pictUrl,
-            // quantity
-            // DiscountPrice:this.DiscountPrice,
           };
           this.$store.commit("addToShopCar",goodsinfos);
           this.carData.forEach(item=>{
@@ -223,18 +145,16 @@ export default {
         })
   },
   methods: {
-    // GoCart(){
-    //   if(!this.UserId){
-    //     this.LF = true
-    //   }else{
-    //     this.LF = false
-    //     if(this.UserId){
-    //       this.$router.push({
-    //           path:'/cart'
-    //         })
+    // JiaSuo(){
+    //   this.$ajax({
+    //     url:config.baseUrl + 'home/page',
+    //     method:'post',
+    //     data:{
+    //       id:localStorage.setItem('userId')
     //     }
-    //   }
-
+    //   }).then(res=>{
+    //     console.log(res)
+    //   })
     // },
     closeLF(){
       this.LF = false
@@ -252,7 +172,8 @@ export default {
       }).then(res=>{
         if(res.data.code == 20000){
           this.$router.push({
-            path:'/cart'
+            path:'/cart',
+            param
           })
         }
       })
@@ -290,6 +211,7 @@ export default {
         url:"../../../static/data.json",
         method:"get"
       }).then(res=>{
+        console.log('cuibachengcjam[')
         this.M_L_li = res.data
       })
     }
@@ -330,6 +252,7 @@ export default {
       left: 50%;
       top: 20%;
       transform: translate(-50%, -20%);
+      cursor: pointer;
       z-index: 1000;
       padding: 10px 0 0 30px;
        .el-icon-circle-close{
@@ -350,60 +273,15 @@ export default {
         z-index: 999;
         background-color: #111111;
       }
-.content_container{
-  position:relative;
-  width: 1440px;
-  margin:0 auto;
-  text-align: left;
-}
-  // .top{
-  //   height:30px;
-  //   background-color:#fff;
-  //   border-bottom: 2px solid #ccc;
-  //   width:1440px;
-  //   // position: fixed;
-  //   // z-index:50;
-  //   overflow: hidden;
-  //   .top_left{
-  //     width:500px;
-  //     float: left;
-  //     color:red;
-  //     :nth-child(n+2){
-  //         margin-left:20px;
-  //       }
-  //     a{
-  //       float: left;
-  //       color:black;
-  //       padding-top:5px;
-  //       font-size:14px;
-  //       font-weight: bold;
-  //     }
-  //     a:hover{
-  //       color: #e94c15;
-  //     }
-  //   }
-  //   .top_right{
-  //     width:750px;
-  //     float: right;
-  //     color:red;
-  //     :nth-child(n+2){
-  //         margin-right:30px;
-  //       }
-  //     a{
-  //       float: right;
-  //       color:black;
-  //       padding-top:5px;
-  //       font-size:14px;
-  //       font-weight: bold;
-  //     }
-  //      a:hover{
-  //       color: #e94c15;
-  //     }
-  //   }
-  // }
   .com{
     height: 180px;
     padding-top:60px;
+    .logo_img{
+      width: 200px;
+      img{
+        width: 100%;
+      }
+    }
     .Search_Goods{
       position: absolute;
       left:345px;
@@ -432,8 +310,8 @@ export default {
       height: 20px;
       width: 600px;
       float: left;
-      margin-left:345px;
-      margin-top: -2px;
+      margin-left:225px;
+      margin-top: 15px;
       font-weight: bold;
       font-size:16px;
       :hover{
@@ -451,67 +329,75 @@ export default {
   .brand{
       height:460px;
       .B_l{
-        height: 440px;
-        width:260px;
-        float: left;
-        margin:0;
-        background-color: #F8F8FF;
-        img{
-          width: 100%;
-        }
+          background-color: #fff;
+          width: 200px;
+          z-index: 11;
+          float: left;
+          p{
+            background-color: #000;
+            height: 36px;
+            line-height: 40px;
+            padding-left: 14px;
+            font-size: 14px;
+            color: #FFF;
+            margin-top: -36px;
+          }
         .B_l_list{
-          border:1px solid #fff;
+          // border:1px solid #fff;
           border-radius: 5%;
-          background-color:#fff;
-          margin: 5px 5px 8px 5px;
-          padding:0 30px ;
+          // background-color:#fff;
           ul:nth-child(-n+5){
             border-bottom: 1px solid #ccc;
           }
           ul{
-            height: 62px;
-            li:nth-child(n+3){
-              margin-left:10px;
-            }
-            p{
-              font-weight: bold;
-              font-size: 15px;
-              color:#A8A8A8;
-              padding-top: 10px;
-            }
+            // background-color: rgba(0,0,0,.55);
+            background-color: #333;
+            width: 200px;
+            height: 441px;
+            position: relative;
+            z-index: 11;
             li{
-              float: left;
-              font-size:13px;
-              color: #A8A8A8;
-              margin-top: 5px;
+              padding-left: 14px;
+              width: 200px;
+              position: relative;
+              height: 32px;
+              line-height: 32px;
+              color: #fff;
+              font-size: 14px;
+              cursor: pointer;
+            }
+            li:hover{
+              background: #fff;
+              position: relative;
+              color: #000;
+              font-size: 12px;
             }
           }
         }
       }
       .B_c{
         height: 440px;
-        width:700px;
+        width:800px;
         background-color: black;
         float: left;
-        margin:0 0 0 85px;
         position: relative;
         img{
           height: 440px;
-          width: 700px;
+          width: 800px;
         }
         .swiper-pagination{
           position: absolute;
-          left: 250px;
-          top:380px;
+          left: 0px;
+          bottom: 30px;
           span{
-            width: 15px;
+            width: 50px;
             height: 15px;
           }
         }
       }
       .B_r{
         height: 440px;
-        width:280px;
+        width:230px;
         background-color: yellow;
         float: right;
         // margin:0 0 0 100px;
@@ -519,30 +405,68 @@ export default {
   }
   .List{
     height:2100px;
-    a{
-      height: 350px;
-      width: 320px;
-      float: left;
-      padding:20;
-      margin:20px;
+    .List_div{
+      width: 135px;
+      height: 40px;
+      font-size: 14px;
+      color: #333;
+      line-height: 20px;
       overflow: hidden;
+      margin: 8px auto;
+    }
+    .List_div1{
+      font-size: 18px;
+      color: #FF0036;
+      line-height: 18px;
+      margin: 10px auto;
+    }
+    .List_ul{
+      height: 300px;
+      width: 234px;
+      float: left;
+      overflow: hidden;
+      margin: 0 auto;
+      border:1px solid #666;
+    }
       li{
-        height: 340px;
-        width: 310px;
         span{
           color:#222;
         }
-      }
     }
     a:hover{
       border:1px solid #222;
     }
       img{
-        height: 300px;
-        width: 318px;
+        height: 185px;
+        width: 185px;
     }
   }
-
+  .List_ul:nth-child(10n+10){
+      float: left;
+      position: relative;
+      width: 235px;
+      height: 618px;
+    }
+  .List_ul:nth-child(-n+10){
+      margin-left: 13px;
+      padding:25px;
+    }
+  .List_ul:nth-child(1){
+      float: left;
+      position: relative;
+      width: 235px;
+      height: 618px;
+      font-size: 0;
+      margin: 0;
+      padding: 0;
+      img{
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .List_ul:nth-child(n+6){
+      margin-top: 18px;
+    }
   .Right{
     position:fixed;
     right:0;
@@ -564,60 +488,6 @@ export default {
        background-color:#c81623;
         color:#fff;
     }
-  }
-  .mine{
-    height: 700px;
-    .m_l{
-      width: 250px;
-      height: 400px;
-      float: left;
-      .ml_a{
-        float: left;
-        width: 100px;
-        color:#000;
-        margin-top: 10px;
-        :hover{
-          color:red;
-        }
-      }
-    .ml_a:last-child{
-        color:orange;
-      }
-    }
-    .m_r{
-      width: 1190px;
-      height: 400px;
-      float: left;
-       a:nth-child(2){
-          width: 280px;
-          height: 410px;
-        }
-        a:nth-child(n+3){
-          width: 220px;
-          height: 200px;
-          margin-left: 50px;
-        }
-        a:nth-child(n+4){
-          margin-top: 10px;
-        }
-      .mr_a{
-        float: left;
-        img{
-          text-align: center;
-        }
-      }
-
-    }
-     .m_b{
-        float: right;
-        width: 1190px;
-        height: 250px;
-        a{
-          float: left;
-          margin-top:50px;
-          margin-left: 100px;
-        }
-      }
   }
 </style>
 //全局样式

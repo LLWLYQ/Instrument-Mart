@@ -3,7 +3,7 @@
     	<form action="">
     		<div>
     			<input v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" type="text" class="_inp" placeholder="请输入要搜索的商品" @mouseover="mouseOver()" @mouseleave="mouseLeave()"/>
-          <el-button id="ELB" slot="append" icon="el-icon-search "  @click="search" style="height:38px;width:50px;"></el-button>
+          <el-button id="ELB" slot="append" icon="el-icon-search "  @click="search" style="height:38px;width:100px;"></el-button>
 	    		<ul class="list-group" ref="ListGroup"  @mouseover="mouseOver()" @mouseleave="mouseLeave()">
 	    			<li  v-for="(item,index) in arr" :key="item.id" :class="{'list-group-item-info':index==listIndex}" @click="click($event)">{{item}}</li>
 	    		</ul>
@@ -93,33 +93,7 @@ export default {
 				}else if(event.keyCode==13){
 					//如果你按的是enter，那么就跳转到百度搜索结果
           window.open("https://www.baidu.com/s?wd="+this.wd);
-          // var goodslist = document.querySelector('.li')
-          // console.log(goodslist)
-          // goodslist.onclick = function(){
-          //   for(var i=0;i<goodslist.lenght;){
-          //     let GOODSLIST = goodlist[i]
-          //     if(GOODLIST == 1){
-          //       this.$router.push({
-          //         path:'/register',
-          //         params:{
-          //           diu:"this.diu",
-          //           pas:"this.password"
-          //         }
-          //       })
-          //       why.onclick.in.not.define
-          //       your.should.can.do.is-text
-          //       Iam.is.very.hear.you.
-          //       Iam.so.kill.you
-          //       localStorage.get('gs',GDS)
 
-          //     }
-          //     console.log(GOODLIST)
-          //     GOODLIST[0].karist = a
-          //       //解决卡死问题
-          //                 //why store is not define?
-          //     //your sure move don`t  fear
-          //   }
-          // }
 				}
 
 			}
@@ -129,15 +103,17 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common';
+
  ._inp{
-   border:1px solid #e94c15;
+   border:2px solid #e94c15;
    border-radius: 2px;
-   height: 38px;
+   height: 36px;
    width: 500px;
    text-indent:10px;
    font-size: 10px;
    color: #000;
    float: left;
+   margin-top: 1px;
   }
   .list-group{
    position: relative;

@@ -173,6 +173,7 @@
     methods: {
       //提交评论
       submit(){
+        debugger
         this.$ajax({
           url:config.baseUrl + '/home/comment',
           method:'post',
@@ -233,9 +234,10 @@
       },
       Change(data) {
         this.num = data
+        // console.log('gaiyoudeyuaanyunhaishi zhecaishijixianhuanjingxiashengcun87&*')
       },
       closeLogin(closeLogin) {
-        this.LF = closeLogin
+        this.LF = closeLogina
       }
     },
     created() {
@@ -265,6 +267,7 @@
         }
       }).then(res => {
         this.reviewData = res.data.data.items.data
+        // console.log(this.reviewData)
       })
     },
     components: {
@@ -273,7 +276,6 @@
     }
   }
 </script>
-
 <style scope lang="scss">
   @import "../../../../style/common.css";
   .el-rate{

@@ -395,7 +395,6 @@ export default {
           code:this.ruleForm2.smscode,
           company_name:this.ruleForm2.company_name,
           company_contacts:this.ruleForm2.company_contacts
-
         }
       }).then(res=>{
         if(res.data.code == 20000){

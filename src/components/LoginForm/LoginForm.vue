@@ -83,6 +83,7 @@ export default {
             if(res.data.status == 'success'){
                this.$emit('closeLogin',this.LF)
                window.location.reload();
+               console.log('kendingshixianfangpailiezaifidaqi a')
               //  const h = this.$createElement;
               //  this.$notify({
               //     title: '加入购物车成功',

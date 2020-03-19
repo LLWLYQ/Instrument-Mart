@@ -16,7 +16,7 @@ html,body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, 
 } */
 .content_container{
   position:relative;
-  width: 1440px;
+  width: 1230px;
   margin:auto;
   text-align: left;
 }
