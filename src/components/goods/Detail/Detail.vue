@@ -221,16 +221,12 @@ export default {
       console.log(res)
       this.Infos = res.data.data.result
       this.title = this.Infos.goods_name
-      // console.log(this.Infos)
-      // console.log(this.title)
       this.goods_option = this.Infos.goods_option
-      // console.log(this.goods_option)
       this.brandId = this.Infos.goods_id
       this.tebImg = res.data.data.result.piclist
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
-      // this.DiscountPrice =  this.Infos
     })
     this.$ajax({
         url:config.baseUrl + '/home/comment',

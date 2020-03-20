@@ -1,32 +1,28 @@
 <template>
-  <div class="content_container">
-
-
-      <div class="com">
-        <div class="logo_img"><img src="../../assets/imges/logo.png" alt=""></div>
-        <div class="Search_Goods">
-            <HomeSerach></HomeSerach>
-          <!-- <ul class="SG_ul" style="float:left">
-            <li>仪器搜索</li>
-            <li>仪器资讯</li>
-            <li>行业动态</li>
-          </ul> -->
-        </div>
-        <div class="Shopping_Cart">
-          <!-- <span>{{totalQuantity}}</span> -->
-          <!-- <el-button slot="append" icon="el-icon-goods" id="SC_button" @click="goCart()"><span id="SC_span">ShoppingCart</span></el-button> -->
-        </div>
-        <ul class="com_ul">
-          <li><i class="el-icon-s-home"></i> 首页</li>
-          <li><i class="el-icon-s-platform"></i> 品牌供应商</li>
-          <li><i class="el-icon-s-flag"></i> 4S旗舰店</li>
-          <li><i class="el-icon-s-promotion"></i> 供求信息</li>
-          <li><i class="el-icon-s-custom"></i> 专家交流</li>
-        </ul>
+<div class="home">
+  <div class="home_top">
+    <div class="com">
+      <div class="logo_img"><img src="../../assets/imges/logo.png" alt=""></div>
+      <div class="Search_Goods">
+        <HomeSerach></HomeSerach>
       </div>
-      <div class="brand">
+      <div class="Shopping_Cart">
+      </div>
+      <div style="float:left;height:38px;line-height:38px;background:#333;width:200px;color:#fff;margin:10px 0 0 0;padding:0 0 0 10px;">
+        <p style="font-size:16px;"><i style="font-size:18px;" class="el-icon-s-grid"></i> 商品分类</p>
+      </div>
+      <ul class="com_ul">
+        <li><i class="el-icon-s-home"></i> 首页</li>
+        <li><i class="el-icon-s-platform"></i> 品牌供应商</li>
+        <li><i class="el-icon-s-flag"></i> 4S旗舰店</li>
+        <li><i class="el-icon-s-promotion"></i> 供求信息</li>
+        <li><i class="el-icon-s-custom"></i> 专家交流</li>
+      </ul>
+    </div>
+  </div>
+  <div class="home_two">
+    <div class="brand">
         <div class="B_l">
-          <p><i class="el-icon-s-grid"></i> 商品分类</p>
           <div class="B_l_list">
             <ul>
               <li>路由器/电脑</li>
@@ -58,16 +54,62 @@
         </div>
         <div class="B_r"></div>
       </div>
+  </div>
+  <div class="content_container">
       <!-- 商品列表 -->
+      <div class="BrandList">
+        <ul v-for="BrL in Brand_List" :key="BrL.id">
+          <li >
+            <div class="brand-img" >
+              <img src="//img.alicdn.com/i2/2/TB1vDvUKpXXXXaKXFXXSutbFXXX.jpg_100x150q100.jpg_.webp" alt="">
+            </div>
+            <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=1917047079&amp;abtest=&amp;pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&amp;pos=1&amp;abbucket=&amp;brandId=30111&amp;acm=09042.1003.1.1200415&amp;scm=1007.13029.131809.100200300000000">
+              <div class="coupon">
+                <span>Apple/苹果</span>
+              </div>
+              <div class="enter">
+                <span>点击进入</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <div class="brand-img">
+              <img src="//img.alicdn.com/i2/2/TB1XGRLpm_I8KJjy0FoXXaFnVXa?abtest=&pos=5&abbucket=&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000_100x150q100.jpg_.webp" alt="">
+            </div>
+            <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=890482188&abtest=&pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&pos=4&abbucket=&brandId=20578&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000">
+              <div class="coupon">
+                <span>Uniqlo/优衣库</span>
+              </div>
+              <div class="enter">
+                <span>点击进入</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <div class="brand-img">
+              <img src="//img.alicdn.com/i2/2/TB1t.e1m2DH8KJjy1XcXXcpdXXa?abtest=&pos=4&abbucket=&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000_100x150q100.jpg_.webp" alt="">
+            </div>
+            <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=196993935&abtest=&pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&pos=5&abbucket=&brandId=29527&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000">
+              <div class="coupon">
+                <span>Nike/耐克</span>
+              </div>
+              <div class="enter">
+                <span>点击进入</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div style="clear:both;"></div>
+      </div>
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <!-- <li ><router-link :to="{name:'List',query:{listId:List_img.categoryId}}" target="_blank" tag="a"><img src="../../assets/imges/sp_5.jpg" alt="" class="List_li"><span>{{List.goods_name}}</span><span></span></router-link></li> -->
            <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><li ><img :src="baseUrl+List.files_path" alt="" class="List_li"><div class="List_div">{{List.goods_name}}</div><div class="List_div1" style="color:red;">￥{{List.sales_price}}</div></li></router-link>
         </ul>
       </div>
       <div class="Right" >
         <li v-for="(item,index) in wpList" :key="index"  :class="{cur:iscur===index}" @click="iscur=index,selected(item.name,index)" >{{item.name}}</li>
       </div>
+  </div>
   </div>
 </template>
 <script>
@@ -111,6 +153,7 @@ export default {
       num:'',
       carData:'',
       UserId:localStorage.getItem('userId'),
+      Brand_List:''
     }
   },
     mounted() {
@@ -125,7 +168,7 @@ export default {
         }
       },
   created(){
-    // this.JiaSuo()
+    let _this = this
     this.keywords()
     this.M_L()
      this.$ajax({
@@ -143,19 +186,17 @@ export default {
             goodsinfos.quantity = item.quantity
           })
         })
+    //品牌列表
+    _this.$ajax({
+      url:config.baseUrl + '/home/brand',
+      method:'get',
+      params:{}
+    }).then(res=>{
+      _this.Brand_List = res.data.data.items
+      console.log(_this.Brand_List)
+    })
   },
   methods: {
-    // JiaSuo(){
-    //   this.$ajax({
-    //     url:config.baseUrl + 'home/page',
-    //     method:'post',
-    //     data:{
-    //       id:localStorage.setItem('userId')
-    //     }
-    //   }).then(res=>{
-    //     console.log(res)
-    //   })
-    // },
     closeLF(){
       this.LF = false
     },
@@ -167,7 +208,7 @@ export default {
         url:config.baseUrl+'/home/cart',
         method:'get',
         params:{
-          member_id:localStorage.getItem('userId')
+          member_id:localStorage.getItem('userId'),
         }
       }).then(res=>{
         if(res.data.code == 20000){
@@ -195,7 +236,6 @@ export default {
       }
       else if(this.active == 4){
         $("body,html").animate({scrollTop:0},100)
-        // $("body,html").animate({scrollTop:0},200)
       }
     },
     keywords(){
@@ -211,7 +251,6 @@ export default {
         url:"../../../static/data.json",
         method:"get"
       }).then(res=>{
-        console.log('cuibachengcjam[')
         this.M_L_li = res.data
       })
     }
@@ -242,6 +281,75 @@ export default {
 //局部样式
 <style lang="scss" scoped>
 @import "../../style/base";
+
+.BrandList{
+  height: 327px;
+  margin: 20px 0;
+  ul{
+    li{
+      width: 122px;
+      float: left;
+      height: 108px;
+      margin-right: 1px;
+      margin-bottom: 1px;
+      position: relative;
+     .brand-img{
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        line-height: 108px;
+        background-color: #fff;
+         img{
+          width: 82%;
+          height: 50px;
+        }
+      }
+      .brand-mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        background-color: #333;
+        background-color: rgba(0,0,0,.8);
+        transition: all .3s ease-out;
+        opacity: 0;
+        .coupon {
+            color: #fff;
+            text-align: center;
+            line-height: 90px;
+            height: 60px;
+            span{
+              font-size: 12px;
+              display: block;
+              padding: 0 5px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+        }
+        .enter {
+          text-align: center;
+          height: 32px;
+          span{
+            display: inline-block;
+            color: #fff;
+            width: 63px;
+            height: 18px;
+            font-size: 12px;
+            line-height: 15px;
+            background-color: #FF0036;
+            border-radius: 9px;
+          }
+        }
+      }
+     .brand-mask:hover{
+       opacity: 1;
+      }
+    }
+  }
+}
 .LoginForm {
       position: fixed;
       font-size: 24px;
@@ -260,7 +368,7 @@ export default {
             float: right;
             margin: 0px 10px 0 0;
             cursor: pointer;
-          }
+        }
     }
 .over {
         position: fixed;
@@ -273,9 +381,26 @@ export default {
         z-index: 999;
         background-color: #111111;
       }
+  .home_top{
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 2px solid #e94c15;
+  }
+  .home_two{
+    width: 100%;
+    background-color: #fff;
+    background-image: url(../../assets/imges/sp_5.jpg);
+    .brand{
+      width: 1230px;
+      margin: 0 auto;
+    }
+  }
   .com{
+    position: relative;
     height: 180px;
     padding-top:60px;
+    width: 1230px;
+    margin: 0 auto;
     .logo_img{
       width: 200px;
       img{
@@ -310,7 +435,7 @@ export default {
       height: 20px;
       width: 600px;
       float: left;
-      margin-left:225px;
+      margin-left:20px;
       margin-top: 15px;
       font-weight: bold;
       font-size:16px;
@@ -323,6 +448,10 @@ export default {
       }
       li{
         float: left;
+        font-size:16px;
+        i{
+          font-size:16px;
+        }
       }
     }
   }
@@ -353,7 +482,7 @@ export default {
             // background-color: rgba(0,0,0,.55);
             background-color: #333;
             width: 200px;
-            height: 441px;
+            height: 460px;
             position: relative;
             z-index: 11;
             li{
@@ -376,13 +505,13 @@ export default {
         }
       }
       .B_c{
-        height: 440px;
+        height: 460px;
         width:800px;
-        background-color: black;
+        // background-color: black;
         float: left;
         position: relative;
         img{
-          height: 440px;
+          height: 460px;
           width: 800px;
         }
         .swiper-pagination{
@@ -396,7 +525,7 @@ export default {
         }
       }
       .B_r{
-        height: 440px;
+        height: 460px;
         width:230px;
         background-color: yellow;
         float: right;

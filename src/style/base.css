@@ -10,6 +10,7 @@ html,body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, 
   -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing: antialiased;
   height: auto;
+  font-size: 12px;
 }
 /* .com{
   width:80%;
