@@ -27,10 +27,12 @@ export default {
       }
     }).then(res=>{
       this.all = res.data
+      // console.log(this.all)
       if(res.status == 200){
         const div = document.querySelector('.mine');
         div.innerHTML = this.all;
         document.body.appendChild(div);
+        document.forms.alipaysubmit.setAttribute('target', '_blank');
         document.forms.alipaysubmit.submit();
       }
     })
@@ -40,5 +42,8 @@ export default {
 
 <style scoped>
 @import '../../../style/common';
-
+  .content_container{
+    width: 950px;
+    margin: 0 auto;
+  }
 </style>

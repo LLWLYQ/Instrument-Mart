@@ -41,6 +41,7 @@ export default {
 </script>
 
 <style scope lang="scss">
+@import '../../../../style/common';
   .quantity{
     margin-top: 10px;
     border-top:1px solid #ccc;
@@ -50,10 +51,10 @@ export default {
       margin-bottom: 10px;
       p{
         height: 60px;
-        font-size: 16px;
         line-height: 60px;
         span:nth-child(2){
-          margin-left: 62px;
+          margin-left: 30px;
+          font-size: 12px;
         }
       }
     }
@@ -82,8 +83,8 @@ export default {
       }
     }
     .numb{
-      font-size: 14px;
-      margin-right: 60px;
+      font-size: 12px;
+      margin-right: 25px;
     }
   }
 </style>

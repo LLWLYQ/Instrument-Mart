@@ -52,7 +52,9 @@
               <div class="swiper-pagination"></div>
           </div>
         </div>
-        <div class="B_r"></div>
+        <div class="B_r">
+
+        </div>
       </div>
   </div>
   <div class="content_container">
@@ -168,6 +170,7 @@ export default {
         }
       },
   created(){
+
     let _this = this
     this.keywords()
     this.M_L()
@@ -193,7 +196,7 @@ export default {
       params:{}
     }).then(res=>{
       _this.Brand_List = res.data.data.items
-      console.log(_this.Brand_List)
+      // console.log(_this.Brand_List)
     })
   },
   methods: {
@@ -244,6 +247,7 @@ export default {
 					method: "get",
 				}).then(res => {
             this.data_list = res.data.data.items
+          console.log(this.data_list)
         });
     },
     M_L(){
@@ -281,7 +285,9 @@ export default {
 //局部样式
 <style lang="scss" scoped>
 @import "../../style/base";
-
+.home{
+  background: #f5f5f5;
+}
 .BrandList{
   height: 327px;
   margin: 20px 0;
@@ -570,32 +576,32 @@ export default {
         width: 185px;
     }
   }
-  .List_ul:nth-child(10n+10){
-      float: left;
-      position: relative;
-      width: 235px;
-      height: 618px;
-    }
-  .List_ul:nth-child(-n+10){
-      margin-left: 13px;
-      padding:25px;
-    }
-  .List_ul:nth-child(1){
-      float: left;
-      position: relative;
-      width: 235px;
-      height: 618px;
-      font-size: 0;
-      margin: 0;
-      padding: 0;
-      img{
-        height: 100%;
-        width: 100%;
-      }
-    }
-    .List_ul:nth-child(n+6){
-      margin-top: 18px;
-    }
+  // .List_ul:nth-child(10n+10){
+  //     float: left;
+  //     position: relative;
+  //     width: 235px;
+  //     height: 618px;
+  //   }
+  // .List_ul:nth-child(-n+10){
+  //     margin-left: 13px;
+  //     padding:25px;
+  //   }
+  // .List_ul:nth-child(1){
+  //     float: left;
+  //     position: relative;
+  //     width: 235px;
+  //     height: 618px;
+  //     font-size: 0;
+  //     margin: 0;
+  //     padding: 0;
+  //     img{
+  //       height: 100%;
+  //       width: 100%;
+  //     }
+  //   }
+  //   .List_ul:nth-child(n+6){
+  //     margin-top: 18px;
+  //   }
   .Right{
     position:fixed;
     right:0;

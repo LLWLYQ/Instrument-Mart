@@ -1,5 +1,5 @@
 <template>
-  <div id="Detail">
+  <div id="comments" style="background:#F5F5F5;">
     <div class="content_container">
       <div class="LoginForm" v-if="LF">
         <i class="el-icon-circle-close" @click="closeLF()"></i>
@@ -173,7 +173,6 @@
     methods: {
       //提交评论
       submit(){
-        debugger
         this.$ajax({
           url:config.baseUrl + '/home/comment',
           method:'post',
@@ -442,6 +441,7 @@
   }
 
   .SKU {
+    margin-top: 30px;
     .db-icbu {
       width: 526px;
       height: 462px;

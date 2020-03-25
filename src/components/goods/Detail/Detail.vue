@@ -1,4 +1,5 @@
 <template>
+<!-- 引入样式 -->
   <div id="Detail">
     <div class="content_container">
       <div class="LoginForm" v-if="LF">
@@ -30,6 +31,13 @@
             </li>
           </ul>
         </div>
+        <div class="collect">
+          <p @click="collect()"><i class="el-icon-star-on"></i>收藏商品</p>
+        </div>
+        <div class="collect_succ" v-if="Collect">
+          <h1><i class="el-icon-success"></i><span>成功加入收藏夹</span><i class="el-icon-error right" @click="close()"></i></h1>
+          <p>您可以前往 <router-link to="/Favorite" target="_blank">收藏夹</router-link>&nbsp;查看</p>
+        </div>
       </div>
       <div class="SKU">
         <div class="introduce" >
@@ -49,12 +57,17 @@
         </div>
         <div>
           <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" ></quantity>
-          <div class="select">
-            <ul v-for="Go in goods_option" :key="Go.id">
-              <li v-for="(go,index) in Go.goods_option_value" :key="index" :class="{Select:isSelect===index}" @click="select(index)">
-                {{go.name}}
-              </li>
-            </ul>
+          <!-- 商品规格 -->
+          <div class="select" style ="color:#000;">
+            <el-form ref="form" :model="form" label-width="37px" >
+              <el-form-item :label="Go.name"  v-for="Go in goods_option" :key="Go.id" >
+                  <el-radio-group  v-model="Go.cf"   @change="aa" >
+                     <el-radio-button :label="String(Go.goods_option_id)+':'+String(go.goods_option_value_id)" v-for="(go,index) in Go.goods_option_value" :key="index" >
+                       {{go.name}} {{go.price_prefix}} {{go.price}}
+                    </el-radio-button>
+                  </el-radio-group>
+              </el-form-item>
+            </el-form>
           </div>
         </div>
         <div class="buy">
@@ -109,7 +122,6 @@
                         {{red.content}}
                         <div class="tm-m-photos">
                           <ul class="tm-m-photos-thumb">
-
                           </ul>
                         </div>
                       </div>
@@ -139,6 +151,8 @@ import config from '../../../config/config'
 export default {
   data () {
     return {
+      Collect:false,
+      form:{},
       activeName: 'first',
       isSelect:0,
       baseUrl:config.baseUrl,
@@ -160,19 +174,68 @@ export default {
       goods_option:'',
       title:'',
       reviewData:'',
-      option:{"10":"1"}
+      option:'',
     }
   },
   computed:mapGetters([
     'count'
   ]),
   methods: {
+    close(){
+      this.Collect = false
+    },
+    collect(){
+      this.$ajax({
+        url:config.baseUrl + '/home/collect',
+        method:'post',
+        data:{
+          goods_id:this.detailID,
+          member_id:localStorage.getItem('userId')
+        }
+      }).then(res=>{
+        this.Collect = true
+      })
+    },
     //累计评论
     handleClick(tab, event) {
       // console.log(this.title)
     },
-    select(index){
+    select2(index,go){
       this.isSelect = index
+
+      console.log(index)
+      console.log(go)
+
+      //this.Infos.market_price=parseInt(this.Infos.market_price)+parseInt(go.price)
+    },
+    select(e){
+      //this.isSelect = index
+
+      //console.log(index)
+      console.log(e.target.dataset.nums)
+
+      //this.isSelect=e.target.dataset.nums
+
+
+      //this.Infos.market_price=(parseInt(this.Infos.market_price)+parseInt(e.target.dataset.price))
+      let as=parseInt(this.Infos.market_price)
+      let rs=0
+      rs=as+parseInt(e.target.dataset.price)
+
+      console.log(rs)
+
+      this.Infos.market_price=rs
+    },
+    aa(e){
+         let arr=this.goods_option
+         let strObject={};
+
+         for(let index in arr){
+           strObject[index]=arr[index]['cf']
+         }
+
+         this.option = strObject
+         console.log(this.option)
     },
     closeLF(){
       this.LF = false
@@ -182,6 +245,8 @@ export default {
     },
     addToShopCar(){
       if(this.UserId){
+        // console.log(this.$refs)
+        // return false
         this.$ajax({
           url:config.baseUrl+'/home/cart/add',
           method:'post',
@@ -192,6 +257,7 @@ export default {
             quantity:this.num
           }
         }).then(res=>{
+          console.log(res)
           if( res.data.code = 20000){
             const h = this.$createElement;
             this.$notify({
@@ -218,15 +284,19 @@ export default {
       url:config.baseUrl+'/home/goods/'+ this.detailID,
       methods:'post',
     }).then(res=>{
-      console.log(res)
+      // console.log(res)
       this.Infos = res.data.data.result
       this.title = this.Infos.goods_name
+      // console.log(this.Infos)
+      // console.log(this.title)
       this.goods_option = this.Infos.goods_option
+      // console.log(this.goods_option)
       this.brandId = this.Infos.goods_id
       this.tebImg = res.data.data.result.piclist
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
+      // this.DiscountPrice =  this.Infos
     })
     this.$ajax({
         url:config.baseUrl + '/home/comment',
@@ -248,6 +318,76 @@ export default {
 
 <style scope lang="scss">
 @import "../../../style/common.css";
+.collect_succ{
+  width: 527px;
+  height: 244px;
+  border:10px solid rgba(71, 65, 64, 0.5);
+  opacity: 1;
+  position: absolute;
+  top:300px;
+  left: 208px;
+  z-index: 10000;
+  padding: 10px;
+  background: #fff;
+  p{
+    float: left;
+    width: 100%;
+    padding-left:20px;
+    height: 30px;
+    line-height: 30px;
+  }
+  h1{
+    height: 50px;
+    line-height: 50px;
+    margin-top: 0px;
+    border-bottom:1px solid #e6e6e6;
+    .right{
+      float: right;
+      margin-top: 0px;
+      color:#716564;
+      cursor: pointer;
+    }
+    i{
+      font-size: 30px;
+      float: left;
+      color:green;
+      margin-top: 14px;
+    }
+    span{
+      float: left;
+      font-size: 18px;
+      margin-top: 2px;
+      margin-left: 10px;
+    }
+  }
+}
+.collect{
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  p{
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    color: #999;
+    cursor: pointer;
+  }
+  i{
+    margin-right: 5px;
+    font-size: 14px;
+    color: #999;
+  }
+
+}
+.el-radio-button__inner{
+  margin-left: 18px;
+  font-size: 12px;
+  color:#000;
+}
+.el-form-item__label{
+  font-size: 12px;
+  color:#000;
+}
 #tab-first{
   width: 150px;
   text-align: center;
@@ -371,7 +511,7 @@ export default {
         width: 60px;
         height: 60px;
         float: left;
-        margin: 0 10px;
+        margin-left: 20px;
         img{
           width: 100%;
           height: 100%;
@@ -454,7 +594,7 @@ export default {
         background-color: #dd2828;
         color:#fff;
         padding:10px 60px;
-        margin-left: 100px;
+        margin-left: 57px;
       }
       span:nth-child(2){
         background-color: #222;
@@ -572,6 +712,26 @@ export default {
           float: left;
           line-height: 40px;
           margin-right: 50px;
+          padding:0px 10px;
+          border:1px solid #ccc;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .select{
+      dl{
+        width: 100%;
+        height: 70px;
+        dt{
+          float: left;
+          font-size: 14px;
+          line-height: 40px;
+        }
+        dd{
+          float: left;
+          line-height: 40px;
+          margin-right:5px;
           padding:0px 10px;
           border:1px solid #ccc;
           cursor: pointer;

@@ -3,7 +3,7 @@
     <div class="content_container">
       <div class="tabs">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="关注的商品" name="second">
+          <el-tab-pane label="收藏的商品" name="second">
             <p class="classify"><span>分类:</span><span class="all">全部商品</span></p>
             <div class="goods">
               <ul>
@@ -25,7 +25,7 @@
               </ul>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="关注的店铺" name="first">
+          <!-- <el-tab-pane label="收藏的店铺" name="first">
             <p class="classify"><span>分类:</span><span class="all">全部店铺</span></p>
             <div class="goods">
               <ul>
@@ -46,7 +46,7 @@
                 </li>
               </ul>
             </div>
-          </el-tab-pane>
+          </el-tab-pane> -->
         </el-tabs>
       </div>
     </div>

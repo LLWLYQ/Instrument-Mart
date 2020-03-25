@@ -1,6 +1,6 @@
 <template>
   <div class="Address" >
-    <div class="content_container" @click="addA()">
+    <div @click="addA()">
       <div class="mine" v-if="panduan" >
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm1" label-width="100px" class="demo-ruleForm" label-position="left" >
           <el-form-item label="收货人" prop="name1">
@@ -58,7 +58,7 @@
             <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
           </li>
         </ul>
-        <router-link to="/Shipping_address" target="_blank" tag="a"><p style="float:left;margin-top:100px;" >管理收货地址</p></router-link>
+        <router-link to="/Shipping_address" target="_blank" tag="a" ><p style="float:left;margin-top:100px;" v-if="Newaddress">管理收货地址</p></router-link>
         <div style="width:100%;overflow:hidden;margin: 10px 0 0 10px;">
           <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
         </div>
@@ -197,9 +197,10 @@ export default {
         }
       };
       return {
+        Newaddress:true,
         popup1: 0,
         popup: 0,
-        iscur:0,
+        iscur:1,
         province:'',
         city:'',
         provinceFic:'',
@@ -380,11 +381,14 @@ export default {
         if(res.data.code == 20000){
           if(this.address = []){
             this.panduan = true
+            location.reload()
           }
         }
       })
     },
     tabChange(index,adr){
+      console.log(adr)
+      this.$emit('addressData',adr)
       this.iscur = index
       this.adrID = adr.id
     },
@@ -411,6 +415,7 @@ export default {
                         this.panduan = false
                         this.addA();
                         this.popup = 0;
+                        this.Newaddress = true
                       }
                   })
                 } else {
@@ -458,6 +463,8 @@ export default {
               this.address = res.data.data.items
               if(res.data.data.items != ''){
                 this.panduan  = false
+              }else{
+                this.Newaddress = false
               }
               let cityID = res.data.data.items
               cityID.map(item=>{
@@ -569,7 +576,7 @@ export default {
   },
   created(){
     this.addA()
-  }
+  },
 }
 </script>
 <style scoped lang="scss">

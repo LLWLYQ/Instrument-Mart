@@ -1,11 +1,5 @@
 <template>
   <div>
-      <!-- <div class="logo">
-        <a href="">
-          <img src="../../assets/imges/register_logo.png" alt="">
-          <p>一站式工业仪器仪表交易平台-买卖仪器仪表就上仪商城</p>
-        </a>
-      </div> -->
       <div class="main">
         <div class="con">
           <div class="main_register">
@@ -20,11 +14,6 @@
               <router-link to="/MemberRegistration"  target="_blank" tag="a">立即注册</router-link>
             </div>
             <div class="button">
-              <!-- <h4>—————  其他登录方式  —————</h4>
-              <a ><li><img src="../../assets/imges/zhi.png" alt=""></li></a>
-              <a ><li><img src="../../assets/imges/wx.png" alt=""></li></a>
-              <a ><li><img src="../../assets/imges/weibo.png" alt=""></li></a>
-              <a ><li><img src="../../assets/imges/weibo.png" alt=""></li></a> -->
             </div>
           </div>
         </div>

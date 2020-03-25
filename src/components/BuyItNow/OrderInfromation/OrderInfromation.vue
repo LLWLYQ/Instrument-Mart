@@ -1,5 +1,5 @@
 <template>
-  <div class="OrderInfromation">
+  <div class="OrderInfromation" style="margin-top:50px;">
     <div class="sku">
       <h4>订单信息</h4>
       <ul class="St">
@@ -9,19 +9,16 @@
         <li>数量</li>
         <li>小计</li>
       </ul>
-      <ul class="cartLsit" v-for="(LD,index) in ListData" :key="index">
+      <ul class="cartLsit" v-for="(LD,index) in orderData" :key="index">
+        <!-- <h1>{{LD}}</h1> -->
         <li class="carLi" @click="diu(LD)">
           <p><img :src="baseUrl+LD.img" alt=""></p>
-          <p>{{LD.name}}</p>
+          <p>{{LD.productName}}</p>
           <p>
-              <!-- <del><span style="color:#9c9c9c;">￥{{cd.DiscountPrice}}</span></del> -->
-            <span>￥{{LD.get_goods.sales_price}}</span>
+            <span>￥{{LD.price}}</span>
           </p>
-          <!-- <el-input-number v-model="LD.quantity"  :min="1" :max="99" @change="handelChange(LD)"></el-input-number> -->
-          <p><span>{{LD.quantity}}</span></p>
-          <p><span style="color:#f40;">￥{{LD.quantity*LD.get_goods.sales_price}}</span></p>
-            <!-- <p>{{cd.quantity}}</p> -->
-          <!-- <span @click="removeGoods(LD,index)" class="last">删除商品</span> -->
+          <p><span>{{LD.count}}</span></p>
+          <p><span style="color:#f40;">￥{{LD.price*LD.count}}</span></p>
         </li>
       </ul>
     </div>
@@ -33,58 +30,60 @@ import config from '../../../config/config'
 export default {
   data () {
     return {
-      ListData:'',
-      SumData:0,
+      orderData:JSON.parse(this.$route.query.orderData),
+      totalMoney:JSON.parse(this.$route.query.totalMoney),
+      // ListData:'',
+      // SumData:0,
     }
   },
   methods: {
-     diu(LD){
-       let Gid  = LD.goods_id
-       this.$ajax({
-         url:config.baseUrl + '/home/goods/',
-         method:'get',
-         params:{
-           id:Gid
-         }
-       }).then(res=>{
-         console.log(res)
-       })
-     },
-     order(){
-      this.$ajax({
-        url:config.baseUrl + '/home/cart',
-        method:'get',
-        params:{
-          member_id:localStorage.getItem('userId'),
-        }
-      }).then(res=>{
-        this.ListData =  res.data.data.items.data
-        this.ListData.map(item=>{
-          this.SumData += item.quantity*item.get_goods.sales_price
-        })
-      })
-    }
+    //  diu(LD){
+    //    let Gid  = LD.goods_id
+    //    this.$ajax({
+    //      url:config.baseUrl + '/home/goods/',
+    //      method:'get',
+    //      params:{
+    //        id:Gid
+    //      }
+    //    }).then(res=>{
+    //      console.log(res)
+    //    })
+    //  },
+  //    order(){
+  //     this.$ajax({
+  //       url:config.baseUrl + '/home/cart',
+  //       method:'get',
+  //       params:{
+  //         member_id:localStorage.getItem('userId'),
+  //       }
+  //     }).then(res=>{
+  //       this.ListData =  res.data.data.items.data
+  //       this.ListData.map(item=>{
+  //         this.SumData += item.quantity*item.get_goods.sales_price
+  //       })
+  //     })
+  //   }
   },
   created(){
-    this.order()
-     this.$ajax({
-      url:config.baseUrl + '/home/address',
-      method:'get',
-      params:{
-        member_id:localStorage.getItem('userId'),
-      }
-    }).then(res=>{
-      this.address = res.data.data.items
-      let cityID = res.data.data.items
-      cityID.map(item=>{
-        this.province_id = item.province_id
-        this.city = item.city_id
-        this.area = item.area_id
-      })
-      if(res.data.data.items != ''){
-        this.AddressList = false
-      }
-    })
+    // this.order()
+    //  this.$ajax({
+    //   url:config.baseUrl + '/home/address',
+    //   method:'get',
+    //   params:{
+    //     member_id:localStorage.getItem('userId'),
+    //   }
+    // }).then(res=>{
+    //   this.address = res.data.data.items
+    //   let cityID = res.data.data.items
+    //   cityID.map(item=>{
+    //     this.province_id = item.province_id
+    //     this.city = item.city_id
+    //     this.area = item.area_id
+    //   })
+    //   if(res.data.data.items != ''){
+    //     this.AddressList = false
+    //   }
+    // })
   }
 }
 </script>

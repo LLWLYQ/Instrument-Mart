@@ -151,7 +151,7 @@
                 size="mini"
                 @click="Modification(scope.$index,scope.row)">修改</el-button>
               <el-button
-                style="padding:10px;border:1px solid red;background:red;"
+                style="padding:10px;border:1px solid red;background:red;margin:3px 0 0 0;"
                 size="mini"
                 type="danger"
                 @click="delAddress(scope.$index, scope.row)">删除</el-button>

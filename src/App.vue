@@ -57,6 +57,6 @@ export default {
 
 <style  lang="scss" scoped>
 #app{
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 </style>

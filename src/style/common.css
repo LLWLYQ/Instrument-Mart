@@ -19,7 +19,7 @@ height:100%;
   position: relative;
   width: 990px;
   margin:auto;
-  height: 100%;
+  min-height: 1000px;
 }
 [v-cloak]{
   display: none;
