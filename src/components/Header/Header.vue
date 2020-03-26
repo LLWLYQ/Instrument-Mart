@@ -18,7 +18,7 @@
             <ul class="top_right">
               <router-link to="/"><li>我的仪商城</li></router-link>
               <a style="cursor:pointer;" @click="GoCart()"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;" ></i>购物车</li></a>
-              <router-link to="/"><li>收藏夹</li></router-link>
+              <router-link to="/Favorite" target="_blank"><li><i class="el-icon-star-on" style="font-size:12px;margin-top:px;"></i>收藏夹</li></router-link>
               <router-link to="/"><li>仪商网</li></router-link>
               <router-link to="/"><li>商家支持</li></router-link>
             </ul>
@@ -28,7 +28,6 @@
       <div class="clearfloat"></div>
   </div>
 </template>
-
 <script>
 import LoginForm from '../../components/LoginForm/LoginForm'
 export default {
@@ -69,12 +68,11 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common';
-
 .TT{
   background: #e3e4e5;
   width: 100%;
   height: 30px;
-  position: fixed;
+  position:absolute;
   z-index:50;
   top: 0px;
   // background-color:#fff
@@ -84,7 +82,7 @@ export default {
     height:30px;
     background-color:#e3e4e5;
     border-bottom: 1px solid #ddd;
-    width:1440px;
+    width:1230px;
     .top_left{
       width:500px;
       float: left;
@@ -104,7 +102,7 @@ export default {
       }
     }
     .top_right{
-      width:750px;
+      width:700px;
       float: right;
       color:red;
       :nth-child(n+2){

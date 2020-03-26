@@ -117,7 +117,7 @@ export default {
       member_id:localStorage.getItem('userId'),
       Logistics_Selecting:'',
       LogS:'1',
-      AddressData:''
+      AddressData:'',
     }
   },
   methods: {
@@ -176,11 +176,10 @@ export default {
               option = {}
               option.goods_option_value_id = item.goods_option_value_id
               option.goods_option_id = item.goods_option_id
-
             })
             optres.push(option)
-              goods.option = optres
-              console.log(goods.option)
+            goods.option = optres
+            console.log(goods.option)
           })
         this.DataList =  goods
         console.log(this.DataList)

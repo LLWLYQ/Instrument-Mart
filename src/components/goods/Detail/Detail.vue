@@ -36,7 +36,7 @@
         </div>
         <div class="collect_succ" v-if="Collect">
           <h1><i class="el-icon-success"></i><span>成功加入收藏夹</span><i class="el-icon-error right" @click="close()"></i></h1>
-          <p>您可以前往 <router-link to="/Favorite" target="_blank">收藏夹</router-link>&nbsp;查看</p>
+          <p>您可以前往 <router-link to="/Favorite" target="_blank" >收藏夹</router-link>&nbsp;查看</p>
         </div>
       </div>
       <div class="SKU">
@@ -194,6 +194,7 @@ export default {
         }
       }).then(res=>{
         this.Collect = true
+        // JSON.stringify()
       })
     },
     //累计评论

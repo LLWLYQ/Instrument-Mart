@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/mine/home'
 import home_serach from '@/components/home_child/home_serach'
+import home_serachCOPY from '@/components/home_child/home_serachCOPY'
 import register from '@/components/User/register'
 import sign_in from '@/components/User/sign_in'
 // import List from '@/components/goods/List/List'
@@ -61,6 +62,13 @@ export default new Router({
       path: '/home_serach',
       name: 'home_serach',
       component: home_serach,
+      meta:{
+      }
+    },
+    {
+      path: '/home_serachCOPY',
+      name: 'home_serachCOPY',
+      component: home_serachCOPY,
       meta:{
       }
     },

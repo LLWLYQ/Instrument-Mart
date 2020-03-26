@@ -36,21 +36,26 @@
     <div class="indent">
       <div class="Logistics">
         <ul class="flow">
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="代付款" name="first">
+          <el-tabs v-model="activeName" @tab-click="handleClick"  :stretch='true' >
+            <el-tab-pane label="代付款" name="first" style="width:272.5px;">
+              <div>
 
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="待收货" name="second">
+            <el-tab-pane label="待收货" name="second" style="width:272.5px;">
+              <div>
 
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="待评价" name="third">
+            <el-tab-pane label="待评价" name="third" style="width:272.5px;">
+              <div>
 
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="退换\售后" name="fourth">
+            <el-tab-pane label="全部订单" name="five" style="width:272.5px;">
+              <div>
 
-            </el-tab-pane>
-            <el-tab-pane label="全部订单" name="five">
-
+              </div>
             </el-tab-pane>
           </el-tabs>
         </ul>
@@ -80,6 +85,7 @@
 </template>
 
 <script type="text/javascript">
+import config from '../../../config/config'
 export default {
   data() {
     return {
@@ -88,7 +94,7 @@ export default {
   },
   methods: {
       handleClick(tab, event) {
-        console.log(tab, event);
+        // console.log(tab, event);
       }
   },
   components: {
@@ -96,12 +102,24 @@ export default {
   },
   created(){
     this.$emit('public_footer', true);
+    this.$ajax({
+      url:config.baseUrl + '/home/order',
+      method:'get',
+      params:{
+        member_id:localStorage.getItem("userId")
+      }
+    }).then(res=>{
+      console.log(res)
+    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../../style/common';
+// .el-tabs__item {
+//   width: 272px;
+// }
 .Center_home_page{
   width: 1090px;
   // display: inline-block;

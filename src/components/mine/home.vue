@@ -1,6 +1,16 @@
 <template>
 <div class="home">
   <div class="home_top">
+    <div class="Box">
+        <transition name="mybox">
+            <div class="box" v-show="boxshow">
+              <div class="box_center">
+                <h1>InstrumentMall&nbsp;&nbsp;仪商城</h1>
+                <HomeSerachCOPY style="margin:5px 0px 0 400px;"></HomeSerachCOPY>
+              </div>
+            </div>
+        </transition>
+    </div>
     <div class="com">
       <div class="logo_img"><img src="../../assets/imges/logo.png" alt=""></div>
       <div class="Search_Goods">
@@ -74,7 +84,7 @@
               </div>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <div class="brand-img">
               <img src="//img.alicdn.com/i2/2/TB1XGRLpm_I8KJjy0FoXXaFnVXa?abtest=&pos=5&abbucket=&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000_100x150q100.jpg_.webp" alt="">
             </div>
@@ -99,16 +109,22 @@
                 <span>点击进入</span>
               </div>
             </a>
-          </li>
+          </li> -->
         </ul>
         <div style="clear:both;"></div>
       </div>
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-           <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"><li ><img :src="baseUrl+List.files_path" alt="" class="List_li"><div class="List_div">{{List.goods_name}}</div><div class="List_div1" style="color:red;">￥{{List.sales_price}}</div></li></router-link>
+          <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a">
+            <li>
+              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <div class="List_div">{{List.goods_name}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price}}</div>
+            </li>
+          </router-link>
         </ul>
       </div>
-      <div class="Right" >
+      <div class="Right" v-if="sele">
         <li v-for="(item,index) in wpList" :key="index"  :class="{cur:iscur===index}" @click="iscur=index,selected(item.name,index)" >{{item.name}}</li>
       </div>
   </div>
@@ -116,6 +132,7 @@
 </template>
 <script>
 import HomeSerach from '../home_child/home_serach.vue'
+import HomeSerachCOPY from '../home_child/home_serachCOPY.vue'
 import $ from 'jquery'
 import Swiper from 'swiper';
 import config from '../../config/config'
@@ -124,6 +141,7 @@ import LoginForm from '../../components/LoginForm/LoginForm'
 export default {
   data () {
     return {
+      sele:false,
       date: new Date(),
       iscur:0,
       LF:false,
@@ -155,22 +173,17 @@ export default {
       num:'',
       carData:'',
       UserId:localStorage.getItem('userId'),
-      Brand_List:''
+      Brand_List:'',
+      boxshow:false
     }
   },
-    mounted() {
-        var that = this;
-        this.timer = setInterval(() => {
-          that.date = new Date(); //修改数据date
-        }, 1000);
-      },
     beforeDestroy() {
         if (this.timer) {
           clearInterval(this.timer); //在Vue实例销毁前，清除我们的定时器
         }
+        window.removeEventListener('scroll', this.handleScroll)
       },
   created(){
-
     let _this = this
     this.keywords()
     this.M_L()
@@ -196,10 +209,21 @@ export default {
       params:{}
     }).then(res=>{
       _this.Brand_List = res.data.data.items
-      // console.log(_this.Brand_List)
+      console.log(_this.Brand_List)
     })
   },
   methods: {
+    handleScroll(){
+      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      // var offsetTop = document.querySelector('.List').offsetTop
+      if (scrollTop > 800) {
+        this.sele = true
+        this.boxshow = true;
+      } else {
+        this.sele = false
+        this.boxshow = false;
+      }
+    },
     closeLF(){
       this.LF = false
     },
@@ -261,7 +285,8 @@ export default {
   },
   components:{
     HomeSerach,
-    LoginForm
+    LoginForm,
+    HomeSerachCOPY
   },
   computed:{
     ...mapGetters(['totalQuantity'])
@@ -279,12 +304,49 @@ export default {
           },
           loop:true,
         })
+         var that = this;
+        this.timer = setInterval(() => {
+          that.date = new Date(); //修改数据date
+        }, 1000);
+        //监听滚动事件
+        window.addEventListener('scroll', this.handleScroll)
     },
 }
 </script>
 //局部样式
 <style lang="scss" scoped>
 @import "../../style/base";
+.box{
+    width: 100%;
+    height:50px;
+    background-color:#e94c15;
+    overflow: hidden;
+    position: fixed;
+    top:0;
+    z-index: 111111111111111;
+    .box_center{
+      height: 50px;
+      width: 1230px;
+      margin: 0 auto;
+      // background: yellow;
+      // line-height: 50px;
+      h1{
+        float: left;
+        color: #fff;
+        font-size: 22px;
+        margin-top: 5px;
+      }
+    }
+   }
+.mybox-leave-active,.mybox-enter-active{
+    transition:  all 0.5s ease;
+   }
+.mybox-leave-active,.mybox-enter{
+    height:0px !important;
+}
+.mybox-leave,.mybox-enter-active{
+    height: 50px;
+  }
 .home{
   background: #f5f5f5;
 }
@@ -557,11 +619,13 @@ export default {
     }
     .List_ul{
       height: 300px;
-      width: 234px;
+      width: 235px;
       float: left;
       overflow: hidden;
       margin: 0 auto;
       border:1px solid #666;
+      margin-right: 12.5px;
+      margin-bottom: 20px;
     }
       li{
         span{
@@ -576,12 +640,13 @@ export default {
         width: 185px;
     }
   }
-  // .List_ul:nth-child(10n+10){
-  //     float: left;
-  //     position: relative;
-  //     width: 235px;
-  //     height: 618px;
-  //   }
+  .List_ul:nth-child(5n+5){
+      // float: left;
+      // position: relative;
+      // width: 235px;
+      // height: 618px;
+      margin-right:0;
+    }
   // .List_ul:nth-child(-n+10){
   //     margin-left: 13px;
   //     padding:25px;
@@ -603,9 +668,13 @@ export default {
   //     margin-top: 18px;
   //   }
   .Right{
-    position:fixed;
-    right:0;
-    top:30%;
+    position: fixed;
+    bottom: 250px;
+    left: 50%;
+    margin-left: -700px;
+    z-index: 9999;
+    width: 35px;
+    text-align: center;
     cursor: pointer;
     li{
       border:1px solid #ccc;
