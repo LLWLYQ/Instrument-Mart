@@ -11,10 +11,7 @@ window.onload = function () {
 function checkTimeout() {
     currentTime = new Date().getTime(); //更新当前时间
     lastTime = localStorage.getItem("lastTime");
-    // console.log(currentTime - lastTime);
-    // console.log(timeOut);
     if (currentTime - lastTime > timeOut) { //判断是否超时
-        // console.log("超时");
         var url = window.location.href;
         var newUrl=url.match(/(\S*)#/)[1];
         localStorage.clear();

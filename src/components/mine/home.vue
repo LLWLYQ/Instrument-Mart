@@ -63,7 +63,8 @@
           </div>
         </div>
         <div class="B_r">
-
+          <p class="notice">平台公告</p>
+          <NoticeListHome ></NoticeListHome>
         </div>
       </div>
   </div>
@@ -84,32 +85,7 @@
               </div>
             </a>
           </li>
-          <!-- <li>
-            <div class="brand-img">
-              <img src="//img.alicdn.com/i2/2/TB1XGRLpm_I8KJjy0FoXXaFnVXa?abtest=&pos=5&abbucket=&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000_100x150q100.jpg_.webp" alt="">
-            </div>
-            <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=890482188&abtest=&pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&pos=4&abbucket=&brandId=20578&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000">
-              <div class="coupon">
-                <span>Uniqlo/优衣库</span>
-              </div>
-              <div class="enter">
-                <span>点击进入</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <div class="brand-img">
-              <img src="//img.alicdn.com/i2/2/TB1t.e1m2DH8KJjy1XcXXcpdXXa?abtest=&pos=4&abbucket=&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000_100x150q100.jpg_.webp" alt="">
-            </div>
-            <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=196993935&abtest=&pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&pos=5&abbucket=&brandId=29527&acm=09042.1003.1.1200415&scm=1007.13029.131809.100200300000000">
-              <div class="coupon">
-                <span>Nike/耐克</span>
-              </div>
-              <div class="enter">
-                <span>点击进入</span>
-              </div>
-            </a>
-          </li> -->
+
         </ul>
         <div style="clear:both;"></div>
       </div>
@@ -133,6 +109,7 @@
 <script>
 import HomeSerach from '../home_child/home_serach.vue'
 import HomeSerachCOPY from '../home_child/home_serachCOPY.vue'
+import NoticeListHome from '../Announcement/notice_list_home'
 import $ from 'jquery'
 import Swiper from 'swiper';
 import config from '../../config/config'
@@ -209,7 +186,6 @@ export default {
       params:{}
     }).then(res=>{
       _this.Brand_List = res.data.data.items
-      console.log(_this.Brand_List)
     })
   },
   methods: {
@@ -271,7 +247,6 @@ export default {
 					method: "get",
 				}).then(res => {
             this.data_list = res.data.data.items
-          console.log(this.data_list)
         });
     },
     M_L(){
@@ -286,7 +261,8 @@ export default {
   components:{
     HomeSerach,
     LoginForm,
-    HomeSerachCOPY
+    HomeSerachCOPY,
+    NoticeListHome
   },
   computed:{
     ...mapGetters(['totalQuantity'])
@@ -595,9 +571,21 @@ export default {
       .B_r{
         height: 460px;
         width:230px;
-        background-color: yellow;
+        background-color: #f5f5f5;
         float: right;
         // margin:0 0 0 100px;
+        .notice{
+          width: 200px;
+          color: #e94c15;
+          height: 40px;
+          line-height: 40px;
+          font-size: 14px;
+          font-weight: 800;
+          margin: 0;
+          border-bottom:1px solid #ccc;
+          border-top:1px solid #ccc;
+          margin:230px 15px 0 15px;
+        }
       }
   }
   .List{
@@ -641,35 +629,12 @@ export default {
     }
   }
   .List_ul:nth-child(5n+5){
-      // float: left;
-      // position: relative;
-      // width: 235px;
-      // height: 618px;
+
       margin-right:0;
     }
-  // .List_ul:nth-child(-n+10){
-  //     margin-left: 13px;
-  //     padding:25px;
-  //   }
-  // .List_ul:nth-child(1){
-  //     float: left;
-  //     position: relative;
-  //     width: 235px;
-  //     height: 618px;
-  //     font-size: 0;
-  //     margin: 0;
-  //     padding: 0;
-  //     img{
-  //       height: 100%;
-  //       width: 100%;
-  //     }
-  //   }
-  //   .List_ul:nth-child(n+6){
-  //     margin-top: 18px;
-  //   }
   .Right{
     position: fixed;
-    bottom: 250px;
+    bottom: 300px;
     left: 50%;
     margin-left: -700px;
     z-index: 9999;

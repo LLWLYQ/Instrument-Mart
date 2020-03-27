@@ -227,13 +227,11 @@ export default {
           if (valid) {
             // alert('submit!');
           } else {
-            // console.log('error submit!!');
             return false;
           }
         });
       },
       handleRemove(file) {
-        // console.log(file);
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
@@ -241,7 +239,6 @@ export default {
         this.NumberBctih = this.ContDisbel
       },
       handleDownload(file) {
-        // console.log(file);
       }
   },
   components:{

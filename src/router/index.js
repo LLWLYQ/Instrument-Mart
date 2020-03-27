@@ -45,6 +45,10 @@ import Sign_in from '@/components/Marketing/Sign_in/Sign_in' //签到
 import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
 //Mouqiuxingbudaikouzhaotiqiuzaodaocanpangeigongpaizhid
 import comments from '@/components/goods/Detail/Comments/comments'
+//公告
+import notice_list from '@/components/Announcement/notice_list'
+import notice_list_home from '@/components/Announcement/notice_list_home'
+import notice_detail from '@/components/Announcement/notice_detail'
 
 Vue.use(Router)
 
@@ -372,7 +376,31 @@ export default new Router({
       meta:{
         title:''
       }
-    }
+    },
+    {
+      path:'/notice_list',
+      name:'notice_list',
+      component:notice_list,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/notice_list_home',
+      name:'notice_list_home',
+      component:notice_list_home,
+      meta:{
+        title:''
+      }
+    },
+    {
+      path:'/notice_detail',
+      name:'notice_detail',
+      component:notice_detail,
+      meta:{
+        title:''
+      }
+    },
   ]
 })
 

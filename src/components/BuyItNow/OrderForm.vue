@@ -179,7 +179,6 @@ export default {
             })
             optres.push(option)
             goods.option = optres
-            console.log(goods.option)
           })
         this.DataList =  goods
         console.log(this.DataList)

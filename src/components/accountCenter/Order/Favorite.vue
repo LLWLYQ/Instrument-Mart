@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     collect(){
-      // console.log(col.goods_id)
       this.$ajax({
         url:config.baseUrl + '/home/collect',
         method:'get',

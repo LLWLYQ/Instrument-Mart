@@ -94,7 +94,6 @@ export default {
   },
   methods: {
       handleClick(tab, event) {
-        // console.log(tab, event);
       }
   },
   components: {
@@ -109,7 +108,6 @@ export default {
         member_id:localStorage.getItem("userId")
       }
     }).then(res=>{
-      console.log(res)
     })
   }
 }

@@ -16,7 +16,7 @@
                 <span>会员中心</span>
                 <el-menu-item index="/Center_home_page" >中心首页</el-menu-item>
                 <el-menu-item index="/Account_setting" >账户设置</el-menu-item>
-                <el-menu-item index="/Have_to_buy_goods">已买商品</el-menu-item>
+                <el-menu-item index="/Have_to_buy_goods">平台公告</el-menu-item>
                 <el-menu-item index="/My_need">我的需求</el-menu-item>
                 <el-menu-item index="/Enquiry">我要询价</el-menu-item>
                 <el-menu-item index="/Shipping_address" >收货地址</el-menu-item>
@@ -67,10 +67,8 @@ export default {
     },
   methods: {
       handleOpen(key, keyPath) {
-          // console.log(key, keyPath);
         },
       handleClose(key, keyPath) {
-          // console.log(key, keyPath);
       },
       goTo(path){
         this.$router.replace(path);
@@ -79,7 +77,6 @@ export default {
   component:{
   },
   created(){
-    // console.log(this.order)
     this.$emit('public_footer', false);
   },
 

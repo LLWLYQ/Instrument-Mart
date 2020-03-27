@@ -93,6 +93,7 @@ export default {
 				}else if(event.keyCode==13){
 					//如果你按的是enter，那么就跳转到百度搜索结果
           window.open("https://www.baidu.com/s?wd="+this.wd);
+
 				}
 			}
   }
