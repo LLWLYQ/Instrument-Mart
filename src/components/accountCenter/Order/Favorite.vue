@@ -44,7 +44,7 @@ export default {
         }
       }).then(res=>{
         this.collectData = res.data.data.items.data
-        console.log(this.collectData)
+        // console.log(this.collectData)
       })
     },
     Del(col){

@@ -275,7 +275,7 @@
     }
   }
 </script>
-<style scope lang="scss">
+<style scoped lang="scss">
   @import "../../../../style/common.css";
   .el-rate{
     float: left;

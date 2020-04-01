@@ -66,6 +66,14 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
+      console.log(tab,event)
+      this.$ajax({
+        url:'www.baidu.com',
+        method:'post',
+        data:{
+          userId:localStorage.getItem('userId'),
+        }
+      })
     }
   },
   components: {

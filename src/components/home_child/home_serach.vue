@@ -5,7 +5,7 @@
     			<input v-model="wd" @keyup="keyup($event)" @keydown="keydown($event)" type="text" class="_inp" placeholder="请输入要搜索的商品" @focus="mouseOver()" @blur="mouseLeave()"/>
           <el-button id="ELB" slot="append" icon="el-icon-search "  @click="search" style="height:38px;width:100px;"></el-button>
 	    		<ul class="list-group" ref="ListGroup"  >
-	    			<li  v-for="(item,index) in arr" :key="item.id" :class="{'list-group-item-info':index==listIndex}" @click="click($event)">{{item}}</li>
+	    			<li  v-for="(item,index) in arr" :key="item.id" :class="{'list-group-item-info':index==listIndex}" @click="click(item)">{{item}}</li>
 	    		</ul>
     		</div>
     	</form>
@@ -61,13 +61,14 @@ export default {
 			//如果点击某一行的空白处，则点击事件中的event.target.innerText代表关键词
 			//大家可以通过console.log(event)来查看关键词所在的位置
 			click(event){
-				if(event.target.data!=undefined){
-					this.wd=event.target.data;
+				if(event!=undefined){
+					this.wd=event;
 				    window.open("https://www.baidu.com/s?wd="+this.wd);
-				}else if(event.target.innerText!=undefined){
-          this.wd=event.target.innerText;
-            window.open("https://www.baidu.com/s?wd="+this.wd);
-				}
+        }
+        // else if(event!=undefined){
+        //   this.wd=event;
+        //     window.open("https://www.baidu.com/s?wd="+this.wd);
+				// }
 			},
 			//监听键盘的事件
 			//如果按down，则增加当前listIndex+1，因此arr[this.listIndex]就能代表当前的词条
@@ -126,9 +127,15 @@ export default {
   :hover{
         background-color: #e94c15;
         // font-weight:bold;
-        font-size: 14px;
+        font-size: 12px;
         color:#fff;
     }
+  .list-group-item-info{
+    background-color: #e94c15;
+    // font-weight:bold;
+    font-size: 12px;
+    color:#fff;
+  }
    :nth-last-child(1){
      margin-bottom: 10px;
    }

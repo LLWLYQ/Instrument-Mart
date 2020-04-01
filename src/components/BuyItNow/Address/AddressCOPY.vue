@@ -683,7 +683,7 @@ ul{
     }
   }
   .el-select-dropdown__list{
-    padding-left: 10px;
+    padding-left: 10px !important;
   }
   .el-table__body-wrapper{
     .el-table__row{

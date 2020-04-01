@@ -63,8 +63,15 @@
           </div>
         </div>
         <div class="B_r">
+          <div class="check">
+            <div class="sin">
+              <i class="el-icon-date" @click="Sin()"></i>
+              <span v-if="sinIn">今日签到</span>
+              <span v-if="!sinIn">签到成功</span>
+            </div>
+          </div>
           <p class="notice">平台公告</p>
-          <NoticeListHome ></NoticeListHome>
+          <NoticeListHome></NoticeListHome>
         </div>
       </div>
   </div>
@@ -85,7 +92,6 @@
               </div>
             </a>
           </li>
-
         </ul>
         <div style="clear:both;"></div>
       </div>
@@ -109,6 +115,7 @@
 <script>
 import HomeSerach from '../home_child/home_serach.vue'
 import HomeSerachCOPY from '../home_child/home_serachCOPY.vue'
+import Have_to_buy_goods from '../accountCenter/Order/Have_to_buy_goods'
 import NoticeListHome from '../Announcement/notice_list_home'
 import $ from 'jquery'
 import Swiper from 'swiper';
@@ -118,6 +125,7 @@ import LoginForm from '../../components/LoginForm/LoginForm'
 export default {
   data () {
     return {
+      sinIn:true,
       sele:false,
       date: new Date(),
       iscur:0,
@@ -189,6 +197,9 @@ export default {
     })
   },
   methods: {
+    Sin(){
+      this.sinIn = false
+    },
     handleScroll(){
       var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       // var offsetTop = document.querySelector('.List').offsetTop
@@ -262,6 +273,7 @@ export default {
     HomeSerach,
     LoginForm,
     HomeSerachCOPY,
+    Have_to_buy_goods,
     NoticeListHome
   },
   computed:{
@@ -299,7 +311,7 @@ export default {
     overflow: hidden;
     position: fixed;
     top:0;
-    z-index: 111111111111111;
+    z-index: 111111;
     .box_center{
       height: 50px;
       width: 1230px;
@@ -343,7 +355,7 @@ export default {
         text-align: center;
         line-height: 108px;
         background-color: #fff;
-         img{
+        img{
           width: 82%;
           height: 50px;
         }
@@ -543,7 +555,7 @@ export default {
               background: #fff;
               position: relative;
               color: #000;
-              font-size: 12px;
+              font-size: 14px;
             }
           }
         }
@@ -569,6 +581,38 @@ export default {
         }
       }
       .B_r{
+        .check{
+          height: 270px;
+          .sin{
+            text-align: center;
+            width: 200px;
+            padding: 10px 0;
+            margin: 0 15px;
+            border-bottom:1px solid #ccc;
+            i{
+              font-size: 80px;
+              color: #e94c15;
+              cursor: pointer;
+            }
+            span{
+              font-size: 20px;
+              font-weight: bold;
+              position: relative;
+
+            }
+          }
+          // .integral{
+          //   ul{
+          //     text-align: center;
+          //     width: 100%;
+          //     padding:10px 10px;
+          //     li{
+          //       height: 40px;
+          //       line-height: 40px;
+          //     }
+          //   }
+          // }
+        }
         height: 460px;
         width:230px;
         background-color: #f5f5f5;
@@ -584,7 +628,7 @@ export default {
           margin: 0;
           border-bottom:1px solid #ccc;
           border-top:1px solid #ccc;
-          margin:230px 15px 0 15px;
+          margin:0px 15px 0 15px;
         }
       }
   }

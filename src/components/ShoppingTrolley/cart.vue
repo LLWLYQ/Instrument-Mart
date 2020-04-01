@@ -113,6 +113,7 @@
             var checkAllitem = {}
             this.OrderList = []
             this.lists.map((item,index)=>{
+              console.log(item)
               checkAllitem = {}
               checkAllitem = item
               if(checkAll == false){

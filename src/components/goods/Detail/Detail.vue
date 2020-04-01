@@ -59,7 +59,7 @@
           <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" ></quantity>
           <!-- 商品规格 -->
           <div class="select" style ="color:#000;">
-            <el-form ref="form" :model="form" label-width="37px" >
+            <el-form ref="form" :model="form" label-width="40px" >
               <el-form-item :label="Go.name"  v-for="Go in goods_option" :key="Go.id" >
                   <el-radio-group  v-model="Go.cf"   @change="aa" >
                      <el-radio-button :label="String(Go.goods_option_id)+':'+String(go.goods_option_value_id)" v-for="(go,index) in Go.goods_option_value" :key="index" >

@@ -168,19 +168,20 @@ export default {
           goods.name = item.productName
           goods.price = item.price
           goods.shop_id = item.shop;
-          this.option = item.option;
+          option = item.option;
           result.push(goods)
-        })
-        this.option.map(item=>{
+          option.map(item=>{
             item.map((item,index)=>{
               option = {}
               option.goods_option_value_id = item.goods_option_value_id
               option.goods_option_id = item.goods_option_id
+              optres.push(option)
+              // console.log(optres)
+              goods.option = optres
             })
-            optres.push(option)
-            goods.option = optres
           })
-        this.DataList =  goods
+        })
+        this.DataList =  result
         console.log(this.DataList)
   }
 }
