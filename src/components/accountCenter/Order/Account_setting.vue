@@ -85,9 +85,8 @@ export default {
 <style lang="scss" scoped>
 @import '../../../style/common';
 .Account_setting{
-  width: 1340px;
-  margin-left: 130px;
-  margin-top: -10px;
+  width: 990px;
+  margin-left: 100px;
 }
   .personal_information{
     .change_password{

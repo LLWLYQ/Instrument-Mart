@@ -22,8 +22,24 @@ export default {
     }
   },
   methods:{
+      //监听鼠标的点击事件
+        //如果鼠标点击某一行的文字，则点击事件中的event.target.data代表关键词
+        //如果点击某一行的空白处，则点击事件中的event.target.innerText代表关键词
+        //大家可以通过console.log(event)来查看关键词所在的位置
+        click(event){
+          if(event!=undefined){
+            this.wd=event;
+              window.open("https://www.baidu.com/s?wd="+this.wd);
+          }
+          // else if(event.target.innerText!=undefined){
+          //   this.wd=event.target.innerText;
+          //     window.open("https://www.baidu.com/s?wd="+this.wd);
+          // }
+        },
       mouseLeave(){
-        this.$refs.ListGroup.style.display = 'none'
+        setTimeout(() => {
+          this.$refs.ListGroup.style.display = 'none'
+        }, 100)
       },
       mouseOver(){
          this.$refs.ListGroup.style.display = 'block'
@@ -53,23 +69,10 @@ export default {
 					},
 					jsonp:'cb'
 				}).then(res=>{
-					this.arr=res.data.s;//把百度服务器返回的数据传给arr数组
+          this.arr = res.data.s;//把百度服务器返回的数据传给arr数组
         })
 			},
-			//监听鼠标的点击事件
-			//如果鼠标点击某一行的文字，则点击事件中的event.target.data代表关键词
-			//如果点击某一行的空白处，则点击事件中的event.target.innerText代表关键词
-			//大家可以通过console.log(event)来查看关键词所在的位置
-			click(event){
-				if(event!=undefined){
-					this.wd=event;
-				    window.open("https://www.baidu.com/s?wd="+this.wd);
-        }
-        // else if(event.target.innerText!=undefined){
-        //   this.wd=event.target.innerText;
-        //     window.open("https://www.baidu.com/s?wd="+this.wd);
-				// }
-			},
+
 			//监听键盘的事件
 			//如果按down，则增加当前listIndex+1，因此arr[this.listIndex]就能代表当前的词条
 			//我们通过对listIndex的修改来得到当前词条在arr中的索引，然后就可以得到词条的具体信息，然后发送请求了
@@ -148,6 +151,11 @@ export default {
      width: 50px;
    }
   }
+  .list-group .list-group-item-info {
+    background-color: #e94c15;
+    font-size: 12px;
+    color: #fff;
+}
 </style>
 
 

@@ -23,7 +23,9 @@ export default {
   },
   methods:{
       mouseLeave(){
-        this.$refs.ListGroup.style.display = 'none'
+        setTimeout(() => {
+          this.$refs.ListGroup.style.display = 'none'
+        }, 100)
       },
       mouseOver(){
          this.$refs.ListGroup.style.display = 'block'
@@ -32,6 +34,7 @@ export default {
       search(){
         window.open("https://www.baidu.com/s?wd="+this.wd);
         let Search = localStorage.get('GSC_CODE')
+        console.log('wearethechangefire')
         // console.log(Search)
         // new Search = Object
         // Search = {name,list,btn}

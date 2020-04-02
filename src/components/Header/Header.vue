@@ -10,7 +10,7 @@
           <div class="comment">
             <ul class="top_left">
               <router-link to="/" ><li>仪商城首页</li></router-link>
-              <router-link to="/register" target="_blank" tag="a"  v-if="!UserName"><li>请登录</li></router-link>
+              <router-link to="/register"  v-if="!UserName"><li>请登录</li></router-link>
               <router-link to="/Center_home_page" target="_blank" tag="a" v-if="UserName"><li>Hi,{{UserName}}</li></router-link>
               <router-link to=""><li>欢迎来到仪商城</li></router-link>
               <router-link to="/MemberRegistration" target="_blank" tag="a"><li>免费注册</li></router-link>

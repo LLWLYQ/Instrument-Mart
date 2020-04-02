@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="logo">
+    <div class="logo">
         <a href="">
           <img src="../../assets/imges/register_logo.png" alt="">
           <p>一站式工业仪器仪表交易平台-买卖仪器仪表就上仪商城</p>
@@ -87,10 +87,7 @@ export default {
             localStorage.setItem("userTime",res.data.data.expire_time)
             if(res.data.status == 'success'){
                 localStorage.setItem("lastTime",new Date().getTime());
-                this.$router.push({
-                  path:'/',
-                })
-                window.location.reload();
+                this.$router.go(-1)
               }
             })
         // .catch(error => {
@@ -149,7 +146,7 @@ export default {
             margin-top: 20px;
           }
           h2{
-            font-family:"KaiTi",Georgia,Serif;
+            font-size: 16px;
           }
           input{
           width: 300px;
@@ -176,14 +173,14 @@ export default {
           a{
             color:red;
             float: right;
-            font-size:16px;
+            font-size:12px;
             margin-right: 25px;
           }
         }
         .button{
           position: absolute;
           bottom: 30px;
-          left:35px;
+          left:62.5px;
           font-size:16px;
           h4{
             text-align: center;

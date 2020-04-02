@@ -29,9 +29,12 @@ export default {
   margin-left: 120px;
   margin-top: -10px;
   p{
-    font-size: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+      font-weight: 700;
+      height: 35px;
+      width: 100%;
+      line-height: 35px;
+      border-bottom: 2px solid #333;
   }
 }
 </style>

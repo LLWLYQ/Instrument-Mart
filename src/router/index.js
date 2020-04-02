@@ -59,7 +59,8 @@ export default new Router({
       name: 'Home',
       component: Home,
       meta:{
-        title:"仪商城"
+        title:"仪商城",
+        keepAlive: true
       }
     },
     {
@@ -104,7 +105,8 @@ export default new Router({
       name: 'Detail',
       component: Detail,
       meta:{
-        title:'详情页'
+        title:'详情页',
+        keepAlive: true
       }
     },
     {
@@ -112,7 +114,8 @@ export default new Router({
       name: 'comments',
       component: comments,
       meta:{
-        title:'评价'
+        title:'评价',
+        keepAlive: true
       }
     },
     {
@@ -120,7 +123,8 @@ export default new Router({
       name: 'Center',
       component: Center,
       meta: {
-        title:'个人中心'
+        title:'个人中心',
+        keepAlive: true
       },
       children:[
         {
@@ -128,6 +132,7 @@ export default new Router({
           name: 'Account_setting',
           component: Account_setting,
           meta: {
+            keepAlive: true
           }
         },
         {
@@ -135,6 +140,7 @@ export default new Router({
           name:'Have_to_buy_goods',
           component:Have_to_buy_goods,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -142,6 +148,7 @@ export default new Router({
           name:'My_need',
           component:My_need,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -149,6 +156,7 @@ export default new Router({
           name:'Enquiry',
           component:Enquiry,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -156,6 +164,7 @@ export default new Router({
           name:'Shipping_address',
           component:Shipping_address,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -163,6 +172,7 @@ export default new Router({
           name:'Discount_coupon',
           component:Discount_coupon,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -170,6 +180,7 @@ export default new Router({
           name:'Favorite',
           component:Favorite,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -177,6 +188,7 @@ export default new Router({
           name:'Integral',
           component:Integral,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -184,6 +196,7 @@ export default new Router({
           name:'Sales_returns',
           component:Sales_returns,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -191,6 +204,7 @@ export default new Router({
           name:'Complaint',
           component:Complaint,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -198,6 +212,7 @@ export default new Router({
           name:'Invoice',
           component:Invoice,
           meta:{
+            keepAlive: true
           }
         },
         {
@@ -205,6 +220,7 @@ export default new Router({
           name:'Center_home_page',
           component:Center_home_page,
           meta:{
+            keepAlive: true
           }
         }
       ]
@@ -215,7 +231,8 @@ export default new Router({
       name:'OrderForm',
       component:OrderForm,
       meta:{
-        title:'订单页'
+        title:'订单页',
+        keepAlive: true
       }
     },
     {
@@ -254,7 +271,8 @@ export default new Router({
       name:'cart',
       component:cart,
       meta:{
-        title:'购物车'
+        title:'购物车',
+        keepAlive: true
       }
     },
     {
@@ -302,7 +320,7 @@ export default new Router({
       name:'Header',
       component:Header,
       meta:{
-        title:''
+        title:'',
       }
     },
     {
@@ -310,7 +328,7 @@ export default new Router({
       name:'Foot',
       component:Foot,
       meta:{
-        title:''
+        title:'',
       }
     },
     {
@@ -318,7 +336,8 @@ export default new Router({
       name:'Security_settings',
       component:Security_settings,
       meta:{
-        title:''
+        title:'',
+
       }
     },
     {

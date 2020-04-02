@@ -13,7 +13,7 @@
                 @close="handleClose"
                 :router="true">
             <el-submenu index="1">
-                <span>会员中心</span>
+                <span style="font-size:14px;font-weight: 700;width:100px;">会员中心</span>
                 <el-menu-item index="/Center_home_page" >中心首页</el-menu-item>
                 <el-menu-item index="/Account_setting" >账户设置</el-menu-item>
                 <el-menu-item index="/Have_to_buy_goods">平台公告</el-menu-item>
@@ -27,24 +27,6 @@
                 <el-menu-item index="/Complaint" >投诉管理</el-menu-item>
                 <el-menu-item index="/Invoice" >发票设置</el-menu-item>
             </el-submenu>
-            <!-- 我的收藏 -->
-             <!-- <el-submenu index="1">
-                <span>账户设置</span>
-                <el-menu-item index="/AllOrder" >收藏商品</el-menu-item>
-            </el-submenu> -->
-            <!-- 退货记录 -->
-             <!-- 我的收藏 -->
-             <!-- <el-submenu index="1">
-                <span>收货地址</span>
-                <el-menu-item index="/AllOrder" >退货记录</el-menu-item>
-            </el-submenu> -->
-            <!-- 我的账户 -->
-             <!-- <el-submenu index="1">
-                <span>发票设置</span>
-                <el-menu-item index="/AllOrder" >账户信息</el-menu-item>
-                <el-menu-item index="/shippingAddress">收货地址</el-menu-item>
-                <el-menu-item index="/ToSendTheGoods">发票信息</el-menu-item>
-            </el-submenu> -->
             </el-menu>
             </el-col>
             <router-view></router-view>
@@ -98,7 +80,7 @@ export default {
       float: left;
       width: 100px;
       height: 1000px;
-      margin-top: 80px;
+      margin-top: 50px;
       .user-info{
         margin-top: 50px;
         width: 150px;
@@ -196,11 +178,16 @@ export default {
   }
 </style>
 <style lang="scss">
+    .el-menu{
+      width: 100px;
+    }
    .el-submenu__title{
       display:none;
     }
    .el-menu-item{
       padding-left:10px !important;
+      font-size: 12px;
+      font-weight: 700;
     }
     .el-menu-item:hover{
        background-color:#fff !important;

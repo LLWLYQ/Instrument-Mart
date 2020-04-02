@@ -59,12 +59,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../../style/common';
-  .center{
+  .Invoice{
     margin-left: 100px;
+  }
+  .center{
     p{
-      font-size: 25px;
-      padding:0px 0 10px 0 ;
-      border-bottom: 1px solid #ccc;
+      font-size: 16px;
+      font-weight: 700;
+      height: 35px;
+      width: 100%;
+      line-height: 35px;
+      border-bottom: 2px solid #333;
     }
     .mine{
       width:700px;

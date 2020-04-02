@@ -1,6 +1,6 @@
 <template>
 <!-- 引入样式 -->
-  <div id="Detail">
+  <div class="Detail">
     <div class="content_container">
       <div class="LoginForm" v-if="LF">
         <i class="el-icon-circle-close" @click="closeLF()"></i>
@@ -389,20 +389,20 @@ export default {
   font-size: 12px;
   color:#000;
 }
-#tab-first{
-  width: 150px;
-  text-align: center;
-  border-right: 1px solid #ccc;
-}
-#tab-second{
-  width: 150px;
-  text-align: center;
-}
-.el-tabs__header {
-  margin: 0;
-  border-left:1px solid #ccc;
-  border-right:1px solid #ccc;
-}
+// #tab-first{
+//   width: 150px;
+//   text-align: center;
+//   border-right: 1px solid #ccc;
+// }
+// #tab-second{
+//   width: 150px;
+//   text-align: center;
+// }
+// .el-tabs__header {
+//   margin: 0;
+//   border-left:1px solid #ccc;
+//   border-right:1px solid #ccc;
+// }
 .rate-grid{
   width: 100%;
   table-layout: fixed;
@@ -477,7 +477,7 @@ export default {
         z-index: 999;
         background-color: #111111;
       }
-  #Detail{
+  .Detail{
     margin-top:30px;
   }
   .Shinetop{

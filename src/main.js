@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+//全局引入elemnt-ui
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 import date from './assets/DATE/date'//引入登录成功获取的当前时间戳
 
 
@@ -30,14 +34,12 @@ axios.defaults.headers = {
     'Content-type': 'application/json'
 }
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-//全局引入elemnt-ui
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+
 
 const baseUrl = 'http://shop.yishangm.com/'
 Vue.prototype.baseUrl = baseUrl
 
-Vue.use(ElementUI)
+
 
 //引入rem布局
 // import 'amfe-flexible'

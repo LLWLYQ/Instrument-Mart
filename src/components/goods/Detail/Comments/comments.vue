@@ -1,5 +1,5 @@
 <template>
-  <div id="comments" style="background:#F5F5F5;">
+  <div class="comments" style="background:#F5F5F5;">
     <div class="content_container">
       <div class="LoginForm" v-if="LF">
         <i class="el-icon-circle-close" @click="closeLF()"></i>
@@ -277,26 +277,29 @@
 </script>
 <style scoped lang="scss">
   @import "../../../../style/common.css";
+  .content_container{
+    margin-top: 30px;
+  }
   .el-rate{
     float: left;
   }
-  #tab-first {
-    width: 150px;
-    text-align: center;
-    border-right: 1px solid #ccc;
-  }
+  // #tab-first {
+  //   width: 150px;
+  //   text-align: center;
+  //   border-right: 1px solid #ccc;
+  // }
 
-  #tab-second {
-    width: 150px;
-    text-align: center;
-  }
+  // #tab-second {
+  //   width: 150px;
+  //   text-align: center;
+  // }
 
-  .el-tabs__header {
-    margin: 0;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-top: none;
-  }
+  // .el-tabs__header {
+  //   margin: 0;
+  //   border-left: 1px solid #ccc;
+  //   border-right: 1px solid #ccc;
+  //   border-top: none;
+  // }
 
   .el-tabs__nav {
     border-right: 1px solid #ccc;
@@ -441,11 +444,11 @@
   }
 
   .SKU {
-    margin-top: 30px;
+    // margin-top: 30px;
     .db-icbu {
       width: 526px;
       height: 462px;
-      margin-left: 463px;
+      // margin-left: 463px;
       border-top: 1px solid #e7e7e7;
     }
 

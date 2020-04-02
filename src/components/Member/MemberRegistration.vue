@@ -1,7 +1,13 @@
 <template>
-  <div>
+  <div class="MemberRegistration">
+     <div class="logo">
+      <a href="">
+        <img src="../../assets/imges/register_logo.png" alt="">
+        <p>一站式工业仪器仪表交易平台-买卖仪器仪表就上仪商城</p>
+      </a>
+    </div>
     <div class="register-wrapper">
-      <div id="register">
+      <div class="register">
         <!-- <p class="title"><img src="../../assets/imges/B_l.png" alt="" class="Pimg"></p> -->
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="个人注册" name="second">
@@ -11,6 +17,7 @@
               ref="ruleForm1"
               label-width="0"
               class="demo-ruleForm"
+              style="border:none;"
             >
               <el-form-item prop="name">
                 <el-input v-model="ruleForm1.name" auto-complete="off" placeholder="请输入用户名"></el-input>
@@ -19,8 +26,8 @@
                 <el-input v-model="ruleForm1.tel" auto-complete="off" placeholder="请输入手机号"></el-input>
               </el-form-item>
               <el-form-item prop="smscode" class="code">
-                <el-input v-model="ruleForm1.smscode" placeholder="验证码"></el-input>
-                <el-button type="primary" :disabled='isDisabled' @click="sendCode" style="background:#e94c15;border-color:#e94c15;">{{buttonText}}</el-button>
+                <el-input v-model="ruleForm1.smscode" placeholder="验证码" style="float:left;width:180px;"></el-input>
+                <el-button type="primary" :disabled='isDisabled' @click="sendCode" style="background:#e94c15;border-color:#e94c15;height:40px;float:left;">{{buttonText}}</el-button>
               </el-form-item>
               <el-form-item prop="pass">
                 <el-input type="password" v-model="ruleForm1.pass" auto-complete="off" placeholder="输入密码"></el-input>
@@ -29,7 +36,7 @@
                 <el-input type="password" v-model="ruleForm1.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm1')" style="width:100%;background:#e94c15;border-color:#e94c15;">注册</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm1')" style="width:100%;background:#e94c15;border-color:#e94c15;height:40px;">注册</el-button>
                 <p class="login" @click="gotoLogin">已有账号？立即登录</p>
               </el-form-item>
             </el-form>
@@ -41,6 +48,7 @@
               ref="ruleForm2"
               label-width="0"
               class="demo-ruleForm"
+              style="border:none;"
             >
               <el-form-item prop="name">
                 <el-input v-model="ruleForm2.name" auto-complete="off" placeholder="请输入用户名"></el-input>
@@ -48,9 +56,9 @@
               <el-form-item prop="tel">
                 <el-input v-model="ruleForm2.tel" auto-complete="off" placeholder="请输入手机号"></el-input>
               </el-form-item>
-              <el-form-item prop="smscode" class="code">
-                <el-input v-model="ruleForm2.smscode" placeholder="验证码"></el-input>
-                <el-button type="primary" :disabled='isDisabled' @click="En_sendCode" style="background:#e94c15;border-color:#e94c15;">{{buttonText}}</el-button>
+              <el-form-item prop="smscode" class="code" >
+                <el-input v-model="ruleForm2.smscode" placeholder="验证码" style="float:left;width:180px;"></el-input>
+                <el-button type="primary" :disabled='isDisabled' @click="En_sendCode" style="background:#e94c15;border-color:#e94c15;height:40px;float:left;">{{buttonText}}</el-button>
               </el-form-item>
               <el-form-item prop="pass">
                 <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="输入密码"></el-input>
@@ -65,7 +73,7 @@
                 <el-input v-model="ruleForm2.company_contacts" auto-complete="off" placeholder="请输入企业联系人"></el-input>
               </el-form-item>
                <el-form-item>
-                <el-button type="primary" @click="submitForm1('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;">注册</el-button>
+                <el-button type="primary" @click="submitForm1('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;height:40px;">注册</el-button>
                 <p class="login" @click="gotoLogin">已有账号？立即登录</p>
               </el-form-item>
             </el-form>
@@ -421,7 +429,33 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../../style/common.css";
+.el-tabs__header{
+ border:none !important;
+}
+#tab-first{
+  border:none !important;
+}
+.logo{
+    width: 1440px;
+    margin: 0px auto ;
+    height: 36px;
+    padding: 20px 0 70px;
+    img{
+      width: 150px;
+      height: 50px;
+      float: left;
+    }
+    p{
+      float: left;
+      line-height: 72px;
+      margin-left: 10px;
+      color:#000;
+      font-size: 25px;
+      font-family:"KaiTi",Georgia,Serif;
+    }
+  }
 .loading-wrapper {
   position: fixed;
   top: 0;
@@ -438,22 +472,23 @@ export default {
   z-index: 1;
 }
 .register-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-image:url(../../assets/imges/sp_1.jpg) ;
+  float: right;
+  background-image:url(../../assets/imges/register_main.jpg) ;
   background-repeat:no-repeat;
   background-size:100% 100%;
   -moz-background-size:100% 100%;
+  width: 100%;
+  height: 800px;
+  overflow: hidden;
 }
-#register {
+
+.register {
   width: 423px;
+  margin: 100px 0 0 1100px;
   /* margin: 60px auto; */
-  position: absolute;
+  /* position: absolute;
   top: 150px;
-  right: 250px;
+  right: 250px; */
   background: #fff;
   padding: 20px 40px;
   border-radius: 10px;
@@ -471,8 +506,9 @@ export default {
   height: 50px;
 }
 .el-form-item {
-  text-align: center;
+  // text-align: center;
   width: 340px;
+  margin-bottom: 15px;
 }
 .login {
   margin-top: 10px;

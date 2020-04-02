@@ -64,10 +64,17 @@
         </div>
         <div class="B_r">
           <div class="check">
+            <div class="LoginForm" v-if="LF">
+              <i class="el-icon-circle-close" @click="closeLF()"></i>
+              <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
+            </div>
+            <div class="over" v-if="LF" @click="closeLF()"></div>
             <div class="sin">
               <i class="el-icon-date" @click="Sin()"></i>
-              <span v-if="sinIn">今日签到</span>
-              <span v-if="!sinIn">签到成功</span>
+              <span class="sinInTotal" v-if="!sinIn">签到天数：{{sinInTotal}}&nbsp;天</span>
+              <span class="sinInCount" v-if="!sinIn">连续签到：{{sinInCount}}&nbsp;天</span>
+              <span v-if="sinIn" >今日签到</span>
+              <span v-if="!sinIn">今日已签到</span>
             </div>
           </div>
           <p class="notice">平台公告</p>
@@ -159,7 +166,9 @@ export default {
       carData:'',
       UserId:localStorage.getItem('userId'),
       Brand_List:'',
-      boxshow:false
+      boxshow:false,
+      sinInTotal:'',
+      sinInCount:''
     }
   },
     beforeDestroy() {
@@ -168,7 +177,23 @@ export default {
         }
         window.removeEventListener('scroll', this.handleScroll)
       },
-  created(){
+    created(){
+    //签到状态查看
+      this.$ajax({
+        url:config.baseUrl + '/home/sign/' + localStorage.getItem('userId'),
+        method:'get'
+      }).then(res=>{
+              // console.log(res.data.data)
+        this.sinInTotal = res.data.data.sign_total
+        this.sinInCount = res.data.data.sign_count
+        // console.log(this.sinInCount)
+        if(res.data.data.sign_last == this.getDay(0)){
+          this.sinIn = false
+        }else{
+          this.sinIn = true
+        }
+      })
+    // console.log(this.getDay(0))
     let _this = this
     this.keywords()
     this.M_L()
@@ -197,8 +222,41 @@ export default {
     })
   },
   methods: {
+    getDay(day) {　　
+        var today = new Date();　　
+        var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;　　
+        today.setTime(targetday_milliseconds); //注意，这行是关键代码
+                　　
+        var tYear = today.getFullYear();　　
+        var tMonth = today.getMonth();　　
+        var tDate = today.getDate();　　
+        tMonth = this.doHandleMonth(tMonth + 1);　　
+        tDate = this.doHandleMonth(tDate);　　
+        return tYear + "-" + tMonth + "-" + tDate;
+    },
+    doHandleMonth(month) {　　
+        var m = month;　　
+        if (month.toString().length == 1) {　　
+            m = "0" + month;　　
+        }　　
+        return m;
+    },
     Sin(){
-      this.sinIn = false
+      if(!localStorage.getItem('userId')){
+        this.LF = true
+      }
+      setTimeout(() => {
+        this.$ajax({
+          url:config.baseUrl + '/home/sign',
+          method:'post',
+          data:{
+            member_id:localStorage.getItem('userId')
+          }
+        }).then(res=>{
+
+        })
+        this.sinIn = false
+      }, 200)
     },
     handleScroll(){
       var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -584,15 +642,26 @@ export default {
         .check{
           height: 270px;
           .sin{
-            text-align: center;
+            text-align: left;
             width: 200px;
             padding: 10px 0;
             margin: 0 15px;
             border-bottom:1px solid #ccc;
+            position: relative;
             i{
               font-size: 80px;
               color: #e94c15;
               cursor: pointer;
+            }
+            .sinInTotal{
+              font-size: 12px;
+              position: absolute;
+              top:20px;
+            }
+            .sinInCount{
+              font-size: 12px;
+              position: absolute;
+              top:35px;
             }
             span{
               font-size: 20px;

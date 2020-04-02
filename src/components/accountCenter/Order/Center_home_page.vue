@@ -109,6 +109,15 @@ export default {
       }
     }).then(res=>{
     })
+    this.$ajax({
+      url:config.baseUrl + '/home/score',
+      method:'get',
+      params:{
+        member_id:localStorage.getItem('userId')
+      }
+    }).then(res=>{
+      console.log(res)
+    })
   }
 }
 </script>

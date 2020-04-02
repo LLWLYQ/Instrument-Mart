@@ -1,9 +1,12 @@
 <template>
  <!-- @mousemove="moveEvent" @click="moveEvent" -->
   <div id="app">
-    <router-view @public_header="public_header" @public_footer="public_footer"/>
-    <app-header v-if="header_show" ></app-header>
-    <app-foot v-if="footer_show"></app-foot>
+    <div v-if="$route.meta.keepAlive">
+      <router-view></router-view>
+      <app-header  ></app-header>
+      <app-foot ></app-foot>
+    </div>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
@@ -14,18 +17,18 @@ export default {
   name: 'App',
   data () {
     return {
-      header_show:true,
-      footer_show:true,
+      // header_show:true,
+      // footer_show:true,
       Height: 0
     }
   },
   methods:{
-     public_header (bool) {
-        this.header_show = bool;
-      },
-      public_footer (bool) {
-        this.footer_show = bool;
-      },
+    //  public_header (bool) {
+    //     this.header_show = bool;
+    //   },
+    //   public_footer (bool) {
+    //     this.footer_show = bool;
+    //   },
     // moveEvent() {
     //   let path = ['/register']
     //   if(!path.includes(this.$route.path)) {

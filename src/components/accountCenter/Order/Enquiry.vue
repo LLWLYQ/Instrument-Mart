@@ -24,4 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../../style/common';
+.Enquiry{
+  margin-left: 100px;
+}
 </style>
