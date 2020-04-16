@@ -35,7 +35,7 @@
                 <li><a href="" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img" alt=""><span>{{item.productName}}</span></a></li>
                 <li><p v-for="Opt in item.option" :key="Opt.id"><span v-for="opt in Opt" :key="opt.id"  >{{opt.option_name}}：{{opt.name}}</span></p></li>
                 <li>￥{{item.price}}</li>
-                <li><el-input-number v-model="item.count"  :min="1" :max="99" @change="handelChange(item)" ></el-input-number></li>
+                <li><el-input-number v-model="item.count"  :min="1" :max="99" @change="handelChange(item)" style="width: 80px;"></el-input-number></li>
                 <li>￥{{item.price*item.count}}</li>
                 <li><span @click="removeGoods(item,index)">删除商品</span></li>
             </ul>
@@ -470,18 +470,18 @@ margin-top: 30px;
     }
 }
 </style>
-<style lang="">
+<style lang="scss">
   .el-input__inner{
-    padding: 0;
+    padding: 0!important;
   }
   .el-input-number__decrease{
-    width: 20px;
+    width: 20px !important;
   }
   .el-input-number__increase{
-    width: 20px;
+    width: 20px !important;
   }
   .el-input-number .el-input__inner{
-    padding: 0;
+    padding: 0 !important;
   }
   #ELB:hover{
     background-color: red;

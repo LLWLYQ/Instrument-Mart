@@ -25,7 +25,7 @@ export default {
       mouseLeave(){
         setTimeout(() => {
           this.$refs.ListGroup.style.display = 'none'
-        }, 100)
+        }, 1000)
       },
       mouseOver(){
          this.$refs.ListGroup.style.display = 'block'

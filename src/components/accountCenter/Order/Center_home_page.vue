@@ -129,8 +129,6 @@ export default {
 // }
 .Center_home_page{
   width: 1090px;
-  // display: inline-block;
-  // height: 1000px;
   margin-left: 100px;
 }
 .Account_of_integral{

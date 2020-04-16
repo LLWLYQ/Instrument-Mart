@@ -49,6 +49,33 @@ import comments from '@/components/goods/Detail/Comments/comments'
 import notice_list from '@/components/Announcement/notice_list'
 import notice_list_home from '@/components/Announcement/notice_list_home'
 import notice_detail from '@/components/Announcement/notice_detail'
+//店铺
+import FlagshipShop from '@/components/Shop/FlagshipShop'
+import FlagshipShopList from '@/components/Shop/FlagshipShopList'
+//旗舰店导航栏
+import CompanyProfile from '@/components/Shop/FlagshipShopTheChildShops/CompanyProfile'
+import ContactShop from '@/components/Shop/FlagshipShopTheChildShops/ContactShop'
+import CreditFile from '@/components/Shop/FlagshipShopTheChildShops/CreditFile'
+import ProductApplication from '@/components/Shop/FlagshipShopTheChildShops/ProductApplication'
+import ShopHome from '@/components/Shop/FlagshipShopTheChildShops/ShopHome'
+import SupplyProducts from '@/components/Shop/FlagshipShopTheChildShops/SupplyProducts'
+import vendor from '@/components/Shop/FlagshipShopTheChildShops/vendor'
+import CommonalityLeft from '@/components/Shop/FlagshipShopTheChildShops/CommonalityLeft'
+
+
+import UpgradeShop from '@/components/Shop/UpgradeShop'
+import UpgradeShopList from '@/components/Shop/UpgradeShopList'
+//升级店导航栏
+import USCommonalityLeft from '@/components/Shop/UpgradeShopChildShop/USCommonalityLeft'
+import USContactShop from '@/components/Shop/UpgradeShopChildShop/USContactShop'
+import USProductApplication from '@/components/Shop/UpgradeShopChildShop/USProductApplication'
+import USShopHome from '@/components/Shop/UpgradeShopChildShop/USShopHome'
+import USSupplyProducts from '@/components/Shop/UpgradeShopChildShop/USSupplyProducts'
+import USvendor from '@/components/Shop/UpgradeShopChildShop/USvendor'
+import USCompanyProfile from '@/components/Shop/UpgradeShopChildShop/USCompanyProfile'
+
+import GeneralShop from '@/components/Shop/GeneralShop'
+
 
 Vue.use(Router)
 
@@ -420,6 +447,193 @@ export default new Router({
         title:''
       }
     },
+    {
+      path:'/FlagshipShopList',
+      name:'FlagshipShopList',
+      component:FlagshipShopList,
+      meta:{
+        title:'',
+        keepAlive: true
+      }
+    },
+    {
+      //旗舰店
+      path:'/FlagshipShop',
+      name:'FlagshipShop',
+      component:FlagshipShop,
+      meta:{
+        title:'',
+        keepAlive: true
+      },
+      children:[
+        {
+          path:'/CompanyProfile',
+          name: 'CompanyProfile',
+          component: CompanyProfile,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/ContactShop',
+          name: 'ContactShop',
+          component: ContactShop,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/CreditFile',
+          name: 'CreditFile',
+          component: CreditFile,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/ProductApplication',
+          name: 'ProductApplication',
+          component: ProductApplication,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/ShopHome',
+          name: 'ShopHome',
+          component: ShopHome,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/SupplyProducts',
+          name: 'SupplyProducts',
+          component: SupplyProducts,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/vendor',
+          name: 'vendor',
+          component: vendor,
+          meta: {
+            keepAlive: true
+          }
+        },
+        // CommonalityLeft
+      ]
+    },
+    {
+      //子页面左
+      path:'/CommonalityLeft',
+      name:'CommonalityLeft',
+      component:CommonalityLeft,
+      meta:{
+        title:'',
+        // keepAlive: true
+      }
+    },
+    {
+      //子页面左
+      path:'/USommonalityLeft',
+      name:'USCommonalityLeft',
+      component:USCommonalityLeft,
+      meta:{
+        title:'',
+        // keepAlive: true
+      }
+    },
+    {
+      //普通店
+      path:'/GeneralShop',
+      name:'GeneralShop',
+      component:GeneralShop,
+      meta:{
+        title:'',
+        keepAlive: true
+      }
+    },
+    {
+      //普通店
+      path:'/UpgradeShopList',
+      name:'UpgradeShopList',
+      component:UpgradeShopList,
+      meta:{
+        title:'',
+        keepAlive: true
+      }
+    },
+    {
+      //升级店
+      path:'/UpgradeShop',
+      name:'UpgradeShop',
+      component:UpgradeShop,
+      meta:{
+        title:'',
+        keepAlive: true
+      },
+      children:[
+        {
+          path:'/USCommonalityLeft ',
+          name: 'USCommonalityLeft ',
+          component: USCommonalityLeft ,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/USCompanyProfile',
+          name: 'USCompanyProfile',
+          component: USCompanyProfile,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/USContactShop',
+          name: 'USContactShop',
+          component: USContactShop,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/USProductApplication',
+          name: 'USProductApplication',
+          component:USProductApplication,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/USShopHome',
+          name: 'USShopHome',
+          component: USShopHome,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/USSupplyProducts',
+          name: 'USSupplyProducts',
+          component: USSupplyProducts,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path:'/USvendor',
+          name: 'USvendor',
+          component: USvendor,
+          meta: {
+            keepAlive: true
+          }
+        },
+        // CommonalityLeft
+      ]
+    }
   ]
 })
 

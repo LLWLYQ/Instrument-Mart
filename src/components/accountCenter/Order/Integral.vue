@@ -20,7 +20,6 @@
           </li>
           <li v-for="scd in scoreData" :key="scd.id">
             <div class="source">
-
             </div>
             <div class="change">
               <p v-if="scd.change_type == 1">+{{scd.scrore_value}}</p>
@@ -49,7 +48,7 @@ export default {
   data() {
     return {
       scoreData:'',
-      IntegralSum:0
+      IntegralSum:0,
     }
   },
   filters: {

@@ -167,8 +167,9 @@ export default {
       UserId:localStorage.getItem('userId'),
       Brand_List:'',
       boxshow:false,
-      sinInTotal:'',
-      sinInCount:''
+      sinInTotal:0,
+      sinInCount:0,
+      sinIntime:''
     }
   },
     beforeDestroy() {
@@ -186,8 +187,9 @@ export default {
               // console.log(res.data.data)
         this.sinInTotal = res.data.data.sign_total
         this.sinInCount = res.data.data.sign_count
+        this.sinIntime = res.data.data.sign_last
         // console.log(this.sinInCount)
-        if(res.data.data.sign_last == this.getDay(0)){
+        if(res.data.data.sign_last == this.getDay(0) || !localStorage.getItem('userId')){
           this.sinIn = false
         }else{
           this.sinIn = true
@@ -226,7 +228,6 @@ export default {
         var today = new Date();　　
         var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;　　
         today.setTime(targetday_milliseconds); //注意，这行是关键代码
-                　　
         var tYear = today.getFullYear();　　
         var tMonth = today.getMonth();　　
         var tDate = today.getDate();　　
@@ -360,6 +361,8 @@ export default {
 }
 </script>
 //局部样式
+
+dz
 <style lang="scss" scoped>
 @import "../../style/base";
 .box{

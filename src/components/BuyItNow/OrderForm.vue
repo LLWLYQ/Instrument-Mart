@@ -182,7 +182,7 @@ export default {
           })
         })
         this.DataList =  result
-        console.log(this.DataList)
+        // console.log(this.DataList)
   }
 }
 </script>
@@ -262,17 +262,6 @@ export default {
         background: #e6e7eb;
       }
     }
-    // ul li:nth-child(1){
-    //   width: 32px;
-    //   height: 32px;
-    //   border-radius: 50%;
-    //   background: #ff0036;
-    //   color:#fff;
-    //   float: left;
-    //   line-height: 32px;
-    //   text-align: center;
-    //   border:none;
-    // }
   }
 }
 .center_tr{
@@ -309,12 +298,6 @@ export default {
             font-size: 12px;
           }
         }
-        // text-align: center;
-        // width: 359px;
-        // padding-left: 220px;
-        // color: #3c3c3c;
-        // font-weight: 700;
-        // font-family: Verdana,Tahoma,arial;
       }
       .center_tr li:nth-child(4){
         text-align: center;
@@ -330,31 +313,11 @@ export default {
         color: rgb(255, 0, 54);
         font-size: 14px;
         font-weight: bold;
-        .el-input-number{
-          width: 80px;
-          // color:#222;
-        }
-
+        // .el-input-number{
+        //   width: 80px;
+        //   // color:#222;
+        // }
       }
-      // .center_tr li:nth-child(6){
-      //   text-align: center;
-      //   color: #f40;
-      //   font-weight: 700;
-      //   width: 138px;
-      //   font-family: Verdana,Tahoma,arial;
-      //   padding-top: 3px;
-
-      // }
-      // .center_tr li:nth-child(7){
-      //   text-align: center;
-      //   width: 149px;
-      //   padding-left: 30px;
-      //   span:hover{
-      //     text-decoration: underline;
-      //     color:#f40;
-      //     cursor: pointer;
-      //   }
-      // }
 .sku{
   border-bottom: 1px dotted rgb(221, 221, 221);
   h2{
@@ -444,27 +407,7 @@ export default {
       float: left;
       margin-top: 20px;
     }
-    // h1{
-    //   float: left;
-    //   font-size: 20px;
-    //   line-height: 95px;
-    // }
-    // .Search_Goods{
-    //   margin-left: 590px;
-    //   position: absolute;
-    //   top: 28px;
-    // }
   }
-  // .Top{
-  //   h4{
-  //     font-size: 16px;
-  //     // border-bottom:2px solid #f40;
-  //     padding-bottom: 10px;
-  //   }
-  //    border-bottom: 3px solid #b2d1ff;
-  //    overflow: hidden;
-  //    margin-bottom: 10px;
-  // }
    .payment{
       h4{
         padding-bottom: 10px;

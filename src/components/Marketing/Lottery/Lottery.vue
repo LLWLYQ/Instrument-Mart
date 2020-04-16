@@ -151,6 +151,7 @@ export default {
             this.showResult = true;
             this.rolling = false;
           }, 8500)
+          console.log(this.result.name)
         },
         close() {
           this.showResult = false;

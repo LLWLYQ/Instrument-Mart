@@ -11,6 +11,7 @@
           <div class="main_register">
             <div class="mine">
               <h2>登录账户</h2>
+              <p v-show="error"><i class="el-icon-s-opportunity"></i>登录名或登录密码不正确</p>
               <input type="text" v-model="username" placeholder="用户名"/>
               <input type="password" v-model="password" placeholder="密码"/>
               <button @click="login()" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
@@ -36,7 +37,8 @@ export default {
  data () {
     return {
         username: '',
-        password: ''
+        password: '',
+        error:false
     };
   },
   created() {
@@ -80,11 +82,15 @@ export default {
             },
 
           }).then(res => {
-            console.log(res)
-            localStorage.setItem("userId",res.data.data.member_id)
-            localStorage.setItem("userName",res.data.data.account)
-            localStorage.setItem("userToken",res.data.data.member_token)
-            localStorage.setItem("userTime",res.data.data.expire_time)
+            if(res.data.code ==20000){
+              localStorage.setItem("userId",res.data.data.member_id)
+              localStorage.setItem("userName",res.data.data.account)
+              localStorage.setItem("userToken",res.data.data.member_token)
+              localStorage.setItem("userTime",res.data.data.expire_time)
+            }else{
+              this.error = true
+            }
+            
             if(res.data.status == 'success'){
                 localStorage.setItem("lastTime",new Date().getTime());
                 this.$router.go(-1)
@@ -143,10 +149,22 @@ export default {
           top:20px;
           left: 25px;
           :nth-child(n+2){
-            margin-top: 20px;
+            margin-top: 17px;
           }
           h2{
             font-size: 16px;
+          }
+          p{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #fef2f2;
+            border-color: #ffb4a8;
+            border: 1px solid #ff934c;
+            i{
+              color:#ce201e;
+              margin-left: 5px;
+            }
           }
           input{
           width: 300px;

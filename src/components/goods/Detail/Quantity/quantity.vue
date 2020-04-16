@@ -12,7 +12,7 @@
     </div>
     <div>
       <span class="numb">数量</span>
-      <el-input-number v-model="num" @change="handleChange" :min="1" :max="99" label="描述文字"></el-input-number>
+      <el-input-number v-model="num" @change="handleChange" :min="1" :max="99" label="描述文字" style="width: 80px;"></el-input-number>
     </div>
   </div>
 </template>
@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     handleChange(value) {
-      console.log(value)
       this.$emit('AandS',value)
       if(value == this.goods_unit){
         this.handleChange()
@@ -87,5 +86,22 @@ export default {
       margin-right: 25px;
     }
   }
+</style>
+<style lang="">
+  .el-input__inner{
+    padding: 0 !important;
+  }
+  .el-input-number__decrease{
+    width: 20px !important;
+  }
+  .el-input-number__increase{
+    width: 20px !important;
+  }
+  .el-input-number .el-input__inner{
+    padding: 0 !important;
+  }
+  /* .el-input-number{
+    width: 80px;
+  } */
 </style>
 

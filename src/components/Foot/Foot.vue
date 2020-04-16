@@ -64,7 +64,7 @@ export default {
 @import '../../../src/style/common';
   .foot{
     // margin-top:30px;
-    background-color: #e94c15;
+    background-color: #000;
     height: 250px;
     width: 100%;
     position:absolute;

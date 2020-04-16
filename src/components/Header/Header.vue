@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="clearfloat"></div>
+      <div class="clearfloat" ></div>
   </div>
 </template>
 <script>

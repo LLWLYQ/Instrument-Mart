@@ -1,6 +1,6 @@
 <template>
   <div class="Center">
-    <div class="content_container">
+    <!-- <div class="content_container"> -->
       <div class="Center_left">
         <div class="order">
           <el-row class="tac">
@@ -11,7 +11,8 @@
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
-                :router="true">
+                :router="true"
+              >
             <el-submenu index="1">
                 <span style="font-size:14px;font-weight: 700;width:100px;">会员中心</span>
                 <el-menu-item index="/Center_home_page" >中心首页</el-menu-item>
@@ -33,7 +34,7 @@
           </el-row>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 <script>
@@ -59,7 +60,6 @@ export default {
   component:{
   },
   created(){
-    this.$emit('public_footer', false);
   },
 
 //监听路由的变化，对应菜单高亮显示
@@ -68,9 +68,11 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "../../style/common";
-  .content_container{
+  .Center{
     width: 1190px;
     margin: 0 auto;
+    height: 2000px;
+    overflow: hidden;
     .cur{
       background-color: #222;
       color:#fff;
@@ -96,6 +98,23 @@ export default {
         }
       }
       .order{
+        .el-menu{
+          width: 100px;
+        }
+      .el-menu-item{
+          padding-left:10px !important;
+          font-size: 12px;
+          font-weight: 700;
+        }
+        .el-menu-item:hover{
+          background-color:#fff !important;
+        }
+        .el-menu-item.is-active {
+          background-color:#fff !important;
+        }
+        .el-submenu .el-menu-item{
+          min-width: 0px !important;
+        }
         p{
           font-size: 20px;
           height: 30px;
@@ -178,24 +197,8 @@ export default {
   }
 </style>
 <style lang="scss">
-    .el-menu{
-      width: 100px;
-    }
    .el-submenu__title{
       display:none;
     }
-   .el-menu-item{
-      padding-left:10px !important;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .el-menu-item:hover{
-       background-color:#fff !important;
-    }
-    .el-menu-item.is-active {
-      background-color:#fff !important;
-    }
-    .el-submenu .el-menu-item{
-      min-width: 0px !important;
-    }
 </style>
+
