@@ -30,6 +30,7 @@
   </div>
 </template>
 <script type="text/javascript">
+import config from '../../../config/config'
 export default {
   data() {
     return {
@@ -151,10 +152,11 @@ export default {
             this.showResult = true;
             this.rolling = false;
           }, 8500)
-          console.log(this.result.name)
+          // console.log(this.result.name)
         },
         close() {
           this.showResult = false;
+          // console.log(this.showResult)
         },
   },
   components: {

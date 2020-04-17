@@ -4,18 +4,6 @@
       <div class="discount_coupon">
         <h1>优惠券列表</h1>
         <br>
-        <div class="menber-shop">
-          <ul class="dc-list">
-            <li v-for="(LD,index) in memberData" :key="index">
-              <p><i class="el-icon-delete-solid" @click="DelClickDC(LD,index)"></i></p>
-              <p>{{LD.name}}</p>
-              <p>优惠{{LD.get_coupon.money}}</p>
-              <p>使用时间：{{LD.get_coupon.use_start_time | formatDate}}至{{LD.get_coupon.use_end_time | formatDate}}</p>
-            </li>
-          </ul>
-        </div>
-        <h1>优惠券列表</h1>
-        <br>
         <div class="ddd">
           <ul class="dc-list">
             <li v-for="(LD,index) in shopData" :key="index">
@@ -30,13 +18,11 @@
     </div>
   </div>
 </template>
-
 <script type="text/javascript">
 import config  from '../../../config/config'
 export default {
   data() {
     return {
-      memberData:'',
       shopData:''
     }
   },
@@ -83,16 +69,6 @@ export default {
 
   },
   created(){
-    this.$ajax({
-      url: config.baseUrl + '/home/coupon_receive',
-      method:'get',
-      params:{
-        member_id:localStorage.getItem('userId')
-      }
-    }).then(res=>{
-      this.memberData = res.data.data.items.data
-    })
-
     this.$ajax({
       url: config.baseUrl + '/home/shop_coupon_receive',
       method:'get',
