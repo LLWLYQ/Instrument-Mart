@@ -163,8 +163,15 @@ export default {
 
   },
   created(){
-    this.$emit('public_header', false);
-    this.$emit('public_footer', false);
+    this.$ajax({
+      url:config.baseUrl + '/home/draw',
+      method:'get',
+      // params:{
+      //   member_id:localStorage.getItem('userId')
+      // }
+    }).then(res=>{
+      console.log(res)
+    })
     // this.getLottery()
   },
    mounted() {

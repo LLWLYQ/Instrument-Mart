@@ -17,6 +17,9 @@
             >
               <img :src="baseUrl+TI.files_path" alt="">
             </li>
+            <li ref="aaimg">
+              <img :src="baseUrl+aaImg" alt="">
+            </li>
           </ul>
         </div>
         <div class="small_shinetop">
@@ -59,11 +62,11 @@
           <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" ></quantity>
           <!-- 商品规格 -->
           <div class="select" style ="color:#000;">
-            <el-form ref="form" :model="form" label-width="40px" >
-              <el-form-item :label="Go.name"  v-for="Go in goods_option" :key="Go.id" >
-                  <el-radio-group  v-model="Go.cf"   @change="aa" >
-                     <el-radio-button :label="String(Go.goods_option_id)+':'+String(go.goods_option_value_id)" v-for="(go,index) in Go.goods_option_value" :key="index" >
-                       {{go.name}} {{go.price_prefix}} {{go.price}}
+            <el-form ref="form" :model="Go" label-width="40px" v-for="Go in goods_option" :key="Go.id">
+              <el-form-item :label="Go.name"   >
+                  <el-radio-group  v-model="Go.cf"  v-for="(go,index) in Go.goods_option_value" :key="index" @change="aa(Go)">
+                     <el-radio-button :label="go.goods_option_value_id" >
+                       {{go.name}}
                     </el-radio-button>
                   </el-radio-group>
               </el-form-item>
@@ -108,7 +111,7 @@
                   </ul>
                 </div>
                 <div class="packageURL">
-                  <h1>PACKING</h1>
+                  <!-- <h1>PACKING</h1> -->
                   <img :src="Infos.packageURL" alt="">
                 </div>
               </div>
@@ -152,7 +155,9 @@ export default {
   data () {
     return {
       Collect:false,
-      form:{},
+      // form:{
+      //   resource:''
+      // },
       activeName: 'first',
       isSelect:0,
       baseUrl:config.baseUrl,
@@ -175,6 +180,8 @@ export default {
       title:'',
       reviewData:'',
       option:'',
+      aaImg:'',
+      aaArr:[]
     }
   },
   computed:mapGetters([
@@ -227,22 +234,41 @@ export default {
 
       this.Infos.market_price=rs
     },
-    aa(e){
-         let arr=this.goods_option
-         let strObject={};
+    aa(Go){
+        console.log(Go)
+        this.$ajax({
+          url:config.baseUrl + '/home/goods/optionPrice',
+          method:'post',
+          data:{
+            goods_option_value_id:this.aaArr
+          }
+        }).then(res=>{
+          if(res.data.code == 20000){
+            this.$refs.aaimg.style.display = 'block'
+          }
+          
+          res.data.data.map(item=>{
+            this.Infos.market_price = item.sales_price
+            this.aaImg = item.imageUrl
+          })
+          
+        })
+        //  let arr=this.goods_option
+        //  let strObject={};
 
-         for(let index in arr){
-           strObject[index]=arr[index]['cf']
-         }
+        //  for(let index in arr){
+        //    strObject[index]=arr[index]['cf']
+        //  }
 
-         this.option = strObject
-         console.log(this.option)
+        //  this.option = strObject
+        //  console.log(this.option)
     },
     closeLF(){
       this.LF = false
     },
     tabChange(index,event){
       this.iscur = index
+      this.$refs.aaimg.style.display = 'none'
     },
     addToShopCar(){
       if(this.UserId){
@@ -285,19 +311,14 @@ export default {
       url:config.baseUrl+'/home/goods/'+ this.detailID,
       methods:'post',
     }).then(res=>{
-      // console.log(res)
       this.Infos = res.data.data.result
       this.title = this.Infos.goods_name
-      // console.log(this.Infos)
-      // console.log(this.title)
       this.goods_option = this.Infos.goods_option
-      // console.log(this.goods_option)
       this.brandId = this.Infos.goods_id
       this.tebImg = res.data.data.result.piclist
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
-      // this.DiscountPrice =  this.Infos
     })
     this.$ajax({
         url:config.baseUrl + '/home/comment',
@@ -319,6 +340,12 @@ export default {
 
 <style scope lang="scss">
 @import "../../../style/common.css";
+.el-radio-button__orig-radio:checked+.el-radio-button__inner{
+  background: #fff !important;
+  border: 2px solid #FF0036 !important;
+  color:#222 !important;
+  box-shadow:none;
+}
 .collect_succ{
   width: 527px;
   height: 244px;
@@ -380,10 +407,23 @@ export default {
   }
 
 }
+.el-radio-button{
+  margin-left: 15px;
+}
+.el-radio-button:first-child .el-radio-button__inner{
+  border-left: 2px solid #DCDFE6;
+}
 .el-radio-button__inner{
   margin-left: 18px;
   font-size: 12px;
   color:#000;
+  border: 2px solid #DCDFE6 !important;
+}
+.el-radio-button__inner:hover{
+  background: #fff ;
+  border: 2px solid #FF0036 !important;
+  color:#222 !important;
+  box-shadow:none;
 }
 .el-form-item__label{
   font-size: 12px;
@@ -491,7 +531,7 @@ export default {
           position: absolute;
           height: 460px;
           width: 460px;
-          padding: 13px 20px 20px 20px;
+          padding: 13px 20px 0px 15px;
           // border:1px solid #ccc;
           img{
             width: 100%;
@@ -507,12 +547,16 @@ export default {
       left: 0;
       .cur{
         border:2px solid black;
+        padding: 0;
       }
       li{
         width: 60px;
         height: 60px;
+        padding: 2px;
         float: left;
         margin-left: 20px;
+        text-align: center;
+        line-height: 60px;
         img{
           width: 100%;
           height: 100%;
@@ -590,6 +634,7 @@ export default {
       position: relative;
       span{
         cursor: pointer;
+        font-size: 16px;
       }
       span:nth-child(1){
         background-color: #dd2828;
@@ -643,6 +688,9 @@ export default {
       height: 100%;
       border-top:1px solid #ccc;
       border-bottom:1px solid #ccc;
+      h1{
+        font-size: 20px;
+      }
       .commodity_information{
         text-align: center;
         font-size: 20px;

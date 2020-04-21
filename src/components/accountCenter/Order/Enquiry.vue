@@ -12,7 +12,6 @@
               <p>使用时间{{LD.use_start_time | formatDate}}</p>
               <p>结束时间{{LD.use_end_time | formatDate}}</p>
               <p><span @click="DcListClick(LD)"><i class="el-icon-message-solid"></i>领取优惠券</span></p>
-              <!-- <span v-if='mes'><span @click="DcListClick(LD)"><i class="el-icon-message-solid"></i>{{message}}</span></p> -->
             </li>
           </ul>
         </div>
@@ -33,7 +32,6 @@
     </div>
   </div>
 </template>
-
 <script type="text/javascript">
 import config  from '../../../config/config'
 export default {
@@ -47,23 +45,6 @@ export default {
       mess:false
     }
   },
-  filters: {
-      formatDate (value) {
-        let date = new Date(value);
-        let y = date.getFullYear();
-        let MM = date.getMonth() + 1;
-        MM = MM < 10 ? ('0' + MM) : MM;
-        let d = date.getDate();
-        d = d < 10 ? ('0' + d) : d;
-        let h = date.getHours();
-        h = h < 10 ? ('0' + h) : h;
-        let m = date.getMinutes();
-        m = m < 10 ? ('0' + m) : m;
-        let s = date.getSeconds();
-        s = s < 10 ? ('0' + s) : s;
-        return y + '年' + MM + '月' + d + '日' + h + ':' + m + ':' + s;
-      }
-    },
   methods: {
     DcListClick(LD){
       console.log(LD.id)

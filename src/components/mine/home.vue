@@ -31,22 +31,20 @@
     </div>
   </div>
   <div class="home_two">
-    <div class="brand">
+    <div class="brand" @mouseleave="catMouseleave()">
         <div class="B_l">
           <div class="B_l_list">
-            <ul>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
-              <li>路由器/电脑</li>
+            <ul class="cat_ul">
+              <li v-for="cat in Category" :key="cat.id" class="cat" @mouseover="catMouseover(cat.cc)">{{cat.cate_name}}</li>
+              <div class="catList" v-if="catlUL" >
+                 <ul @mouseleave="catMouseleave()">
+                   <li v-for="ctu in catmouList" :key="ctu.id">
+                    <span>
+                      <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:ctu.id}}" target="_blank" tag="a">{{ctu.cate_name}}</router-link>
+                    </span>
+                   </li>
+                 </ul>
+               </div>
             </ul>
           </div>
         </div>
@@ -86,13 +84,14 @@
       <!-- 商品列表 -->
       <div class="BrandList">
         <ul v-for="BrL in Brand_List" :key="BrL.id">
+          <!-- {{Brl}} -->
           <li >
-            <div class="brand-img" >
-              <img src="//img.alicdn.com/i2/2/TB1vDvUKpXXXXaKXFXXSutbFXXX.jpg_100x150q100.jpg_.webp" alt="">
+            <div class="brand-img" v-for="brlf in BrL.files" :key="brlf.id">
+              <img :src="baseUrl + brlf.files_path">
             </div>
             <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=1917047079&amp;abtest=&amp;pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&amp;pos=1&amp;abbucket=&amp;brandId=30111&amp;acm=09042.1003.1.1200415&amp;scm=1007.13029.131809.100200300000000">
               <div class="coupon">
-                <span>Apple/苹果</span>
+                <span>{{BrL.name}}</span>
               </div>
               <div class="enter">
                 <span>点击进入</span>
@@ -169,7 +168,12 @@ export default {
       boxshow:false,
       sinInTotal:0,
       sinInCount:0,
-      sinIntime:''
+      sinIntime:'',
+      baseUrl:config.baseUrl,
+      Category:'',
+      catmouList:'',
+      catlUL:false,
+      ListClaId:''
     }
   },
     beforeDestroy() {
@@ -179,6 +183,14 @@ export default {
         window.removeEventListener('scroll', this.handleScroll)
       },
     created(){
+      //产品分类列表
+      this.$ajax({
+        url:config.baseUrl + '/home/goodsCategory',
+        method:'get',
+      }).then(res=>{
+        this.Category = res.data.data
+        console.log(this.Category)
+      })
     //签到状态查看
       this.$ajax({
         url:config.baseUrl + '/home/sign/' + localStorage.getItem('userId'),
@@ -221,9 +233,21 @@ export default {
       params:{}
     }).then(res=>{
       _this.Brand_List = res.data.data.items
+      // console.log(_this.Brand_List)
     })
   },
   methods: {
+    // ctuClick(ctu){
+    //   // console.log(ctu.id)
+    //   this.ListClaId = ctu.id
+    // },
+    catMouseover(item){
+      this.catmouList = item
+      this.catlUL = true
+    },
+    catMouseleave(){
+      this.catlUL = false
+    },
     getDay(day) {　　
         var today = new Date();　　
         var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;　　
@@ -384,6 +408,7 @@ dz
         color: #fff;
         font-size: 22px;
         margin-top: 5px;
+        
       }
     }
    }
@@ -589,20 +614,52 @@ dz
             margin-top: -36px;
           }
         .B_l_list{
+          .catList{
+            height: 460px;
+            width: 800px;
+            background: #FAFAFA;
+            position: absolute;
+            left: 200px;
+            top:0;
+                ul{
+                  position: absolute;
+                  left: 0;
+                  top:0;
+                  z-index: 10000000000000;
+                  background: #fff;
+                  color:#222;
+                  height: 459px;
+                  width: 600px;
+                  li{
+                    float: left;
+                    // margin-left: 15px;
+                    cursor: pointer;
+                    height: 40px;
+                    line-height: 40px;
+                    width: 60px;
+                    text-align: center;
+                    a{
+                      color:#222;
+                      font-size: 14px;
+                    }
+                  }
+                }
+              }
           // border:1px solid #fff;
           border-radius: 5%;
           // background-color:#fff;
           ul:nth-child(-n+5){
             border-bottom: 1px solid #ccc;
           }
-          ul{
+          .cat_ul{
             // background-color: rgba(0,0,0,.55);
             background-color: #333;
             width: 200px;
             height: 460px;
             position: relative;
             z-index: 11;
-            li{
+            .cat{
+              // position: relative;
               padding-left: 14px;
               width: 200px;
               position: relative;
@@ -630,6 +687,7 @@ dz
         img{
           height: 460px;
           width: 800px;
+          cursor: pointer;
         }
         .swiper-pagination{
           position: absolute;

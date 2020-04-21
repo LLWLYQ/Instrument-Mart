@@ -45,6 +45,8 @@ import Sign_in from '@/components/Marketing/Sign_in/Sign_in' //签到
 import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
 //Mouqiuxingbudaikouzhaotiqiuzaodaocanpangeigongpaizhid
 import comments from '@/components/goods/Detail/Comments/comments'
+import ProductCategoryListPage from '@/components/goods/Detail/PCLP/ProductCategoryListPage'
+
 //公告
 import notice_list from '@/components/Announcement/notice_list'
 import notice_list_home from '@/components/Announcement/notice_list_home'
@@ -78,6 +80,8 @@ import GeneralShop from '@/components/Shop/GeneralShop'
 
 
 Vue.use(Router)
+
+//全局判断是否登录
 
 export default new Router({
   routes: [
@@ -142,6 +146,15 @@ export default new Router({
       component: comments,
       meta:{
         title:'评价',
+        keepAlive: true
+      }
+    },
+    {
+      path: '/ProductCategoryListPage',
+      name: 'ProductCategoryListPage',
+      component: ProductCategoryListPage,
+      meta:{
+        title:'产品分类列表',
         keepAlive: true
       }
     },
