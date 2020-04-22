@@ -11,6 +11,23 @@
         </div>
       </div>
       <div class="mine">
+        <div class="filtrate">
+          <a @click="Synthesize()" ref="Syn">综合<i class="el-icon-bottom"></i></a>
+          <a @click="salesDown()" ref="sad">销量<i class="el-icon-bottom"></i></a>
+          <a @click="salesUp()" ref="sau">销量<i class="el-icon-top"></i></a>
+          <a @click="priceDown()" ref="prd">价格<i class="el-icon-bottom"></i></a>
+          <a @click="priceUp()" ref="pru">价格<i class="el-icon-top"></i></a>
+        </div>
+        <div class="block">
+          <el-pagination
+            @size-change="handleSizeChange" 
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            layout="prev, pager, next"
+            :page-size="10" 
+            :total="ListData.total">
+          </el-pagination>
+        </div>
         <div class="List">
           <ul>
             <li v-for="LD in ListData" :key="LD.id">
@@ -37,11 +54,124 @@ export default {
     return {
       PclpID:this.$route.query.ListClaId,
       ListData:'',
-      baseUrl:config.baseUrl
+      baseUrl:config.baseUrl,
+      total:'0',
+      currentPage: 0
     }
   },
   methods: {
-
+     handleSizeChange(val) {
+        console.log('每页' + val + '条');
+      },
+      handleCurrentChange(val) {
+        console.log('当前页:'+val);
+      },
+    Synthesize(){
+      this.$ajax({
+        url:config.baseUrl + '/home/goods',
+        method:'get',
+        params:{
+          catid:this.PclpID
+        }
+      }).then(res=>{
+        this.ListData = res.data.data.items
+        console.log(res)
+      })
+      this.$refs.Syn.style.background = '#F1EDEC'
+      this.$refs.Syn.style.color = '#ff0036'
+      this.$refs.sad.style.background = '#faf9f9'
+      this.$refs.sad.style.color = '#806f66'
+      this.$refs.sau.style.background = '#faf9f9'
+      this.$refs.sau.style.color = '#806f66'
+      this.$refs.prd.style.background = '#faf9f9'
+      this.$refs.prd.style.color = '#806f66'
+      this.$refs.pru.style.background = '#faf9f9'
+      this.$refs.pru.style.color = '#806f66'
+    },
+    salesDown(){
+      this.$ajax({
+        url:config.baseUrl + '/home/goods',
+        method:'get',
+        params:{
+          sale_num_pr:"desc"
+        }
+      }).then(res=>{
+        this.ListData = res.data.data.items
+      })
+      this.$refs.sad.style.background = '#F1EDEC'
+      this.$refs.sad.style.color = '#ff0036'
+      this.$refs.Syn.style.background = '#faf9f9'
+      this.$refs.Syn.style.color = '#806f66'
+      this.$refs.sau.style.background = '#faf9f9'
+      this.$refs.sau.style.color = '#806f66'
+      this.$refs.prd.style.background = '#faf9f9'
+      this.$refs.prd.style.color = '#806f66'
+      this.$refs.pru.style.background = '#faf9f9'
+      this.$refs.pru.style.color = '#806f66'
+    },
+    salesUp(){
+      this.$ajax({
+        url:config.baseUrl + '/home/goods',
+        method:'get',
+        params:{
+          sale_num_pr:"asc"
+        }
+      }).then(res=>{
+        this.ListData = res.data.data.items
+      })
+      this.$refs.sau.style.background = '#F1EDEC'
+      this.$refs.sau.style.color = '#ff0036'
+      this.$refs.Syn.style.background = '#faf9f9'
+      this.$refs.Syn.style.color = '#806f66'
+      this.$refs.sad.style.background = '#faf9f9'
+      this.$refs.sad.style.color = '#806f66'
+      this.$refs.prd.style.background = '#faf9f9'
+      this.$refs.prd.style.color = '#806f66'
+      this.$refs.pru.style.background = '#faf9f9'
+      this.$refs.pru.style.color = '#806f66'
+    },
+    priceDown(){
+      this.$ajax({
+        url:config.baseUrl + '/home/goods',
+        method:'get',
+        params:{
+          price_pr:"desc"
+        }
+      }).then(res=>{
+        this.ListData = res.data.data.items
+      })
+      this.$refs.prd.style.background = '#F1EDEC'
+      this.$refs.prd.style.color = '#ff0036'
+      this.$refs.Syn.style.background = '#faf9f9'
+      this.$refs.Syn.style.color = '#806f66'
+      this.$refs.sad.style.background = '#faf9f9'
+      this.$refs.sad.style.color = '#806f66'
+      this.$refs.sau.style.background = '#faf9f9'
+      this.$refs.sau.style.color = '#806f66'
+      this.$refs.pru.style.background = '#faf9f9'
+      this.$refs.pru.style.color = '#806f66'
+    },
+    priceUp(){
+      this.$ajax({
+        url:config.baseUrl + '/home/goods',
+        method:'get',
+        params:{
+          price_pr:"asc"
+        }
+      }).then(res=>{
+        this.ListData = res.data.data.items
+      })
+      this.$refs.pru.style.background = '#F1EDEC'
+      this.$refs.pru.style.color = '#ff0036'
+      this.$refs.Syn.style.background = '#faf9f9'
+      this.$refs.Syn.style.color = '#806f66'
+      this.$refs.sad.style.background = '#faf9f9'
+      this.$refs.sad.style.color = '#806f66'
+      this.$refs.sau.style.background = '#faf9f9'
+      this.$refs.sau.style.color = '#806f66'
+      this.$refs.prd.style.background = '#faf9f9'
+      this.$refs.prd.style.color = '#806f66'
+    },
   },
   components: {
     HomeSerach
@@ -55,7 +185,6 @@ export default {
       }
     }).then(res=>{
       this.ListData = res.data.data.items
-      console.log(this.ListData)
     })
   }
 }
@@ -90,6 +219,30 @@ export default {
       margin-left: 590px;
       position: absolute;
       top: 28px;
+    }
+  }
+  .filtrate{
+    margin: 10px 0;
+    padding:8px 5px 0 5px;
+    position: relative;
+    z-index: 10;
+    background: #faf9f9;
+    color: #806f66;
+    line-height: 20px;
+    a{
+      margin-right: 10px;
+      text-align: center;
+      display: inline-block;
+      margin-left: -1px;
+      overflow: hidden;
+      padding: 0 5px 0 5px;
+      cursor: pointer;
+      height: 22px;
+      line-height: 20px;
+      border: 1px solid #ccc;
+      i{
+        font-weight: 800;
+      }
     }
   }
   .List{

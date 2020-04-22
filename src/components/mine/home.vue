@@ -89,12 +89,9 @@
             <div class="brand-img" v-for="brlf in BrL.files" :key="brlf.id">
               <img :src="baseUrl + brlf.files_path">
             </div>
-            <a class="brand-mask" ref="brandmaskL"  href="//store.taobao.com/shop/view_shop.htm?user_number_id=1917047079&amp;abtest=&amp;pvid=36be6a9b-ff56-42e1-9103-5fd3c7c792e4&amp;pos=1&amp;abbucket=&amp;brandId=30111&amp;acm=09042.1003.1.1200415&amp;scm=1007.13029.131809.100200300000000">
+            <a class="brand-mask">
               <div class="coupon">
                 <span>{{BrL.name}}</span>
-              </div>
-              <div class="enter">
-                <span>点击进入</span>
               </div>
             </a>
           </li>
@@ -189,7 +186,7 @@ export default {
         method:'get',
       }).then(res=>{
         this.Category = res.data.data
-        console.log(this.Category)
+        // console.log(this.Category)
       })
     //签到状态查看
       this.$ajax({
@@ -242,6 +239,7 @@ export default {
     //   this.ListClaId = ctu.id
     // },
     catMouseover(item){
+      // console.log(item)
       this.catmouList = item
       this.catlUL = true
     },
@@ -431,19 +429,19 @@ dz
     li{
       width: 122px;
       float: left;
-      height: 108px;
       margin-right: 1px;
       margin-bottom: 1px;
       position: relative;
+      background-color: #fff;
      .brand-img{
         margin: 0 auto;
         display: block;
         text-align: center;
-        line-height: 108px;
+        // line-height: 108px;
         background-color: #fff;
         img{
-          width: 82%;
-          height: 50px;
+          width: 100%;
+          height: 100%;
         }
       }
       .brand-mask{
@@ -460,8 +458,8 @@ dz
         .coupon {
             color: #fff;
             text-align: center;
-            line-height: 90px;
-            height: 60px;
+            line-height: 122px;
+            height: 122px;
             span{
               font-size: 12px;
               display: block;

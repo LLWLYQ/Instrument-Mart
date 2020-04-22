@@ -66,7 +66,7 @@
           </ul>
            <ul v-for="(item,index) in orderData" :key="index" class="center_tr">
                 <!-- <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)" ></li> -->
-                <li><a href="" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img" alt=""><span>{{item.productName}}</span></a></li>
+                <li><router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img" alt=""><span>{{item.productName}}</span></router-link></li>
                 <li><p v-for="Opt in item.option" :key="Opt.id"><span v-for="opt in Opt" :key="opt.id"  >{{opt.option_name}}：{{opt.name}}</span></p></li>
                 <li>￥{{item.price}}</li>
                 <li>{{item.count}}</li>
@@ -161,6 +161,7 @@ export default {
         var goods = {}
         var option = {}
         this.orderData.map((item,index)=>{
+          console.log(item)
           goods = {}
           goods.total = this.totalMoney
           goods.quantity = item.count
