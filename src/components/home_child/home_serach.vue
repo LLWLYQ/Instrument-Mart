@@ -84,7 +84,7 @@ export default {
 			//监听鼠标的点击事件
 			//如果鼠标点击某一行的文字，则点击事件中的event.target.data代表关键词
 			//如果点击某一行的空白处，则点击事件中的event.target.innerText代表关键词
-			//大家可以通过console.log(event)来查看关键词所在的位置
+      //大家可以通过console.log(event)来查看关键词所在的位置
       click(event){
           if(event!=undefined){
             this.wd=event;

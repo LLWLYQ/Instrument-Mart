@@ -93,7 +93,7 @@ export default {
         url:config.baseUrl + '/home/goods',
         method:'get',
         params:{
-          sale_num_pr:"desc"
+          sale_num_pr:"desc",
         }
       }).then(res=>{
         this.ListData = res.data.data.items
