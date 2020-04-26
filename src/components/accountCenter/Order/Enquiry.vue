@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     DcListClick(LD){
-      console.log(LD.id)
       this.$ajax({
         url:config.baseUrl + '/home/coupon_receive',
         method:'post',
@@ -65,7 +64,6 @@ export default {
       })
     },
     DcListClickDC(LD){
-      console.log(LD.id)
       this.$ajax({
         url:config.baseUrl + '/home/coupon_receive',
         method:'post',

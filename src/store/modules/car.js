@@ -41,7 +41,7 @@ const mutations = {
 
 const getters = {
   totalPrice(state){
-    console.log(state)
+    // console.log(state)
     let totalPrice = 0;
     state.car.forEach(item=>{
       totalPrice += item.price * item.quantity

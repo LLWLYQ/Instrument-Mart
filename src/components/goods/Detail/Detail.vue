@@ -118,6 +118,7 @@
             </el-tab-pane>
             <el-tab-pane label="累计评价" name="second">
               <table class="rate-grid">
+                <p v-if="reviewData == ''" class="PP">暂无评论</p>
                 <tbody>
                   <tr v-for="red in reviewData" :key="red.id">
                     <td class="tm-col-master">
@@ -139,13 +140,72 @@
                 </tbody>
               </table>
             </el-tab-pane>
+            <el-tab-pane label="咨询列表" name="last">
+              <div class="form"> 
+                <div class="Detal">
+                  <div class="userName">
+                    <p>用户：{{userName}}</p>
+                  </div>
+                  <div class="ProName">
+                    <p>商品：{{Infos.goods_name}}</p>
+                  </div>
+                </div>
+                <div class="Text">
+                  <div class="OrderRate">
+                    <div class="OL">
+                      <span>商品咨询内容</span>
+                    </div>
+                    <div class="OR">
+                      <textarea name="" id="" cols="30" rows="10" v-model="notedata">
+                      </textarea>
+                    </div>
+                  </div>
+                  <div style="clear:both"></div>
+                </div>
+                <div class="anonymity">
+                  <el-radio v-model="anonymity" label="0">匿名</el-radio>
+                  <el-radio v-model="anonymity" label="1">不匿名</el-radio>
+                </div>
+                <div class="submit">
+                  <span>
+                    <button @click="submit()">
+                      咨询商品
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <table class="Rate-Grid">
+                <p v-if="MenberConsulting == ''" class="PP">暂无咨询数据</p>
+                <tbody>
+                  <tr v-for="red in MenberConsulting" :key="red.id">
+                    <td class="tm-col-master">
+                      <div class="tm-rate-content">
+                        <div class="tm-m-photos">
+                          <ul class="tm-m-photos-thumb">
+                            <li><span>{{red.consult_content}}</span></li>
+                          </ul>
+                          <p><span>商家回复：{{red.consult_reply}}好用的不得了</span></p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="col-meta">
+                      <p>{{red.goods_name}}</p>
+                      <p><span>{{red.consult_replytime | formatDate}}</span></p>
+                    </td>
+                    <td class="col-author">
+                      <p>{{red.member_name}}</p>
+                      <p>{{red.store_name}}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </el-tab-pane>
           </el-tabs>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import LoginForm from '../../LoginForm/LoginForm'
 import quantity from './Quantity/quantity';
@@ -181,13 +241,79 @@ export default {
       reviewData:'',
       option:'',
       aaImg:'',
-      aaArr:[]
+      aaArr:[],
+      notedata:'',
+      userName:localStorage.getItem('userName'),
+      anonymity:'0',
+      MenberConsulting:'',
+      Consulting:''
+      // Unanonymity:'1'
     }
   },
   computed:mapGetters([
     'count'
   ]),
   methods: {
+    //商品咨询添加
+    submit(){
+      if(!localStorage.getItem('userId')){
+        if(this.notedata == ''){
+          this.$alert('请填写要咨询的内容', '', {
+            confirmButtonText: '',
+          });
+        }else{
+          this.$ajax({
+            url:config.baseUrl + '/home/consult',
+            method:'post',
+            data:{
+              goods_id:this.detailID,
+              goods_name:this.Infos.goods_name,
+              member_id:0,
+              member_name:'',
+              store_id:this.Infos.get_shop.shop_id,
+              store_name:this.Infos.get_shop.shop_name,
+              consult_content:this.notedata,
+              consult_isanonymous:this.anonymity
+            }
+          }).then(res=>{
+            if(res.data.code == 20000){
+              this.$alert('咨询成功', '', {
+                confirmButtonText: '',
+              });
+              this.notedata = ''
+            }
+          })
+        }
+      }else{
+        if(this.notedata == ''){
+          this.$alert('请填写要咨询的内容', '', {
+            confirmButtonText: '',
+          });
+        }else{
+          this.$ajax({
+            url:config.baseUrl + '/home/consult',
+            method:'post',
+            data:{
+              goods_id:this.detailID,
+              goods_name:this.Infos.goods_name,
+              member_id:localStorage.getItem('userId'),
+              member_name:this.userName,
+              store_id:this.Infos.get_shop.shop_id,
+              store_name:this.Infos.get_shop.shop_name,
+              consult_content:this.notedata,
+              consult_isanonymous:this.anonymity
+            }
+          }).then(res=>{
+            if(res.data.code == 20000){
+              this.$alert('咨询成功', '', {
+                confirmButtonText: '',
+              });
+              this.notedata = ''
+            }
+          })
+        }
+      }
+    },
     close(){
       this.Collect = false
     },
@@ -211,8 +337,8 @@ export default {
     select2(index,go){
       this.isSelect = index
 
-      console.log(index)
-      console.log(go)
+      // console.log(index)
+      // console.log(go)
 
       //this.Infos.market_price=parseInt(this.Infos.market_price)+parseInt(go.price)
     },
@@ -220,7 +346,7 @@ export default {
       //this.isSelect = index
 
       //console.log(index)
-      console.log(e.target.dataset.nums)
+      // console.log(e.target.dataset.nums)
 
       //this.isSelect=e.target.dataset.nums
 
@@ -235,7 +361,7 @@ export default {
       this.Infos.market_price=rs
     },
     aa(Go){
-        console.log(Go)
+        // console.log(Go)
         this.$ajax({
           url:config.baseUrl + '/home/goods/optionPrice',
           method:'post',
@@ -272,8 +398,6 @@ export default {
     },
     addToShopCar(){
       if(this.UserId){
-        // console.log(this.$refs)
-        // return false
         this.$ajax({
           url:config.baseUrl+'/home/cart/add',
           method:'post',
@@ -284,7 +408,7 @@ export default {
             quantity:this.num
           }
         }).then(res=>{
-          console.log(res)
+          // console.log(res)
           if( res.data.code = 20000){
             const h = this.$createElement;
             this.$notify({
@@ -307,6 +431,30 @@ export default {
   }
   },
   created(){
+    if(localStorage.getItem('userId')){
+      //会员产品咨询列表 MenberConsulting
+      this.$ajax({
+        url:config.baseUrl + '/home/consult',
+        method:'get',
+        params:{
+          member_id:localStorage.getItem('userId')
+        }
+      }).then(res=>{
+        this.MenberConsulting = res.data.data.items.data
+      })
+    }else{
+      //产品咨询列表 Consulting
+      this.$ajax({
+        url:config.baseUrl + '/home/consult',
+        method:'get',
+        params:{
+          goods_id:this.detailID
+        }
+      }).then(res=>{
+        this.MenberConsulting = res.data.data.items.data
+      })
+    }
+    
     this.$ajax({
       url:config.baseUrl+'/home/goods/'+ this.detailID,
       methods:'post',
@@ -319,17 +467,20 @@ export default {
       this.pictUrl = config.baseUrl + this.tebImg[0].files_path
       this.name =  this.Infos.goods_name
       this.price = this.Infos.sales_price
-    })
-    this.$ajax({
+      console.log(this.title)
+      this.$ajax({
         url:config.baseUrl + '/home/comment',
         methods:'get',
         params:{
-          member_id:90,
+          member_id:localStorage.getItem('userId'),
           title:this.title
         }
       }).then(res=>{
         this.reviewData = res.data.data.items.data
+        console.log(this.reviewData)
+      })
     })
+    
   },
   components:{
     quantity,
@@ -443,50 +594,290 @@ export default {
 //   border-left:1px solid #ccc;
 //   border-right:1px solid #ccc;
 // }
-.rate-grid{
-  width: 100%;
-  table-layout: fixed;
-  tbody{
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-    tr{
-      display: table-row;
-      vertical-align: inherit;
-      border-color: inherit;
-      .tm-col-master{
-        width: 494px;
-        padding-right: 30px;
-        .tm-rate-content{
-          color:#333;
-          word-wrap: break-word;
-          word-break: break-all;
-          line-height: 19px;
-          overflow: hidden;
-          .tm-m-photos{
-            zoom: 1;
-            .tm-m-photos-thumb{
-              margin: 10px 0;
-              list-style-type: none;
-              height: 40px;
+.form{
+  width: 788px;
+  height:386px;
+  border: 1px solid #d1ccc8;
+  margin: 5px 0 10px 0;
+  background: #f6f6f6;
+  overflow: hidden;
+  
+  .userName{
+    width: 509px;
+    height: 30px;
+    // border:1px solid #ccc;
+    margin-left: 40px;
+    margin-bottom: 15px;
+    line-height: 30px;
+  }
+  .ProName{
+    width: 509px;
+    height: 30px;
+    margin-left: 40px;
+    margin-bottom: 15px;
+    line-height: 30px;
+  }
+  .submit{
+          position: relative;
+          padding: 10px 0;
+          height: 27px;
+          text-align: center;
+          span{
+            float: left;
+            text-align: center;
+            border-radius: 2px;
+            background-color: #c40000;
+            padding: 0;
+            margin-left: 350px;
+            button{
+              display: inline-block;
+              padding: 0 10px;
+              border: 0;
+              line-height: 25px;
+              font-weight: 700;
+              background: 0 0;
+              color: #fff;
+              cursor: pointer;
             }
           }
         }
-      }
-      .col-meta{
-        width: 135px;
-        color: #999;
-      }
-      .col-author{
-        padding-right: 0;
-      }
-      td{
-        padding: 16px 7px;
-        border-bottom: 1px solid #e3e3e3;
+.Text{
+          width: 509px;
+          height: 191px;
+          border:1px solid #ccc;
+          margin-left: 40px;
+          margin-bottom: 30px;
+          .OrderRate{
+            width: 100%;
+            border-bottom: 1px solid #E7E7E7;
+          }
+          .serve{
+            width: 100%;
+          }
+          .OL{
+              line-height: 188px;
+              height: 188px;
+              width: 100px;
+              text-align: center;
+              vertical-align: top;
+              color: #666;
+              background-color: #EFEFEF;
+              border-left: 1px solid #E7E7E7;
+              border-bottom: 1px solid #E7E7E7;
+              border-right: 1px solid #e7e7e7;
+              float: left;
+          }
+          .SL{
+            line-height: 70px;
+            height: 70px;
+            width: 60px;
+            text-align: center;
+            vertical-align: top;
+            color: #666;
+            background-color: #EFEFEF;
+            border-left: 1px solid #E7E7E7;
+            border-bottom: 1px solid #E7E7E7;
+            border-right: 1px solid #e7e7e7;
+            float: left;
+          }
+          .OR{
+            height: 189px;
+            width: 406px;
+            position: relative;
+            float: left;
+            padding: 10px 9px 0;
+            background: #fff;
+            border-bottom:1px solid #E7E7E7;
+            textarea{
+              resize: none;
+              display: block;
+              outline: 0;
+              overflow: auto;
+              padding: 0;
+              margin: 0;
+              border: none;
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .SR{
+            height: 70px;
+            width: 446px;
+            position: relative;
+            padding: 10px 9px 0;
+            float: left;
+            background: #fff;
+            textarea{
+              resize: none;
+              display: block;
+              outline: 0;
+              overflow: auto;
+              padding: 0;
+              margin: 0;
+              border: none;
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+    .anonymity{
+      margin-left: 40px;
+    }
+}
+.Rate-Grid {
+    width: 788px;
+    table-layout: fixed;
+    border-top:1px solid #ccc;
+    .PP{
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+    }
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: inherit;
+
+      tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        .tm-col-master {
+          width: 420px;
+          padding-right: 10px;
+
+          .tm-rate-content {
+            color: #333;
+            word-wrap: break-word;
+            word-break: break-all;
+            line-height: 19px;
+            overflow: hidden;
+
+            .tm-m-photos {
+              zoom: 1;
+              p{
+                span{
+                  float: left;
+                }
+              }
+              .tm-m-photos-thumb {
+                margin: 10px 0;
+                list-style-type: none;
+                height: 40px;
+                // li{
+                //   span{
+                //     margin-left: 15px;
+                //   }
+                // }
+              }
+            }
+          }
+        }
+
+        .col-meta {
+          width: 150px;
+          color: #999;
+          p{
+            span{
+              color:#222;
+            }
+          }
+        }
+        .col-meta p:nth-child(2){
+          margin-top: 47px;
+        }
+        .col-author {
+          padding-right: 0;
+          p{
+            margin-bottom: 5px;
+            color:#222;
+          }
+        }
+
+        td {
+          padding: 16px 7px;
+          border-bottom: 1px solid #e3e3e3;
+        }
       }
     }
   }
-}
+  .rate-grid {
+    width: 788px;
+    table-layout: fixed;
+    border-top:1px solid #ccc;
+    .PP{
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+    }
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: inherit;
+
+      tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        .tm-col-master {
+          width: 420px;
+          padding-right: 10px;
+
+          .tm-rate-content {
+            color: #333;
+            word-wrap: break-word;
+            word-break: break-all;
+            line-height: 19px;
+            overflow: hidden;
+
+            .tm-m-photos {
+              zoom: 1;
+              p{
+                span{
+                  float: left;
+                }
+              }
+              .tm-m-photos-thumb {
+                margin: 10px 0;
+                list-style-type: none;
+                height: 40px;
+                // li{
+                //   span{
+                //     margin-left: 15px;
+                //   }
+                // }
+              }
+            }
+          }
+        }
+
+        .col-meta {
+          width: 150px;
+          color: #999;
+          p{
+            span{
+              color:#222;
+            }
+          }
+        }
+        .col-meta p:nth-child(2){
+          margin-top: 47px;
+        }
+        .col-author {
+          padding-right: 0;
+          p{
+            margin-bottom: 5px;
+            color:#222;
+          }
+        }
+
+        td {
+          padding: 16px 7px;
+          border-bottom: 1px solid #e3e3e3;
+        }
+      }
+    }
+  }
 .LoginForm {
       position: fixed;
       font-size: 24px;

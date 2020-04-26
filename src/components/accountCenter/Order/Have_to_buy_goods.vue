@@ -70,7 +70,7 @@ export default {
       method:'get',
     }).then(res=>{
       this.NoticData = res.data.data.items.data
-      console.log(this.NoticData)
+      // console.log(this.NoticData)
     })
   }
 }

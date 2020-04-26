@@ -67,7 +67,6 @@ export default {
           }else{
             this.arr = res.data.data.items;
           }
-          // console.log(res)
         })
         }, 1000)
         // var url=  config.baseUrl + '/home/goods'
@@ -105,12 +104,10 @@ export default {
 				if(event.keyCode==38){
 					//按的上键
           this.listIndex--;
-          // console.log( this.listIndex-$(".list-group li").index(this)-1)
 					if(this.listIndex<0){
             this.listIndex = this.arr.length-1;
 					}
           this.wd = this.arr[this.listIndex].goods_name;
-          // console.log(this.arr[this.listIndex])
 				}
 				else if(event.keyCode==40){
 					//说明你按的是下键
@@ -137,9 +134,6 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common';
-  // .list-top{
-  //   position: relative;
-  // }
  ._inp{
    border:2px solid #e94c15;
    border-radius: 2px;
@@ -163,13 +157,11 @@ export default {
     display: none;
   :hover{
         background-color: #e94c15;
-        // font-weight:bold;
         font-size: 12px;
         color:#fff;
     }
   .list-group-item-info{
     background-color: #e94c15;
-    // font-weight:bold;
     font-size: 12px;
     color:#fff;
   }

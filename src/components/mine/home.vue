@@ -7,7 +7,7 @@
               <div class="box_center">
                 <h1>InstrumentMall&nbsp;&nbsp;仪商城</h1>
                 <HomeSerachCOPY style="margin:5px 0px 0 400px;"></HomeSerachCOPY>
-              </div>
+              </div>            
             </div>
         </transition>
     </div>
@@ -49,22 +49,21 @@
           </div>
         </div>
         <div class="B_c">
+          <!-- position_id (9) -->
           <div class="swiper-container">
-              <div class="swiper-wrapper">
-                  <div class="swiper-slide"><img src="../../assets/imges/sp_1.jpg" alt=""></div>
-                  <div class="swiper-slide"><img src="../../assets/imges/sp_2.jpg" alt=""></div>
-                  <div class="swiper-slide"><img src="../../assets/imges/sp_3.jpg" alt=""></div>
-                  <div class="swiper-slide"><img src="../../assets/imges/sp_4.jpg" alt=""></div>
-                  <div class="swiper-slide"><img src="../../assets/imges/sp_5.jpg" alt=""></div>
+            <div class="swiper-wrapper" >
+              <div class="swiper-slide" v-for="pd in picId9" :key="pd.id">
+                <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
               </div>
-              <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
         <div class="B_r">
           <div class="check">
             <div class="LoginForm" v-if="LF">
               <i class="el-icon-circle-close" @click="closeLF()"></i>
-              <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
+              <LoginForm style="width:100%;height:100%;" @:closeLogin='closeLogin'></LoginForm>
             </div>
             <div class="over" v-if="LF" @click="closeLF()"></div>
             <div class="sin">
@@ -98,7 +97,21 @@
         </ul>
         <div style="clear:both;"></div>
       </div>
-      <div class="List">
+      <div class="advList">
+        <ul>
+          <!-- position_id (400,302 ) -->
+          <li v-for="pd in picId400" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId302" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="List-title">
+        <h1>仪商城InstrumentMall-SLHC</h1>
+      </div>
+      <div class="List"> 
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
           <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a">
             <li>
@@ -109,6 +122,18 @@
           </router-link>
         </ul>
       </div>
+      <div class="advList">
+        <ul>
+          <!-- position_id (300,303) -->
+          <li v-for="pd in picId300" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId303" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+        </ul>
+      </div>
+      <h1 class="bom-title"><span>—— <i class="iconfont icon-aixin"></i>猜你喜欢 ——</span></h1>
       <div class="Right" v-if="sele">
         <li v-for="(item,index) in wpList" :key="index"  :class="{cur:iscur===index}" @click="iscur=index,selected(item.name,index)" >{{item.name}}</li>
       </div>
@@ -170,7 +195,13 @@ export default {
       Category:'',
       catmouList:'',
       catlUL:false,
-      ListClaId:''
+      ListClaId:'',
+      advertising:'',
+      picId9:'',
+      picId400:'',
+      picId302:'',
+      picId300:'',
+      picId303:''
     }
   },
     beforeDestroy() {
@@ -180,6 +211,68 @@ export default {
         window.removeEventListener('scroll', this.handleScroll)
       },
     created(){
+      //广告位列表
+      //id=9
+      let that = this
+      this.$ajax({
+        url:config.baseUrl + '/home/ad',
+        method:'get',
+        params:{
+          pid:9
+        }
+      }).then(res=>{
+        that.picId9 = res.data.data
+        // console.log(this.picId9)
+      })
+      //id=400
+      // let that = this
+      this.$ajax({
+        url:config.baseUrl + '/home/ad',
+        method:'get',
+        params:{
+          pid:400
+        }
+      }).then(res=>{
+        that.picId400 = res.data.data
+        console.log(this.picId400)
+      })
+
+      //id=302
+      // let that = this
+      this.$ajax({
+        url:config.baseUrl + '/home/ad',
+        method:'get',
+        params:{
+          pid:302
+        }
+      }).then(res=>{
+        that.picId302 = res.data.data
+        // console.log(this.picId9)
+      })
+
+      //id=300
+      this.$ajax({
+        url:config.baseUrl + '/home/ad',
+        method:'get',
+        params:{
+          pid:300
+        }
+      }).then(res=>{
+        that.picId300 = res.data.data
+        // console.log(this.picId9)
+      })
+
+      //id=303
+      this.$ajax({
+        url:config.baseUrl + '/home/ad',
+        method:'get',
+        params:{
+          pid:303
+        }
+      }).then(res=>{
+        that.picId303 = res.data.data
+        // console.log(this.picId9)
+      })
       //产品分类列表
       this.$ajax({
         url:config.baseUrl + '/home/goodsCategory',
@@ -216,8 +309,8 @@ export default {
           }
         }).then(res=>{
           this.carData= res.data.data.items.data
-          var goodsinfos = {
-          };
+          var goodsinfos = {}
+          // goodsinfos.push(addToShopCar)
           this.$store.commit("addToShopCar",goodsinfos);
           this.carData.forEach(item=>{
             goodsinfos.quantity = item.quantity
@@ -230,10 +323,18 @@ export default {
       params:{}
     }).then(res=>{
       _this.Brand_List = res.data.data.items
+      // console.log(_this.Brand_Lisst)
+      // let arr = []
+      // arr.push(_this.Brand_List)
+      // this.arr_xiangzhansh = lvjuren 
+      // console,log()
       // console.log(_this.Brand_List)
     })
   },
   methods: {
+    advClick(adv){
+      console.log(adv)
+    },
     // ctuClick(ctu){
     //   // console.log(ctu.id)
     //   this.ListClaId = ctu.id
@@ -468,7 +569,7 @@ dz
               text-overflow: ellipsis;
               white-space: nowrap;
             }
-        }
+        }a
         .enter {
           text-align: center;
           height: 32px;
@@ -486,7 +587,43 @@ dz
       }
      .brand-mask:hover{
        opacity: 1;
+       cursor: pointer;
       }
+    }
+  }
+}
+.advList{
+  height: 120px;
+  line-height: 120px;
+  margin-bottom:15px;
+  ul{
+    li{
+      width: 610px;
+      height: 100px;
+      background: pink;
+      float: left;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  ul li:nth-child(2){
+    margin-left: 10px;
+  }
+}
+.bom-title{
+  margin-top: 15px;
+  height: 50px;
+  text-align: center;
+  span{
+    font-size: 18px;
+    font-family: 'Microsoft YaHei',SimSun,sans-serif,'\65b9\6b63\5170\4ead\9ed1';
+    font-weight: 100;
+    i{
+      font-size: 18px;
+      color:#ff0036;
+      margin: 0px 5px;
     }
   }
 }
@@ -729,17 +866,6 @@ dz
 
             }
           }
-          // .integral{
-          //   ul{
-          //     text-align: center;
-          //     width: 100%;
-          //     padding:10px 10px;
-          //     li{
-          //       height: 40px;
-          //       line-height: 40px;
-          //     }
-          //   }
-          // }
         }
         height: 460px;
         width:230px;
@@ -760,11 +886,26 @@ dz
         }
       }
   }
+  .List-title{
+    height: 45px;
+    line-height: 45px;
+    h1{
+      height: 35px;
+      line-height: 35px;
+      font-size: 16px;
+      width: 235px;
+      background:#F15453;
+      color:#fff;
+      padding-left: 5px;
+    }
+  }
   .List{
-    height:2100px;
+    overflow: hidden;
+    // height:2100px;
     .List_div{
-      width: 135px;
-      height: 40px;
+      // width: 135px;
+      text-align: center;
+      height: 20px;
       font-size: 14px;
       color: #333;
       line-height: 20px;
@@ -772,10 +913,12 @@ dz
       margin: 8px auto;
     }
     .List_div1{
+      text-align: center;
       font-size: 18px;
       color: #FF0036;
       line-height: 18px;
       margin: 10px auto;
+      margin-left: -8px;
     }
     .List_ul{
       height: 300px;
@@ -787,6 +930,9 @@ dz
       margin-right: 12.5px;
       margin-bottom: 20px;
     }
+    .List_ul:hover{
+      border: 1px solid #FF0036;
+    }
       li{
         span{
           color:#222;
@@ -796,8 +942,10 @@ dz
       border:1px solid #222;
     }
       img{
-        height: 185px;
-        width: 185px;
+        height: 200px;
+        width: 213px;
+        margin-left: 10px;
+        margin-top: 10px;
     }
   }
   .List_ul:nth-child(5n+5){
@@ -826,7 +974,7 @@ dz
     }
     }
     .cur{
-       background-color:#c81623;
+       background-color:#F15453;
         color:#fff;
     }
   }

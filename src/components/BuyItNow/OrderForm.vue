@@ -48,7 +48,7 @@
             <li>
               <template>
                 <!-- `checked` 为 true 或 false -->
-                <el-radio v-model="ZFB" :label="ZFB"></el-radio>
+                <el-radio v-model="ZFB" :label="1"></el-radio>
               </template>
               <img src="../../../src/assets/imges/zfb.jpg" style="height:80px;width:200px;">
             </li>

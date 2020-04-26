@@ -46,6 +46,7 @@ import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
 //Mouqiuxingbudaikouzhaotiqiuzaodaocanpangeigongpaizhid
 import comments from '@/components/goods/Detail/Comments/comments'
 import ProductCategoryListPage from '@/components/goods/Detail/PCLP/ProductCategoryListPage'
+import storelist from '@/components/goods/Detail/StoreList/storelist'
 
 //公告
 import notice_list from '@/components/Announcement/notice_list'
@@ -155,6 +156,15 @@ export default new Router({
       component: ProductCategoryListPage,
       meta:{
         title:'产品分类列表',
+        keepAlive: true
+      }
+    },
+    {
+      path: '/storelist',
+      name: 'storelist',
+      component: storelist,
+      meta:{
+        title:'店铺列表',
         keepAlive: true
       }
     },

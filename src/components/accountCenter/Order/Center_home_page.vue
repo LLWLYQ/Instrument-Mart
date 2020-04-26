@@ -116,7 +116,6 @@ export default {
         member_id:localStorage.getItem('userId')
       }
     }).then(res=>{
-      console.log(res)
     })
   }
 }

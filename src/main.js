@@ -9,6 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 import date from './assets/DATE/date'//引入登录成功获取的当前时间戳
 
+import './assets/iconfont/iconfont.css'
+
 
 Vue.config.productionTip = false
 

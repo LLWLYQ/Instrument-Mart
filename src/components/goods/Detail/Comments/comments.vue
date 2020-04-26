@@ -592,7 +592,7 @@
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
       .form{
-        width: 988px;
+        width: 980px;
         height: 366px;
         border: 1px solid #d1ccc8;
         margin: 5px 0 10px 0;

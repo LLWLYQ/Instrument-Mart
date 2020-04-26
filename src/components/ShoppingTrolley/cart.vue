@@ -113,7 +113,7 @@
             var checkAllitem = {}
             this.OrderList = []
             this.lists.map((item,index)=>{
-              console.log(item)
+              // console.log(item)
               checkAllitem = {}
               checkAllitem = item
               if(checkAll == false){
@@ -122,7 +122,7 @@
                 this.OrderList.splice(checkAllitem)
               }
             })
-            console.log(this.OrderList)
+            // console.log(this.OrderList)
           },
           ToSettleAccounts(){
               let routeData = this.$router.resolve({
@@ -239,7 +239,7 @@
           }).then(res=>{
               // console.log(res.data.data.items.data)
               res.data.data.items.data.map((item,index)=>{
-                console.log(item)
+                // console.log(item)
               this.goodsNumber = index+1
               GList = {}
               // _this.lists.productName == item.get_goods.goods_name

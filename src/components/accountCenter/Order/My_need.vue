@@ -40,11 +40,18 @@ export default {
       method:'get',
     }).then(res=>{
       this.LotteryData = res.data.data.items.data
-      console.log(this.LotterData)
+      // this.pc_goods_content = res.data.data.item.data.cate_name
+      // this.LotteryData.map(item=>{
+      //   item.name = name 
+      // })
     })
-    //抽奖活动查看
+    // 抽奖活动查看
     // this.$ajax({
-    //   url:
+    //   url:config.baseUrl + '/home/draw',
+    //   method:'post',
+    //   data:{
+    //     title:this.LotteryData
+    //   }
     // })
   }                                                    
 }
