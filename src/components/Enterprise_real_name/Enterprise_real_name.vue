@@ -61,7 +61,6 @@ export default {
             bank_num:this.bank,
           }
 				}).then(res => {
-            console.log(res)
         });
     },
   },

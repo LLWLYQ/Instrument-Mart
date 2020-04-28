@@ -51,7 +51,7 @@
                   </el-rate>
                 </i></em>
                   <span>分</span></em>
-                <span>(累计评价<span class="superstar-ratetotal">3421</span> )</span>
+                <span>累计评价<span class="superstar-ratetotal">3421</span> )</span>
               </div>
             </li>
           </ol>
@@ -91,7 +91,7 @@
                 <div class="submit">
                   <span>
                     <button @click="submit()">
-                      提交评论
+                      提交评价
                     </button>
                   </span>
                 </div>
@@ -173,7 +173,8 @@
     methods: {
       //提交评论
       submit(){
-        this.$ajax({
+        if(this.notedata && this.value1){
+          this.$ajax({
           url:config.baseUrl + '/home/comment',
           method:'post',
           data:{
@@ -181,16 +182,30 @@
             id_value:3,
             shop_id:4,
             email:'',
-            user_name:"hasaki",
+            user_name:localStorage.getItem('userName'),     
             content:this.notedata,
-            comment_rank:"5",
+            comment_rank:this.value1,
             ip_address:'1583913258',
             parent_id:0,
-            user_id:90
+            user_id:localStorage.getItem('userId')
           }
         }).then(res=>{
-          console.log(res)
+          if(res.data.code == 20000){
+            this.$alert('评价提交成功', '', {
+              confirmButtonText: '确定',
+              callback: action => {
+               this.$router.push({
+                  path:'/'
+                })
+              }
+            });
+          }
         })
+      }else{
+        this.$alert('请填写完再提交', '', {
+          confirmButtonText: '确定',
+        });
+      }
       },
       //累计评论
       handleClick(tab, event) {
@@ -258,15 +273,15 @@
         // this.DiscountPrice =  this.Infos
       })
       this.$ajax({
-        url: config.baseUrl + '/home/comment',
-        methods: 'get',
-        params: {
-          member_id: 90,
-          title: this.title
+        url:config.baseUrl + '/home/comment',
+        methods:'get',
+        params:{
+          member_id:'',
+          title:'',
+          goods_id:this.detailID,
         }
-      }).then(res => {
+      }).then(res=>{
         this.reviewData = res.data.data.items.data
-        // console.log(this.reviewData)
       })
     },
     components: {

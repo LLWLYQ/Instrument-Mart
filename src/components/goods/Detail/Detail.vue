@@ -215,9 +215,6 @@ export default {
   data () {
     return {
       Collect:false,
-      // form:{
-      //   resource:''
-      // },
       activeName: 'first',
       isSelect:0,
       baseUrl:config.baseUrl,
@@ -327,31 +324,15 @@ export default {
         }
       }).then(res=>{
         this.Collect = true
-        // JSON.stringify()
       })
     },
     //累计评论
     handleClick(tab, event) {
-      // console.log(this.title)
     },
     select2(index,go){
       this.isSelect = index
-
-      // console.log(index)
-      // console.log(go)
-
-      //this.Infos.market_price=parseInt(this.Infos.market_price)+parseInt(go.price)
     },
     select(e){
-      //this.isSelect = index
-
-      //console.log(index)
-      // console.log(e.target.dataset.nums)
-
-      //this.isSelect=e.target.dataset.nums
-
-
-      //this.Infos.market_price=(parseInt(this.Infos.market_price)+parseInt(e.target.dataset.price))
       let as=parseInt(this.Infos.market_price)
       let rs=0
       rs=as+parseInt(e.target.dataset.price)
@@ -361,7 +342,6 @@ export default {
       this.Infos.market_price=rs
     },
     aa(Go){
-        // console.log(Go)
         this.$ajax({
           url:config.baseUrl + '/home/goods/optionPrice',
           method:'post',
@@ -379,15 +359,6 @@ export default {
           })
           
         })
-        //  let arr=this.goods_option
-        //  let strObject={};
-
-        //  for(let index in arr){
-        //    strObject[index]=arr[index]['cf']
-        //  }
-
-        //  this.option = strObject
-        //  console.log(this.option)
     },
     closeLF(){
       this.LF = false
@@ -416,6 +387,7 @@ export default {
                 message: '商品已成功加入购物侧，欢迎选购其他商品',
                 type: 'success',
                 customClass:'Notification',
+                // customCalss:'wokanzhenishenhundiandao'
               });
           }
         })
@@ -441,6 +413,8 @@ export default {
         }
       }).then(res=>{
         this.MenberConsulting = res.data.data.items.data
+        // console.log(this.MenberConsulting)
+        // this.yourNotFire = 'Noforu'
       })
     }else{
       //产品咨询列表 Consulting
@@ -472,12 +446,13 @@ export default {
         url:config.baseUrl + '/home/comment',
         methods:'get',
         params:{
-          member_id:localStorage.getItem('userId'),
-          title:this.title
+          member_id:'',
+          title:'',
+          goods_id:this.detailID,
+          // shop_id:'荣耀Play4T Pro' 
         }
       }).then(res=>{
         this.reviewData = res.data.data.items.data
-        console.log(this.reviewData)
       })
     })
     

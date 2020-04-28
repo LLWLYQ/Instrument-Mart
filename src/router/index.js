@@ -254,7 +254,8 @@ export default new Router({
           name:'Complaint',
           component:Complaint,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            title:'评价管理'
           }
         },
         {

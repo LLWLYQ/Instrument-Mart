@@ -23,8 +23,8 @@
       </div>
       <ul class="com_ul">
         <li><i class="el-icon-s-home"></i> 首页</li>
-        <li><i class="el-icon-s-platform"></i> 品牌供应商</li>
-        <li><i class="el-icon-s-flag"></i> 4S旗舰店</li>
+        <li><router-link to='/USShopHome'><i class="el-icon-s-platform"></i> 品牌供应商</router-link></li>
+        <li><router-link to='/ShopHome'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link></li>
         <li><i class="el-icon-s-promotion"></i> 供求信息</li>
         <li><i class="el-icon-s-custom"></i> 专家交流</li>
       </ul>
@@ -234,7 +234,7 @@ export default {
         }
       }).then(res=>{
         that.picId400 = res.data.data
-        console.log(this.picId400)
+        // console.log(this.picId400)
       })
 
       //id=302
@@ -726,6 +726,11 @@ dz
       li{
         float: left;
         font-size:16px;
+        a{
+          font-size:16px;
+          color:#222;
+        }
+        
         i{
           font-size:16px;
         }

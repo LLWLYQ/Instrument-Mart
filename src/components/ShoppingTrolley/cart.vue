@@ -223,7 +223,7 @@
                                 _this.totalPrice.push(total);
                             }
                         });
-              })
+                  })
               }
             },
         },
@@ -255,12 +255,8 @@
               GList.option = item.goods_option_value
               _this.lists.push(GList)
             })
-            // console.log(_this.lists)
           })
         },
-        // mounted(){
-        //   this.currClick()
-        // }
     }
 </script>
 <style lang="scss" scoped>
@@ -491,4 +487,3 @@ margin-top: 30px;
     border-radius:0; background-color: #e94c15;border: 2px solid #e94c15;color:#fff;
   }
 
-</style>

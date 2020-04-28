@@ -25,7 +25,7 @@
                 <el-menu-item index="/Favorite" >我的收藏</el-menu-item>
                 <el-menu-item index="/Integral" >我的积分</el-menu-item>
                 <el-menu-item index="/Sales_returns" >退换货物</el-menu-item>
-                <el-menu-item index="/Complaint" >投诉管理</el-menu-item>
+                <el-menu-item index="/Complaint" >评价管理</el-menu-item>
                 <el-menu-item index="/Invoice" >发票设置</el-menu-item>
             </el-submenu>
             </el-menu>
@@ -63,7 +63,6 @@ export default {
   },
 
 //监听路由的变化，对应菜单高亮显示
-
 }
 </script>
 <style scoped lang="scss">
