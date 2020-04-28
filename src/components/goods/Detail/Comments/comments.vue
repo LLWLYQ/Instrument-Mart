@@ -41,15 +41,10 @@
             <li class="ui-form-row evalate">
               <label class="ui-form-label">评价</label>
               <div class="ui-form-right"> <em class="superstar-tb-star" id="superstar-ratestar"><em>
-                <i style="width: 57.6px;">
-                  <el-rate
-                    v-model="value"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                    score-template="{value}">
-                  </el-rate>
-                </i></em>
+                    <i style="width: 57.6px;">
+                      <el-rate v-model="value" disabled show-score text-color="#ff9900" score-template="{value}">
+                      </el-rate>
+                    </i></em>
                   <span>分</span></em>
                 <span>累计评价<span class="superstar-ratetotal">3421</span> )</span>
               </div>
@@ -163,8 +158,10 @@
         reviewData: '',
         value: 4.8,
         value1: null,
-        colors: ['#99A9BF', '#F7BA2A', '#dd2727'], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-        notedata:''
+        colors: ['#99A9BF', '#F7BA2A',
+          '#dd2727'
+        ], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+        notedata: '',
       }
     },
     computed: mapGetters([
@@ -172,40 +169,40 @@
     ]),
     methods: {
       //提交评论
-      submit(){
-        if(this.notedata && this.value1){
+      submit() {
+        if (this.notedata && this.value1) {
           this.$ajax({
-          url:config.baseUrl + '/home/comment',
-          method:'post',
-          data:{
-            comment_type:0,
-            id_value:3,
-            shop_id:4,
-            email:'',
-            user_name:localStorage.getItem('userName'),     
-            content:this.notedata,
-            comment_rank:this.value1,
-            ip_address:'1583913258',
-            parent_id:0,
-            user_id:localStorage.getItem('userId')
-          }
-        }).then(res=>{
-          if(res.data.code == 20000){
-            this.$alert('评价提交成功', '', {
-              confirmButtonText: '确定',
-              callback: action => {
-               this.$router.push({
-                  path:'/'
-                })
-              }
-            });
-          }
-        })
-      }else{
-        this.$alert('请填写完再提交', '', {
-          confirmButtonText: '确定',
-        });
-      }
+            url: config.baseUrl + '/home/comment',
+            method: 'post',
+            data: {
+              comment_type: 0,
+              id_value: 3,
+              shop_id: 4,
+              email: '',
+              user_name: localStorage.getItem('userName'),
+              content: this.notedata,
+              comment_rank: this.value1,
+              ip_address: '1583913258',
+              parent_id: 0,
+              user_id: localStorage.getItem('userId')
+            }
+          }).then(res => {
+            if (res.data.code == 20000) {
+              this.$alert('评价提交成功', '', {
+                confirmButtonText: '确定',
+                callback: action => {
+                  this.$router.push({
+                    path: '/'
+                  })
+                }
+              });
+            }
+          })
+        } else {
+          this.$alert('请填写完再提交', '', {
+            confirmButtonText: '确定',
+          });
+        }
       },
       //累计评论
       handleClick(tab, event) {
@@ -273,14 +270,14 @@
         // this.DiscountPrice =  this.Infos
       })
       this.$ajax({
-        url:config.baseUrl + '/home/comment',
-        methods:'get',
-        params:{
-          member_id:'',
-          title:'',
-          goods_id:this.detailID,
+        url: config.baseUrl + '/home/comment',
+        methods: 'get',
+        params: {
+          member_id: '',
+          title: '',
+          goods_id: this.detailID,
         }
-      }).then(res=>{
+      }).then(res => {
         this.reviewData = res.data.data.items.data
       })
     },
@@ -289,15 +286,19 @@
       LoginForm
     }
   }
+
 </script>
 <style scoped lang="scss">
   @import "../../../../style/common.css";
-  .content_container{
+
+  .content_container {
     margin-top: 30px;
   }
-  .el-rate{
+
+  .el-rate {
     float: left;
   }
+
   // #tab-first {
   //   width: 150px;
   //   text-align: center;
@@ -323,7 +324,8 @@
   .rate-grid {
     width: 100%;
     table-layout: fixed;
-    border-top:1px solid #ccc;
+    border-top: 1px solid #ccc;
+
     tbody {
       display: table-row-group;
       vertical-align: middle;
@@ -459,6 +461,7 @@
   }
 
   .SKU {
+
     // margin-top: 30px;
     .db-icbu {
       width: 526px;
@@ -606,25 +609,29 @@
       height: 100%;
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
-      .form{
+
+      .form {
         width: 980px;
         height: 366px;
         border: 1px solid #d1ccc8;
         margin: 5px 0 10px 0;
         background: #f6f6f6;
-        .submit{
+
+        .submit {
           position: relative;
           padding: 10px 0;
           height: 27px;
           text-align: center;
-          span{
+
+          span {
             float: left;
             text-align: center;
             border-radius: 2px;
             background-color: #c40000;
             padding: 0;
             margin-left: 430px;
-            button{
+
+            button {
               display: inline-block;
               padding: 0 10px;
               border: 0;
@@ -636,62 +643,74 @@
             }
           }
         }
-        .StarLevel{
+
+        .StarLevel {
           position: absolute;
-          top:160px;
+          top: 160px;
           right: 150px;
-          p{
+
+          p {
             float: left;
             line-height: 23px;
           }
-          p span:nth-child(1){
-            color:red;
+
+          p span:nth-child(1) {
+            color: red;
           }
-          p span:nth-child(2){
+
+          p span:nth-child(2) {
             margin-left: 3px;
             font-size: 13px;
           }
-          .block{
+
+          .block {
             float: left;
             margin-left: 10px;
-            i{
+
+            i {
               font-size: 23px;
             }
           }
         }
-        .compose-header{
-          span{
+
+        .compose-header {
+          span {
             font-weight: 600;
             font-size: 18px;
           }
         }
-        .Text{
+
+        .Text {
           width: 509px;
           height: 191px;
-          border:1px solid #ccc;
+          border: 1px solid #ccc;
           margin-left: 40px;
           margin-bottom: 30px;
-          .OrderRate{
+
+          .OrderRate {
             width: 100%;
             border-bottom: 1px solid #E7E7E7;
           }
-          .serve{
+
+          .serve {
             width: 100%;
           }
-          .OL{
-              line-height: 188px;
-              height: 188px;
-              width: 60px;
-              text-align: center;
-              vertical-align: top;
-              color: #666;
-              background-color: #EFEFEF;
-              border-left: 1px solid #E7E7E7;
-              border-bottom: 1px solid #E7E7E7;
-              border-right: 1px solid #e7e7e7;
-              float: left;
+
+          .OL {
+            line-height: 188px;
+            height: 188px;
+            width: 60px;
+            text-align: center;
+            vertical-align: top;
+            color: #666;
+            background-color: #EFEFEF;
+            border-left: 1px solid #E7E7E7;
+            border-bottom: 1px solid #E7E7E7;
+            border-right: 1px solid #e7e7e7;
+            float: left;
           }
-          .SL{
+
+          .SL {
             line-height: 70px;
             height: 70px;
             width: 60px;
@@ -704,15 +723,17 @@
             border-right: 1px solid #e7e7e7;
             float: left;
           }
-          .OR{
+
+          .OR {
             height: 189px;
             width: 446px;
             position: relative;
             float: left;
             padding: 10px 9px 0;
             background: #fff;
-            border-bottom:1px solid #E7E7E7;
-            textarea{
+            border-bottom: 1px solid #E7E7E7;
+
+            textarea {
               resize: none;
               display: block;
               outline: 0;
@@ -724,14 +745,16 @@
               height: 100%;
             }
           }
-          .SR{
+
+          .SR {
             height: 70px;
             width: 446px;
             position: relative;
             padding: 10px 9px 0;
             float: left;
             background: #fff;
-            textarea{
+
+            textarea {
               resize: none;
               display: block;
               outline: 0;
@@ -745,6 +768,7 @@
           }
         }
       }
+
       .commodity_information {
         text-align: center;
         font-size: 20px;
@@ -836,4 +860,5 @@
     background: #222;
     color: #fff;
   }
+
 </style>
