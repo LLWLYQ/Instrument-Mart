@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="buy">
-          <span>立即购买</span>
+          <span @click="BuyNow()">立即购买</span>
           <span @click="addToShopCar()">加入购物车</span>
         </div>
       </div>
@@ -195,6 +195,7 @@
                     <td class="col-author">
                       <p>{{red.member_name}}</p>
                       <p>{{red.store_name}}</p>
+                      <p>{{red.store_diaonimade}}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -204,7 +205,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
 <script>
   import LoginForm from '../../LoginForm/LoginForm'
@@ -245,7 +246,10 @@
         userName: localStorage.getItem('userName'),
         anonymity: '0',
         MenberConsulting: '',
-        Consulting: ''
+        Consulting: '',
+        OrderList:[],
+        totalMoney:'',
+        giao:''
         // Unanonymity:'1'
       }
     },
@@ -253,6 +257,16 @@
       'count'
     ]),
     methods: {
+      BuyNow(){
+        let routeData = this.$router.resolve({
+          name: 'OrderForm',
+          query: {
+            orderData: JSON.stringify(this.OrderList),
+            totalMoney: JSON.stringify(this.Infos.sales_price*this.num)
+          }
+        })
+        window.open(routeData.href, '_blank');
+      },
       //商品咨询添加
       submit() {
         if (!localStorage.getItem('userId')) {
@@ -311,7 +325,7 @@
               }
             })
           }
-        }
+        }   
       },
       close() {
         this.Collect = false
@@ -338,7 +352,7 @@
         let rs = 0
         rs = as + parseInt(e.target.dataset.price)
 
-        console.log(rs)
+        // console.log(rs)
 
         this.Infos.market_price = rs
       },
@@ -370,34 +384,48 @@
       },
       addToShopCar() {
         if (this.UserId) {
-          this.$ajax({
-            url: config.baseUrl + '/home/cart/add',
-            method: 'post',
-            data: {
-              goods_id: this.Infos.goods_id,
-              member_id: localStorage.getItem('userId'),
-              option: this.option,
-              quantity: this.num
-            }
-          }).then(res => {
-            // console.log(res)
-            if (res.data.code = 20000) {
-              const h = this.$createElement;
-              this.$notify({
-                title: '加入购物车成功',
-                message: '商品已成功加入购物侧，欢迎选购其他商品',
-                type: 'success',
-                customClass: 'Notification',
-                // customCalss:'wokanzhenishenhundiandao'
-              });
-            }
-          })
+          // if(this.option){
+            this.$ajax({
+              url: config.baseUrl + '/home/cart/add',
+              method: 'post',
+              data: {
+                goods_id: this.Infos.goods_id,
+                member_id: localStorage.getItem('userId'),
+                option: this.option,
+                quantity: this.num
+              }
+            }).then(res => {
+              console.log(res)
+              if (res.data.code = 20000) {
+                const h = this.$createElement;
+                this.$notify({
+                  title: '加入购物车成功',
+                  message: '商品已成功加入购物侧，欢迎选购其他商品',
+                  type: 'success',
+                  customClass: 'Notification',
+                  // customCalss:'wokanzhenishenhundiandao'
+                });
+              }
+            })
+          // }
         } else {
           this.LF = true
         }
       },
       Change(data) {
+        // console.log(data)
         this.num = data
+        this.OrderList = [{
+          // goods_option_value: 
+          count:this.num,
+          id:this.giao ,
+          img:this.Infos.goods_img_path,
+          member_id:localStorage.getItem('userId'),
+          option: this.Infos.goods_option,
+          price: this.Infos.sales_price,
+          productName:this.Infos.goods_name,
+          shop:this.Infos.get_shop.shop_id
+        }]
       },
       closeLogin(closeLogin) {
         this.LF = closeLogin
@@ -420,9 +448,9 @@
       } else {
         //产品咨询列表 Consulting
         this.$ajax({
-          url: config.baseUrl + '/home/consult',
-          method: 'get',
-          params: {
+          url: config.baseUrl + '/home/goods/consult',
+          method: 'POST',
+          data: {
             goods_id: this.detailID
           }
         }).then(res => {
@@ -435,6 +463,8 @@
         methods: 'post',
       }).then(res => {
         this.Infos = res.data.data.result
+        this.giao = res.data.data.id
+        console.log(res)
         this.title = this.Infos.goods_name
         this.goods_option = this.Infos.goods_option
         this.brandId = this.Infos.goods_id
@@ -442,7 +472,10 @@
         this.pictUrl = config.baseUrl + this.tebImg[0].files_path
         this.name = this.Infos.goods_name
         this.price = this.Infos.sales_price
-        console.log(this.title)
+        this.Change()
+        console.log(this.goods_option)
+        // console.log(this.Infos)
+        // console.log(this.title)
         this.$ajax({
           url: config.baseUrl + '/home/comment',
           methods: 'get',
@@ -454,7 +487,11 @@
           }
         }).then(res => {
           this.reviewData = res.data.data.items.data
-          console.log(this.reviewData)
+          // this.pictUrl = config.baseUrl + this.tebImg[0].files_path
+          // this.tebImg = res.data.data.result.piclist
+          // this.brandId = Infos.goods_option
+          // debugger
+          // console.log(this.reviewData)
         })
       })
 

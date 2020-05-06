@@ -30,8 +30,8 @@
           <li>
             <router-link to='/ShopHome'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
           </li>
-          <li><i class="el-icon-s-promotion"></i> 供求信息</li>
-          <li><i class="el-icon-s-custom"></i> 专家交流</li>
+          <!-- <li><i class="el-icon-s-promotion"></i> 供求信息</li>
+          <li><i class="el-icon-s-custom"></i> 专家交流</li> -->
         </ul>
       </div>
     </div>
@@ -90,10 +90,9 @@
       <!-- 商品列表 -->
       <div class="BrandList">
         <ul v-for="BrL in Brand_List" :key="BrL.id">
-          <!-- {{Brl}} -->
           <li>
-            <div class="brand-img" v-for="brlf in BrL.files" :key="brlf.id">
-              <img :src="baseUrl + brlf.files_path">
+            <div class="brand-img">
+              <img :src="baseUrl + BrL.files.files_path">
             </div>
             <a class="brand-mask">
               <div class="coupon">
@@ -141,6 +140,17 @@
         </ul>
       </div>
       <h1 class="bom-title"><span>—— <i class="iconfont icon-aixin"></i>猜你喜欢 ——</span></h1>
+      <div class="List">
+        <ul v-for="List in data_list" :key="List.id" class="List_ul">
+          <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a">
+            <li>
+              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <div class="List_div">{{List.goods_name}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price}}</div>
+            </li>
+          </router-link>
+        </ul>
+      </div>
       <div class="Right" v-if="sele">
         <li v-for="(item,index) in wpList" :key="index" :class="{cur:iscur===index}"
           @click="iscur=index,selected(item.name,index)">{{item.name}}</li>
@@ -169,7 +179,7 @@
         date: new Date(),
         iscur: 0,
         LF: false,
-        baseUrl: 'http://shop.yishangm.com',
+        baseUrl: config.baseUrl,
         wpList: [{
             name: '电子测量仪器'
           },
@@ -212,8 +222,8 @@
         picId400: '',
         picId302: '',
         picId300: '',
-        picId303: ''
-      }
+        picId303: '',
+       }
     },
     beforeDestroy() {
       if (this.timer) {
@@ -245,6 +255,7 @@
         }
       }).then(res => {
         that.picId400 = res.data.data
+        let timer = res.ranhouxianzaiyoushishiyegangqibush
         // console.log(this.picId400)
       })
 
@@ -334,7 +345,7 @@
         params: {}
       }).then(res => {
         _this.Brand_List = res.data.data.items
-        // console.log(_this.Brand_Lisst)
+        console.log(_this.Brand_List)
         // let arr = []
         // arr.push(_this.Brand_List)
         // this.arr_xiangzhansh = lvjuren 
@@ -560,6 +571,7 @@ dz
     ul {
       li {
         width: 122px;
+        height: 125px;
         float: left;
         margin-right: 1px;
         margin-bottom: 1px;
@@ -567,6 +579,8 @@ dz
         background-color: #fff;
 
         .brand-img {
+          width: 122px;
+          height: 125px;
           margin: 0 auto;
           display: block;
           text-align: center;

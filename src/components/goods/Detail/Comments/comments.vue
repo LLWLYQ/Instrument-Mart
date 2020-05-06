@@ -73,15 +73,6 @@
                     </div>
                   </div>
                   <div style="clear:both"></div>
-                  <!-- <div class="serve">
-                    <div class="SL">
-                      <span>评价服务</span>
-                    </div>
-                    <div class="SR">
-                      <textarea name="" id="" cols="30" rows="10">
-                      </textarea>
-                    </div>
-                  </div> -->
                 </div>
                 <div class="submit">
                   <span>
@@ -206,7 +197,7 @@
       },
       //累计评论
       handleClick(tab, event) {
-        // console.log(this.title)
+        console.log(tab)
       },
       select(index) {
         this.isSelect = index
@@ -245,7 +236,6 @@
       },
       Change(data) {
         this.num = data
-        // console.log('gaiyoudeyuaanyunhaishi zhecaishijixianhuanjingxiashengcun87&*')
       },
       closeLogin(closeLogin) {
         this.LF = closeLogina

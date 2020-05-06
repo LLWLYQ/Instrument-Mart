@@ -18,7 +18,6 @@
         </div>
         <div class="cart_null" v-if="this.lists.length == 0">
           <img src="../../assets/imges/cart.png" style="width:300px;height:200px;">
-          <!-- <span><span>去逛逛</span></p> -->
         </div>
         <div v-if="this.lists.length != 0" class="car_list">
           <ul class="first">
@@ -239,7 +238,7 @@
     created() {
       let _this = this
       let GList = {}
-      _this.$ajax({
+      this.$ajax({
         url: config.baseUrl + '/home/cart',
         method: 'get',
         params: {
@@ -247,11 +246,10 @@
         }
       }).then(res => {
         // console.log(res.data.data.items.data)
+        //  _this.lists = res.data.data.items.data
         res.data.data.items.data.map((item, index) => {
-          // console.log(item)
-          this.goodsNumber = index + 1
+          this.goodsNumber = index + 1  
           GList = {}
-          // _this.lists.productName == item.get_goods.goods_name
           GList.productName = item.get_goods.goods_name
           GList.price = item.get_goods.sales_price
           GList.count = item.quantity
@@ -264,6 +262,7 @@
           GList.option = item.goods_option_value
           _this.lists.push(GList)
         })
+        console.log(_this.lists)
       })
     },
   }

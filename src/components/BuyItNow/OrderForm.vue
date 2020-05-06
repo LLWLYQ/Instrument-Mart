@@ -161,7 +161,7 @@ export default {
         var goods = {}
         var option = {}
         this.orderData.map((item,index)=>{
-          console.log(item)
+          // console.log(item)
           goods = {}
           goods.total = this.totalMoney
           goods.quantity = item.count

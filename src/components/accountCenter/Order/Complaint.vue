@@ -56,7 +56,7 @@
           url: config.baseUrl + '/home/comment/' + red.comment_id,
           method: 'DELETE',
         }).then(res => {
-          console.log(res)
+          // console.log(res)
           if (res.data.code == 20000) {
             this.reviewData.splice(index, 1)
           }
@@ -85,7 +85,7 @@
         url: config.baseUrl + '/home/comment/del/status',
         method: 'post',
       }).then(res => {
-        console.log(res)
+        // console.log(res)
         this.Truedel = res.data.data.value
       })
     }

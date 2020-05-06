@@ -8,6 +8,7 @@
                 <img src="../../assets/imges/logo.png" alt="" style="height:30px;">
               </div>
               <h2>登录账户</h2>
+              <p v-show="error"><i class="el-icon-s-opportunity"></i>登录名或登录密码不正确</p>
               <input type="text" v-model="username" placeholder="用户名"/>
               <input type="password" v-model="password" placeholder="密码"/>
               <button @click="login()" @mouseover="add()" @mouseout="del()" ref="btn">登录</button>
@@ -30,6 +31,7 @@ export default {
         username: '',
         password: '',
         LF:false,
+        error:false
     };
   },
   created() {
@@ -64,15 +66,13 @@ export default {
             },
 
           }).then(res => {
-            // console.log(res)
-            localStorage.setItem("userId",res.data.data.member_id)
-            localStorage.setItem("userName",res.data.data.account)
-            localStorage.setItem("userToken",res.data.data.member_token)
-            localStorage.setItem("userTime",res.data.data.expire_time)
-            if(res.data.status == 'success'){
-               this.$emit('closeLogin',this.LF)
-               window.location.reload();
-               console.log('kendingshixianfangpailiezaifidaqi a')
+            if(res.data.code ==20000){
+              this.$emit('closeLogin',this.LF)
+              localStorage.setItem("userId",res.data.data.member_id)
+              localStorage.setItem("userName",res.data.data.account)
+              localStorage.setItem("userToken",res.data.data.member_token)
+              localStorage.setItem("userTime",res.data.data.expire_time)
+              window.location.reload();
               //  const h = this.$createElement;
               //  this.$notify({
               //     title: '加入购物车成功',
@@ -80,6 +80,8 @@ export default {
               //     type: 'success',
               //     customClass:'Notification'
               //   });
+              }else{
+                this.error = true
               }
             })
       }
@@ -137,6 +139,18 @@ export default {
           h2{
             font-family:"KaiTi",Georgia,Serif;
             font-size: 25px;
+          }
+          p{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #fef2f2;
+            border-color: #ffb4a8;
+            border: 1px solid #ff934c;
+            i{
+              color:#ce201e;
+              margin-left: 5px;
+            }
           }
           .el-icon-circle-close{
             font-size: 20px;
