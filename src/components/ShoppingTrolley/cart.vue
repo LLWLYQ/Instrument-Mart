@@ -31,18 +31,18 @@
           </ul>
           <ul v-for="(item,index) in lists" :key="index" class="center_tr">
             <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)"></li>
-            <li><a href="" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img"
-                  alt=""><span>{{item.productName}}</span></a></li>
+            <li><router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img"
+                  alt=""><span>{{item.productName}}</span></router-link></li>
             <li>
               <p v-for="Opt in item.option" :key="Opt.id"><span v-for="opt in Opt"
                   :key="opt.id">{{opt.option_name}}：{{opt.name}}</span></p>
             </li>
-            <li>￥{{item.price}}</li>
+            <li>￥{{item.price/100}}</li>
             <li>
               <el-input-number v-model="item.count" :min="1" :max="99" @change="handelChange(item)"
                 style="width: 80px;"></el-input-number>
             </li>
-            <li>￥{{item.price*item.count}}</li>
+            <li>￥{{(item.price*item.count)/100}}</li>
             <li><span @click="removeGoods(item,index)">删除商品</span></li>
           </ul>
           <ul class="last_tr">
@@ -50,7 +50,7 @@
             <li class="checked_none" v-if="checked && checked==''">结算</li>
             <li>
               <p class="tr_p1">合计：</p>
-              <p class="tr_p2">{{totalMoney}}</p>
+              <p class="tr_p2">{{totalMoney/100}}</p>
             </li>
             <!-- <li><p class="tr_p1">合计：</p><p class="tr_p2">{{totalMoney}}</p></li> -->
           </ul>
@@ -131,14 +131,14 @@
             this.OrderList.splice(checkAllitem)
           }
         })
-        // console.log(this.OrderList)
+        console.log(this.OrderList)
       },
       ToSettleAccounts() {
         let routeData = this.$router.resolve({
           name: 'OrderForm',
           query: {
             orderData: JSON.stringify(this.OrderList),
-            totalMoney: JSON.stringify(this.totalMoney)
+            totalMoney: JSON.stringify(this.totalMoney/100)
           }
         })
         window.open(routeData.href, '_blank');
@@ -170,7 +170,6 @@
         }).catch(() => {});
       },
       currClick(item, index) {
-
         this.checkedIndex = index
         // console.log(this.checkedIndex )
         var _this = this;
@@ -236,6 +235,7 @@
       },
     },
     created() {
+      console.log(this.lists)
       let _this = this
       let GList = {}
       this.$ajax({

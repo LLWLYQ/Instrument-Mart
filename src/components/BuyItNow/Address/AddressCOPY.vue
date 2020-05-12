@@ -1,6 +1,6 @@
 <template>
   <div class="Address_COPYY" >
-    <div class="content_container" @click="addA()">
+    <div class="content_container">
       <div class="mine" v-show="pop">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm1" label-width="100px" class="demo-ruleForm" label-position="left" >
           <el-form-item label="收货人" prop="name1">
@@ -144,31 +144,31 @@
               <span >{{ scope.row.tel}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="200">
             <template slot-scope="scope">
               <el-button
                 style="padding:10px;border:1px solid #666;"
                 size="mini"
                 @click="Modification(scope.$index,scope.row)">修改</el-button>
               <el-button
-                style="padding:10px;border:1px solid red;background:red;margin:3px 0 0 0;"
+                style="padding:10px;border:1px solid red;background:red;margin:0px 10px 0 0;float:left;"
                 size="mini"
                 type="danger"
                 @click="delAddress(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             label=""
             width="180"
-            >
-            <template slot-scope="scope">
+            > -->
+            <!-- <template slot-scope="scope">
               <el-button
                 style="padding:10px;border:1px solid #666;"
                 size="mini"
                 @click="Default_address(scope.$index,scope.row)">设为默认
               </el-button>
-            </template>
-          </el-table-column>
+            </template> -->
+          <!-- </el-table-column> -->
         </el-table>
       </div>
     </div>
@@ -274,9 +274,32 @@ export default {
         optionsFic1: [{}],
         optionsFic2: [{}],
         MfId:'',
+        StatusData:0
       }
   },
   methods: {
+    //设为默认地址
+    Default_address(index,row){
+      console.log(row)
+      this.$ajax({
+        url:config.baseUrl + '/home/address/' + row.id,
+        method:'put',
+        data:{
+          member_id:localStorage.getItem('userId'),
+          status:0,
+          receiver:row.receiver,
+          province_id:row.province_id,
+          city_id:row.city_id,
+          area_id:row.area_id,
+          street_id:row.street_id,
+          zip_code:row.zip_code,
+          tel:row.tel,
+          address:row.address,
+        }
+      }).then(res=>{
+        console.log(res)
+      })
+    },
     ModifSave(formName){
        this.$refs[formName].validate((valid) => {
               if (valid) {
@@ -285,7 +308,7 @@ export default {
                   method:'put',
                   data:{
                     member_id:localStorage.getItem('userId'),
-                    status:1,
+                    status:this.StatusData,
                     receiver:this.ruleFormFic.nameFic,
                     province_id:this.provinceFicName,
                     city_id:this.cityFicName,
@@ -399,7 +422,7 @@ export default {
                       street_id:4,//街ID
                       address:this.ruleForm.detailed_address,//详细地址
                       zip_code:this.ruleForm.Invitation_code,//邮编
-                      status:1,//是否设置为默认地址
+                      status:this.StatusData,//是否设置为默认地址
                     }
                   }).then(res=>{
                     if(res.data.code == 20000){

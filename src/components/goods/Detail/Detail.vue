@@ -10,18 +10,18 @@
       <div class="Shinetop">
         <div class="big_shinetop">
           <ul class="tabImages">
-            <li v-show="iscur==index" v-for="(TI,index) in tebImg" :key="index" @mouseover="tabChange(index)">
+            <li>
+              <pic-zoom :url="baseUrl+imgurl" :scale="2" ></pic-zoom>
+            </li>
+            <!-- <li v-show="iscur==index" v-for="(TI,index) in tebImg" :key="index" @mouseover="tabChange(index,TI)">
               <img :src="baseUrl+TI.files_path" alt="">
-            </li>
-            <li ref="aaimg">
-              <img :src="baseUrl+aaImg" alt="">
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="small_shinetop">
           <ul>
             <li v-for="(TI,index) in tebImg" :key="index" :class="{cur:iscur===index}"
-              @mouseover="iscur=index,tabChange(index)" ref="cur">
+              @mouseover="iscur=index,tabChange(index,TI)" ref="cur">
               <img :src="baseUrl+TI.files_path" alt="">
             </li>
           </ul>
@@ -45,24 +45,24 @@
           <div class="price">
             <dl>
               <del>
-                <dt><span>价格</span><b>￥</b>{{Infos.sales_price}}</dt>
+                <dt><span>价格</span><b>￥</b>{{Infos.sales_price/100}}</dt>
               </del>
             </dl>
             <dl>
               <dt><span>促销</span>
-                <p><b>￥</b>{{Infos.market_price}}</p>
+                <p><b>￥</b>{{Infos.market_price/100}}</p>
               </dt>
             </dl>
           </div>
         </div>
         <div>
-          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit"></quantity>
+          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" :goods_quantity="Infos.quantity"></quantity>
           <!-- 商品规格 -->
-          <div class="select" style="color:#000;">
+          <div class="select" style="color:#000;" ref="sele">
             <el-form ref="form" :model="Go" label-width="40px" v-for="Go in goods_option" :key="Go.id">
               <el-form-item :label="Go.name">
                 <el-radio-group v-model="Go.cf" v-for="(go,index) in Go.goods_option_value" :key="index"
-                  @change="aa(Go)">
+                  @change="aa(go)">
                   <el-radio-button :label="go.goods_option_value_id">
                     {{go.name}}
                   </el-radio-button>
@@ -210,6 +210,7 @@
 <script>
   import LoginForm from '../../LoginForm/LoginForm'
   import quantity from './Quantity/quantity';
+  import PicZoom from 'vue-piczoom'
   import {
     mapGetters
   } from 'vuex'
@@ -239,7 +240,7 @@
         goods_option: '',
         title: '',
         reviewData: '',
-        option: '',
+        option: [],
         aaImg: '',
         aaArr: [],
         notedata: '',
@@ -249,7 +250,8 @@
         Consulting: '',
         OrderList:[],
         totalMoney:'',
-        giao:''
+        giao:'',
+        imgurl:''
         // Unanonymity:'1'
       }
     },
@@ -258,14 +260,30 @@
     ]),
     methods: {
       BuyNow(){
-        let routeData = this.$router.resolve({
-          name: 'OrderForm',
-          query: {
-            orderData: JSON.stringify(this.OrderList),
-            totalMoney: JSON.stringify(this.Infos.sales_price*this.num)
-          }
-        })
-        window.open(routeData.href, '_blank');
+        if(this.option == ''){
+          this.$refs.sele.style.border = '1px solid #FF0036'
+        }else{
+          this.$refs.sele.style.border = 'none'
+          let routeData = this.$router.resolve({
+            name: 'OrderForm',
+            query: {
+              orderData: JSON.stringify(this.OrderList),
+              totalMoney: JSON.stringify(this.Infos.sales_price*this.num)/100
+            }
+          })
+          window.open(routeData.href, '_blank');
+        }
+        if(this.goods_option == ''){
+          // this.$refs.sele.style.border = 'none'
+          let routeData = this.$router.resolve({
+            name: 'OrderForm',
+            query: {
+              orderData: JSON.stringify(this.OrderList),
+              totalMoney: JSON.stringify(this.Infos.sales_price*this.num)/100
+            }
+          })
+          window.open(routeData.href, '_blank');
+        }
       },
       //商品咨询添加
       submit() {
@@ -356,7 +374,20 @@
 
         this.Infos.market_price = rs
       },
-      aa(Go) {
+      aa(go) {
+        
+        this.option = go
+        this.OrderList = [{
+          // goods_option_value: 
+          count:this.num,
+          id:this.giao ,
+          img:this.Infos.goods_img_path,
+          member_id:localStorage.getItem('userId'),
+          option: this.option,
+          price: this.Infos.sales_price,
+          productName:this.Infos.goods_name,
+          shop:this.Infos.get_shop.shop_id
+        }]
         this.$ajax({
           url: config.baseUrl + '/home/goods/optionPrice',
           method: 'post',
@@ -365,7 +396,7 @@
           }
         }).then(res => {
           if (res.data.code == 20000) {
-            this.$refs.aaimg.style.display = 'block'
+            // this.$refs.aaimg.style.display = 'block'
           }
 
           res.data.data.map(item => {
@@ -378,9 +409,10 @@
       closeLF() {
         this.LF = false
       },
-      tabChange(index, event) {
+      tabChange(index, TI) {
+        this.imgurl = TI.files_path
         this.iscur = index
-        this.$refs.aaimg.style.display = 'none'
+        // this.$refs.aaimg.style.display = 'none'
       },
       addToShopCar() {
         if (this.UserId) {
@@ -421,7 +453,7 @@
           id:this.giao ,
           img:this.Infos.goods_img_path,
           member_id:localStorage.getItem('userId'),
-          option: this.Infos.goods_option,
+          option: this.option,
           price: this.Infos.sales_price,
           productName:this.Infos.goods_name,
           shop:this.Infos.get_shop.shop_id
@@ -432,7 +464,8 @@
       }
     },
     created() {
-      if (localStorage.getItem('userId')) {
+      // this.tabChange()
+      if (localStorage.getItem('userId')) { 
         //会员产品咨询列表 MenberConsulting
         this.$ajax({
           url: config.baseUrl + '/home/consult',
@@ -464,16 +497,29 @@
       }).then(res => {
         this.Infos = res.data.data.result
         this.giao = res.data.data.id
-        console.log(res)
         this.title = this.Infos.goods_name
         this.goods_option = this.Infos.goods_option
         this.brandId = this.Infos.goods_id
         this.tebImg = res.data.data.result.piclist
+        // this.tabChange()
+        // console.log(this.tebImg)
+        this.imgurl = this.tebImg[0].files_path
         this.pictUrl = config.baseUrl + this.tebImg[0].files_path
         this.name = this.Infos.goods_name
         this.price = this.Infos.sales_price
-        this.Change()
-        console.log(this.goods_option)
+        // console.log(this.goods_option)
+        // this.OrderList = [{
+        //   // goods_option_value: 
+        //   // goods_option_value:this.
+        //   count:this.num,
+        //   id:this.giao ,
+        //   img:this.Infos.goods_img_path,
+        //   member_id:localStorage.getItem('userId'),
+        //   option: this.option,
+        //   price: this.Infos.sales_price,
+        //   productName:this.Infos.goods_name,
+        //   shop:this.Infos.get_shop.shop_id
+        // }]
         // console.log(this.Infos)
         // console.log(this.title)
         this.$ajax({
@@ -498,7 +544,8 @@
     },
     components: {
       quantity,
-      LoginForm
+      LoginForm,
+      PicZoom
     }
   }
 
@@ -506,7 +553,6 @@
 
 <style scope lang="scss">
   @import "../../../style/common.css";
-
   .el-radio-button__orig-radio:checked+.el-radio-button__inner {
     background: #fff !important;
     border: 2px solid #FF0036 !important;
@@ -986,20 +1032,19 @@
     height: 600px;
     position: relative;
     float: left;
-
     .big_shinetop {
       ul {
         li {
           position: absolute;
-          height: 460px;
-          width: 460px;
-          padding: 13px 20px 0px 15px;
-
+          height: 420px;
+          width: 420px;
+          margin: 20px auto 0;
+          border: 1px solid rgba(0,0,0,.05);
           // border:1px solid #ccc;
           img {
             width: 100%;
             height: 100%;
-            border: 1px solid rgba(0, 0, 0, .05);
+            // border: 1px solid rgba(0, 0, 0, .05);
           }
         }
       }
@@ -1231,7 +1276,6 @@
             margin: 0 auto;
             overflow: hidden;
             margin-bottom: 20px;
-
             img {
               width: 100%;
               height: 100%;
@@ -1297,4 +1341,11 @@
     color: #fff;
   }
 
+</style>
+<style lang="scss">
+  .mouse-cover-canvas{
+    position: absolute !important;
+    left: 920px !important;
+    top:50px !important;
+  }
 </style>

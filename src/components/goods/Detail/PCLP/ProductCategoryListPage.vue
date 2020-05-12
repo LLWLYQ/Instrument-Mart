@@ -30,13 +30,13 @@
         </div>
         <div class="List">
           <ul>
-            <li v-for="LD in ListData" :key="LD.id">
+            <li v-for="LD in ListData" :key="LD.id"></li>
               <div class="LD-img">
                 <router-link :to="{name:'Detail',query:{listId:LD.goods_id}}" target="_blank" tag="a">
                   <img :src="baseUrl + LD.files_path" alt="">
                 </router-link>
               </div>
-              <p class="list-price"><b>￥</b><span>{{LD.sales_price}}</span></p>
+              <p class="list-price"><b>￥</b><span>{{LD.sales_price/100}}</span></p>
               <p class="list-title"><router-link :to="{name:'Detail',query:{listId:LD.goods_id}}" target="_blank" tag="a">{{LD.goods_name}}</router-link></p>
             </li>
           </ul>
@@ -75,7 +75,7 @@ export default {
         }
       }).then(res=>{
         this.ListData = res.data.data.items
-        console.log(res)
+        console.log(this.ListData)
       })
       this.$refs.Syn.style.background = '#F1EDEC'
       this.$refs.Syn.style.color = '#ff0036'

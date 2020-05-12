@@ -3,59 +3,129 @@
     <div class="content">
       <div class="mine">
         <div class="foot_top">
-          <ul>
-            <i class="el-icon-shopping-cart-2"><span>购物指南</span></i>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
+          <div class="FootTitle">
+            <ul>
+              <li v-for="(ft,index) in FootTitle" :key="index">
+                <p><i :class="ft.icon"></i><span>{{ft.cate_name}}</span></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="cut-off_rule">
+          <ul class="ShoppingGuide">
+            <li v-for="(sg,index) in ShoppingGuide" :key="index">
+              <router-link :to="{name:'BottomNavigationBar',query:{AcId:sg.ac_id}}" target="_blank" tag="a">{{sg.article_title}}</router-link>
+            </li>
           </ul>
-          <ul>
-            <i class="el-icon-bank-card"><span>支付帮助</span></i>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
+          <ul class="HelpCenter">
+            <li v-for="(hc,index) in HelpCenter" :key="index">
+              <router-link :to="{name:'BottomNavigationBar',query:{AcId:hc.ac_id}}" target="_blank" tag="a">{{hc.article_title}}</router-link>
+            </li>
           </ul>
-          <ul>
-            <i class="el-icon-map-location"><span>配送帮助</span></i>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
+          <ul class="Distribution">
+            <li v-for="(db,index) in Distribution" :key="index">
+              <router-link :to="{name:'BottomNavigationBar',query:{AcId:db.ac_id}}" target="_blank" tag="a">{{db.article_title}}</router-link>
+            </li>
           </ul>
-          <ul>
-            <i class="el-icon-headset"><span>售后服务</span></i>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
+          <ul class="service">
+            <li v-for="(sv,index) in service" :key="index">
+              <router-link :to="{name:'BottomNavigationBar',query:{AcId:sv.ac_id}}" target="_blank" tag="a">{{sv.article_title}}</router-link>
+            </li>
           </ul>
-          <ul>
-            <i class="el-icon-chat-line-round"><span>帮助信息</span></i>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
-            <li>购物流程</li>
+          <ul class="helpInformation">
+            <li v-for="(hf,index) in helpInformation" :key="index">
+              <router-link :to="{name:'BottomNavigationBar',query:{AcId:hf.ac_id}}" target="_blank" tag="a">{{hf.article_title}}</router-link>
+            </li>
           </ul>
         </div>
-        <div class="cut-off_rule"></div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
+import config from '../../config/config'
 export default {
   data () {
     return {
-      msg: ''
+      FootTitle:'',
+      ShoppingGuide:'',//购物指南
+      HelpCenter:'',//支付帮助
+      Distribution:'',//配送帮助
+      service:'',//售后服务
+      helpInformation:''//帮助信息
     }
   },
   methods: {
+    Article0(){
+      this.$ajax({
+        url:config.baseUrl + '/home/article',
+        method:'get',
+        params:{
+          pid:1
+        }
+      }).then(res=>{
+        this.ShoppingGuide = res.data.data.items.data
+        console.log(this.ShoppingGuide)
+      }) 
+    },
+    Article1(){
+      this.$ajax({
+        url:config.baseUrl + '/home/article',
+        method:'get',
+        params:{
+          pid:2
+        }
+      }).then(res=>{
+        this.HelpCenter = res.data.data.items.data
+      }) 
+    },
+    Article2(){
+      this.$ajax({
+        url:config.baseUrl + '/home/article',
+        method:'get',
+        params:{
+          pid:4
+        }
+      }).then(res=>{
+        this.Distribution = res.data.data.items.data
+      }) 
+    },
+    Article3(){
+      this.$ajax({
+        url:config.baseUrl + '/home/article',
+        method:'get',
+        params:{
+          pid:5
+        }
+      }).then(res=>{
+        this.service = res.data.data.items.data
+      }) 
+    },
+    Article4(){
+      this.$ajax({
+        url:config.baseUrl + '/home/article',
+        method:'get',
+        params:{
+          pid:6
+        }
+      }).then(res=>{
+        this.helpInformation = res.data.data.items.data
+      }) 
+    }
+  },
+  created(){
+    this.$ajax({
+      url:config.baseUrl + '/home/articleClassify',
+      method:'get',
+    }).then(res=>{
+      this.FootTitle = res.data.data
+      console.log(this.FootTitle)
+    }) 
+    this.Article0()
+    this.Article1()
+    this.Article2()
+    this.Article3()
+    this.Article4()
   }
 }
 </script>
@@ -69,26 +139,47 @@ export default {
     width: 100%;
     position:absolute;
     .content{
-      width: 990px;
+      width: 1230px;
       margin: 0 auto;
+      padding:20px 100px;
     }
     .foot_top{
-      ul{
-        float: left;
-        width: 20%;
-        padding:30px 0;
-        color:#fff;
-        i{
-          font-size: 22px;
-          span{
-            font-size: 20px;
-            margin-left: 5px;
+      .FootTitle{
+        ul{
+          li{
+            color:#fff;
+            float: left;
+            p{
+              width: 206px;
+              text-align: center;
+              height: 50px;
+              line-height: 40px;
+              span{
+                font-size: 16px;
+                font-weight: 800;
+                height: 50px;
+                line-height: 40px;
+              }
+            }
           }
         }
+      }
+    }
+    .cut-off_rule{
+      ul{
+        float: left;
+        width: 206px;
         li{
-          margin-top: 10px;
-          margin-left: 35px;
-          font-size: 14px;
+          a{
+            width: 100%;
+            color:#fff;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+          }
+        }
+        li a:hover{
+          text-decoration: underline;
         }
       }
     }

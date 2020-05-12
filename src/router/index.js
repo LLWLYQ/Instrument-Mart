@@ -34,6 +34,7 @@ import TuningUpThePayment from '@/components/BuyItNow/OrderInfromation/TuningUpT
 import LoginForm from '@/components/LoginForm/LoginForm' //登录窗口
 import Header from '@/components/Header/Header'//头部
 import Foot from '@/components/Foot/Foot'//底部
+import BottomNavigationBar from '@/components/Foot/BottomNavigationBar'
 import Security_settings from '@/components/Security_settings/Security_settings'//安全设置
 import Enterprise_real_name from  '@/components/Enterprise_real_name/Enterprise_real_name' //企业实名
 import Lottery from '@/components/Marketing/Lottery/Lottery' //抽奖
@@ -380,6 +381,15 @@ export default new Router({
       component:Foot,
       meta:{
         title:'',
+      }
+    },
+    {
+      path:'/BottomNavigationBar',
+      name:'BottomNavigationBar',
+      component:BottomNavigationBar,
+      meta:{
+        title:'',
+        keepAlive: true
       }
     },
     {

@@ -1,7 +1,7 @@
 <template>
   <div class="quantity">
     <div class="inventory">
-      <p><span>库存</span><span>90&nbsp;{{goods_unit}}</span></p>
+      <p><span>库存</span><span>{{goods_quantity}}&nbsp;{{goods_unit}}</span></p>
     </div>
     <div class="model">
       <!-- <ul v-for="Go in goods_option" :key="Go.id">
@@ -12,7 +12,7 @@
     </div>
     <div>
       <span class="numb">数量</span>
-      <el-input-number v-model="num" @change="handleChange" :min="1" :max="99" label="描述文字" style="width: 80px;"></el-input-number>
+      <el-input-number v-model="num" @change="handleChange" :min="1" :max="goods_quantity" label="描述文字" style="width: 80px;"></el-input-number>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
 export default {
   props:{
     goods_unit:String,
+    goods_quantity:Number
     // goods_option:Array,
   },
   data () {

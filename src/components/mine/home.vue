@@ -123,7 +123,7 @@
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
-              <div class="List_div1" style="color:red;">￥{{List.sales_price}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
             </li>
           </router-link>
         </ul>
@@ -146,7 +146,7 @@
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
-              <div class="List_div1" style="color:red;">￥{{List.sales_price}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
             </li>
           </router-link>
         </ul>
@@ -491,18 +491,23 @@
       ...mapGetters(['totalQuantity'])
     },
     mounted() {
-      var mySwiper = new Swiper('.swiper-container', {
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        speed: 1000,
-        autoplay: {
-          disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
-          delay: 3000, // 自动切换的时间间隔（单位ms），
-        },
-        loop: true,
-      })
+      setTimeout(()=>{
+        var mySwiper = new Swiper('.swiper-container', {
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          speed: 1000,
+          autoplay:true,
+          loop: true,
+          observer:true, 
+          observeParents:true,
+          autoplay: {
+            disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
+            delay: 2000, // 自动切换的时间间隔（单位ms），
+          },
+        })
+      },300)
       var that = this;
       this.timer = setInterval(() => {
         that.date = new Date(); //修改数据date

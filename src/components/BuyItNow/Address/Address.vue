@@ -48,16 +48,29 @@
         <el-button type="danger" style="margin-left:100px;" @click="Save('ruleForm1')" class="Btn">使用此收货地址</el-button>
       </div>
       <div>
-        <ul v-for="(adr,index) in address" :key="index" :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)">
-          <li >
-            <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
-            <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.zip_code}}</p>
-            <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
-            <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
-          </li>
-        </ul>
+        <div v-for="(adr,index) in address" :key="index">
+          <ul  :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)"  >
+            <li>
+              <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;" v-if="iscur != index">{{adr.zip_code}}</p>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;" v-if="iscur == index">{{adr.zip_code}}<span style="color:red;float:right;font-size:10px;margin-bottom:5px;">默认地址</span></p>
+              <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
+              <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
+            </li>
+          </ul>
+          <!-- <ul  :class="{cur:iscur===index}" @click="iscur=index,tabChange(index,adr)" v-if="adr.status == 1" >
+            <li>
+              <h5 style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">({{adr.receiver}}收)</h5>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.address}}</p>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.tel}}</p>
+              <p style="font-size:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:170px;">{{adr.zip_code}}<span style="color:red;float:right;font-size:10px;margin-bottom:5px;">默认地址</span></p>
+              <i class="el-icon-edit" @click="Modification(adr,index)" ></i>
+              <i class="el-icon-delete" @click="delAddress(adr,index)"></i>
+            </li>
+          </ul> -->
+        </div>
         <router-link to="/Shipping_address" target="_blank" tag="a" ><p style="float:left;margin-top:100px;" v-if="Newaddress">管理收货地址</p></router-link>
         <div style="width:100%;overflow:hidden;margin: 10px 0 0 10px;">
           <p class="NewAddress" @click="showpopup"  v-if="!panduan">使用新地址</p>
@@ -200,7 +213,7 @@ export default {
         Newaddress:true,
         popup1: 0,
         popup: 0,
-        iscur:1,
+        iscur:0,
         province:'',
         city:'',
         provinceFic:'',
@@ -290,7 +303,7 @@ export default {
                   method:'put',
                   data:{
                     member_id:localStorage.getItem('userId'),
-                    status:1,
+                    status:0,
                     receiver:this.ruleFormFic.nameFic,
                     province_id:this.provinceFicName,
                     city_id:this.cityFicName,
@@ -301,6 +314,7 @@ export default {
                     address:this.ruleFormFic.detailed_addressFic,
                   }
                 }).then(res=>{
+                  // console.log(res)
                   if(res.data.code == 20000){
                     this.popup1 = 0
                     this.addA()
@@ -408,7 +422,7 @@ export default {
                       street_id:4,//街ID
                       address:this.ruleForm.detailed_address,//详细地址
                       zip_code:this.ruleForm.Invitation_code,//邮编
-                      status:1,//是否设置为默认地址
+                      status:0,//是否设置为默认地址
                     }
                   }).then(res=>{
                     if(res.data.code == 20000){
@@ -439,7 +453,7 @@ export default {
                       street_id:4,//街ID
                       address:this.ruleForm.detailed_address,//详细地址
                       zip_code:this.ruleForm.Invitation_code,//邮编
-                      status:1,//是否设置为默认地址
+                      status:0,//是否设置为默认地址
                     }
                   }).then(res=>{
                     if(res.data.code == 20000){
@@ -460,6 +474,10 @@ export default {
                 member_id:localStorage.getItem('userId'),
               }
             }).then(res=>{
+              // console.log(res.data.data.items)
+              // if(res.data.data.items.status == 1){
+                // this.$refs.curNum.style.display = 'none'
+              // }
               this.address = res.data.data.items
               if(res.data.data.items != ''){
                 this.panduan  = false
@@ -576,6 +594,7 @@ export default {
   },
   created(){
     this.addA()
+    // this.tabChange()
   },
 }
 </script>

@@ -67,10 +67,10 @@
            <ul v-for="(item,index) in orderData" :key="index" class="center_tr">
                 <!-- <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)" ></li> -->
                 <li><router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img" alt=""><span>{{item.productName}}</span></router-link></li>
-                <li><p v-for="Opt in item.option" :key="Opt.id"><span v-for="opt in Opt" :key="opt.id"  >{{opt.option_name}}：{{opt.name}}</span></p></li>
-                <li>￥{{item.price}}</li>
+                <li><p><span >{{item.option.option_name}}:{{item.option.name}}</span></p></li>
+                <li>￥{{item.price/100}}</li>
                 <li>{{item.count}}</li>
-                <li>￥{{item.price*item.count}}</li>
+                <li>￥{{(item.price*item.count)/100}}</li>
                 <!-- <li><span @click="removeGoods(item,index)">删除商品</span></li> -->
           </ul>
         </div>
@@ -156,10 +156,12 @@ export default {
     'OrderInfromation':OrderInfromation
   },
   created(){
+        console.log(this.orderData)
         let result = []
         let optres = []
         var goods = {}
         var option = {}
+        // console.log(this.orderData)
         this.orderData.map((item,index)=>{
           // console.log(item)
           goods = {}
@@ -167,12 +169,14 @@ export default {
           goods.quantity = item.count
           goods.product_id = item.id
           goods.name = item.productName
-          goods.price = item.price
+          goods.price = item.price/100
           goods.shop_id = item.shop;
           option = item.option;
           result.push(goods)
+          console.log(item)
           option.map(item=>{
-            item.map((item,index)=>{
+            console.log(item)
+            item.goods_option_value.map((item,index)=>{
               option = {}
               option.goods_option_value_id = item.goods_option_value_id
               option.goods_option_id = item.goods_option_id
@@ -277,7 +281,7 @@ export default {
       }
     }
       .center_tr li:nth-child(1){
-        width: 280px;
+        width: 240px;
         img{
           width: 80px;
           height: 80px;
@@ -290,9 +294,16 @@ export default {
           float: left;
         }
       }
+      .center_tr li:nth-child(2){
+        width: 240px;
+        padding-left: 40px;
+        p{
+          width: 282px;
+        }
+      }
       .center_tr li:nth-child(3){
-        width: 392px;
-        padding-left: 135px;
+        width: 252px;
+        // padding-left: 135px;
         p{
           margin-bottom: 5px;
           span{
@@ -357,15 +368,15 @@ export default {
       width: 120px;
       padding-left: 10px;
     }
-    .first li:nth-child(6){
-      text-align: center;
-      width: 140px;
-    }
-    .first li:nth-child(7){
-      text-align: center;
-      width: 149px;
-      padding-left: 30px;
-    }
+    // .first li:nth-child(6){
+    //   text-align: center;
+    //   width: 140px;
+    // }
+    // .first li:nth-child(7){
+    //   text-align: center;
+    //   width: 149px;
+    //   padding-left: 30px;
+    // }
     .cartLsit{
       .carLi{
         border-bottom: 3px solid #b2d1ff;
