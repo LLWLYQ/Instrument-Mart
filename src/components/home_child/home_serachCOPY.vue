@@ -87,11 +87,11 @@ export default {
       //大家可以通过console.log(event)来查看关键词所在的位置
       click(event){
           if(event!=undefined){
-            this.wd=event;
+            this.wd=event.goods_name;
             let routerJump = this.$router.resolve({
               path:'/ProductCategoryListPage',
               query:{
-                ListData:this.wd
+                ListData:event.goods_id
               }
           })
           window.open(routerJump.href,'_blank')
@@ -157,7 +157,10 @@ export default {
    z-index: 10000;
    background-color: white;
    font-size: 14px;
-   width: 500px;
+   width: 496px;
+   height: 288px;
+   margin-top: -2px;
+   margin-left: 2px;
   :hover{
         background-color: #e94c15;
         // font-weight:bold;

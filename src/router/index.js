@@ -80,10 +80,10 @@ import USCompanyProfile from '@/components/Shop/UpgradeShopChildShop/USCompanyPr
 
 import GeneralShop from '@/components/Shop/GeneralShop'
 
-
 Vue.use(Router)
 
 //全局判断是否登录
+
 
 export default new Router({
   routes: [
@@ -231,7 +231,8 @@ export default new Router({
           name:'Favorite',
           component:Favorite,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {

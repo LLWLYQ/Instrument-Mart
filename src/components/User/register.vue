@@ -33,6 +33,7 @@
 import Qs from 'qs';
 import { mapMutations } from 'vuex';
 import config from '../../config/config'
+import store from '../../store'
 export default {
  data () {
     return {
@@ -92,6 +93,7 @@ export default {
             }
             
             if(res.data.status == 'success'){
+                store.state.bAuth = true
                 localStorage.setItem("lastTime",new Date().getTime());
                 this.$router.go(-1)
               }
@@ -102,6 +104,9 @@ export default {
         // });
       // }
     }
+  },
+  mounted(){
+    store.state.bAuth = false
   }
 }
 </script>

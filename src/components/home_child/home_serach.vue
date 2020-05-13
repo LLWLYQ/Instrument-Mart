@@ -19,7 +19,8 @@ export default {
     return {
      	wd:'',//搜索的关键词
 			arr:[],//用于储存关键词的搜索词条
-			listIndex:-1//设置初始索引，数组从0开始，因此初始成-1
+      listIndex:-1,//设置初始索引，数组从0开始，因此初始成-1,
+      diu:''
     }
   },
   methods:{
@@ -43,7 +44,7 @@ export default {
         let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListData:this.wd
+              ListData:this.diu
             }
           })
           window.open(routerJump.href,'_blank')
@@ -86,11 +87,11 @@ export default {
       //大家可以通过console.log(event)来查看关键词所在的位置
       click(event){
           if(event!=undefined){
-            this.wd=event;
+            this.wd=event.goods_name;
             let routerJump = this.$router.resolve({
               path:'/ProductCategoryListPage',
               query:{
-                ListData:this.wd
+                ListData:event.goods_id
               }
           })
           window.open(routerJump.href,'_blank')
@@ -108,6 +109,7 @@ export default {
             this.listIndex = this.arr.length-1;
 					}
           this.wd = this.arr[this.listIndex].goods_name;
+          this.diu = this.arr[this.listIndex].goods_id
 				}
 				else if(event.keyCode==40){
 					//说明你按的是下键
@@ -115,13 +117,14 @@ export default {
 					if(this.listIndex>this.arr.length-1){
 						this.listIndex=0;
 					}
-					this.wd = this.arr[this.listIndex].goods_name;
+          this.wd = this.arr[this.listIndex].goods_name;
+          this.diu = this.arr[this.listIndex].goods_id
 				}else if(event.keyCode==13){
           //如果你按的是enter，那么就跳转到百度搜索结果
           let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListData:this.arr[this.listIndex].goods_cate_id
+              ListData:this.arr[this.listIndex].goods_id
             }
           })
           window.open(routerJump.href,'_blank')

@@ -30,7 +30,7 @@
         </div>
         <div class="List">
           <ul>
-            <li v-for="LD in ListData" :key="LD.id"></li>
+            <li v-for="LD in ListData" :key="LD.id">
               <div class="LD-img">
                 <router-link :to="{name:'Detail',query:{listId:LD.goods_id}}" target="_blank" tag="a">
                   <img :src="baseUrl + LD.files_path" alt="">
@@ -61,10 +61,10 @@ export default {
   },
   methods: {
      handleSizeChange(val) {
-        console.log('每页' + val + '条');
+        // console.log('每页' + val + '条');
       },
       handleCurrentChange(val) {
-        console.log('当前页:'+val);
+        // console.log('当前页:'+val);
       },
     Synthesize(){
       this.$ajax({
@@ -89,6 +89,7 @@ export default {
       this.$refs.pru.style.color = '#806f66'
     },
     salesDown(){
+      
       this.$ajax({
         url:config.baseUrl + '/home/goods',
         method:'get',
@@ -177,6 +178,7 @@ export default {
     HomeSerach
   },
   created(){
+    console.log(this.PclpID)
     this.$ajax({
       url:config.baseUrl + '/home/goods',
       method:'get',
@@ -185,6 +187,7 @@ export default {
       }
     }).then(res=>{
       this.ListData = res.data.data.items
+      // console.log(this.ListData)
     })
   }
 }

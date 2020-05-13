@@ -6,7 +6,7 @@
           <el-tab-pane label="收藏的商品" name="second">
             <p class="classify"><span>分类:</span><span class="all">全部商品</span></p>
             <div class="goods">
-              <ul>
+              <ul v-if="userId && collectData">
                 <li v-for="col in collectData" :key="col.id">
                   <router-link :to="{name:'Detail',query:{listId:col.goods_id}}" target="_blank" tag="a">
                     <img :src="baseUrl + col.files_path">
@@ -15,6 +15,7 @@
                   <!-- <p class="last"><span>￥</span>{{collectData.sales_price}}</p> -->
                   <span class="del" @click="Del(col)"><i class="el-icon-delete"></i></span>
                 </li>
+                <p v-if="collectData == ''">暂无收藏商品</p>
               </ul>
             </div>
           </el-tab-pane>
@@ -31,7 +32,8 @@ export default {
     return {
       activeName: 'second',
       collectData:'',
-      baseUrl:'http://shop.yishangm.com'
+      baseUrl:'http://shop.yishangm.com',
+      userId:localStorage.getItem('userId')
     }
   },
   methods: {

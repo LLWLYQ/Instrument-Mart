@@ -260,6 +260,7 @@
     ]),
     methods: {
       BuyNow(){
+        if (this.UserId) {
         if(this.option == ''){
           this.$refs.sele.style.border = '1px solid #FF0036'
         }else{
@@ -284,6 +285,10 @@
           })
           window.open(routeData.href, '_blank');
         }
+        }else{
+          this.LF = true
+          
+        } 
       },
       //商品咨询添加
       submit() {

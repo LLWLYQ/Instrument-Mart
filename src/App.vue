@@ -17,33 +17,11 @@ export default {
   name: 'App',
   data () {
     return {
-      // header_show:true,
-      // footer_show:true,
       Height: 0
     }
   },
   methods:{
-    //  public_header (bool) {
-    //     this.header_show = bool;
-    //   },
-    //   public_footer (bool) {
-    //     this.footer_show = bool;
-    //   },
-    // moveEvent() {
-    //   let path = ['/register']
-    //   if(!path.includes(this.$route.path)) {
-    //     clearTimeout(this.timmer)
-    //     this.init()
-    //   }
-    // },
-    // init() {
-    //   this.timmer = setTimeout(() => {
-    //     localStorage.clear()
-    //     this.$router.push({
-    //       path: '/register'
-    //     })
-    //   }, 1000*60*1)
-    // }
+  
   },
   created(){
 

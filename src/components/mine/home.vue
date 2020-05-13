@@ -75,10 +75,10 @@
             <div class="over" v-if="LF" @click="closeLF()"></div>
             <div class="sin">
               <i class="el-icon-date" @click="Sin()"></i>
-              <span class="sinInTotal" v-if="!sinIn">签到天数：{{sinInTotal}}&nbsp;天</span>
-              <span class="sinInCount" v-if="!sinIn">连续签到：{{sinInCount}}&nbsp;天</span>
-              <span v-if="sinIn">今日签到</span>
-              <span v-if="!sinIn">今日已签到</span>
+              <span class="sinInTotal" v-if="!sinIn && UserId">签到天数：{{sinInTotal}}&nbsp;天</span>
+              <span class="sinInCount" v-if="!sinIn && UserId">连续签到：{{sinInCount}}&nbsp;天</span>
+              <span v-if="sinIn ">今日签到</span>
+              <span v-if="!sinIn && UserId">今日已签到</span>
             </div>
           </div>
           <p class="notice">平台公告</p>
@@ -304,21 +304,23 @@
         // console.log(this.Category)
       })
       //签到状态查看
-      this.$ajax({
-        url: config.baseUrl + '/home/sign/' + localStorage.getItem('userId'),
-        method: 'get'
-      }).then(res => {
-        // console.log(res.data.data)
-        this.sinInTotal = res.data.data.sign_total
-        this.sinInCount = res.data.data.sign_count
-        this.sinIntime = res.data.data.sign_last
-        // console.log(this.sinInCount)
-        if (res.data.data.sign_last == this.getDay(0) || !localStorage.getItem('userId')) {
-          this.sinIn = false
-        } else {
-          this.sinIn = true
-        }
-      })
+      if(localStorage.getItem('userId')){
+        this.$ajax({
+          url: config.baseUrl + '/home/sign/' + localStorage.getItem('userId'),
+          method: 'get'
+        }).then(res => {
+          console.log(res)
+          this.sinInTotal = res.data.data.sign_total
+          this.sinInCount = res.data.data.sign_count
+          this.sinIntime = res.data.data.sign_last
+          // console.log(this.sinInCount)
+          if (res.data.data.sign_last == this.getDay(0) || !localStorage.getItem('userId')) {
+            this.sinIn = false
+          } else {
+            this.sinIn = true
+          }
+        })
+      }
       // console.log(this.getDay(0))
       let _this = this
       this.keywords()
@@ -355,7 +357,7 @@
     },
     methods: {
       advClick(adv) {
-        console.log(adv)
+        // console.log(adv)
       },
       // ctuClick(ctu){
       //   // console.log(ctu.id)
@@ -364,6 +366,7 @@
       catMouseover(item) {
         // console.log(item)
         this.catmouList = item
+        console.log(this.catmouList)
         this.catlUL = true
       },
       catMouseleave() {
@@ -390,19 +393,20 @@
       Sin() {
         if (!localStorage.getItem('userId')) {
           this.LF = true
-        }
-        setTimeout(() => {
-          this.$ajax({
-            url: config.baseUrl + '/home/sign',
-            method: 'post',
-            data: {
-              member_id: localStorage.getItem('userId')
-            }
-          }).then(res => {
+        }else{
+          setTimeout(() => {
+            this.$ajax({
+              url: config.baseUrl + '/home/sign',
+              method: 'post',
+              data: {
+                member_id: localStorage.getItem('userId')
+              }
+            }).then(res => {
 
-          })
-          this.sinIn = false
-        }, 200)
+            })
+            this.sinIn = false
+          }, 200)
+        }
       },
       handleScroll() {
         var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -469,6 +473,7 @@
           method: "get",
         }).then(res => {
           this.data_list = res.data.data.items
+          // console.log(this.data_lis)
         });
       },
       M_L() {

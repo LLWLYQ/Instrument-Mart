@@ -60,17 +60,18 @@ const baseUrl = 'http://shop.yishangm.com/'
 Vue.prototype.baseUrl = baseUrl
 
 
+router.beforeEach((to, from, next) => {
+ if (to.meta.requiresAuth) {      // 下一个页面需要登录
+  if(store.state.bAuth) {        // 已登录
+      next()                       // 访问下一个页面
+    } else {                       // 未登录
+      next('/register')            // 回到登录界面         
+    }
+  } else {                         //下一个页面不需要登录
+    next()                         // 访问下一个页面
+  }
+})
 
-//引入rem布局
-// import 'amfe-flexible'
-// import 'lib-flexible/flexible.js'
-
-//设置全局路由
-// router.beforeEach((to, from, next) => {
-//   if(localStorage.getItem('userToken')){
-//     console.log(localStorage.getItem('userToken'))
-//   }
-// })
 
 //修改头部title的名称
 router.beforeEach((to, from, next) => {
