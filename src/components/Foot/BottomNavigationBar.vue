@@ -65,9 +65,10 @@
     },
     methods: {
       catMouseover(item) {
-        // console.log(item)
         this.catmouList = item
         this.catlUL = true
+        // let nofantisitiybaby = navigator
+        // console.log(nofantisitiybaby)
       },
       catMouseleave() {
         this.catlUL = false
@@ -75,7 +76,7 @@
       },
       classifyOver(){
         this.classify = true    
-      },
+      },  
     },
     components: {
       HomeSerach
