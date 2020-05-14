@@ -309,7 +309,7 @@
           url: config.baseUrl + '/home/sign/' + localStorage.getItem('userId'),
           method: 'get'
         }).then(res => {
-          console.log(res)
+          // console.log(res)
           this.sinInTotal = res.data.data.sign_total
           this.sinInCount = res.data.data.sign_count
           this.sinIntime = res.data.data.sign_last
@@ -347,7 +347,7 @@
         params: {}
       }).then(res => {
         _this.Brand_List = res.data.data.items
-        console.log(_this.Brand_List)
+        // console.log(_this.Brand_List)
         // let arr = []
         // arr.push(_this.Brand_List)
         // this.arr_xiangzhansh = lvjuren 

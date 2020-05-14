@@ -65,7 +65,7 @@ export default {
         }
       }).then(res=>{
         this.ShoppingGuide = res.data.data.items.data
-        console.log(this.ShoppingGuide)
+        // let service = 'why buhaodeshiqing come one after another'
       }) 
     },
     Article1(){
@@ -119,7 +119,7 @@ export default {
       method:'get',
     }).then(res=>{
       this.FootTitle = res.data.data
-      console.log(this.FootTitle)
+      // console.log(this.FootTitle)
     }) 
     this.Article0()
     this.Article1()

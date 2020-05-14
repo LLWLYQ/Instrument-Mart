@@ -1,6 +1,6 @@
 <template>
  <!-- @mousemove="moveEvent" @click="moveEvent" -->
-  <div id="app">
+  <div id="app" @click="isDo()">
     <div v-if="$route.meta.keepAlive">
       <router-view></router-view>
       <app-header  ></app-header>
@@ -17,19 +17,33 @@ export default {
   name: 'App',
   data () {
     return {
-      Height: 0
+      Height: 0,
+      lastTime:null,
+      currentTime:null,
+      timeOut:1 * 1 * 1000
     }
   },
   methods:{
-  
-  },
+    isDo() {
+              this.currentTime = new Date().getTime(); //记录这次点击的时间
+              if(this.currentTime - this.lastTime > this.timeOut) {  //判断上次最后一次点击的时间和这次点击的时间间隔是否大于10分钟
+              //  log.info('0000000000000000000000000000000000000======>超时')
+                  // 这里写状态已过期后执行的操作
+                  localStorage.clear();
+                  this.lastTime = new Date().getTime();
+                  return this.$router.push('/register')
+                 
+              } else {
+                  this.lastTime = new Date().getTime(); //如果在10分钟内点击，则把这次点击的时间记录覆盖掉之前存的最后一次点击的时间
+              }
+        }
+      },
   created(){
-
+    this.lastTime = new Date().getTime();
   },
   components: {
     'app-header':Header,
     'app-foot':Foot
-    // 'app-footer':Footer,
   },
   updated() {
     window.scroll(0,0);

@@ -137,9 +137,6 @@ export default {
 
 <style scoped lang="scss">
 @import '../../style/common';
-  // .list-top{
-  //   position: relative;
-  // }
  ._inp{
    border:2px solid #e94c15;
    border-radius: 2px;
@@ -161,6 +158,7 @@ export default {
    height: 288px;
    margin-top: -2px;
    margin-left: 2px;
+   display: none;
   :hover{
         background-color: #e94c15;
         // font-weight:bold;
