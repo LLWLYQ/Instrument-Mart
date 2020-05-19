@@ -183,7 +183,8 @@ export default new Router({
           name: 'Account_setting',
           component: Account_setting,
           meta: {
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -191,7 +192,8 @@ export default new Router({
           name:'Have_to_buy_goods',
           component:Have_to_buy_goods,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -199,7 +201,8 @@ export default new Router({
           name:'My_need',
           component:My_need,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -207,7 +210,8 @@ export default new Router({
           name:'Enquiry',
           component:Enquiry,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -215,7 +219,8 @@ export default new Router({
           name:'Shipping_address',
           component:Shipping_address,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -223,7 +228,8 @@ export default new Router({
           name:'Discount_coupon',
           component:Discount_coupon,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -240,7 +246,8 @@ export default new Router({
           name:'Integral',
           component:Integral,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -248,7 +255,8 @@ export default new Router({
           name:'Sales_returns',
           component:Sales_returns,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -257,6 +265,7 @@ export default new Router({
           component:Complaint,
           meta:{
             keepAlive: true,
+            requiresAuth: true,
             title:'评价管理'
           }
         },
@@ -265,7 +274,8 @@ export default new Router({
           name:'Invoice',
           component:Invoice,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         },
         {
@@ -273,7 +283,8 @@ export default new Router({
           name:'Center_home_page',
           component:Center_home_page,
           meta:{
-            keepAlive: true
+            keepAlive: true,
+            requiresAuth: true
           }
         }
       ]

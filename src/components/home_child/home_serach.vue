@@ -20,7 +20,7 @@ export default {
      	wd:'',//搜索的关键词
 			arr:[],//用于储存关键词的搜索词条
       listIndex:-1,//设置初始索引，数组从0开始，因此初始成-1,
-      diu:''
+      // diu:''
     }
   },
   methods:{
@@ -44,7 +44,7 @@ export default {
         let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListData:this.diu
+              ListClaId:this.diu
             }
           })
           window.open(routerJump.href,'_blank')
@@ -67,6 +67,7 @@ export default {
             this.arr = []
           }else{
             this.arr = res.data.data.items;
+            // console.log(this.arr)
           }
         })
         }, 1000)
@@ -86,12 +87,13 @@ export default {
 			//如果点击某一行的空白处，则点击事件中的event.target.innerText代表关键词
       //大家可以通过console.log(event)来查看关键词所在的位置
       click(event){
+          console.log(event)
           if(event!=undefined){
             this.wd=event.goods_name;
             let routerJump = this.$router.resolve({
               path:'/ProductCategoryListPage',
               query:{
-                ListData:event.goods_id
+                ListClaId:event.goods_cate_id
               }
           })
           window.open(routerJump.href,'_blank')
@@ -109,7 +111,7 @@ export default {
             this.listIndex = this.arr.length-1;
 					}
           this.wd = this.arr[this.listIndex].goods_name;
-          this.diu = this.arr[this.listIndex].goods_id
+          this.diu = this.arr[this.listIndex].goods_cate_id
 				}
 				else if(event.keyCode==40){
 					//说明你按的是下键
@@ -118,13 +120,13 @@ export default {
 						this.listIndex=0;
 					}
           this.wd = this.arr[this.listIndex].goods_name;
-          this.diu = this.arr[this.listIndex].goods_id
+          this.diu = this.arr[this.listIndex].goods_cate_id
 				}else if(event.keyCode==13){
           //如果你按的是enter，那么就跳转到百度搜索结果
           let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListData:this.arr[this.listIndex].goods_id
+              ListClaId:this.arr[this.listIndex].goods_cate_id
             }
           })
           window.open(routerJump.href,'_blank')

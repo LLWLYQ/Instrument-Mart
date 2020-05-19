@@ -19,14 +19,14 @@
           <a @click="priceUp()" ref="pru">价格<i class="el-icon-top"></i></a>
         </div>
         <div class="block">
-          <el-pagination
+          <!-- <el-pagination
             @size-change="handleSizeChange" 
             @current-change="handleCurrentChange"
             :current-page="currentPage"
             layout="prev, pager, next"
             :page-size="10" 
             :total="ListData.total">
-          </el-pagination>
+          </el-pagination> -->
         </div>
         <div class="List">
           <ul>
@@ -60,12 +60,12 @@ export default {
     }
   },
   methods: {
-     handleSizeChange(val) {
-        // console.log('每页' + val + '条');
-      },
-      handleCurrentChange(val) {
-        // console.log('当前页:'+val);
-      },
+    //  handleSizeChange(val) {
+    //     // console.log('每页' + val + '条');
+    //   },
+    //   handleCurrentChange(val) {
+    //     // console.log('当前页:'+val);
+    //   },
     Synthesize(){
       this.$ajax({
         url:config.baseUrl + '/home/goods',
@@ -94,6 +94,7 @@ export default {
         url:config.baseUrl + '/home/goods',
         method:'get',
         params:{
+          catid:this.PclpID,
           sale_num_pr:"desc",
         }
       }).then(res=>{
@@ -115,7 +116,8 @@ export default {
         url:config.baseUrl + '/home/goods',
         method:'get',
         params:{
-          sale_num_pr:"asc"
+          sale_num_pr:"asc",
+          catid:this.PclpID,
         }
       }).then(res=>{
         this.ListData = res.data.data.items
@@ -136,7 +138,8 @@ export default {
         url:config.baseUrl + '/home/goods',
         method:'get',
         params:{
-          price_pr:"desc"
+          price_pr:"desc",
+          catid:this.PclpID,
         }
       }).then(res=>{
         this.ListData = res.data.data.items
@@ -157,7 +160,8 @@ export default {
         url:config.baseUrl + '/home/goods',
         method:'get',
         params:{
-          price_pr:"asc"
+          price_pr:"asc",
+          catid:this.PclpID,
         }
       }).then(res=>{
         this.ListData = res.data.data.items

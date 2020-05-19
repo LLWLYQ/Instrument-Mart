@@ -11,16 +11,17 @@
             <ul class="top_left">
               <router-link to="/" ><li>仪商城首页</li></router-link>
               <router-link to="/register"  v-if="!UserName"><li>请登录</li></router-link>
-              <router-link to="/Center_home_page" target="_blank" tag="a" v-if="UserName"><li>Hi,{{UserName}}</li></router-link>
+              <router-link to="" v-if="UserName"><li>Hi,{{UserName}}</li></router-link>
               <router-link to=""><li>欢迎来到仪商城</li></router-link>
+              <router-link to="/Center_home_page" target="_blank" tag="a"><li>个人中心</li></router-link>
               <router-link to="/MemberRegistration" target="_blank" tag="a"><li>免费注册</li></router-link>
             </ul>
             <ul class="top_right">
               <router-link to="/"><li>我的仪商城</li></router-link>
               <a style="cursor:pointer;" @click="GoCart()"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;" ></i>购物车</li></a>
               <router-link to="/Favorite" target="_blank"><li><i class="el-icon-star-on" style="font-size:12px;margin-top:px;"></i>收藏夹</li></router-link>
-              <router-link to="/"><li>仪商网</li></router-link>
-              <router-link to="/"><li>商家支持</li></router-link>
+              <router-link to=""><li>仪商网</li></router-link>
+              <router-link to=""><li>商家支持</li></router-link>
             </ul>
           </div>
         </div>

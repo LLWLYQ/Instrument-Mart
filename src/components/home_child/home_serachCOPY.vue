@@ -43,7 +43,7 @@ export default {
         let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListData:this.wd
+              ListClaId:this.wd
             }
           })
           window.open(routerJump.href,'_blank')
@@ -91,7 +91,7 @@ export default {
             let routerJump = this.$router.resolve({
               path:'/ProductCategoryListPage',
               query:{
-                ListData:event.goods_id
+                ListClaId:event.goods_id,
               }
           })
           window.open(routerJump.href,'_blank')
@@ -124,7 +124,7 @@ export default {
           let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListData:this.arr[this.listIndex].goods_cate_id
+              ListClaId:this.arr[this.listIndex].goods_cate_id
             }
           })
           window.open(routerJump.href,'_blank')
@@ -154,7 +154,7 @@ export default {
    z-index: 10000;
    background-color: white;
    font-size: 14px;
-   width: 496px;
+   width: 491px;
    height: 288px;
    margin-top: -2px;
    margin-left: 2px;

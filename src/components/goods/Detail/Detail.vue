@@ -27,7 +27,7 @@
           </ul>
         </div>
         <div class="collect">
-          <p @click="collect()"><i class="el-icon-star-on"></i>收藏商品</p>
+          <p @click="collect()"><i class="el-icon-star-on" style="color:#FFD700;font-size:20px;"></i>收藏商品</p>
         </div>
         <div class="collect_succ" v-if="Collect">
           <h1><i class="el-icon-success"></i><span>成功加入收藏夹</span><i class="el-icon-error right" @click="close()"></i>
@@ -162,8 +162,8 @@
                   <div style="clear:both"></div>
                 </div>
                 <div class="anonymity">
-                  <el-radio v-model="anonymity" label="0">匿名</el-radio>
-                  <el-radio v-model="anonymity" label="1">不匿名</el-radio>
+                  <el-radio v-model="anonymity" label="0"><span>匿名</span></el-radio>
+                  <el-radio v-model="anonymity" label="1"><span>不匿名</span></el-radio>
                   <!-- <p>woxiangzheyidingshigewanmeideaiqingba</p> -->
                 </div>
                 <div class="submit">
@@ -440,7 +440,6 @@
                   message: '商品已成功加入购物侧，欢迎选购其他商品',
                   type: 'success',
                   customClass: 'Notification',
-                  // customCalss:'wokanzhenishenhundiandao'
                 });
               }
             })

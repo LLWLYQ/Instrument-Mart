@@ -29,6 +29,7 @@
                 <el-input v-model="ruleForm1.smscode" placeholder="验证码" style="float:left;width:180px;"></el-input>
                 <el-button type="primary" :disabled='isDisabled' @click="sendCode" style="background:#e94c15;border-color:#e94c15;height:40px;float:left;">{{buttonText}}</el-button>
               </el-form-item>
+              <p style="height:30px;color: #F56C6C;" v-if="Vcerror">验证码错误,请重新输入</p>
               <el-form-item prop="pass">
                 <el-input type="password" v-model="ruleForm1.pass" auto-complete="off" placeholder="输入密码"></el-input>
               </el-form-item>
@@ -96,13 +97,30 @@ export default {
     }
     // <!--验证手机号是否合法-->
     let checkTel = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入手机号码'))
-      } else if (!this.checkMobile(value)) {
-        callback(new Error('手机号码不合法'))
-      } else {
-        callback()
-      }
+      if (!value) {
+            callback(new Error('请输入手机号码'))
+          } else {
+            const reg = /^1[3|4|5|6|7|8][0-9]\d{8}$/;
+            const isPhone = reg.test(value);
+            value = Number(value); //转换为数字
+            if (typeof value === "number" && !isNaN(value)) {//判断是否为数字
+            value = value.toString(); //转换成字符串
+              if (value.length < 0 || value.length > 12 || !isPhone) { //判断是否为11位手机号
+                callback(new Error("请输入正确的手机号"));
+              } else {
+                callback();
+              }
+            } else {
+              callback(new Error("请输入电话号码"));
+            }
+        }
+      // if (value === '') {
+      //   callback(new Error('请输入手机号码'))
+      // } else if (!this.checkMobile(value)) {
+      //   callback(new Error('手机号码不合法'))
+      // } else {
+      //   callback()
+      // }
     }
     //  <!--验证码是否为空-->
     let checkSmscode = (rule, value, callback) => {
@@ -169,6 +187,7 @@ export default {
     return {
       telCode:'',
       activeName: 'second',
+      Vcerror:false,
        ruleForm1: {
         name:"",
         pass: "",
@@ -266,10 +285,8 @@ export default {
         this.Tmpnhbr()
         this.$refs[formName].validate(valid => {
             if (valid && this.telCode == '20000') {
-              setTimeout(() => {
                 // alert('注册成功')
                 this.UserReg()
-              },200);
             } else {
               // console.log("error submit!!")
               return false;
@@ -281,10 +298,8 @@ export default {
         this.Tmpnhbr()
         this.$refs[formName].validate(valid => {
             if (valid && this.telCode == '20000') {
-              setTimeout(() => {
                 // alert('注册成功')
                 this.En_UserReg()
-              },200);
             } else {
               // console.log("error submit!!")
               return false;
@@ -322,6 +337,7 @@ export default {
             customClass:'telName'
           });
         }
+        
       })
     },
     En_Tmpnhbr(){
@@ -350,7 +366,7 @@ export default {
           mobile:this.ruleForm1.tel
         }
       }).then(res=>{
-        // console.log(res.data)
+        
       })
     },
   En_UserCode(){
@@ -377,17 +393,16 @@ export default {
           code:this.ruleForm1.smscode
         }
       }).then(res=>{
+        if(res.data.message == '验证码错误'){
+          this.Vcerror = true
+        }
+        if(this.ruleForm1.smscode == ''){
+          this.Vcerror = false
+        }
         if(res.data.code == 20000){
-           this.$alert(res.data.message +'请前往登录页登录', '',{
-              confirmButtonText:'确定',
-              customClass:'GoLoginName',
-              callback: action => {
-                // this.$message({
-                //   type: 'info',
-                //   // message: `action: ${ action }`
-                // });
-              }
-            });
+           this.$router.push({
+             path:'/register'
+           })
         }
       })
     },
@@ -405,6 +420,12 @@ export default {
           company_contacts:this.ruleForm2.company_contacts
         }
       }).then(res=>{
+        if(res.data.message == '验证码错误'){
+          this.Vcerror = true
+        }
+        if(this.ruleForm1.smscode == ''){
+          this.Vcerror = false
+        }
         if(res.data.code == 20000){
            this.$alert(res.data.message +'请前往登录页登录', '',{
               confirmButtonText:'确定',

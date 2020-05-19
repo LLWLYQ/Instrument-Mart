@@ -189,7 +189,7 @@ export default {
             if (typeof value === "number" && !isNaN(value)) {//判断是否为数字
             value = value.toString(); //转换成字符串
               if (value.length < 0 || value.length > 12 || !isPhone) { //判断是否为11位手机号
-                callback(new Error("手机号码格式如:138xxxx8754"));
+                callback(new Error("请输入正确的手机号"));
               } else {
                 callback();
               }

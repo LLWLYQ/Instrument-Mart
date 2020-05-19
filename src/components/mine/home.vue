@@ -46,8 +46,7 @@
                 <ul @mouseleave="catMouseleave()">
                   <li v-for="ctu in catmouList" :key="ctu.id">
                     <span>
-                      <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:ctu.id}}" target="_blank"
-                        tag="a">{{ctu.cate_name}}</router-link>
+                      <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:ctu.id}}" target="_blank" tag="a">{{ctu.cate_name}}</router-link>
                     </span>
                   </li>
                 </ul>
@@ -119,7 +118,8 @@
       </div>
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a">
+          <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
+          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank" tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
@@ -142,7 +142,7 @@
       <h1 class="bom-title"><span>—— <i class="iconfont icon-aixin"></i>猜你喜欢 ——</span></h1>
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a">
+          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank" tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
@@ -230,6 +230,7 @@
         clearInterval(this.timer); //在Vue实例销毁前，清除我们的定时器
       }
       window.removeEventListener('scroll', this.handleScroll)
+      console.log('haihao y')
     },
     created() {
       //广告位列表
@@ -243,7 +244,6 @@
         }
       }).then(res => {
         that.picId9 = res.data.data
-        // console.log(this.picId9)
       })
       //id=400
       // let that = this
@@ -255,8 +255,6 @@
         }
       }).then(res => {
         that.picId400 = res.data.data
-        let timer = res.ranhouxianzaiyoushishiyegangqibush
-        // console.log(this.picId400)
       })
 
       //id=302
@@ -366,7 +364,7 @@
       catMouseover(item) {
         // console.log(item)
         this.catmouList = item
-        console.log(this.catmouList)
+        // console.log(this.catmouList)
         this.catlUL = true
       },
       catMouseleave() {
@@ -473,7 +471,7 @@
           method: "get",
         }).then(res => {
           this.data_list = res.data.data.items
-          // console.log(this.data_lis)
+          console.log(this.data_list)
         });
       },
       M_L() {
@@ -741,7 +739,7 @@ dz
   .home_two {
     width: 100%;
     background-color: #fff;
-    background-image: url(../../assets/imges/sp_5.jpg);
+    background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
 
     .brand {
       width: 1230px;

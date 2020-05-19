@@ -187,7 +187,6 @@ export default {
           })
         })
         this.DataList =  result
-        // console.log(this.DataList)
   }
 }
 </script>
@@ -506,7 +505,7 @@ export default {
 
 </style>
 <style lang="">
-  .el-radio__label{
+  /* .el-radio__label{
     display: none;
-  }
+  } */ 
 </style>

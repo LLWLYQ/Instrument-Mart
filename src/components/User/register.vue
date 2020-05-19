@@ -88,12 +88,12 @@ export default {
               localStorage.setItem("userName",res.data.data.account)
               localStorage.setItem("userToken",res.data.data.member_token)
               localStorage.setItem("userTime",res.data.data.expire_time)
+              store.state.bAuth = true
             }else{
               this.error = true
             }
-            
             if(res.data.status == 'success'){
-                store.state.bAuth = true
+                
                 localStorage.setItem("lastTime",new Date().getTime());
                 this.$router.go(-1)
               }

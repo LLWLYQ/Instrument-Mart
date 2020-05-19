@@ -8,7 +8,7 @@
           </div>
           <div class="message">
             <ul>
-              <li>Max</li>
+              <li>{{userName}}</li>
               <li>仪商值</li>
               <li>账户设置<i class="el-icon-caret-right"></i></li>
               <li>我的收货地址</li>
@@ -89,7 +89,8 @@ import config from '../../../config/config'
 export default {
   data() {
     return {
-       activeName: 'second'
+       activeName: 'second',
+       userName:localStorage.getItem('userName')
     }
   },
   methods: {
