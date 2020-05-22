@@ -7,40 +7,11 @@
           <div class="Search_Goods">
             <HomeSerach></HomeSerach>
           </div>
-          <div style="float:left;height:38px;line-height:38px;background:#333;width:200px;color:#fff;margin:10px 0 0 0;padding:0 0 0 10px;">
-            <p style="font-size:16px;cursor: pointer;" ref="classify" @mouseover="classifyOver()"><i style="font-size:18px;" class="el-icon-s-grid"></i> 商品分类</p>
-            <div class="cat-content" @mouseleave="catMouseleave()">
-              <ul class="cat_ul" v-if="classify">
-                <li v-for="cat in Category" :key="cat.id" class="cat" @mouseover="catMouseover(cat.cc)">
-                  {{cat.cate_name}}
-                </li>
-                <div class="catList" v-if="catlUL">
-                  <ul @mouseleave="catMouseleave()">
-                    <li v-for="ctu in catmouList" :key="ctu.id">
-                      <span>
-                        <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:ctu.id}}" target="_blank"
-                          tag="a">{{ctu.cate_name}}</router-link>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </ul>
-              
-            </div>
-          </div>
-          <ul class="com_ul">
-            <li><i class="el-icon-s-home"></i> 首页</li>
-            <li>
-              <router-link to='/USShopHome'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
-            </li>
-            <li>
-              <router-link to='/ShopHome'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
     <div class="content" >
+      <Tocg></Tocg>
       <div class="article"> 
         <h1>{{articleData.article_title}}</h1>
         <p>{{articleData.article_content}}</p>
@@ -52,6 +23,7 @@
 <script type="text/javascript">
   import config from '../../config/config'
   import HomeSerach from '../home_child/home_serach.vue'
+  import Tocg from '../mine/TCOG/Tcog'
   export default {
     data() {
       return {
@@ -79,7 +51,8 @@
       },  
     },
     components: {
-      HomeSerach
+      HomeSerach,
+      Tocg
     },
     created() {
       // let self = this
@@ -114,7 +87,6 @@
     .content{
       width: 100%;
       min-height: 800px;
-      border-top: 2px solid #e94c15;
       position: relative;
       .article{
         width: 1210px;
@@ -137,7 +109,7 @@
   }
   .com {
     position: relative;
-    height: 180px;
+    height: 160px;
     padding-top: 60px;
     width: 1210px;
     margin: 0 auto;

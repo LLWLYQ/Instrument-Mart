@@ -17,7 +17,7 @@
                 <span style="font-size:14px;font-weight: 700;width:100px;">会员中心</span>
                 <el-menu-item index="/Center_home_page" >中心首页</el-menu-item>
                 <el-menu-item index="/Account_setting" >账户设置</el-menu-item>
-                <el-menu-item index="/Have_to_buy_goods">平台公告</el-menu-item>
+                <el-menu-item index="/Have_to_buy_goods">仪商公告</el-menu-item>
                 <el-menu-item index="/My_need">我的需求</el-menu-item>
                 <el-menu-item index="/Enquiry">我要询价</el-menu-item>
                 <el-menu-item index="/Shipping_address" >收货地址</el-menu-item>

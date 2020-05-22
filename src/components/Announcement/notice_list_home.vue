@@ -51,8 +51,8 @@ export default {
 @import '../../../src/style/common';
   .mine{
     width: 100%;
-    height: 142px;
-    background: #f5f5f5;
+    height: 162px;
+    background: #fff;
     padding:0 15px;
      ul{
       li{

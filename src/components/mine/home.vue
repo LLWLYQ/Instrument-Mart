@@ -16,7 +16,13 @@
         <div class="Search_Goods">
           <HomeSerach></HomeSerach>
         </div>
-        <div class="Shopping_Cart">
+        <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
+          <p><i class="el-icon-shopping-cart-2"><span>2</span></i><span>我的购物车</span></p>
+          <transition name="overcat">
+            <div class="overBox" v-show="Scboxshow">
+              <overallCart></overallCart>
+            </div>
+          </transition>
         </div>
         <div
           style="float:left;height:38px;line-height:38px;background:#333;width:200px;color:#fff;margin:10px 0 0 0;padding:0 0 0 10px;">
@@ -25,10 +31,12 @@
         <ul class="com_ul">
           <li><i class="el-icon-s-home"></i> 首页</li>
           <li>
-            <router-link to='/USShopHome'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
+            <!-- <router-link to='/USShopHome'><i class="el-icon-s-platform"></i> 品牌供应商</router-link> -->
+            <router-link to='/PublicSearchBar'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
           </li>
           <li>
-            <router-link to='/ShopHome'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
+            <!-- ShopHome -->
+            <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
           </li>
           <!-- <li><i class="el-icon-s-promotion"></i> 供求信息</li>
           <li><i class="el-icon-s-custom"></i> 专家交流</li> -->
@@ -46,7 +54,8 @@
                 <ul @mouseleave="catMouseleave()">
                   <li v-for="ctu in catmouList" :key="ctu.id">
                     <span>
-                      <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:ctu.id}}" target="_blank" tag="a">{{ctu.cate_name}}</router-link>
+                      <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:ctu.id}}" target="_blank"
+                        tag="a">{{ctu.cate_name}}</router-link>
                     </span>
                   </li>
                 </ul>
@@ -73,14 +82,39 @@
             </div>
             <div class="over" v-if="LF" @click="closeLF()"></div>
             <div class="sin">
-              <i class="el-icon-date" @click="Sin()"></i>
+              <div class="sin-img">
+                <img src="../../assets/imges/timg.jpg" alt="">
+              </div>
+              <div class="sin-h">
+                <h1>Hi,你好</h1>
+              </div>
+              <div class="sin-login">
+                <p>
+                  <span>
+                    <router-link to="/register">登录</router-link>
+                  </span>
+                  <span>
+                    <router-link to="/MemberRegistration">注册</router-link>
+                  </span>
+                </p>
+              </div>
+              <div class="sin-to">
+                <p @click="Sin()" v-if="sinIn ">签到领积分</p>
+                <p v-if="!sinIn && UserId">今日已签到</p>
+              </div>
+              <!-- <i class="el-icon-date" @click="Sin()"></i>
               <span class="sinInTotal" v-if="!sinIn && UserId">签到天数：{{sinInTotal}}&nbsp;天</span>
               <span class="sinInCount" v-if="!sinIn && UserId">连续签到：{{sinInCount}}&nbsp;天</span>
               <span v-if="sinIn ">今日签到</span>
-              <span v-if="!sinIn && UserId">今日已签到</span>
+              <span v-if="!sinIn && UserId">今日已签到</span> -->
             </div>
           </div>
-          <p class="notice">平台公告</p>
+          <p class="notice">
+            <span v-for="(item,index) in notice" :key="index" :class="{cur:Iscur===index}"
+              @mouseenter="Iscur=index,noticeMove(item.name,index)">
+              {{item.name}}
+            </span>
+          </p>
           <NoticeListHome></NoticeListHome>
         </div>
       </div>
@@ -88,6 +122,9 @@
     <div class="content_container">
       <!-- 商品列表 -->
       <div class="BrandList">
+        <div class="List-title">
+          <h1><i class="el-icon-s-platform"></i>品牌专区</h1>
+        </div>
         <ul v-for="BrL in Brand_List" :key="BrL.id">
           <li>
             <div class="brand-img">
@@ -119,7 +156,8 @@
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
           <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
-          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank" tag="a">
+          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank"
+            tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
@@ -142,7 +180,8 @@
       <h1 class="bom-title"><span>—— <i class="iconfont icon-aixin"></i>猜你喜欢 ——</span></h1>
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank" tag="a">
+          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank"
+            tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
@@ -171,6 +210,7 @@
     mapState
   } from 'vuex'
   import LoginForm from '../../components/LoginForm/LoginForm'
+  import overallCart from './overallCart'
   export default {
     data() {
       return {
@@ -178,24 +218,24 @@
         sele: false,
         date: new Date(),
         iscur: 0,
+        Iscur: 0,
         LF: false,
         baseUrl: config.baseUrl,
         wpList: [{
-            name: '电子测量仪器'
+            name: 'SLHC'
           },
           {
-            name: '电力电工仪表'
-          },
-          {
-            name: '工业自动化仪表与控制系统'
-          },
-          {
-            name: ' 传感器与仪器仪表器件及材料'
+            name: '猜你喜欢'
           },
           {
             name: '顶部'
           }
         ],
+        notice: [{
+          name: '仪商公告'
+        }, {
+          name: '仪商新闻'
+        }],
         active: '',
         selectVal: '',
         orgList: '',
@@ -209,6 +249,7 @@
         UserId: localStorage.getItem('userId'),
         Brand_List: '',
         boxshow: false,
+        Scboxshow: false,
         sinInTotal: 0,
         sinInCount: 0,
         sinIntime: '',
@@ -223,7 +264,7 @@
         picId302: '',
         picId300: '',
         picId303: '',
-       }
+      }
     },
     beforeDestroy() {
       if (this.timer) {
@@ -302,7 +343,7 @@
         // console.log(this.Category)
       })
       //签到状态查看
-      if(localStorage.getItem('userId')){
+      if (localStorage.getItem('userId')) {
         this.$ajax({
           url: config.baseUrl + '/home/sign/' + localStorage.getItem('userId'),
           method: 'get'
@@ -333,10 +374,10 @@
         this.carData = res.data.data.items.data
         var goodsinfos = {}
         // goodsinfos.push(addToShopCar)
-        this.$store.commit("addToShopCar", goodsinfos);
-        this.carData.forEach(item => {
-          goodsinfos.quantity = item.quantity
-        })
+        // this.$store.commit("addToShopCar", goodsinfos);
+        // this.carData.forEach(item => {
+        //   goodsinfos.quantity = item.quantity
+        // })
       })
       //品牌列表
       _this.$ajax({
@@ -391,7 +432,7 @@
       Sin() {
         if (!localStorage.getItem('userId')) {
           this.LF = true
-        }else{
+        } else {
           setTimeout(() => {
             this.$ajax({
               url: config.baseUrl + '/home/sign',
@@ -417,6 +458,12 @@
           this.boxshow = false;
         }
       },
+      scover() {
+        this.Scboxshow = true;
+      },
+      scleave() {
+        this.Scboxshow = false;
+      },
       closeLF() {
         this.LF = false
       },
@@ -439,27 +486,30 @@
           }
         })
       },
+      noticeMove(name, index) {
+        this.Iscur = index
+      },
       selected(name, index) {
         this.iscur = index
         this.active = index;
         let WS = $(window).scrollTop();
         if (this.active == 0) {
           $("body,html").animate({
-            scrollTop: $('.List').offset().top - 30
+            scrollTop: $('.List').offset().top - 100
           }, 100)
         } else if (this.active == 1) {
           $("body,html").animate({
-            scrollTop: $('.mine').offset().top - 30
+            scrollTop: $('.bom-title').offset().top - 60
           }, 100)
+          // } else if (this.active == 2) {
+          //   $("body,html").animate({
+          //     scrollTop: 2000
+          //   }, 100)
+          // } else if (this.active == 3) {
+          //   $("body,html").animate({
+          //     scrollTop: 2000
+          //   }, 100)
         } else if (this.active == 2) {
-          $("body,html").animate({
-            scrollTop: 2000
-          }, 100)
-        } else if (this.active == 3) {
-          $("body,html").animate({
-            scrollTop: 2000
-          }, 100)
-        } else if (this.active == 4) {
           $("body,html").animate({
             scrollTop: 0
           }, 100)
@@ -471,7 +521,7 @@
           method: "get",
         }).then(res => {
           this.data_list = res.data.data.items
-          console.log(this.data_list)
+          // console.log(this.data_list)
         });
       },
       M_L() {
@@ -488,29 +538,30 @@
       LoginForm,
       HomeSerachCOPY,
       Have_to_buy_goods,
-      NoticeListHome
+      NoticeListHome,
+      overallCart
     },
     computed: {
       ...mapGetters(['totalQuantity'])
     },
     mounted() {
-      setTimeout(()=>{
+      setTimeout(() => {
         var mySwiper = new Swiper('.swiper-container', {
           pagination: {
             el: '.swiper-pagination',
             clickable: true
           },
           speed: 1000,
-          autoplay:true,
+          autoplay: true,
           loop: true,
-          observer:true, 
-          observeParents:true,
+          observer: true,
+          observeParents: true,
           autoplay: {
             disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
             delay: 2000, // 自动切换的时间间隔（单位ms），
           },
         })
-      },300)
+      }, 300)
       var that = this;
       this.timer = setInterval(() => {
         that.date = new Date(); //修改数据date
@@ -573,7 +624,27 @@ dz
   }
 
   .BrandList {
-    height: 327px;
+    .List-title {
+      height: 45px;
+      line-height: 45px;
+
+      h1 {
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+        width: 110px;
+        background: #F15453;
+        color: #fff;
+        padding-left: 5px;
+
+        i {
+          font-size: 20px;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    height: 300px;
     margin: 20px 0;
 
     ul {
@@ -739,7 +810,7 @@ dz
   .home_two {
     width: 100%;
     background-color: #fff;
-    background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
+    background-image: linear-gradient(to right, #7A88FF, #7AFFAF);
 
     .brand {
       width: 1230px;
@@ -772,10 +843,73 @@ dz
 
     .Shopping_Cart {
       position: absolute;
-      overflow: hidden;
-      right: 50px;
+      height: auto;
+      right: 0px;
       top: 70px;
+      cursor: pointer;
+      width: 200px;
+
+      .overBox {
+        position: absolute;
+        right: 0px;
+        top: 40px;
+        z-index: 3000000;
+        width: auto;
+        height: 300px;
+        overflow: hidden;
+        ;
+      }
+
+      .overcat-leave-active,
+      .overcat-enter-active {
+        transition: all 0.5s ease;
+      }
+
+      .overcat-leave-active,
+      .overcat-enter {
+        height: 0px !important;
+      }
+
+      .overcat-leave,
+      .overcat-enter-active {
+        max-height: 320px;
+      }
+
+      p {
+        width: 130px;
+        float: right;
+        border: 2px solid #e94c15;
+        padding: 8px 18px;
+        background: #e94c15;
+
+        i {
+          font-size: 20px;
+          font-weight: bold;
+          color: #fff;
+          margin-right: 5px;
+
+          span {
+            display: block;
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 0px;
+            left: 95px;
+            line-height: 15px;
+            text-align: center;
+            background: #db2726;
+            color: #fff;
+            border-radius: 50%;
+          }
+        }
+
+        span {
+          color: #fff;
+          font-weight: bold;
+        }
+      }
     }
+
 
     .SG_ul {
       :nth-child(n+2) {
@@ -943,41 +1077,102 @@ dz
     }
 
     .B_r {
+      border-left: 1px solid #f5f5f5;
+
       .check {
-        height: 270px;
+        height: 250px;
 
         .sin {
           text-align: left;
-          width: 200px;
-          padding: 10px 0;
-          margin: 0 15px;
-          border-bottom: 1px solid #ccc;
+          width: 229px;
+          padding: 30px 0;
+          // margin: 0 15px;
+          // border-bottom: 1px solid #ccc;
           position: relative;
+          background: #fff;
 
-          i {
-            font-size: 80px;
-            color: #e94c15;
-            cursor: pointer;
+          .sin-img {
+            width: 80px;
+            margin: 0 auto;
+            height: 80px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border: 1px solid #ccc;
+              border-radius: 50%;
+            }
           }
 
-          .sinInTotal {
-            font-size: 12px;
-            position: absolute;
-            top: 20px;
+          .sin-h {
+            margin: 10px 0px;
+
+            h1 {
+              text-align: center;
+            }
           }
 
-          .sinInCount {
-            font-size: 12px;
-            position: absolute;
-            top: 35px;
+          .sin-login {
+            p {
+              text-align: center;
+              margin-top: 15px;
+            }
+
+            p span:nth-child(1) {
+              a {
+                color: #fff;
+                padding: 5px 30px;
+                background: #e94c15;
+                cursor: pointer;
+              }
+            }
+
+            p span:nth-child(2) {
+              a {
+                color: #e94c15;
+                border: 1px solid #e94c15;
+                padding: 5px 30px;
+                cursor: pointer;
+              }
+            }
           }
 
-          span {
-            font-size: 20px;
-            font-weight: bold;
-            position: relative;
+          .sin-to {
+            margin-top: 20px;
 
+            p {
+              text-align: center;
+              color: #e94c15;
+              cursor: pointer;
+            }
           }
+
+          // i {
+          //   font-size: 80px;
+          //   color: #e94c15;
+          //   cursor: pointer;
+          // }
+
+          // .sinInTotal {
+          //   font-size: 12px;
+          //   position: absolute;
+          //   top: 20px;
+          // }
+
+          // .sinInCount {
+          //   font-size: 12px;
+          //   position: absolute;
+          //   top: 35px;
+          // }
+
+          // span {
+          //   font-size: 20px;
+          //   font-weight: bold;
+          //   position: relative;
+
+          // }
         }
       }
 
@@ -988,17 +1183,41 @@ dz
 
       // margin:0 0 0 100px;
       .notice {
-        width: 200px;
-        color: #e94c15;
+        width: 229px;
+        color: #222;
         height: 40px;
         line-height: 40px;
         font-size: 14px;
         font-weight: 800;
         margin: 0;
+        background: #fff;
         border-bottom: 1px solid #ccc;
-        border-top: 1px solid #ccc;
-        margin: 0px 15px 0 15px;
+
+        // border-top: 1px solid #ccc;
+        // padding: 0px 15px 0 15px;
+        span {
+          width: 114.5px;
+          text-align: center;
+          // margin-right: 20px;
+          cursor: pointer;
+          display: block;
+          float: left;
+          height: 39px;
+          // padding: 0 15px;
+        }
+
+        .cur {
+          // margin-right: 20px;
+          cursor: pointer;
+          display: block;
+          float: left;
+          height: 39px;
+          padding: 0 15px;
+          border-bottom: 2px solid #e94c15;
+          color: #e94c15;
+        }
       }
+
     }
   }
 
@@ -1093,9 +1312,9 @@ dz
       border: 1px solid #ccc;
       font-size: 12px;
       width: 80px;
-      height: 80px;
-      text-align: left;
-      padding: 5px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
 
       :hover {
         background-color: #c81623;

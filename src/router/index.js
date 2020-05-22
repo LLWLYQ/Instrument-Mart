@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/mine/home'
+import Tcog from '@/components/mine/TCOG/Tcog'
+import FlagshipStore from '@/components/mine/4SFlagshipStore'
+import overallCart from '@/components/mine/overallCart'
+import PublicSearchBar from '@/components/mine/PublicSearchBar'
 import home_serach from '@/components/home_child/home_serach'
 import home_serachCOPY from '@/components/home_child/home_serachCOPY'
 import register from '@/components/User/register'
@@ -93,6 +97,43 @@ export default new Router({
       component: Home,
       meta:{
         title:"仪商城",
+        keepAlive: true
+      }
+    },
+    {
+      path: '/Tcog',
+      name: 'Tcog',
+      component: Tcog,
+      meta:{
+        // title:"",
+        // keepAlive: true
+      }
+    },
+    {
+      path: '/FlagshipStore',
+      name: 'FlagshipStore',
+      component: FlagshipStore,
+      meta:{
+        title:"4S旗舰店首页",
+        keepAlive: true
+      }
+    },
+    
+    {
+      path: '/overallCart',
+      name: 'overallCart',
+      component: overallCart,
+      meta:{
+        // title:"仪商城",
+        // keepAlive: true
+      }
+    },
+    {
+      path: '/PublicSearchBar',
+      name: 'PublicSearchBar',
+      component: PublicSearchBar,
+      meta:{
+        // title:"仪商城",
         keepAlive: true
       }
     },
