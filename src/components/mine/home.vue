@@ -271,7 +271,7 @@
         clearInterval(this.timer); //在Vue实例销毁前，清除我们的定时器
       }
       window.removeEventListener('scroll', this.handleScroll)
-      console.log('haihao y')
+      // console.log('haihao y')
     },
     created() {
       //广告位列表

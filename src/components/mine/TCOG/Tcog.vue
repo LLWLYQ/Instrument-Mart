@@ -30,10 +30,10 @@
           <router-link to='/'><i class="el-icon-s-home"></i> 首页</router-link>
         </li>
         <li>
-          <router-link to='/USShopHome'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
+          <router-link to='/PublicSearchBar'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
         </li>
         <li>
-          <router-link to='/ShopHome'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
+          <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
         </li>
       </ul>
     </div>

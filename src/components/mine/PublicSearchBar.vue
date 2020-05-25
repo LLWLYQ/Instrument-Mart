@@ -20,10 +20,10 @@
       <ul class="com_ul">
         <li><i class="el-icon-s-home"></i> 首页</li>
         <li>
-          <router-link to='/USShopHome'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
+          <router-link to='/PublicSearchBar'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
         </li>
         <li>
-          <router-link to='/ShopHome'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
+          <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
         </li>
         <!-- <li><i class="el-icon-s-promotion"></i> 供求信息</li>
           <li><i class="el-icon-s-custom"></i> 专家交流</li> -->

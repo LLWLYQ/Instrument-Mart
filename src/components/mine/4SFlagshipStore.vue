@@ -1,6 +1,5 @@
 <template>
   <div class="FlagshipStore">
-
     <div class="com">
       <div class="logo_img"><img src="../../assets/imges/logo.png" alt=""></div>
       <div class="Search_Goods">
@@ -17,7 +16,9 @@
     </div>
     <Tocg></Tocg>
     <div class="centen">
+      <!-- Remote Procedure Call(RPC) -->
       <div class="B_c" @mouseover="swiperover()" @mouseleave="swiperleave()">
+        <!-- <p>鼠年限定-牛年限定</p> -->
         <!-- position_id (9) -->
         <div class="swiper-container">
           <div class="swiper-wrapper">
@@ -33,6 +34,45 @@
         </div>
       </div>
       <div style="clear:both;"></div>
+      <div class="supplier">
+        <h1>推荐店铺 <router-link to="">更多>></router-link></h1>
+        <div class="supplier-List">
+          <ul>
+            <router-link to="" v-for="ar in Arr" :key="ar.id">
+              <li>
+                <img src="../../assets/imges/sp_5.jpg" alt="">
+              </li>
+              <p>北京大华电子官方旗舰店</p>
+            </router-link>
+          </ul>
+        </div>
+      </div>
+      <div class="provider">
+        <h1>仪商通VIP品牌供应商推荐<router-link to="">更多>></router-link></h1>
+        <div class="provider-List">
+          <ul>
+            <router-link to="" v-for="ar in Arr" :key="ar.id">
+              <li>
+                <img src="../../assets/imges/sp_5.jpg" alt="">
+              </li>
+              <p>北京大华电子官方旗舰店</p>
+            </router-link>
+          </ul>
+        </div>
+      </div>
+      <div class="recommend-products">
+        <h1>推荐产品<router-link to="">更多>></router-link></h1>
+        <div class="rp-List">
+          <ul>
+            <router-link to="" v-for="ar in Arr" :key="ar.id">
+              <li>
+                <img src="../../assets/imges/sp_5.jpg" alt="">
+              </li>
+              <p><span class="price">￥159.00</span><span class="name">ITECH/艾德克斯 可编程电子负载 IT8512</span></p>
+            </router-link>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,7 +89,8 @@
         swiperClose: false,
         picId9: '',
         picId400: '',
-        picId302: ''
+        picId302: '',
+        Arr:[0,1,2,3,4,5,6,7,8,9]
       }
     },
     methods: {
@@ -138,7 +179,7 @@
   @import '../../style/common';
 
   .FlagshipStore {
-    min-height: 1000px;
+    min-height: 1830px;
     width: 100%;
     margin: 0 auto;
   }
@@ -351,7 +392,165 @@
       }
     }
   }
-
+  .supplier{
+    margin-top: 10px;
+    overflow: hidden;
+    h1{
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      border-bottom:5px solid #ccc;
+      margin-bottom: 10px;
+      a{
+        float: right;
+        color:#222;
+      }
+      a:hover{
+        color:#e94c15;
+        text-decoration: underline;
+      }
+    }
+    .supplier-List{
+      a{
+        width: 234px;
+        height: 150px;
+        float: left;
+        margin: 0 10px 10px 0px;
+        border:1px solid #ccc;
+        box-shadow: 0 1px 6px #999;
+        li{
+          width: 180px;
+          height: 55px;
+          margin: 0 auto;
+          margin-top: 40px;
+          img{
+            width: 100%;
+            height: 100%;            
+          }
+        }
+        p{
+          color:#222;
+          margin-top: 20px;
+          width: 180px;
+          margin: 10px auto 0 auto;
+          text-align: center;
+        }
+      }
+    }
+    .supplier-List a:nth-child(5n+5){
+      margin: 0 0 10px 0;
+    }
+  }
+  .provider{
+    overflow: hidden;
+    margin-top: 15px;
+    h1{
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      border-bottom:5px solid #ccc;
+      margin-bottom: 10px;
+      a{
+        float: right;
+        color:#222;
+      }
+      a:hover{
+        color:#e94c15;
+        text-decoration: underline;
+      }
+    }
+    .provider-List{
+      a{
+        width: 234px;
+        height: 150px;
+        float: left;
+        margin: 0 10px 10px 0px;
+        border:1px solid #ccc;
+        box-shadow: 0 1px 6px #999;
+        li{
+          width: 180px;
+          height: 55px;
+          margin: 0 auto;
+          margin-top: 40px;
+          img{
+            width: 100%;
+            height: 100%;            
+          }
+        }
+        p{
+          color:#222;
+          margin-top: 20px;
+          width: 180px;
+          margin: 10px auto 0 auto;
+          text-align: center;
+        }
+      }
+    }
+    .provider-List a:nth-child(5n+5){
+      margin: 0 0 10px 0;
+    }
+  }
+  .recommend-products{
+    margin-top: 15px;
+    h1{
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      border-bottom:5px solid #ccc;
+      margin-bottom: 10px;
+      a{
+        float: right;
+        color:#222;
+      }
+      a:hover{
+        color:#e94c15;
+        text-decoration: underline;
+      }
+    }
+    .rp-List{
+      a{
+        width: 234px;
+        height: 150px;
+        float: left;
+        margin: 0 10px 10px 0px;
+        border:1px solid #ccc;
+        box-shadow: 0 1px 6px #999;
+        background: #f5f5f5;
+        li{
+          width: 130px;
+          height: 100px;
+          margin: 0 auto;
+          margin-top: 10px;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        p{
+          margin-top: 10px;
+          color:#222;
+          text-align: center;
+          .price{
+            color:#FF0036;
+            float: left;
+            margin-left: 40px;
+          }
+          .name{
+            display:block;
+            width: 100px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            float: left;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+    .rp-List a:nth-child(5n+5){
+      margin: 0 0 10px 0;
+    }
+  }
 </style>
 <style lang="scss">
   #ELB:hover {
