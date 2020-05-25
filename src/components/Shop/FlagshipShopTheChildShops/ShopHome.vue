@@ -28,7 +28,7 @@
 
         </div>
       </div>
-      <div class="shop-foot">
+      <!-- <div class="shop-foot">
         <div class="manufacturer">
           <div class="mauf-tit">
             <h1>厂商在线</h1>
@@ -47,7 +47,7 @@
 
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

@@ -35,6 +35,15 @@
         <li>
           <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
         </li>
+        <li>
+          <router-link to=''><i class="el-icon-s-promotion"></i> 供求与招标</router-link>
+        </li>
+        <li>
+          <router-link to=''><i class="el-icon-phone"></i> 行业资讯</router-link>
+        </li>
+        <li>
+           <router-link to=''><i class="el-icon-s-custom"></i> 专家交流</router-link>
+        </li>
       </ul>
     </div>
   </div>

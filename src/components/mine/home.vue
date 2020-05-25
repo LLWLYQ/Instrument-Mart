@@ -38,8 +38,9 @@
             <!-- ShopHome -->
             <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
           </li>
-          <!-- <li><i class="el-icon-s-promotion"></i> 供求信息</li>
-          <li><i class="el-icon-s-custom"></i> 专家交流</li> -->
+          <li><i class="el-icon-s-promotion"></i> 供求与招标</li>
+          <li><i class="el-icon-phone"></i> 行业资讯</li>
+          <li><i class="el-icon-s-custom"></i> 专家交流</li>
         </ul>
       </div>
     </div>
@@ -49,6 +50,7 @@
           <div class="B_l_list">
             <ul class="cat_ul">
               <li v-for="cat in Category" :key="cat.id" class="cat" @mouseover="catMouseover(cat.cc)">{{cat.cate_name}}
+                <!-- <p class=""><span>华为</span><span>苹果</span></p> -->
               </li>
               <div class="catList" v-if="catlUL">
                 <ul @mouseleave="catMouseleave()">
@@ -143,10 +145,18 @@
         <ul>
           <!-- position_id (400,302 ) -->
           <li v-for="pd in picId400" :key="pd.id">
-            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+            <router-link to="/">
+              <img :src="baseUrl + pd.get_files.files_path" alt="">
+            </router-link>
           </li>
           <li v-for="pd in picId302" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
           </li>
         </ul>
       </div>
@@ -156,8 +166,9 @@
       <div class="List">
         <ul v-for="List in data_list" :key="List.id" class="List_ul">
           <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
-          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank"
-            tag="a">
+          <router-link
+            :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id,CateName:List.cate_name}}"
+            target="_blank" tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
@@ -169,11 +180,17 @@
       <div class="advList">
         <ul>
           <!-- position_id (300,303) -->
-          <li v-for="pd in picId300" :key="pd.id">
+          <!-- <li v-for="pd in picId300" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
           <li v-for="pd in picId303" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li> -->
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
           </li>
         </ul>
       </div>
@@ -521,7 +538,7 @@
           method: "get",
         }).then(res => {
           this.data_list = res.data.data.items
-          // console.log(this.data_list)
+          console.log(this.data_list)
         });
       },
       M_L() {
@@ -574,7 +591,6 @@
 </script>
 //局部样式
 
-dz
 <style lang="scss" scoped>
   @import "../../style/base";
 
@@ -599,7 +615,6 @@ dz
         color: #fff;
         font-size: 22px;
         margin-top: 5px;
-
       }
     }
   }
@@ -734,8 +749,16 @@ dz
       li {
         width: 610px;
         height: 100px;
-        background: pink;
         float: left;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 6px #999;
+
+        p {
+          height: 100px;
+          line-height: 100px;
+          text-align: center;
+          font-size: 20px;
+        }
 
         img {
           width: 100%;
@@ -926,7 +949,7 @@ dz
 
     .com_ul {
       height: 20px;
-      width: 600px;
+      width: 800px;
       float: left;
       margin-left: 20px;
       margin-top: 15px;
@@ -1034,11 +1057,21 @@ dz
             padding-left: 14px;
             width: 200px;
             position: relative;
-            height: 32px;
-            line-height: 32px;
+            height: 30px;
+            line-height: 30px;
             color: #fff;
             font-size: 14px;
             cursor: pointer;
+
+            p {
+              height: 30px;
+              line-height: 30px;
+              color: #fff;
+
+              span {
+                color: #fff;
+              }
+            }
           }
 
           li:hover {
@@ -1294,7 +1327,6 @@ dz
   }
 
   .List_ul:nth-child(5n+5) {
-
     margin-right: 0;
   }
 
@@ -1302,7 +1334,7 @@ dz
     position: fixed;
     bottom: 300px;
     left: 50%;
-    margin-left: -700px;
+    margin-left: -710px;
     z-index: 9999;
     width: 35px;
     text-align: center;

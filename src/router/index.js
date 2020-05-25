@@ -51,6 +51,7 @@ import Integral from '@/components/accountCenter/Order/Integral'  //我的积分
 //Mouqiuxingbudaikouzhaotiqiuzaodaocanpangeigongpaizhid
 import comments from '@/components/goods/Detail/Comments/comments'
 import ProductCategoryListPage from '@/components/goods/Detail/PCLP/ProductCategoryListPage'
+import todoList from '@/components/goods/Detail/PCLP/todoList'
 import storelist from '@/components/goods/Detail/StoreList/storelist'
 
 //公告
@@ -114,7 +115,7 @@ export default new Router({
       name: 'FlagshipStore',
       component: FlagshipStore,
       meta:{
-        title:"4S旗舰店首页",
+        title:"仪商城",
         keepAlive: true
       }
     },
@@ -156,7 +157,7 @@ export default new Router({
       name: 'register',
       component: register,
       meta:{
-        title:'登录页'
+        title:'仪商城'
       }
     },
     {
@@ -179,7 +180,7 @@ export default new Router({
       name: 'Detail',
       component: Detail,
       meta:{
-        title:'详情页',
+        title:'仪商城',
         keepAlive: true
       }
     },
@@ -188,7 +189,7 @@ export default new Router({
       name: 'comments',
       component: comments,
       meta:{
-        title:'评价',
+        title:'仪商城',
         keepAlive: true
       }
     },
@@ -196,8 +197,19 @@ export default new Router({
       path: '/ProductCategoryListPage',
       name: 'ProductCategoryListPage',
       component: ProductCategoryListPage,
+      children:[
+        {
+          path:'/todoList',
+          name: 'todoList',
+          component: todoList,
+          meta: {
+            // keepAlive: true,
+            // requiresAuth: true
+          }
+        },
+      ],
       meta:{
-        title:'产品分类列表',
+        title:'仪商城',
         keepAlive: true
       }
     },
@@ -206,7 +218,7 @@ export default new Router({
       name: 'storelist',
       component: storelist,
       meta:{
-        title:'店铺列表',
+        title:'仪商城',
         keepAlive: true
       }
     },
@@ -215,7 +227,7 @@ export default new Router({
       name: 'Center',
       component: Center,
       meta: {
-        title:'个人中心',
+        title:'仪商城',
         keepAlive: true
       },
       children:[
@@ -307,7 +319,7 @@ export default new Router({
           meta:{
             keepAlive: true,
             requiresAuth: true,
-            title:'评价管理'
+            title:'仪商城'
           }
         },
         {
@@ -336,7 +348,7 @@ export default new Router({
       name:'OrderForm',
       component:OrderForm,
       meta:{
-        title:'订单页',
+        title:'仪商城',
         keepAlive: true
       }
     },
@@ -368,7 +380,7 @@ export default new Router({
       name:'MemberRegistration',
       component:MemberRegistration,
       meta:{
-        title:'注册'
+        title:'仪商城'
       }
     },
     {
@@ -376,7 +388,7 @@ export default new Router({
       name:'cart',
       component:cart,
       meta:{
-        title:'购物车',
+        title:'仪商城',
         keepAlive: true
       }
     },
@@ -385,7 +397,7 @@ export default new Router({
       name:'ApplicationIn',
       component:ApplicationIn,
       meta:{
-        title:'申请入驻'
+        title:'仪商城'
       }
     },
     {
@@ -393,7 +405,7 @@ export default new Router({
       name:'application_approved',
       component:application_approved,
       meta:{
-        title:'申请入驻成功'
+        title:'仪商城'
       }
     },
     {
@@ -401,7 +413,7 @@ export default new Router({
       name:'Alternate',
       component:Alternate,
       meta:{
-        title:'支付页面'
+        title:'仪商城'
       }
     },
     {

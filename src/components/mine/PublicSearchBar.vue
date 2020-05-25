@@ -25,8 +25,9 @@
         <li>
           <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
         </li>
-        <!-- <li><i class="el-icon-s-promotion"></i> 供求信息</li>
-          <li><i class="el-icon-s-custom"></i> 专家交流</li> -->
+        <li><i class="el-icon-s-promotion"></i> 供求与招标</li>
+        <li><i class="el-icon-phone"></i> 行业资讯</li>
+        <li><i class="el-icon-s-custom"></i> 专家交流</li>
       </ul>
     </div>
     <div class="B_c" @mouseover="swiperover()" @mouseleave="swiperleave()">
@@ -107,7 +108,7 @@
         swiperClose: false,
         picId9: '',
         picId400: '',
-        picId302: ''
+        picId302: '',
       }
     },
     methods: {
@@ -309,7 +310,7 @@
 
     .com_ul {
       height: 20px;
-      width: 600px;
+      width: 800px;
       float: left;
       margin-left: 20px;
       margin-top: 15px;

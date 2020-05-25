@@ -53,18 +53,18 @@ export default {
         path:'/SupplyProducts',
         title:'供应产品'
       },
-      {
-        path:'/vendor',
-        title:'厂商在线'
-      },
-      {
-        path:'/ProductApplication',
-        title:'产品应用'
-      },
-      {
-        path:'/CreditFile',
-        title:'诚信档案'
-      },
+      // {
+      //   path:'/vendor',
+      //   title:'厂商在线'
+      // },
+      // {
+      //   path:'/ProductApplication',
+      //   title:'产品应用'
+      // },
+      // {
+      //   path:'/CreditFile',
+      //   title:'诚信档案'
+      // },
       {
         path:'/ContactShop',
         title:'联系店铺'

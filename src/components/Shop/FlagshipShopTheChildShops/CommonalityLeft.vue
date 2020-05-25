@@ -16,14 +16,14 @@
 
       </div>
     </div>
-    <div class="shop-record">
+    <!-- <div class="shop-record">
       <div class="shop-left-header">
         <h1>诚信档案</h1>
       </div>
       <div class="shop-left-body">
 
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
