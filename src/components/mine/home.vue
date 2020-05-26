@@ -17,7 +17,7 @@
           <HomeSerach></HomeSerach>
         </div>
         <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
-          <p><i class="el-icon-shopping-cart-2"><span>2</span></i><span>我的购物车</span></p>
+          <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>2</span></i><span>我的购物车</span></p></router-link>
           <transition name="overcat">
             <div class="overBox" v-show="Scboxshow">
               <overallCart></overallCart>
@@ -538,7 +538,7 @@
           method: "get",
         }).then(res => {
           this.data_list = res.data.data.items
-          console.log(this.data_list)
+          // console.log(this.data_list)
         });
       },
       M_L() {

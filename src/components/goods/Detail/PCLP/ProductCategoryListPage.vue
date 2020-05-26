@@ -4,7 +4,6 @@
       <div class="top">
         <div class="top_img">
           <img src="../../../../assets/imges/logo.png" alt="">
-          <!-- <h1>购物车</h1> -->
           <div class="Search_Goods">
             <HomeSerach></HomeSerach>
           </div>
@@ -20,37 +19,44 @@
           <a @click="salesUp()" ref="sau">销量<i class="el-icon-top"></i></a>
           <a @click="priceDown()" ref="prd">价格<i class="el-icon-bottom"></i></a>
           <a @click="priceUp()" ref="pru">价格<i class="el-icon-top"></i></a>
-          <div class="sorter">
+          <div class="sorter" style="float:right;">
             <!-- 60个产品为一页 -->
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-              :current-page="currentPage" :page-sizes="[5]" 
-              :page-size="pagesize"  
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="ListData.length"> //这是显示总共有多少数据，
+              :current-page="currentPage" :page-sizes="[30]" :page-size="pagesize"
+              layout="total, sizes, prev, next, jumper" :total="ListData.length">
             </el-pagination>
           </div>
         </div>
         <div class="List">
-          <!-- <ul>
-            <li v-for="LD in ListData" :key="LD.id">
-              <div class="LD-img">
-                <router-link :to="{name:'Detail',query:{listId:LD.goods_id}}" target="_blank" tag="a">
-                  <img :src="baseUrl + LD.files_path" alt="">
-                </router-link>
-              </div>
-              <p class="list-price"><b>￥</b><span>{{LD.sales_price/100}}</span></p>
-              <p class="list-title">
-                <router-link :to="{name:'Detail',query:{listId:LD.goods_id}}" target="_blank" tag="a">{{LD.goods_name}}
-                </router-link>
-              </p>
-            </li>
-          </ul> -->
-          <todoList :todos="ListData" >
-            <template slot-scope="slotProps"  :data="slotProps.todo.slice((currentPage-1)*pagesize,currentPage*pagesize)">
-              <!-- <span v-if="slotProps.todos.goods_name"></span> -->
-              <span>{{slotProps.todo.goods_name}}</span>
-            </template>
-          </todoList>
+          <el-table :data="ListData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%;">
+            <el-table-column>
+              <template slot-scope="scope" style="width:230px;float:left;">
+                <ul>
+                  <li>
+                    <div class="LD-img">
+                      <router-link :to="{name:'Detail',query:{listId:scope.row.goods_id}}" target="_blank" tag="a">
+                        <img :src="baseUrl + scope.row.files_path" alt="">
+                      </router-link>
+                    </div>
+                    <p class="list-price"><b>￥</b><span>{{scope.row.sales_price/100}}</span></p>
+                    <p class="list-title">
+                      <router-link :to="{name:'Detail',query:{listId:scope.row.goods_id}}" target="_blank" tag="a">
+                        {{scope.row.goods_name}}
+                      </router-link>
+                    </p>
+                    <p class="list-shop">
+                      <router-link to="" target="_blank" tag="a">
+                        {{scope.row.get_shop.shop_name}}
+                      </router-link>
+                    </p>
+                    <p class="car">
+                      <span><i class="el-icon-goods"></i>加入购物车</span>
+                    </p>
+                  </li>
+                </ul>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
@@ -70,21 +76,21 @@
         baseUrl: config.baseUrl,
         total: '0',
         // currentPage: 0,
-        currentPage:1, //初始页
-        pagesize:5,    //    每页的数据
+        currentPage: 1, //初始页
+        pagesize: 30, //    每页的数据
         // tableData: []
       }
     },
     methods: {
       // 初始页currentPage、初始每页数据数pagesize和数据data
-        handleSizeChange(size) {
-                this.pagesize = size;
-                // console.log(this.pagesize)  //每页下拉显示数据
-        },
-        handleCurrentChange(currentPage){
-                this.currentPage = currentPage;
-                // console.log(this.currentPage)  //点击第几页
-        },
+      handleSizeChange: function (size) {
+        this.pagesize = size;
+        // console.log(this.pagesize)  //每页下拉显示数据
+      },
+      handleCurrentChange: function (currentPage) {
+        this.currentPage = currentPage;
+        // console.log(this.currentPage)  //点击第几页
+      },
       Synthesize() {
         this.$ajax({
           url: config.baseUrl + '/home/goods',
@@ -94,7 +100,6 @@
           }
         }).then(res => {
           this.ListData = res.data.data.items
-          // console.log(this.ListData)
         })
         this.$refs.Syn.style.background = '#F1EDEC'
         this.$refs.Syn.style.color = '#ff0036'
@@ -203,7 +208,6 @@
     },
     created() {
       let self = this
-      // console.log(this.CateName)
       this.$ajax({
         url: config.baseUrl + '/home/goods',
         method: 'get',
@@ -215,13 +219,6 @@
         console.log(self.ListData)
       })
     },
-    // watch: {
-    //   ListData (val, oldVal) {
-    //     if (val !== oldVal) {
-    //       // console.log(logding)
-    //     }
-    //   }
-    // }
   }
 
 </script>
@@ -298,25 +295,23 @@
     }
 
     .List {
-      padding-left: 5px;
-      width: 1210px;
-
+      // padding-left: 5px;
+      width: 1190px;
       ul {
         li {
-          margin: 0 20px 20px 0;
+          margin: 10px 10px 10px 10px;
           width: 220px;
           padding: 7px 7px 0 7px;
-          height: 350px;
-          border: 1px solid #f5f5f5;
+          height: 370px;
           float: left;
-
+          border: 1px solid #f5f5f5;
+          // box-shadow: 0 1px 6px #999;
           a {
             margin: auto;
             display: block;
-
             img {
-              width: 100%;
-              height: 100%;
+              width: 206px;
+              height: 210px;
             }
           }
 
@@ -346,11 +341,15 @@
           }
 
           .list-title {
+            height: 40px;
+            line-height: 20px;
             display: block;
             margin-bottom: 3px;
             font-size: 12px;
             position: relative;
-
+            overflow: hidden;  
+            text-overflow: ellipsis;  
+            white-space: nowrap; 
             a {
               margin-left: 8px;
               color: #666;
@@ -363,6 +362,44 @@
           .list-title a:hover {
             text-decoration: underline;
             color: #ff0036;
+          }
+
+          .list-shop {
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            margin-top: 10px;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 12px;
+            position: relative;
+            a {
+              margin-left: 8px;
+              color: #999;
+              font-family: \5FAE\8F6F\96C5\9ED1;
+              line-height: 14px;
+              cursor: pointer;
+              font-size: 12px;
+            }
+          }
+
+          .list-shop a:hover {
+            text-decoration: underline;
+            color: #ff0036;
+          }
+
+          .car{
+            margin: 10px 0 0 5px;
+            span{
+              cursor: pointer;
+              i{
+                font-size: 25px;
+                margin-right: 5px;
+              }
+            }
+            span:hover{
+              color:#ff0036;
+            }
           }
         }
 
@@ -388,4 +425,33 @@
     color: #fff;
   }
 
+  .el-table__row {
+    float: left;
+    padding: 0;
+    width: 238px;
+    
+  }
+
+  .el-table .cell {
+    padding: 0;
+  }
+
+  .el-table td {
+    border: none;
+    padding: 0;
+  }
+
+  .el-table th {
+    padding: 0;
+  }
+
+  // .el-table__header {
+  //   display: none;
+  // }
+  .el-table__body-wrapper .el-table__row{
+    border:none;
+  }
+  .el-table__body-wrapper, .el-table__body-wrapper .el-table__row{
+    border:none;
+  }
 </style>

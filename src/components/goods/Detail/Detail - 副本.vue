@@ -27,7 +27,7 @@
           </ul>
         </div>
         <div class="collect">
-          <p @click="collect()"><i class="el-icon-star-on"></i>收藏商品</p>
+          <p @click="collect()"><i class="el-icon-star-on" style="color:#FFD700;font-size:20px;"></i>收藏商品</p>
         </div>
         <div class="collect_succ" v-if="Collect">
           <h1><i class="el-icon-success"></i><span>成功加入收藏夹</span><i class="el-icon-error right" @click="close()"></i>
@@ -59,7 +59,7 @@
           <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" :goods_quantity="Infos.quantity"></quantity>
           <!-- 商品规格 -->
           <div class="select" style="color:#000;" ref="sele">
-            <!-- <el-form ref="form" :model="Go" label-width="40px" v-for="Go in goods_option" :key="Go.id">
+            <el-form ref="form" :model="Go" label-width="40px" v-for="Go in goods_option" :key="Go.id">
               <el-form-item :label="Go.name">
                 <el-radio-group v-model="Go.cf" v-for="(go,index) in Go.goods_option_value" :key="index"
                   @change="aa(go)">
@@ -67,20 +67,6 @@
                     {{go.name}}
                   </el-radio-button>
                 </el-radio-group>
-              </el-form-item>
-            </el-form> -->
-            <el-form ref="form" :model="ruleForm" label-width="40px">
-              <el-form-item :label="option.name" v-for="(option, indexp) in goods_option" :key="indexp" >
-
-                <el-radio-group v-model="option.goods_option_value.goods_option_value_id" v-for="(go,indexf) in option.goods_option_value" :key="indexf"  @change="selectT(indexp, indexf)" >
-                  <el-radio-button :label="go.goods_option_value_id" v-if="go.quantity==0"  disabled >
-                    {{go.name}}
-                  </el-radio-button>
-                  <el-radio-button :label="go.goods_option_value_id" v-if="go.quantity">
-                    {{go.name}}
-                  </el-radio-button>
-                </el-radio-group>
-
               </el-form-item>
             </el-form>
           </div>
@@ -176,8 +162,8 @@
                   <div style="clear:both"></div>
                 </div>
                 <div class="anonymity">
-                  <el-radio v-model="anonymity" label="0">匿名</el-radio>
-                  <el-radio v-model="anonymity" label="1">不匿名</el-radio>
+                  <el-radio v-model="anonymity" label="0"><span>匿名</span></el-radio>
+                  <el-radio v-model="anonymity" label="1"><span>不匿名</span></el-radio>
                   <!-- <p>woxiangzheyidingshigewanmeideaiqingba</p> -->
                 </div>
                 <div class="submit">
@@ -219,6 +205,7 @@
         </div>
       </div>
     </div>
+    
   </div>  
 </template>
 <script>
@@ -239,10 +226,7 @@
         detailID: this.$route.query.listId,
         tebImg: '',
         iscur: 0,
-        Infos:{
-          market_price:0,
-          sale_price:0,
-        },
+        Infos: '',
         sizeTable: '',
         attributesList: '',
         brandId: '',
@@ -268,12 +252,8 @@
         OrderList:[],
         totalMoney:'',
         giao:'',
-        imgurl:'',
-        // Unanonymity:'1',
-        sel: [],
-        id:[],
-        indexfs:[],
-        ruleForm:{}
+        imgurl:''
+        // Unanonymity:'1'
       }
     },
     computed: mapGetters([
@@ -281,6 +261,7 @@
     ]),
     methods: {
       BuyNow(){
+        if (this.UserId) {
         if(this.option == ''){
           this.$refs.sele.style.border = '1px solid #FF0036'
         }else{
@@ -305,6 +286,10 @@
           })
           window.open(routeData.href, '_blank');
         }
+        }else{
+          this.LF = true
+          
+        } 
       },
       //商品咨询添加
       submit() {
@@ -369,58 +354,6 @@
       close() {
         this.Collect = false
       },
-      selectT(index,indexf) {
-
-          this.sel[index] = indexf; //让数组sel的第index+1的元素的值等于ind
-          this.sel = this.sel.concat([]); //因为数组是引用类型，对其中一个变量直接赋值不会影响到另一个变量（并未操作引用的对象），使用concat（操作了应用对象）
-          this.id[index] = this.goods_option[index].goods_option_value[indexf].goods_option_value_id; //获取选中的id
-          //console.log(this.id);
-
-
-         this.option =this.id
-         this.OrderList = [{
-          // goods_option_value: 
-          count:this.num,
-          id:this.giao ,
-          img:this.Infos.goods_img_path,
-          member_id:localStorage.getItem('userId'),
-          option: this.option,
-          price: this.Infos.sales_price,
-          productName:this.Infos.goods_name,
-          shop:this.Infos.get_shop.shop_id
-        }]
-
-
-        this.$ajax({
-        url: config.baseUrl + '/home/goods/optionPrice',
-        method: 'post',
-        data: {
-          goods_option_value_id: this.id
-        }
-        }).then(res => {
-          if (res.data.code == 20000) {
-            // this.$refs.aaimg.style.display = 'block'
-          }
-
-          // res.data.data.map(item => {
-          //   this.Infos.market_price=item.data.last_sales_price
-          //   this.aaImg = item.imageUrl
-          // })
-
-          //console.log(res.data.data.last_sales_price)
-
-          if(res.data.data.last_image_url!=null){
-
-              this.imgurl = res.data.data.last_image_url
-          }
-
-          this.Infos.market_price = res.data.data.last_sales_price
-          this.Infos.quantity = res.data.data.quantity
-
-          
-
-        })
-      },
       collect() {
         this.$ajax({
           url: config.baseUrl + '/home/collect',
@@ -472,14 +405,10 @@
             // this.$refs.aaimg.style.display = 'block'
           }
 
-          // res.data.data.map(item => {
-          //   this.Infos.market_price = item.sales_price
-          //   this.aaImg = item.imageUrl
-          // })
-
-          console.log(res.data)
-
-          //this.Infos.market_price = res.data.data.sales_price
+          res.data.data.map(item => {
+            this.Infos.market_price = item.sales_price
+            this.aaImg = item.imageUrl
+          })
 
         })
       },
@@ -499,7 +428,6 @@
               method: 'post',
               data: {
                 goods_id: this.Infos.goods_id,
-                shop_id:this.Infos.get_shop.shop_id,
                 member_id: localStorage.getItem('userId'),
                 option: this.option,
                 quantity: this.num
@@ -513,7 +441,6 @@
                   message: '商品已成功加入购物侧，欢迎选购其他商品',
                   type: 'success',
                   customClass: 'Notification',
-                  // customCalss:'wokanzhenishenhundiandao'
                 });
               }
             })
@@ -577,13 +504,6 @@
         this.giao = res.data.data.id
         this.title = this.Infos.goods_name
         this.goods_option = this.Infos.goods_option
-
-        this.$nextTick(function () {
-          //console.log(this.$el.textContent) // => '已更新'
-
-          console.log(this.$set.go)
-        })
-
         this.brandId = this.Infos.goods_id
         this.tebImg = res.data.data.result.piclist
         // this.tabChange()

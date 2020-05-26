@@ -37,7 +37,9 @@
                 <el-input type="password" v-model="ruleForm1.checkPass" auto-complete="off" placeholder="确认密码"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm1')" style="width:100%;background:#e94c15;border-color:#e94c15;height:40px;">注册</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm1')" style="width:100%;background:#e94c15;border-color:#e94c15;height:40px;" v-if="checked == true">注册</el-button>
+                <el-button type="primary" style="width:100%;background:#999;border-color:#e94c15;height:40px;" v-if="checked == false">注册</el-button>
+                <p class="protocol"><el-checkbox v-model="checked"></el-checkbox><span>请您务必审慎阅读、充分理解协议中相关条款内容</span></p>
                 <p class="login" @click="gotoLogin">已有账号？立即登录</p>
               </el-form-item>
             </el-form>
@@ -59,7 +61,7 @@
               </el-form-item>
               <el-form-item prop="smscode" class="code" >
                 <el-input v-model="ruleForm2.smscode" placeholder="验证码" style="float:left;width:180px;"></el-input>
-                <el-button type="primary" :disabled='isDisabled' @click="En_sendCode" style="background:#e94c15;border-color:#e94c15;height:40px;float:left;">{{buttonText}}</el-button>
+                <el-button type="primary" :disabled='isDisabled' @click="En_sendCode" style="background:#e94c15;border-color:#e94c15;height:40px;float:left;">{{buttonText1}}</el-button>
               </el-form-item>
               <el-form-item prop="pass">
                 <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="输入密码"></el-input>
@@ -73,8 +75,13 @@
               <el-form-item prop="company_contacts">
                 <el-input v-model="ruleForm2.company_contacts" auto-complete="off" placeholder="请输入企业联系人"></el-input>
               </el-form-item>
+              <el-form-item prop="industry">
+                <el-input v-model="ruleForm2.industry" auto-complete="off" placeholder="请输入所在行业"></el-input>
+              </el-form-item>
                <el-form-item>
-                <el-button type="primary" @click="submitForm1('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;height:40px;">注册</el-button>
+                <el-button type="primary" @click="submitForm1('ruleForm2')" style="width:100%;background:#e94c15;border-color:#e94c15;height:40px;" v-if="checked == true">注册</el-button>
+                <el-button type="primary" style="width:100%;background:#999;border-color:#e94c15;height:40px;" v-if="checked == false">注册</el-button>
+                <p class="protocol"><el-checkbox v-model="checked"></el-checkbox><span>请您务必审慎阅读、充分理解协议中相关条款内容</span></p>
                 <p class="login" @click="gotoLogin">已有账号？立即登录</p>
               </el-form-item>
             </el-form>
@@ -144,25 +151,50 @@ export default {
         callback()
       }
     }
+    let checkindustry = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入所在行业'))
+      }else {
+        callback()
+      }
+    }
     // <!--验证密码-->
     let validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"))
       } else {
-        if (this.ruleForm1.checkPass !== "") {
-          this.$refs.ruleForm1.validateField("checkPass");
+      //   if (this.ruleForm1.checkPass !== "") {
+      //     this.$refs.ruleForm1.validateField("checkPass");
+      //   }
+      //   callback()
+      // }
+      var reg = /^[a-zA-Z0-9]*(([a-zA-Z]+[0-9]+)|([0-9]+[a-zA-Z]+))[a-zA-Z0-9]*$/;
+        if (value) {
+          if (!reg.test(value)) {
+            return callback(new Error("密码必须由数字和字母组合成"));
+          } else {
+            callback();
+          }
         }
-        callback()
       }
     };
       let validatePass1 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"))
       } else {
-        if (this.ruleForm2.checkPass !== "") {
-          this.$refs.ruleForm2.validateField("checkPass");
+      //   if (this.ruleForm2.checkPass !== "") {
+      //     this.$refs.ruleForm2.validateField("checkPass");
+      //   }
+      //   callback()
+      // }
+        var reg = /^[a-zA-Z0-9]*(([a-zA-Z]+[0-9]+)|([0-9]+[a-zA-Z]+))[a-zA-Z0-9]*$/;
+        if (value) {
+          if (!reg.test(value)) {
+            return callback(new Error("密码必须由数字和字母组合成"));
+          } else {
+            callback();
+          }
         }
-        callback()
       }
     }
     // <!--二次验证密码-->
@@ -186,6 +218,7 @@ export default {
     };
     return {
       telCode:'',
+      checked: false,
       activeName: 'second',
       Vcerror:false,
        ruleForm1: {
@@ -202,11 +235,13 @@ export default {
         tel: "",
         smscode: "",
         company_name:"",
-        company_contacts:""
+        company_contacts:"",
+        industry:''
+
       },
       rules1: {
         name:[{ validator: checkname, trigger: 'change' }],
-        pass: [{ validator: validatePass, trigger: 'change' }],
+        pass: [{ validator: validatePass, trigger: 'change' },{ min: 8, message: "密码长度不小于8个字符", trigger: "change" }],
         checkPass: [{ validator: validatePass2, trigger: 'change' }],
         tel: [{ validator: checkTel, trigger: 'change' }],
         smscode: [{ validator: checkSmscode, trigger: 'change' }],
@@ -219,8 +254,10 @@ export default {
         smscode: [{ validator: checkSmscode, trigger: 'change' }],
         company_name: [{ validator: checkcompany_name, trigger: 'change' }],
         company_contacts: [{ validator: checkcompany_contacts, trigger: 'change' }],
+        industry:[{ validator: checkindustry, trigger: 'change' }],
       },
       buttonText: '发送验证码',
+      buttonText1:'发送验证码',
       isDisabled: false, // 是否禁止点击发送验证码按钮
       flag: true
     }
@@ -263,16 +300,16 @@ export default {
       if (this.checkMobile(tel)) {
         // console.log(tel)
         let time = 60
-        this.buttonText = '已发送'
+        this.buttonText1 = '已发送'
         this.isDisabled = true
         if (this.flag) {
           this.flag = false;
           let timer = setInterval(() => {
             time--;
-            this.buttonText = time + ' 秒'
+            this.buttonText1 = time + ' 秒'
             if (time === 0) {
               clearInterval(timer);
-              this.buttonText = '重新获取'
+              this.buttonText1 = '重新获取'
               this.isDisabled = false
               this.flag = true;
             }
@@ -417,13 +454,15 @@ export default {
           password_two:this.ruleForm2.checkPass,
           code:this.ruleForm2.smscode,
           company_name:this.ruleForm2.company_name,
-          company_contacts:this.ruleForm2.company_contacts
+          company_contacts:this.ruleForm2.company_contacts,
+          // industry:this.ruleForm2.industry
+          
         }
       }).then(res=>{
         if(res.data.message == '验证码错误'){
           this.Vcerror = true
         }
-        if(this.ruleForm1.smscode == ''){
+        if(this.ruleForm2.smscode == ''){
           this.Vcerror = false
         }
         if(res.data.code == 20000){
@@ -512,10 +551,10 @@ export default {
   right: 250px; */
   background: #fff;
   padding: 20px 40px;
-  border-radius: 10px;
+  // border-radius: 10px;
   /* position: relative; */
   z-index: 9;
-  border:1px solid #222;
+  // border:1px solid #222;
 }
 .title {
   font-size: 26px;
@@ -533,16 +572,33 @@ export default {
 }
 .login {
   margin-top: 10px;
-  font-size: 14px;
+  // margin-left: -7px;
+  font-size: 12px;
   line-height: 22px;
   color: #ee7f57;
   cursor: pointer;
   text-align: left;
   text-indent: 8px;
-  width: 160px;
+  // width: 160px;
+  float: right;
 }
 .login:hover {
   color: #e94c15;
+}
+.protocol{
+  .el-checkbox{
+    float: left;
+  }
+  span{
+    margin-left: 5px;
+    display: block;
+    float: left;
+    color:#666;
+    cursor: pointer;
+  }
+  span:hover{
+    text-decoration: underline;
+  }
 }
 .code >>> .el-form-item__content {
   display: flex;
@@ -570,5 +626,10 @@ export default {
     position: absolute;
     top:30%;
     left: 40%;
+  }
+  .el-input__inner{
+    padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
   }
 </style>

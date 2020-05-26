@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/mine/home'
+import ceshisss from '@/components/mine/ceshisss'
 import Tcog from '@/components/mine/TCOG/Tcog'
 import FlagshipStore from '@/components/mine/4SFlagshipStore'
 import overallCart from '@/components/mine/overallCart'
@@ -99,6 +100,15 @@ export default new Router({
       meta:{
         title:"仪商城",
         keepAlive: true
+      }
+    },
+    {
+      path: '/ceshisss',
+      name: 'ceshisss',
+      component: ceshisss,
+      meta:{
+        // title:"仪商城",
+        // keepAlive: true
       }
     },
     {

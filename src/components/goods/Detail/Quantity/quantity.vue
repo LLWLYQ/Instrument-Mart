@@ -91,6 +91,8 @@ export default {
 <style lang="">
   .el-input__inner{
     padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
   }
   .el-input-number__decrease{
     width: 20px !important;

@@ -21,7 +21,7 @@
         </div>
         <div v-if="this.lists.length != 0" class="car_list">
           <ul class="first">
-            <li><input type="checkbox" v-model="AllChecked" @click="allCheck2(AllChecked)">全选</li>
+            <li><input type="checkbox" v-model="checkAll" @click="allCheck(checkAll)">全选</li>
             <li>商品信息</li>
             <li>商品属性</li>
             <li>单价</li>
@@ -29,43 +29,28 @@
             <li>金额</li>
             <li>操作</li>
           </ul>
-          <ul v-for="(item,index) in lists" :key="index" class="center_trTwo">
-            <!-- <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)"></li> -->
+          <ul v-for="(item,index) in lists" :key="index" class="center_tr">
+            <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)"></li>
+            <li><router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img"
+                  alt=""><span>{{item.productName}}</span></router-link></li>
             <li>
-              <p style="height: 30px;line-height: 30px;vertical-align: middle;">
-                <input type="checkbox" :value="item.id" v-model="item.cart_id" @click="currClick2(item,index)" style="float:left;">
-                <router-link :to="{name:'Detail',query:{listId:item.cart_id}}" target="_blank" tag="a" style="display:block;height:15px; line-height:15px;color:#000;float:left; margin-left:10px; ">
-                  店铺: <span style="color:#999;">{{item.shop_name}}</span>
-                </router-link>
-              </p>
-              <ul v-for="(item2,index2) in item.carts_list" :key="index2" class="list_cc" >
-                <li><input type="checkbox" :value="item.id" v-model="item2.goods_id" @click="currClick(item,index)"></li>
-                <li style="font-size:10px; font-weight:100; width:320px; margin-left:10px;">
-                  <img :src="baseUrl+item2.files_path" alt="" style="width:50px; height:50px; margin-right:10px; border:1px solid;">{{item2.goods_name}}</li>
-                <li style="width:240px; height:50px; margin-right:10px; text-align: center;" >
-                  <p  v-if="item2.goods_option_value"  v-for="Opt in item2.goods_option_value" :key="Opt.id">
-                    <span>{{Opt.option_name}}：{{Opt.name}} 价格:<strong style="color:red;">{{Opt.price_prefix}} {{Opt.price}}</strong>
-                    </span>
-                  </p>
-                  <p v-if="!item2.goods_option_value" style="color:#999;">
-                      <span>无</span>
-                  </p>
-                </li>
-                <li style="width:150px; height:50px; margin-right:10px;  text-align: center;line-height: 50px;" >￥{{(item2.last_price/100)}}</li>
-                <li style="width:90px; height:50px; margin-right:10px;  text-align: center;line-height: 50px; ">
-                    <el-input-number v-model="item2.quantity" :min="1" :max="99" size="small" @change="handelChange(item2)" ></el-input-number>
-                </li>
-                <li style="width:150px; height:50px; margin-right:10px;  text-align: center; line-height: 50px; " >￥{{(item2.last_price/100)*item2.quantity}}</li>
-                <li><span @click="removeGoods(item2,index2)">删除商品</span></li>
-              </ul>
+              <p v-for="Opt in item.option" :key="Opt.id"><span v-for="opt in Opt"
+                  :key="opt.id">{{opt.option_name}}：{{opt.name}}</span></p>
             </li>
+            <li>￥{{item.price/100}}</li>
+            <li>
+              <el-input-number v-model="item.count" :min="1" :max="99" @change="handelChange(item)"
+                style="width: 80px;"></el-input-number>
+            </li>
+            <li>￥{{(item.price*item.count)/100}}</li>
+            <li><span @click="removeGoods(item,index)">删除商品</span></li>
           </ul>
           <ul class="last_tr">
-            <li class="checked_block" v-if="goPay" @click="ToSettleAccounts()">结算</li>
-            <li class="checked_none" v-if="!goPay">结算</li>
+            <li class="checked_block" v-if="checked!=''" @click="ToSettleAccounts()">结算</li>
+            <li class="checked_none" v-if="checked && checked==''">结算</li>
             <li>
               <p class="tr_p1">合计：</p>
-              <p class="tr_p2">{{lastTaotalPrice/100}}</p>
+              <p class="tr_p2">{{totalMoney/100}}</p>
             </li>
             <!-- <li><p class="tr_p1">合计：</p><p class="tr_p2">{{totalMoney}}</p></li> -->
           </ul>
@@ -80,11 +65,8 @@
   export default {
     data() {
       return {
-        AllChecked:true,
         checked: [],
-        checkedList: [],
         totalPrice: [],
-        lastTaotalPrice:0,
         // TotalPrice:0,
         lists: [],
         changItem: '',
@@ -92,19 +74,8 @@
         baseUrl: config.baseUrl,
         checkedIndex: '',
         goodsNumber: '',
-        OrderList: [],
-        deleteStatus:false,
-        goPay:false
+        OrderList: []
       }
-    },
-    watch: {
-
-        deleteStatus(newValue, oldValue) {
-
-          if(newValue!=oldValue){
-            this.getList()
-          }
-        }
     },
     components: {
       HomeSerach,
@@ -127,8 +98,8 @@
             this.totalPrice = [];
             this.checked = this.lists.map(function (item) {
               item.checked = true;
-              // let total = item.price * item.count;
-              // _this.totalPrice.push(total);
+              let total = item.price * item.count;
+              _this.totalPrice.push(total);
               return item.id
             })
           } else {
@@ -147,90 +118,20 @@
       }
     },
     methods: {
-      //点击全选
-      allCheck2(AllChecked) {
-
-        this.lists.map((item, index) => {
-
-          if (AllChecked == false) {
-            item.cart_id=true
-          } else {
-            item.cart_id=false
-          }
-
-          item.carts_list.map((item, index)=>{
-
-            if (AllChecked == false) {
-              item.goods_id=true
-            } else {
-              item.goods_id=false
-            }
-
-          })
-
-        })
-
-        //计算价格
-        let total_prices=this.lists.map((itemOne,indexOne)=>{
-        
-
-            let total_pricesTwo=this.lists[indexOne].carts_list.map(itemTwo=>{
-
-              return itemTwo.last_price*itemTwo.quantity;
-              
-            })
-
-            return total_pricesTwo;
-
-        })
-
-        var newPrice=0;
-        for(let t in total_prices){
-
-             newPrice+=eval(total_prices[t].join("+"));
-
-        }
-
-        this.lastTaotalPrice=newPrice
-
-        if(AllChecked == true){
-            this.lastTaotalPrice=0;
-        }
-
-        this.goPay=true
-
-      },
       allCheck(checkAll) {
-
-        //console.log(checkAll)
         var checkAllitem = {}
         this.OrderList = []
         this.lists.map((item, index) => {
-
+          // console.log(item)
+          checkAllitem = {}
+          checkAllitem = item
           if (checkAll == false) {
-            item.cart_id=false
+            this.OrderList.push(checkAllitem)
           } else {
-            item.cart_id=true
+            this.OrderList.splice(checkAllitem)
           }
-
-          item.carts_list.map((item, index)=>{
-
-            if (checkAll == false) {
-              item.goods_id=false
-            } else {
-              item.goods_id=true
-            }
-
-          })
-
-          // checkAllitem = {}
-          // checkAllitem = item
-          // if (checkAll == false) {
-          //   this.OrderList.push(checkAllitem)
-          // } else {
-          //   this.OrderList.splice(checkAllitem)
-          // }
         })
+        console.log(this.OrderList)
       },
       ToSettleAccounts() {
         let routeData = this.$router.resolve({
@@ -243,142 +144,126 @@
         window.open(routeData.href, '_blank');
       },
       removeGoods(item, index) {
-
-        
         // console.log(this.lists)
         this.$confirm('主人你真的不要我了么,真的真的么?', '', {
           cancelButtonText: '取消',
           confirmButtonText: '确定',
           center: true
         }).then(() => {
-
           this.$ajax({
             url: config.baseUrl + '/home/cart/del',
             method: 'post',
             data: {
               cart_id: item.cart_id,
-              goods_id: item.goods_id
+              goods_id: item.id
             }
           }).then(res => {
-
-            if(res.data.code==20000){
-
-                this.$message({
-                  message: '删除成功',
-                  type: 'success'
-                })
-
-                this.deleteStatus=true
-            
-            }else{
-
-              this.deleteStatus=false
-
-            }
-
-            // this.lists.splice(index, 1)
-            // this.totalPrice.splice(index, 1)
-            // this.goodsNumber -= 1
+            this.lists.splice(index, 1)
+            this.totalPrice.splice(index, 1)
+            this.goodsNumber -= 1
+            // if(this.lists.length == 0 ){
+            //   this.kong = false
+            // }else{
+            //   this.kong = true
+            // }
           })
         }).catch(() => {});
       },
       currClick(item, index) {
-
-        let total_prices= item.carts_list.map(item => {
-
-                    return item.last_price*item.quantity;
-                })
-
-        this.totalPrice=total_prices
-
-        //console.log(this.totalPrice)
-      },
-      //点击店铺
-      currClick2(item, index) {
-
-        // let total_prices= item.carts_list.map(item => {
-
-        //             return item.last_price*item.quantity;
-        //         })
-
-        // this.totalPrice=total_prices
-          item.carts_list.map((itemTwo, indexTwo)=>{
-
-              if (item.cart_id == false) {
-                itemTwo.goods_id=true
-              } else {
-                itemTwo.goods_id=false
+        this.checkedIndex = index
+        // console.log(this.checkedIndex )
+        var _this = this;
+        if (typeof item.checked == 'undefined') {
+          // item = this.changItem
+          this.$set(item, 'checked', true);
+          let total = item.price * item.count;
+          this.totalPrice.push(total);
+          // console.log(this.totalPrice);
+        } else {
+          // _this.OrderList.splice(index,1)
+          // console.log(_this.OrderList)
+          item.checked = !item.checked;
+          if (item.checked) {
+            // item = this.changItem
+            this.totalPrice = [];
+            this.lists.forEach(function (item, index) {
+              if (item.checked) {
+                let total = item.price * item.count;
+                _this.totalPrice.push(total);
               }
-          })
+            });
+          } else {
+            this.totalPrice = [];
+            this.lists.forEach(function (item, index) {
+              if (item.checked) {
+                let total = item.price * item.count;
+                _this.totalPrice.push(total);
+              }
+            });
+          }
+        }
+        if (item.checked == true) {
+          this.OrderList.push(item)
+        } else {
+          this.OrderList.splice(item, 1)
+        }
+        console.log(this.OrderList)
       },
       handelChange(item) {
         var _this = this;
-        this.$ajax({
-          url: config.baseUrl + '/home/cart/'+item.cart_id,
-          method: 'put',
-          data: {
-            member_id: item.member_id,
-            quantity: item.quantity,
-          }
-        }).then(res => {
-          let total = item.price * item.count;
-          this.totalPrice = [];
-          this.lists.forEach(function (item, index) {
-            if (item.checked) {
-              let total = item.price * item.count;
-              _this.totalPrice.push(total);
-            }
-          });
-        })
-
-
-      },
-      getList(){
-
-          let _this = this
-          let GList = {}
-
+        if (item.checked == true) {
           this.$ajax({
-            url: config.baseUrl + '/home/cart',
-            method: 'get',
-            params: {
-              member_id: localStorage.getItem('userId')
+            url: config.baseUrl + '/home/cart/add',
+            method: 'post',
+            data: {
+              goods_id: item.id,
+              member_id: item.member_id,
+              option: item.goods_option_value,
+              quantity: item.count,
             }
           }).then(res => {
-
-            res.data.data.items.map((item, index) => {
-              this.goodsNumber = index + 1  
-              GList = {}
-              GList.cart_id = item.cart_id
-              GList.shop_id = item.shop_id
-              GList.shop_name = item.shop_name
-              GList.carts_list = item.carts_list
-              // GList.productName = item.get_goods.goods_name
-              // GList.price = item.unit_price
-              // GList.count = item.quantity
-              // GList.id = item.get_goods.goods_id
-              // GList.member_id = item.member_id
-              // GList.shop = item.get_goods.goods_shop_id
-              // GList.goods_option_value = item.goods_option_value
-              // GList.cart_id = item.cart_id
-              // GList.img = item.img
-              // GList.get_shop = item.get_shop
-              // GList.option = item.goods_option_value
-              _this.lists.push(GList)
-
-              console.log(_this.lists)
-            })
-
-
-            this.deleteStatus=false
+            let total = item.price * item.count;
+            this.totalPrice = [];
+            this.lists.forEach(function (item, index) {
+              if (item.checked) {
+                let total = item.price * item.count;
+                _this.totalPrice.push(total);
+              }
+            });
           })
-
-      }
+        }
+      },
     },
     created() {
-
-      this.getList();
-      
+      console.log(this.lists)
+      let _this = this
+      let GList = {}
+      this.$ajax({
+        url: config.baseUrl + '/home/cart',
+        method: 'get',
+        params: {
+          member_id: localStorage.getItem('userId')
+        }
+      }).then(res => {
+        // console.log(res.data.data.items.data)
+        //  _this.lists = res.data.data.items.data
+        res.data.data.items.data.map((item, index) => {
+          this.goodsNumber = index + 1  
+          GList = {}
+          GList.productName = item.get_goods.goods_name
+          GList.price = item.get_goods.sales_price
+          GList.count = item.quantity
+          GList.id = item.get_goods.goods_id
+          GList.member_id = item.member_id
+          GList.shop = item.get_goods.goods_shop_id
+          GList.goods_option_value = item.goods_option_value
+          GList.cart_id = item.cart_id
+          GList.img = item.img
+          GList.option = item.goods_option_value
+          _this.lists.push(GList)
+        })
+        console.log(_this.lists)
+      })
     },
   }
 
@@ -468,18 +353,6 @@
           border-bottom: 2px solid #f40;
         }
       }
-    }
-    .list_cc{
-      width: 1188px;
-      min-height:70px;
-    }
-    .list_cc *{
-      display:inline-block;
-      vertical-align:middle;
-    }
-    .list_cc li{
-      font-size: 10px;
-      font-weight: 100;
     }
 
     .car_list {
@@ -630,23 +503,6 @@
       }
     }
 
-    .center_trTwo{
-        min-height: 130px;
-        width: 1188;
-        border: 1px solid #ccc;
-        margin-bottom: 15px;
-        padding: 17px 0 0 0;
-        display: inline-block;
-
-        li {
-          float: left;
-          margin-left:5px;
-          font-size: 16px;
-          font-weight: bold;
-          margin-top:5px;
-        }
-      }
-
     .last_tr {
       height: 50px;
       line-height: 50px;
@@ -697,6 +553,8 @@
 <style lang="scss">
   .el-input__inner {
     padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
   }
 
   .el-input-number__decrease {

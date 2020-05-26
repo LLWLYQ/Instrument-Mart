@@ -54,10 +54,24 @@
             </li>
           </ul>
         </div>
+        <div class="payment">
+          <h4 style="font-size:14px;">平台优惠券</h4>
+          <p style="text-align:left; margin-bottom:20px; margin-top:20px;">
+                      <template>
+                        <el-select v-model="coupon_id" placeholder="请选择优惠券" @change="Coupon()">
+                          <el-option
+                            v-for="item in CouponList"
+                            :key="item.receive_id"
+                            :label="item.money"
+                            :value="item.receive_coupon_id">优惠券{{item.money}}
+                          </el-option>
+                        </el-select>
+                    </template>
+          </p>
+        </div>
         <div class="sku">
           <h2 style="font-size:14px;">确认订单信息</h2>
           <ul class="first">
-            <!-- <li><input type="checkbox" v-model="checkAll" @click="allCheck(checkAll)">全选</li> -->
             <li>商品信息</li>
             <li>商品属性</li>
             <li>单价</li>
@@ -65,19 +79,80 @@
             <li>小计</li>
           </ul>
            <ul v-for="(item,index) in orderData" :key="index" class="center_tr">
-                <!-- <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)" ></li> -->
-                <li><router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a" style="display:block;height:80px;color:#000;"><img :src="baseUrl+item.img" alt=""><span>{{item.productName}}</span></router-link></li>
-                <li><p><span >{{item.option.option_name}}:{{item.option.name}}</span></p></li>
-                <li>￥{{item.price/100}}</li>
-                <li>{{item.count}}</li>
-                <li>￥{{(item.price*item.count)/100}}</li>
-                <!-- <li><span @click="removeGoods(item,index)">删除商品</span></li> -->
+                <li style="width:100%; height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold;">
+                  <router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a" style="display:block;height:40px;color:#000;">
+                    店铺：<span style="font-size:12px; color:#999;">{{item.shop_name}}</span>
+                  </router-link>
+                </li>
+                <ul v-for="(item2,index2) in item.carts_list" :key="index2" style="width:100%; min-height:100px;display:inline-block;margin-top:5px;
+      vertical-align:middle;" >
+                  <li style="font-size:10px; font-weight:100; width:260px; height:100px; line-height:50px; margin-left:10px; ">
+                    <img :src="baseUrl+item2.files_path" alt="" style="width:50px; height:50px; margin-right:10px; border:1px solid;">{{item2.goods_name}}
+                  </li>
+                  <li style="width:240px; height:92px; text-align: center; padding-top:8px; padding-left:0px;" >
+                    <p  v-if="item2.goods_option_value"  v-for="Opt in item2.goods_option_value" :key="Opt.id">
+                      <span>{{Opt.option_name}}：{{Opt.name}} 价格:<strong style="color:red;">{{Opt.price_prefix}} {{Opt.price}}</strong>
+                      </span>
+                    </p>
+                    <p v-if="!item2.goods_option_value" style="color:#999;">
+                        <span>无</span>
+                    </p>
+                  </li>
+                  <li style="width:120px; height:50px; margin-right:10px;  text-align: center;line-height: 50px;" >￥{{(item2.last_price/100)}}</li>
+                  <li style="width:120px; height:50px; margin-right:10px;  text-align: center;line-height: 50px;" >{{item2.quantity}}</li>
+                  <li style="width:120px; height:50px; margin-right:10px;  text-align: center; line-height: 50px; " >￥{{(item2.last_price/100)*item2.quantity}}</li>
+                </ul>
+                <li style="width:100%; min-height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold; margin-top:20px;">
+                  <h4 style="font-size:14px; text-align:left;">店铺优惠券</h4>
+                  <p style="text-align:left; margin-bottom:20px;">
+                      <template>
+                        <el-select v-model="item.shop_coupon_id" placeholder="请选择优惠券" @change="CouponTwo()" >
+                          <el-option
+                            v-for="item in ShopCouponList"
+                            :key="item.receive_id"
+                            :label="item.money"
+                            :value="item.receive_coupon_id">优惠券{{item.money}}
+                          </el-option>
+                        </el-select>
+                    </template>
+                  </p>
+
+                  <h4 style="font-size:14px; text-align:left;">运送方式</h4>
+                  <p style="text-align:left; margin-bottom:20px;">
+                    <el-input v-model="item.shipping_money" type="text" placeholder="请输入内容" value="1111111111"></el-input>
+                    普通配送:快递 <strong style="color:red;">{{item.shop_all_weight*base_fee}}</strong> 元
+                  </p>
+
+                  <h4 style="font-size:14px; text-align:left;"><el-checkbox v-model="item.invoice">开具发票</el-checkbox></h4>
+                  <p style="text-align:left; margin-bottom:20px;" v-if="item.invoice==true">
+                    <template>
+                      <el-form :inline="true" :model="item" class="demo-form-inline">
+                        <el-form-item label="名称">
+                          <el-input v-model="item.title" placeholder="请输入企业名称或个人名称"></el-input>
+                        </el-form-item>
+                        <el-form-item label="信用代码">
+                          <el-input v-model="item.code" placeholder="请输入信用代码"></el-input>
+                        </el-form-item>
+                        <el-form-item label="电话">
+                          <el-input v-model="item.phone" placeholder="请输入联系电话"></el-input>
+                        </el-form-item>
+                        <el-form-item label="寄送地址" style="margin-top:20px;">
+                          <el-input v-model="item.address" placeholder="请输入地址" style="width:600px;"></el-input>
+                        </el-form-item>
+                      </el-form>
+                      
+                    </template>
+                  </p>
+                  <p style="text-align:left; margin-bottom:20px; color:#999;">
+                      店铺合计费用: <strong style="color:red;">{{item.shop_total/100+(item.shop_all_weight*base_fee)}} </strong> 元
+                  </p>
+                </li>
           </ul>
         </div>
       </div>
       <div class="OrderFrom">
         <ul>
-          <li>实付款:<span class="price"><a>￥</a>{{totalMoney}}</span></li>
+          <li>实付款:<span class="price"><a>￥</a>{{totalMoney/100+(total_weight*base_fee)}}</span></li>
           <li v-if="adrID">寄送至：{{AddressData.address}}</li>
           <li v-if="adrID">收货人:{{AddressData.receiver}}</li>
         </ul>
@@ -96,8 +171,14 @@ import Qs from 'qs'
 export default {
   data () {
     return {
-      orderData:JSON.parse(this.$route.query.orderData),
-      totalMoney:JSON.parse(this.$route.query.totalMoney),
+      invoice:{
+          
+          show:true,
+          type:1,
+          text:'',
+      },
+      orderData:[],
+      totalMoney:'',
       AddressList:true,
       province_id:'',
       city:'',
@@ -113,31 +194,75 @@ export default {
       Sum:'',
       adrID:'',
       DataList:'',
+      CouponList:'',
+      ShopCouponList:'',
       option:'',
       member_id:localStorage.getItem('userId'),
       Logistics_Selecting:'',
       LogS:'1',
       AddressData:'',
+      coupon_id:'',
+      shop_coupon_id:'',
+      base_fee:0,
+      step_fee:0,
+      total_weight:0,
     }
   },
   methods: {
+    Coupon(){
+
+      this.DataList.coupon_id=this.coupon_id
+
+    },
+    CouponTwo(){
+
+      this.DataList.shop_coupon_id=this.shop_coupon_id
+
+    },
     addressData(addressData){
-      // console.log(addressData)
      this.AddressData =  addressData
      this.adrID = addressData.id
-    //  console.log(this.AddressData)
+     this.DataList.address_id=addressData.id
+
+         //console.log(this.adrID)
+
+      this.$ajax({
+        url:config.baseUrl + '/home/address/'+this.adrID,
+        method:'get',
+      }).then(res=>{
+
+          //console.log(res.data.data.city_id)
+          //查看配送费
+          this.$ajax({
+          url:config.baseUrl + '/home/shipping/'+res.data.data.city_id,
+          method:'get',
+          }).then(res=>{
+
+            console.log(res.data.data)
+
+            this.base_fee=res.data.data.configure.base_fee   //首重1KG费用
+            this.step_fee=res.data.data.configure.step_fee  //续重第KG费用
+            // if( res.data.code ==20000 ){
+            //   this.$router.push({
+            //     path:'/TuningUpThePayment',
+            //     query:{
+            //       order_id:res.data.data.order_id
+            //     }
+            //   })
+            // }
+          })
+      })
     },
     submitOrder(){
+
+      //console.log(this.DataList)   //提交订单数据
+      //console.log(this.orderData)
+      //return false;
+
       this.$ajax({
         url:config.baseUrl + '/home/order',
         method:'post',
-        data:{
-          member_id:localStorage.getItem('userId'),
-          address_id:this.adrID,
-          payment_type:this.ZFB,
-          shipping_method:1,
-          goods:this.DataList
-        }
+        data:this.DataList
       }).then(res=>{
         // console.log(res.data.data.order_id)
         if( res.data.code ==20000 ){
@@ -156,37 +281,149 @@ export default {
     'OrderInfromation':OrderInfromation
   },
   created(){
-        console.log(this.orderData)
         let result = []
         let optres = []
-        var goods = {}
+        var goods =[]
         var option = {}
-        // console.log(this.orderData)
-        this.orderData.map((item,index)=>{
-          // console.log(item)
-          goods = {}
-          goods.total = this.totalMoney
-          goods.quantity = item.count
-          goods.product_id = item.id
-          goods.name = item.productName
-          goods.price = item.price/100
-          goods.shop_id = item.shop;
-          option = item.option;
-          result.push(goods)
-          console.log(item)
-          option.map(item=>{
-            console.log(item)
-            item.goods_option_value.map((item,index)=>{
-              option = {}
-              option.goods_option_value_id = item.goods_option_value_id
-              option.goods_option_id = item.goods_option_id
-              optres.push(option)
-              // console.log(optres)
-              goods.option = optres
-            })
-          })
+        let GList = {}
+
+      //查询购物车数据
+      this.$ajax({
+        url: config.baseUrl + '/home/cart',
+        method: 'get',
+        params: {
+          member_id: localStorage.getItem('userId')
+        }
+      }).then(res => {
+        //console.log(res.data.data.items.data)
+
+        res.data.data.items.map((item, index) => {
+          this.goodsNumber = index + 1  
+          GList = {}
+          GList.shop_name = item.shop_name
+          GList.shop_id = item.shop_id
+          GList.shop_all_weight = item.shop_all_weight
+          GList.title =''
+          GList.code =''
+          GList.phone =''
+          GList.address =''
+          GList.invoice = item.invoice
+          GList.carts_list = item.carts_list
+          GList.shipping_money = item.shipping_money
+
+          let total_pricesTwo=item.carts_list.map(itemTwo=>{
+
+                    return itemTwo.last_price*itemTwo.quantity;
+                    
+              })
+
+          GList.shop_total =eval(total_pricesTwo.join("+"));   //店铺总价
+          this.orderData.push(GList)
         })
-        this.DataList =  result
+
+
+        let newdata={
+
+            member_id:localStorage.getItem('userId'),
+            address_id:this.adrID,
+            payment_type:this.ZFB,
+            shipping_method:1,
+            goods:this.orderData,
+        }
+
+        // res.data.data.items.map((itemOne,indexOne)=>{
+
+
+        //       itemOne.carts_list.map((itemTwo,indexTwo)=>{
+
+        //           newdata.goods[indexTwo] = {
+        //             product_id:itemTwo.goods_id,
+        //             name:itemTwo.goods_name,
+        //             quantity:itemTwo.quantity,
+        //             price:itemTwo.last_price,
+        //             total:itemTwo.last_price*itemTwo.quantity,
+        //             shop_id:itemTwo.goods_shop_id,
+        //             option:itemTwo.option,
+        //           }
+
+        //       })
+        // })
+
+        this.DataList =  newdata   //提交订单数据
+
+
+        
+
+        //计算总重量
+        let total_weight=0;
+        for(let t in res.data.data.items){
+
+             total_weight+=res.data.data.items[t].shop_all_weight;
+
+        }
+
+        this.total_weight=total_weight  //总重量
+
+
+        //计算价格
+        let total_prices=res.data.data.items.map((itemOne,indexOne)=>{
+
+            let total_pricesTwo=res.data.data.items[indexOne].carts_list.map(itemTwo=>{
+
+              return itemTwo.last_price*itemTwo.quantity;
+              
+            })
+            return total_pricesTwo;
+
+        })
+
+        var newPrice=0;
+        for(let t in total_prices){
+
+             newPrice+=eval(total_prices[t].join("+"));
+
+        }
+
+        this.totalMoney=newPrice  //总订单价格
+
+
+          //查询优惠券数据
+          this.$ajax({
+            url:config.baseUrl + '/home/coupon_receive/can',
+            method:'post',
+            data:{
+
+              member_id: localStorage.getItem('userId'),
+              money:this.totalMoney,
+
+            }
+          }).then(res=>{
+
+            if( res.data.code ==20000 ){
+
+              this.CouponList =res.data.datas.data
+            }
+          })
+
+
+          //查询店铺优惠券数据
+          this.$ajax({
+            url:config.baseUrl + '/home/shop_coupon_receive/can',
+            method:'post',
+            data:{
+
+              member_id: localStorage.getItem('userId'),
+              money:this.totalMoney,
+              shop_id:8,
+
+            }
+          }).then(res=>{
+
+            if( res.data.code ==20000 ){
+              this.ShopCouponList =res.data.datas.data
+            }
+          })
+      })
   }
 }
 </script>
@@ -269,7 +506,7 @@ export default {
   }
 }
 .center_tr{
-      height: 130px;
+      min-height: 180px;
       width:1188;
       border-bottom: 1px dotted rgb(128, 178, 255);
       margin-bottom: 15px;
@@ -286,12 +523,12 @@ export default {
           height: 80px;
           float: left;
         }
-        span:hover{
-          text-decoration: underline;
-          color:#f40;
-          cursor: pointer;
-          float: left;
-        }
+        // span:hover{
+        //   text-decoration: underline;
+        //   color:#f40;
+        //   cursor: pointer;
+        //   float: left;
+        // }
       }
       .center_tr li:nth-child(2){
         width: 240px;
@@ -348,15 +585,16 @@ export default {
       }
     }
     .first li:nth-child(1){
-      width: 160px;
+      width: 260px;
       padding-left: 80px;
     }
     .first li:nth-child(2){
-      width: 322px;
-      padding-left: 120px;
+      width: 260px;
+      text-align: center;
     }
     .first li:nth-child(3){
-      width: 252px;
+      width: 120px;
+      text-align: center;
     }
     .first li:nth-child(4){
       text-align: center;
@@ -421,6 +659,7 @@ export default {
   }
    .payment{
       h4{
+        margin-top:10px;
         padding-bottom: 10px;
         border-bottom: 3px solid #b2d1ff;
       }
@@ -429,9 +668,11 @@ export default {
         margin-top: 10px;
         padding-bottom: 15px;
         border-bottom: 3px solid #b2d1ff;
-        height: 100px;
+        min-height: 190px;
         li{
+          float:left;
           line-height: 85px;
+          margin-left:15px;
           img{
             margin-left:0px;
           }
@@ -505,7 +746,7 @@ export default {
 
 </style>
 <style lang="">
-  /* .el-radio__label{
+  .el-radio__label{
     display: none;
-  } */ 
+  }
 </style>
