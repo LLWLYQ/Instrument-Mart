@@ -14,9 +14,10 @@
               <router-link to="" ><li>服务中心</li></router-link>
               <router-link to="" v-if="UserName"><li>Hi,{{UserName}}</li></router-link>
               <!-- <router-link to=""><li>商家中心</li></router-link> -->
-              <router-link to="/Center_home_page" target="_blank" tag="a"><li>个人中心</li></router-link>
+              <router-link to="/Center_home_page" target="_blank" tag="a"><li>商家中心</li></router-link>
               <router-link to="" v-if="UserId"><li @click="DelUser()">退出</li></router-link>
               <router-link to="/MemberRegistration" target="_blank" tag="a" v-if="!UserId"><li>免费注册</li></router-link>
+              <router-link to="/" target="_blank" tag="a" v-if="!UserId"><li>申请入驻</li></router-link>
             </ul>
             <ul class="top_right">
               <router-link to=""><li>手机仪商</li></router-link>

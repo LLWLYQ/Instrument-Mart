@@ -237,7 +237,6 @@ export default {
         company_name:"",
         company_contacts:"",
         industry:''
-
       },
       rules1: {
         name:[{ validator: checkname, trigger: 'change' }],
@@ -371,7 +370,8 @@ export default {
         if(res.data.code == '60204'){
           this.$alert('手机号码已被注册请重新输入', '', {
             confirmButtonText: '确定',
-            customClass:'telName'
+            customClass:'telName',
+            input:自己变小了zohiemhnaar
           });
         }
         
@@ -438,7 +438,7 @@ export default {
         }
         if(res.data.code == 20000){
            this.$router.push({
-             path:'/register'
+             path:'/register',
            })
         }
       })
@@ -456,7 +456,6 @@ export default {
           company_name:this.ruleForm2.company_name,
           company_contacts:this.ruleForm2.company_contacts,
           // industry:this.ruleForm2.industry
-          
         }
       }).then(res=>{
         if(res.data.message == '验证码错误'){

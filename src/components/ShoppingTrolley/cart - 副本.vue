@@ -53,7 +53,7 @@
               <p class="tr_p2">{{totalMoney/100}}</p>
             </li>
             <!-- <li><p class="tr_p1">合计：</p><p class="tr_p2">{{totalMoney}}</p></li> -->
-          </ul>
+            <p class="price"</p>
         </div>
       </div>
     </keep-alive>

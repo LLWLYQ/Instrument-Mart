@@ -412,7 +412,7 @@
   }
 
 </style>
-<style lang="scss">
+<style lang="scss" >
   #ELB:hover {
     background-color: red;
     border: 2px solid red;
@@ -429,11 +429,11 @@
     float: left;
     padding: 0;
     width: 238px;
-    
   }
 
   .el-table .cell {
     padding: 0;
+    width: 238px;
   }
 
   .el-table td {

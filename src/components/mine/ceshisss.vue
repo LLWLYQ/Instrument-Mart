@@ -28,7 +28,7 @@
     data() {
       return {
         currentPage: 1,
-        pagesize: 10,
+        pagesize: 1,
         tableData: [],
         number:'',
         face:'',
@@ -37,14 +37,8 @@
       }
     },
     methods: {
-      handleSizeChange: function (size) {
-        this.pagesize = size;
+        
       },
-      handleCurrentChange: function (currentPage) {
-        this.currentPage = currentPage;
-      },
-
-    },
     computed:{
       
     },

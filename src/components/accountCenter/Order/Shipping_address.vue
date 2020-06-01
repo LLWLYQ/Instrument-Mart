@@ -38,3 +38,12 @@ export default {
   }
 }
 </style>
+<style lang="scss">
+.el-table__row {
+    float: none;
+    padding: 0;
+    width: 180px;
+  }
+
+  
+</style>
