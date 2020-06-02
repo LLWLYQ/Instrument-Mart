@@ -213,7 +213,7 @@ export default {
         Newaddress:true,
         popup1: 0,
         popup: 0,
-        iscur:0,
+        iscur:'',
         province:'',
         city:'',
         provinceFic:'',

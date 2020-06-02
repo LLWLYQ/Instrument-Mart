@@ -44,6 +44,8 @@ export default {
     padding: 0;
     width: 180px;
   }
-
-  
+  .el-table .cell, .el-table__row{
+    padding: 0;
+    width: 180px ;
+  }
 </style>
