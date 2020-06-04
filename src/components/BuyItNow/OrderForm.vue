@@ -77,7 +77,7 @@
             <li>数量</li>
             <li>小计</li>
           </ul>
-          <ul v-for="(item,index) in orderData" :key="index" class="center_tr">
+          <ul v-for="(item,index) in OrderDataList" :key="index" class="center_tr" >
             <li
               style="width:100%; height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold;">
               <router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a"
@@ -102,11 +102,11 @@
                   <span>无</span>
                 </p>
               </li>
-              <li style="width:120px; height:50px; margin-right:10px;  text-align: center;line-height: 50px;">
+              <li style="width:120px; height:100px; margin-right:10px;  text-align: center;line-height: 100px;">
                 ￥{{(item2.last_price/100)}}</li>
-              <li style="width:120px; height:50px; margin-right:10px;  text-align: center;line-height: 50px;">
+              <li style="width:120px; height:100px; margin-right:10px;  text-align: center;line-height: 100px;">
                 {{item2.quantity}}</li>
-              <li style="width:120px; height:50px; margin-right:10px;  text-align: center; line-height: 50px; ">
+              <li style="width:120px; height:100px; margin-right:10px;  text-align: center; line-height: 100px; ">
                 ￥{{(item2.last_price/100)*item2.quantity}}</li>
             </ul>
             <li
@@ -125,7 +125,8 @@
               <h4 style="font-size:14px; text-align:left;">运送方式</h4>
               <p style="text-align:left; margin-bottom:20px;">
                 <el-input v-model="item.shipping_money" type="text" placeholder="请输入内容" value="1111111111"></el-input>
-                普通配送:快递 <strong style="color:red;">{{item.shop_all_weight*base_fee}}</strong> 元
+                <!-- {{base_fee}} -->
+                普通配送:快递 <strong style="color:red;">0.00</strong> 元
               </p>
 
               <h4 style="font-size:14px; text-align:left;">
@@ -147,12 +148,9 @@
                       <el-input v-model="item.address" placeholder="请输入地址" style="width:600px;"></el-input>
                     </el-form-item>
                   </el-form>
-
                 </template>
               </p>
-              <p style="text-align:left; margin-bottom:20px; color:#999;">
-                店铺合计费用: <strong style="color:red;">{{item.shop_total/100+(item.shop_all_weight*base_fee)}} </strong> 元
-              </p>
+              <!-- <p style="text-align:left; margin-bottom:20px; color:#999;" v-for="(item3,index2) in item.carts_list" :key="index2"> 店铺合计费用: <strong style="color:red;">{{item3.sales_price*item3.quantity/100}}</strong> 元</p> -->
             </li>
           </ul>
         </div>
@@ -185,6 +183,7 @@
         },
         orderData: [],
         TotalMoney: JSON.parse(this.$route.query.totalMoney),
+        OrderDataList:JSON.parse(this.$route.query.OrderDataList),
         AddressList: true,
         province_id: '',
         city: '',
@@ -212,6 +211,8 @@
         base_fee: 0,
         step_fee: 0,
         total_weight: 0,
+        shop_total:0
+        
       }
     },
     methods: {
@@ -235,16 +236,17 @@
           method: 'get',
         }).then(res => {
 
-          //console.log(res.data.data.city_id)
+          // console.log(res.data.data.city_id)
           //查看配送费
           this.$ajax({
             url: config.baseUrl + '/home/shipping/' + res.data.data.city_id,
             method: 'get',
           }).then(res => {
 
-            console.log(res.data.data)
+            // console.log(res.data)
 
             this.base_fee = res.data.data.configure.base_fee //首重1KG费用
+            // console.log(this.base_fee)
             this.step_fee = res.data.data.configure.step_fee //续重第KG费用
           })
         })
@@ -271,7 +273,8 @@
       'OrderInfromation': OrderInfromation
     },
     created() {
-      console.log(this.TotalMoney)
+    
+      
       let result = []
       let optres = []
       var goods = []
@@ -287,8 +290,9 @@
         }
       }).then(res => {
         //console.log(res.data.data.items.data)
-
+        // console.log(res.data.data.items)
         res.data.data.items.map((item, index) => {
+          
           this.goodsNumber = index + 1
           GList = {}
           GList.shop_name = item.shop_name
@@ -305,8 +309,9 @@
           let total_pricesTwo = item.carts_list.map(itemTwo => {
             return itemTwo.last_price * itemTwo.quantity;
           })
-          GList.shop_total = eval(total_pricesTwo.join("+")); //店铺总价
+          this.shop_total = eval(total_pricesTwo.join("+")); //店铺总价
           this.orderData.push(GList)
+          // console.log(this.orderData)
         })
 
         let newdata = {
@@ -464,6 +469,7 @@
         margin-top: 10px;
 
         li {
+          
           // width: 32px;
           height: 32px;
           border-radius: 50%;
@@ -687,7 +693,7 @@
 
       li {
         float: left;
-        line-height: 85px;
+        line-height: 70px;
         margin-left: 15px;
 
         img {
@@ -772,7 +778,9 @@
       padding: 10px 60px;
     }
   }
-
+  // .sku ul:nth-child(3){
+  //   display:none !important;
+  // }
 </style>
 <style lang="">
   .el-radio__label {

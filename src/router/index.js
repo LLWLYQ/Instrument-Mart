@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import StoresRegistered from '@/components/StoresRegistered/StoresRegistered' //店铺注册
 import Home from '@/components/mine/home'
 import ceshisss from '@/components/mine/ceshisss'
 import Tcog from '@/components/mine/TCOG/Tcog'
@@ -100,6 +101,15 @@ export default new Router({
       meta:{
         title:"仪商城",
         keepAlive: true
+      }
+    },
+    {
+      path:'/StoresRegistered',
+      name:'StoresRegistered',
+      component: StoresRegistered,
+      meta:{
+        title:"",
+        keepAlive:true
       }
     },
     {

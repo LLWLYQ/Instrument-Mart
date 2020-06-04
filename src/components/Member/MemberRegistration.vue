@@ -455,6 +455,7 @@ export default {
           code:this.ruleForm2.smscode,
           company_name:this.ruleForm2.company_name,
           company_contacts:this.ruleForm2.company_contacts,
+          company_industry:this.ruleForm2.industry
           // industry:this.ruleForm2.industry
         }
       }).then(res=>{

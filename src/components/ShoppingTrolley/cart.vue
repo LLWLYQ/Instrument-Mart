@@ -33,34 +33,49 @@
             <!-- <li><input type="checkbox" :value="item.id" v-model="checked" @click="currClick(item,index)"></li> -->
             <li>
               <p style="height: 30px;line-height: 30px;vertical-align: middle;">
-                <input type="checkbox" v-model="val.checked"  @change="_checkAll(val,k)" style="float:left;">
+                <input type="checkbox" v-model="val.checked" @change="_checkAll(val,k)" style="float:left;">
                 <router-link :to="{name:'Detail',query:{listId:val.cart_id}}" target="_blank" tag="a"
                   style="display:block;height:15px; line-height:15px;color:#000;float:left; margin-left:10px; ">
                   店铺: <span style="color:#999;">{{val.shop_name}}</span>
                 </router-link>
               </p>
               <ul v-for="(item,index) in val.carts_list" :key="index" class="list_cc">
-                <li><input type="checkbox" v-model="item.checked" @change="handleCheck(item,index)"></li>
+                <li><input type="checkbox" v-model="item.checked" @change="handleCheck(item,val,k,lists,index)"></li>
                 <li style="font-size:10px; font-weight:100; width:320px; margin-left:10px;" class="list-goods-name">
                   <img :src="baseUrl+item.files_path" alt=""
-                    style="width:50px; height:50px; margin-right:10px; border:1px solid #999;"><router-link to="" target="_blank" tag="a"><p style="height:52px;line-height:85px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.goods_name}}</p></router-link></li>
-                <li style="width:240px; height:50px; margin-right:10px; text-align: left;line-height:50px;" v-if="item.goods_option_value">
-                  <p  v-for="Opt in item.goods_option_value" :key="Opt.id">
-                    <span style="font-weight:normal;color:#222;font-size:12px;">{{Opt.option_name}}：{{Opt.name}} 价格:<strong style="color:#ff0036;margin:-4px 0 0 5px;line-height:40px;">{{Opt.price_prefix}}{{Opt.price}}</strong>
+                    style="width:50px; height:50px; margin-right:10px; border:1px solid #999;">
+                  <router-link to="" target="_blank" tag="a">
+                    <p
+                      style="height:52px;line-height:85px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                      {{item.goods_name}}</p>
+                  </router-link>
+                </li>
+                <li style="width:240px; height:50px; margin-right:10px; text-align: left;line-height:50px;"
+                  v-if="item.goods_option_value">
+                  <p v-for="Opt in item.goods_option_value" :key="Opt.id">
+                    <span style="font-weight:normal;color:#222;font-size:12px;">{{Opt.option_name}}：{{Opt.name}}
+                      价格:<strong
+                        style="color:#ff0036;margin:-4px 0 0 5px;line-height:40px;">{{Opt.price_prefix}}{{Opt.price}}</strong>
                     </span>
                   </p>
                   <p v-if="!item.goods_option_value" style="color:#999;">
                     <span>无</span>
                   </p>
                 </li>
-                <li style="width:107px; height:50px;  text-align: center;line-height: 50px;font-weight:blod;font-size:12px;color:#ff0036;">
-                  ￥<strong style="color:#ff0036;margin:-4px 0 0 2px;line-height:40px;font-size:16px;">{{(item.last_price/100)}}</strong></li>
+                <li
+                  style="width:107px; height:50px;  text-align: center;line-height: 50px;font-weight:blod;font-size:12px;color:#ff0036;">
+                  ￥<strong
+                    style="color:#ff0036;margin:-4px 0 0 2px;line-height:40px;font-size:16px;">{{(item.last_price/100)}}</strong>
+                </li>
                 <li style="width:150px; height:50px; text-align: center;line-height: 50px; ">
-                  <el-input-number v-model="item.quantity" :min="1" :max="99" size="small" @change="handelChange(lists,val,item)">
+                  <el-input-number v-model="item.quantity" :min="1" :max="99" size="small"
+                    @change="handelChange(lists,val,item)">
                   </el-input-number>
                 </li>
                 <li style="width:155px; height:50px;text-align: center; line-height: 50px;color:#ff0036; ">
-                  ￥<strong style="color:#ff0036;margin:-4px 0 0 2px;line-height:40px;font-size:16px;">{{(item.last_price/100)*item.quantity}}</strong></li>
+                  ￥<strong
+                    style="color:#ff0036;margin:-4px 0 0 2px;line-height:40px;font-size:16px;">{{(item.last_price/100)*item.quantity}}</strong>
+                </li>
                 <li style=""><span @click="removeGoods(lists,val,item,k,index)">删除商品</span></li>
               </ul>
             </li>
@@ -97,12 +112,17 @@
         baseUrl: config.baseUrl,
         checkedIndex: '',
         goodsNumber: '',
-        OrderList: [],
+        OrderList: [{
+          carts_list: [],
+          shop_id: '',
+          shop_name: '',
+          checked: false
+        }],
         deleteStatus: false,
         goPay: false,
         Numberdata: '',
-        lastNumberData:'',
-        preterite:''
+        lastNumberData: '',
+        preterite: ''
       }
     },
     mounted() {
@@ -129,45 +149,108 @@
               if (item.checked == true) {
                 Sum += citem.last_price * citem.quantity
                 this.lastTaotalPrice = Sum
-              }else{
+              } else {
                 this.lastTaotalPrice = 0
               }
             })
           }
         })
+        //购物车转订单页面
+        // this.OrderList = this.lists
+        let arr = []
+        let carListArr = []
+        this.lists.map(listItem=>{
+          listItem.carts_list.map(carItem=>{
+            carListArr.push(carItem)
+          })
+        })
+        arr = carListArr.filter(item => {
+            return item.checked
+          })
+        this.OrderList.map(citem => {
+            // console.log(citem)
+            citem.carts_list = arr
+          })
+          // console.log(this.OrderList)
       },
       //商家全选
       _checkAll(val, k) {
-        let sunval = 0
+        // let sunval = 0
         val.carts_list.forEach(item => {
           item.checked = val.checked;
-          if (val.checked == true){
-            this.lastTaotalPrice = 0
-            sunval += item.last_price * item.quantity
-            this.lastTaotalPrice = sunval
-            // console.log(this.lastTaotalPrice)
-          }else{
-            this.lastTaotalPrice -= item.last_price * item.quantity 
-          }
+          // if (val.checked == true) {
+          //   this.lastTaotalPrice = 0
+          //   sunval += item.last_price * item.quantity
+          //   this.lastTaotalPrice = sunval
+          // } else {
+          //   this.lastTaotalPrice -= item.last_price * item.quantity
+          // }
         });
-        if (this.lists.every(item => item.checked)){
-            this.checkedAll = true;
-          } else {
-            this.checkedAll = false;
+        //购物车转订单页面
+         let arr = []
+          let carListArr = []
+          this.lists.map(listItem=>{
+            listItem.carts_list.map(carItem=>{
+              carListArr.push(carItem)
+            })
+          })
+          arr = carListArr.filter(item => {
+              return item.checked
+            })
+          this.OrderList.map(citem => {
+              // console.log(citem)
+              citem.carts_list = arr
+            })
+          // console.log(this.OrderList)
+          let sunval = 0
+        this.OrderList.map(Nm=>{
+          Nm.carts_list.map(Cl=>{
+              this.lastTaotalPrice = 0
+              sunval += Cl.last_price * Cl.quantity
+              this.lastTaotalPrice = sunval       
+          })
+          if(Nm.carts_list.length == 0){
+            this.lastTaotalPrice = 0
           }
+        })
+
+
+
+        if (this.lists.every(item => item.checked)) {
+          this.checkedAll = true;
+        } else {
+          this.checkedAll = false;
+        }
       },
       //商品选择框
-      handleCheck(item, index) {
+      handleCheck(item, val, k, lists, index) {
+        
+        let arr = []
+        let carListArr = []
+        this.lists.map(listItem=>{
+          listItem.carts_list.map(carItem=>{
+            carListArr.push(carItem)
+          })
+        })
+        arr = carListArr.filter(item => {
+            return item.checked
+          })
+        // console.log(arr)
+        this.OrderList.map(citem => {
+          // console.log(citem)
+            citem.carts_list = []
+            citem.carts_list = arr
+          })
+        // console.log(this.OrderList)
+
+
         if (item.checked) {
-              let total = item.last_price * item.quantity;
-              // console.log(total)
-            }
+          let total = item.last_price * item.quantity;
+        }
         if (item.checked == true) {
           this.lastTaotalPrice += item.last_price * item.quantity
-          // this.lastTaotalPrice = this.preterite
-        }else{
-         this.lastTaotalPrice -= item.last_price * item.quantity 
-        //  this.lastTaotalPrice = this.preterite
+        } else {
+          this.lastTaotalPrice -= item.last_price * item.quantity
         }
         var check = []; //保存中间层是否被选中的布尔值
         this.lists.forEach((items, index) => {
@@ -188,18 +271,16 @@
         }
       },
       ToSettleAccounts() {
-        console.log(JSON.stringify(this.lastTaotalPrice))
         let routeData = this.$router.resolve({
           name: 'OrderForm',
           query: {
-            orderData: JSON.stringify(this.OrderList),
+            OrderDataList: JSON.stringify(this.OrderList),
             totalMoney: JSON.stringify(this.lastTaotalPrice)
           }
         })
         window.open(routeData.href, '_blank');
       },
-      removeGoods(Item,item, item2,index1,index2) {
-        console.log(Item)
+      removeGoods(Item, item, item2, index1, index2) {
         this.$confirm('主人你真的不要我了么,真的真的么?', '', {
           cancelButtonText: '取消',
           confirmButtonText: '确定',
@@ -220,13 +301,13 @@
                 type: 'success'
               })
               item.carts_list.splice(index2, 1)
-              if(item.carts_list.length == 0){
-                Item.splice(index1,1)
+              if (item.carts_list.length == 0) {
+                Item.splice(index1, 1)
               }
               this.Number()
-              if(item2.checked == true){
-                this.lastTaotalPrice -= item2.last_price*item2.quantity
-              }else{
+              if (item2.checked == true) {
+                this.lastTaotalPrice -= item2.last_price * item2.quantity
+              } else {
                 this.lastTaotalPrice = this.lastTaotalPrice
               }
             } else {
@@ -235,20 +316,19 @@
           })
         }).catch(() => {});
       },
-      handelChange(lists,val,item) {
-        console.log(lists)
+      handelChange(lists, val, item) {
         if (item.checked) {
           let total = item.last_price * item.quantity;
           this.lastTaotalPrice = total
         }
-        if(val.checked){
-          let _total = 0 
-          val.carts_list.map(item=>{
-           _total += item.last_price * item.quantity; 
-           this.lastTaotalPrice = _total
+        if (val.checked) {
+          let _total = 0
+          val.carts_list.map(item => {
+            _total += item.last_price * item.quantity;
+            this.lastTaotalPrice = _total
           })
         }
-        var check = []; 
+        var check = [];
         this.lists.forEach((items, index) => {
           if (items.carts_list) {
             var bool = items.carts_list.every(citem => citem.checked);
@@ -257,9 +337,9 @@
         })
         if (check.indexOf(false) == -1) {
           let _Total = 0
-          lists.map(item=>{
-            item.carts_list.map(citem=>{
-              _Total += citem.last_price * citem.quantity; 
+          lists.map(item => {
+            item.carts_list.map(citem => {
+              _Total += citem.last_price * citem.quantity;
               this.lastTaotalPrice = _Total
             })
           })
@@ -275,7 +355,6 @@
             member_id: localStorage.getItem('userId')
           }
         }).then(res => {
-          // console.log(res.data.data.items)
           let numData = []
           res.data.data.items.map((item, index) => {
             GList = {}
@@ -283,7 +362,9 @@
             GList.shop_id = item.shop_id
             GList.shop_name = item.shop_name
             GList.carts_list = item.carts_list
+            GList.shop_all_weight = item.shop_all_weight
             _this.lists.push(GList)
+            // console.log(_this.lists)
           })
         })
       },
@@ -295,7 +376,6 @@
             member_id: localStorage.getItem('userId')
           }
         }).then(res => {
-          // console.log(res.data.data.items)
           let numData = []
           res.data.data.items.map((item, index) => {
             item.carts_list.map((item, index) => {
@@ -311,41 +391,7 @@
       HomeSerach,
     },
     computed: {
-      // totalMoney: function (item, index) {
-      //   let sum = 0;
-      //   for (let i = 0; i < this.totalPrice.length; i++) {
-      //     sum += this.totalPrice[i];
-      //   };
-      //   return sum;
-      // },
-      // checkAll: {
-      //   get: function () {
-      //     return this.checkedCount == this.lists.length;
-      //   },
-      //   set: function (value) {
-      //     var _this = this;
-      //     if (value) {
-      //       this.totalPrice = [];
-      //       this.checked = this.lists.map(function (item) {
-      //         item.checked = true;
-      //         // let total = item.price * item.count;
-      //         // _this.totalPrice.push(total);
-      //         return item.id
-      //       })
-      //     } else {
-      //       this.checked = [];
-      //       this.totalPrice = [];
-      //       this.lists.forEach(function (item, index) {
-      //         item.checked = false;
-      //       });
-      //     }
-      //   }
-      // },
-      // checkedCount: {
-      //   get: function () {
-      //     return this.checked.length;
-      //   }
-      // }
+
     },
     created() {
       this.getList();
@@ -445,16 +491,19 @@
     .list_cc {
       width: 1188px;
       min-height: 70px;
-      .list-goods-name{
-        a{
-          color:#000;
+
+      .list-goods-name {
+        a {
+          color: #000;
           font-size: 12px;
           font-weight: normal;
         }
-        a:hover{
-          color:#ff0036;
-          p{
-            text-decoration:underline;
+
+        a:hover {
+          color: #ff0036;
+
+          p {
+            text-decoration: underline;
           }
         }
       }
@@ -469,17 +518,25 @@
       font-size: 10px;
       font-weight: 100;
     }
-    .list_cc li:nth-child(7){
-      width:150px; height:50px;text-align: center; line-height: 50px;
-      font-weight: normal;font-size: 12px;
+
+    .list_cc li:nth-child(7) {
+      width: 150px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-weight: normal;
+      font-size: 12px;
       cursor: pointer;
     }
-    .list_cc li:nth-child(7):hover{
+
+    .list_cc li:nth-child(7):hover {
       color: #ff0036;
-      span{
-        text-decoration:underline;
+
+      span {
+        text-decoration: underline;
       }
     }
+
     .car_list {
       width: 100%;
 
@@ -686,8 +743,8 @@
         font-weight: 700;
         font-size: 22px;
         color: #ff0036;
-        white-space:nowrap;
-        text-overflow:ellipsis;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         overflow: hidden;
       }
     }

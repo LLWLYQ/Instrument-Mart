@@ -17,7 +17,7 @@
               <router-link to="/Center_home_page" target="_blank" tag="a"><li>商家中心</li></router-link>
               <router-link to="" v-if="UserId"><li @click="DelUser()">退出</li></router-link>
               <router-link to="/MemberRegistration" target="_blank" tag="a" v-if="!UserId"><li>免费注册</li></router-link>
-              <router-link to="/" target="_blank" tag="a" v-if="!UserId"><li>申请入驻</li></router-link>
+              <router-link to="/StoresRegistered" target="_blank" tag="a" v-if="Cs"><li>申请入驻</li></router-link>
             </ul>
             <ul class="top_right">
               <router-link to=""><li>手机仪商</li></router-link>
@@ -34,13 +34,15 @@
 </template>
 <script>
 import LoginForm from '../../components/LoginForm/LoginForm'
+import config from '../../config/config';
 export default {
   data () {
     return {
       UserId:localStorage.getItem('userId'),
       LF:false,
       UserName:localStorage.getItem('userName'),
-      IfUserName:''
+      IfUserName:'',
+      Cs:''
     }
   },
   methods: {
@@ -72,6 +74,17 @@ export default {
   },
   components:{
     LoginForm
+  },
+  created(){
+    this.$ajax({
+      url:config.baseUrl + '/home/user/info',
+      method:'post',
+      data:{
+        member_id:localStorage.getItem("userId")
+      }
+    }).then(res=>{
+      this.Cs = res.data.data.company_status
+    })
   }
 }
 </script>
