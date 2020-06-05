@@ -3,36 +3,11 @@
     <div class="sc-Box">
       <div class="sc-box">
         <div class="sc-box_center">
-          <div class="sc-box_center-List">
-            <li>
-              <img src="../../assets/imges/sp_5.jpg" alt="">
-              <p class="sc-box-name">ITECH/艾德克斯 可编程电子负载 </p>
-              <p class="sc-box-btm"><span class="price">￥156</span><span class="Del">删除</span></p>
-            </li>
-            <li>
-              <img src="../../assets/imges/sp_5.jpg" alt="">
-              <p class="sc-box-name">ITECH/艾德克斯 可编程电子负载 </p>
-              <p class="sc-box-btm"><span class="price">￥156</span><span class="Del">删除</span></p>
-            </li>
-            <li>
-              <img src="../../assets/imges/sp_5.jpg" alt="">
-              <p class="sc-box-name">ITECH/艾德克斯 可编程电子负载 </p>
-              <p class="sc-box-btm"><span class="price">￥156</span><span class="Del">删除</span></p>
-            </li>
-            <li>
-              <img src="../../assets/imges/sp_5.jpg" alt="">
-              <p class="sc-box-name">ITECH/艾德克斯 可编程电子负载 </p>
-              <p class="sc-box-btm"><span class="price">￥156</span><span class="Del">删除</span></p>
-            </li>
-            <li>
-              <img src="../../assets/imges/sp_5.jpg" alt="">
-              <p class="sc-box-name">ITECH/艾德克斯 可编程电子负载 </p>
-              <p class="sc-box-btm"><span class="price">￥156</span><span class="Del">删除</span></p>
-            </li>
-            <li>
-              <img src="../../assets/imges/sp_5.jpg" alt="">
-              <p class="sc-box-name">ITECH/艾德克斯 可编程电子负载 </p>
-              <p class="sc-box-btm"><span class="price">￥156</span><span class="Del">删除</span></p>
+          <div class="sc-box_center-List" v-for="(item,index) in lists" :key="index">
+            <li >
+              <img :src="baseUrl + item.files_path" alt="">
+              <router-link :to="{name:'Detail',query:{listId:item.goods_id}}"><p class="sc-box-name">{{item.goods_name}}</p></router-link>
+              <p class="sc-box-btm"><span class="price">{{item.last_price/100}}</span><span class="Del" @click="DelListItem(item,index)">删除</span></p>
             </li>
           </div>
         </div>
@@ -45,17 +20,50 @@
 </template>
 
 <script type="text/javascript">
+  import config from '../../config/config'
   export default {
     data() {
       return {
-
+        lists:[],
+        baseUrl:config.baseUrl
       }
     },
     methods: {
-
+      DelListItem(item,index){
+        this.$ajax({
+            url: config.baseUrl + '/home/cart/del',
+            method: 'post',
+            data: {
+              cart_id: item.cart_id,
+              goods_id: item.goods_id
+            }
+          }).then(res => {
+            if (res.data.code == 20000) {
+              this.lists.splice(index,1)
+            }
+          })
+        
+      }
     },
-    components: {
-
+    created(){
+      let _this = this
+        let GList = []
+        this.$ajax({
+          url: config.baseUrl + '/home/cart',
+          method: 'get',
+          params: {
+            member_id: localStorage.getItem('userId')
+          }
+        }).then(res => {
+          let numData = []
+          res.data.data.items.map((item, index) => {
+            item.carts_list.map(citem=>{
+              GList.push(citem)
+            })
+          })
+          _this.lists = GList
+           console.log(_this.lists)
+        })
     }
   }
 
@@ -113,20 +121,24 @@
           cursor: pointer;
 
           img {
-            height: 70px;
+            height: 60px;
             width: 60px;
             float: left;
+            margin-top: 10px;
           }
 
-          .sc-box-name {
-            float: left;
-            width: 200px;
-            height: 44px;
-            line-height: 22px;
-            margin-left: 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+          a{
+            color:#222;
+            .sc-box-name {
+              float: left;
+              width: 200px;
+              height: 44px;
+              line-height: 22px;
+              margin-left: 10px;
+              overflow: hidden;
+              text-overflow: ellipsis;
 
+            }
           }
 
           .sc-box-name:hover {

@@ -63,6 +63,7 @@
                 <el-input v-model="ruleForm2.smscode" placeholder="验证码" style="float:left;width:180px;"></el-input>
                 <el-button type="primary" :disabled='isDisabled' @click="En_sendCode" style="background:#e94c15;border-color:#e94c15;height:40px;float:left;">{{buttonText1}}</el-button>
               </el-form-item>
+              <p style="height:30px;color: #F56C6C;" v-if="Vcerror">验证码错误,请重新输入</p>
               <el-form-item prop="pass">
                 <el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="输入密码"></el-input>
               </el-form-item>
@@ -247,7 +248,7 @@ export default {
       },
       rules2: {
         name:[{ validator: checkname, trigger: 'change' }],
-        pass: [{ validator: validatePass1, trigger: 'change' }],
+        pass: [{ validator: validatePass1, trigger: 'change' },{ min: 8, message: "密码长度不小于8个字符", trigger: "change" }],
         checkPass: [{ validator: validatePass12, trigger: 'change' }],
         tel: [{ validator: checkTel, trigger: 'change' }],
         smscode: [{ validator: checkSmscode, trigger: 'change' }],
@@ -371,7 +372,6 @@ export default {
           this.$alert('手机号码已被注册请重新输入', '', {
             confirmButtonText: '确定',
             customClass:'telName',
-            input:自己变小了zohiemhnaar
           });
         }
         
@@ -437,9 +437,17 @@ export default {
           this.Vcerror = false
         }
         if(res.data.code == 20000){
-           this.$router.push({
-             path:'/register',
-           })
+           this.$alert(res.data.message +'请前往登录页登录', '',{
+              confirmButtonText:'确定',
+              customClass:'GoLoginName',
+              callback: action => {
+                if(res.data.code == 20000){
+                  this.$router.push({
+                    path:'/registerZC',
+                  })
+                }
+              }
+            });
         }
       })
     },
@@ -470,10 +478,11 @@ export default {
               confirmButtonText:'确定',
               customClass:'GoLoginName',
               callback: action => {
-                // this.$message({
-                //   type: 'info',
-                //   // message: `action: ${ action }`
-                // });
+                if(res.data.code == 20000){
+                  this.$router.push({
+                    path:'/registerZC',
+                  })
+                }
               }
             });
         }
@@ -538,13 +547,13 @@ export default {
   background-size:100% 100%;
   -moz-background-size:100% 100%;
   width: 100%;
-  height: 800px;
+  height: 850px;
   overflow: hidden;
 }
 
 .register {
   width: 423px;
-  margin: 100px 0 0 1100px;
+  margin: 30px 0 0 1100px;
   /* margin: 60px auto; */
   /* position: absolute;
   top: 150px;
@@ -615,8 +624,15 @@ export default {
   border-color: #409EFF;
   color: #fff;
 }
+.demo-ruleForm {
+    margin:0 ;
+  }
+  .el-form-item__content{
+    margin-bottom: 0px ;
+  }
 </style>
 <style lang="scss">
+  
   .telName{
     position: absolute;
     top:30%;

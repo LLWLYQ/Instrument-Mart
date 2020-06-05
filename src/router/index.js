@@ -10,6 +10,7 @@ import PublicSearchBar from '@/components/mine/PublicSearchBar'
 import home_serach from '@/components/home_child/home_serach'
 import home_serachCOPY from '@/components/home_child/home_serachCOPY'
 import register from '@/components/User/register'
+import registerZC from '@/components/User/registerZC'
 import sign_in from '@/components/User/sign_in'
 // import List from '@/components/goods/List/List'
 import Detail from '@/components/goods/Detail/Detail'
@@ -176,6 +177,14 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register,
+      meta:{
+        title:'仪商城'
+      }
+    },
+    {
+      path: '/registerZC',
+      name: 'registerZC',
+      component: registerZC,
       meta:{
         title:'仪商城'
       }

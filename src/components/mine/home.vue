@@ -38,7 +38,7 @@
             <!-- ShopHome -->
             <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
           </li>
-          <li><i class="el-icon-s-promotion"></i> 供求与招标</li>
+          <li><router-link to="/GeneralShop"><i class="el-icon-s-promotion"></i> 供求与招标</router-link></li>
           <li><i class="el-icon-phone"></i> 行业资讯</li>
           <li><i class="el-icon-s-custom"></i> 专家交流</li>
         </ul>

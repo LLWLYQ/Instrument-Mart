@@ -16,10 +16,15 @@
             <span>来源/用途</span>
             <span>积分变化</span>
             <span>日期</span>
-            <span>备注</span>
+            <!-- <span>备注</span> -->
           </li>
           <li v-for="scd in scoreData" :key="scd.id">
             <div class="source">
+              <p v-if="scd.origin_type == 1">签到</p>
+              <p v-if="scd.origin_type == 2">连续签到</p>
+              <p v-if="scd.origin_type == 3">连续签到最大天数送积分</p>
+              <p v-if="scd.origin_type == 4">注册获得</p>
+              <p v-if="scd.origin_type == 5">交易获得</p>
             </div>
             <div class="change">
               <p v-if="scd.change_type == 1">+{{scd.scrore_value}}</p>
@@ -28,13 +33,9 @@
             <div class="time">
               {{scd.created_at | formatDate}}
             </div>
-            <div class="typeOf">
-              <p v-if="scd.origin_type == 1">签到</p>
-              <p v-if="scd.origin_type == 2">连续签到</p>
-              <p v-if="scd.origin_type == 3">连续签到最大天数送积分</p>
-              <p v-if="scd.origin_type == 4">注册获得</p>
-              <p v-if="scd.origin_type == 5">交易获得</p>
-            </div>
+            <!-- <div class="typeOf">
+              
+            </div> -->
           </li>
         </ul>
       </div>
@@ -172,11 +173,11 @@ export default {
         width: 210px;
       }
       .masthead span:nth-child(3){
-        width: 280px;
+        width: 400px;
       }
-      .masthead span:nth-child(4){
-        width: 120px;
-      }
+      // .masthead span:nth-child(4){
+      //   width: 120px;
+      // }
       li{
         width: 100%;
         height: 100px;
@@ -189,6 +190,7 @@ export default {
         .source{
           width: 380px;
           height: 100%;
+          text-align: center;
         }
         .change{
           width: 210px;
@@ -202,7 +204,7 @@ export default {
           }
         }
         .time{
-          width: 280px;
+          width: 400px;
           height: 100%;
           text-align: center;
         }

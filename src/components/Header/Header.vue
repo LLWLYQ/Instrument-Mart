@@ -14,15 +14,16 @@
               <router-link to="" ><li>服务中心</li></router-link>
               <router-link to="" v-if="UserName"><li>Hi,{{UserName}}</li></router-link>
               <!-- <router-link to=""><li>商家中心</li></router-link> -->
-              <router-link to="/Center_home_page" target="_blank" tag="a"><li>商家中心</li></router-link>
+              <router-link to="/Center_home_page" target="_blank" tag="a"><li>会员中心</li></router-link>
               <router-link to="" v-if="UserId"><li @click="DelUser()">退出</li></router-link>
               <router-link to="/MemberRegistration" target="_blank" tag="a" v-if="!UserId"><li>免费注册</li></router-link>
-              <router-link to="/StoresRegistered" target="_blank" tag="a" v-if="Cs"><li>申请入驻</li></router-link>
+              <router-link to="/StoresRegistered" target="_blank" tag="a" ><li>申请入驻</li></router-link>
             </ul>
             <ul class="top_right">
               <router-link to=""><li>手机仪商</li></router-link>
               <a style="cursor:pointer;" @click="GoCart()"><li><i class="el-icon-shopping-cart-2" style="font-weight:bold;color:#e94c15;" ></i>购物车</li></a>
               <router-link to="/Favorite" target="_blank"><li><i class="el-icon-star-on" style="font-size:12px;margin-top:px;"></i>收藏夹</li></router-link>
+              <!-- <router-linl to= '/baojinnidewobiguowangguyou'>入驻失败</router-linl> -->
               <router-link to=""><li>我的仪商</li></router-link>
               <router-link to=""><li>我的订单</li></router-link>
             </ul>

@@ -28,6 +28,9 @@
       <el-form-item label="主营品类" prop="shop_scope">
         <el-input v-model="ruleForm.shop_scope"></el-input>
       </el-form-item>
+      <el-form-item label="客服QQ号" prop="kefu_qq">
+        <el-input v-model="ruleForm.kefu_qq"></el-input>
+      </el-form-item>
       <el-form-item label="店铺LOGO" prop="shop_logo">
         <el-upload class="avatar-uploader" action="http://shop.yishangm.com/seller/files/shopLogo" :show-file-list="false"
           :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" name="shop_logo">
@@ -40,7 +43,6 @@
           <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-
         <el-select v-model="ruleForm.shop_city" filterable placeholder="请选择" @change="selectCity2" style="margin-right:15px;">
           <el-option v-for="item in options2" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
@@ -95,8 +97,9 @@ import config from '../../config/config';
         baseUrl:config.baseUrl,
         ruleForm: {
           shop_type: '',
-          member_id: 1,
+          member_id: localStorage.getItem("userId"),
           shop_scope: '',
+          kefu_qq:'',
           shop_name: '',
           shop_address: '',
           shop_info: '',
@@ -147,6 +150,18 @@ import config from '../../config/config';
               min: 1,
               max: 150,
               message: '长度在 1 到 150 个字符',
+              trigger: 'blur'
+            }
+          ],
+          kefu_qq: [{
+              required: true,
+              message: '请输入客服QQ号',
+              trigger: 'blur'
+            },
+            {
+              min: 4,
+              max: 12,
+              message: '长度在 4 到 12 个字符',
               trigger: 'blur'
             }
           ],
@@ -261,12 +276,11 @@ import config from '../../config/config';
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-
       handleAvatarSuccess(res, file) {
-        console.log(res, file)
+        // console.log(res, file)
         this.ruleForm.shop_logo = res.data.id
         this.imageUrl = URL.createObjectURL(file.raw);
-        console.log(this.imageUrl)
+        // console.log(this.imageUrl)
       },
       beforeAvatarUpload(file) {
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -305,10 +319,7 @@ import config from '../../config/config';
 
 </script>
 <style>
-  .demo-ruleForm {
-    width: 1230px;
-    margin:30px auto;
-  }
+ 
   #ELB:hover {
     background-color: red;
     border: 2px solid red;
@@ -320,15 +331,20 @@ import config from '../../config/config';
     border: 2px solid #e94c15;
     color: #fff;
   }
-  .el-form-item__content{
-    margin-bottom: 25px;
-  }
-  .el-select-dropdown__item{
-    padding:0 15px !important;
-  }
+  
 </style>
 <style lang="scss" scoped  >
 @import '../../style/common';
+ .demo-ruleForm {
+    width: 1230px;
+    margin:30px auto ;
+  }
+  .el-form-item{
+    margin: 0 0 25px 0 !important;
+  } 
+  .el-select-dropdown__item{
+    padding:0 15px !important;
+  }
   .diu{
     width: 1210px;
     min-height: 600px;

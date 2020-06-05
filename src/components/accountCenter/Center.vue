@@ -26,7 +26,7 @@
                 <el-menu-item index="/Integral" >我的积分</el-menu-item>
                 <el-menu-item index="/Sales_returns" >退换货物</el-menu-item>
                 <el-menu-item index="/Complaint" >评价管理</el-menu-item>
-                <el-menu-item index="/Invoice" >发票设置</el-menu-item>
+                <!-- <el-menu-item index="/Invoice" >发票设置</el-menu-item> -->
             </el-submenu>
             </el-menu>
             </el-col>
