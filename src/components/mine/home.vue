@@ -17,7 +17,7 @@
           <HomeSerach></HomeSerach>
         </div>
         <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
-          <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>2</span></i><span>我的购物车</span></p></router-link>
+          <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>{{NumData}}</span></i><span>我的购物车</span></p></router-link>
           <transition name="overcat">
             <div class="overBox" v-show="Scboxshow">
               <overallCart></overallCart>
@@ -164,10 +164,10 @@
         <h1>仪商城InstrumentMall-SLHC</h1>
       </div>
       <div class="List">
-        <ul v-for="List in data_list" :key="List.id" class="List_ul">
+        <ul v-for="List in list_one" :key="List.id" class="List_ul">
           <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
           <router-link
-            :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id,CateName:List.cate_name}}"
+            :to="{name:'Detail',query:{listId:List.goods_id}}"
             target="_blank" tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
@@ -194,11 +194,13 @@
           </li>
         </ul>
       </div>
-      <h1 class="bom-title"><span>—— <i class="iconfont icon-aixin"></i>猜你喜欢 ——</span></h1>
-      <div class="List">
-        <ul v-for="List in data_list" :key="List.id" class="List_ul">
-          <router-link :to="{name:'ProductCategoryListPage',query:{ListClaId:List.goods_cate_id}}" target="_blank"
-            tag="a">
+      <!-- <h1 class="bom-title"><span>—— <i class="iconfont icon-aixin"></i>猜你喜欢 ——</span></h1> -->
+       <div class="List">
+        <ul v-for="List in list_two" :key="List.id" class="List_ul">
+          <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
+          <router-link
+            :to="{name:'Detail',query:{listId:List.goods_id}}"
+            target="_blank" tag="a">
             <li>
               <img :src="baseUrl+List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
@@ -207,9 +209,152 @@
           </router-link>
         </ul>
       </div>
-      <div class="Right" v-if="sele">
-        <li v-for="(item,index) in wpList" :key="index" :class="{cur:iscur===index}"
-          @click="iscur=index,selected(item.name,index)">{{item.name}}</li>
+      <div class="advList">
+        <ul>
+          <!-- position_id (300,303) -->
+          <!-- <li v-for="pd in picId300" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId303" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li> -->
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
+          </li>
+        </ul>
+      </div>
+       <div class="List">
+        <ul v-for="List in list_three" :key="List.id" class="List_ul">
+          <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
+          <router-link
+            :to="{name:'Detail',query:{listId:List.goods_id}}"
+            target="_blank" tag="a">
+            <li>
+              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <div class="List_div">{{List.goods_name}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
+            </li>
+          </router-link>
+        </ul>
+      </div>
+      <div class="advList">
+        <ul>
+          <!-- position_id (300,303) -->
+          <!-- <li v-for="pd in picId300" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId303" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li> -->
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
+          </li>
+        </ul>
+      </div>
+       <div class="List">
+        <ul v-for="List in list_four" :key="List.id" class="List_ul">
+          <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
+          <router-link
+            :to="{name:'Detail',query:{listId:List.goods_id}}"
+            target="_blank" tag="a">
+            <li>
+              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <div class="List_div">{{List.goods_name}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
+            </li>
+          </router-link>
+        </ul>
+      </div>
+      <div class="advList">
+        <ul>
+          <!-- position_id (300,303) -->
+          <!-- <li v-for="pd in picId300" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId303" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li> -->
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
+          </li>
+        </ul>
+      </div>
+       <div class="List">
+        <ul v-for="List in list_five" :key="List.id" class="List_ul">
+          <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
+          <router-link
+            :to="{name:'Detail',query:{listId:List.goods_id}}"
+            target="_blank" tag="a">
+            <li>
+              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <div class="List_div">{{List.goods_name}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
+            </li>
+          </router-link>
+        </ul>
+      </div>
+      <div class="advList">
+        <ul>
+          <!-- position_id (300,303) -->
+          <!-- <li v-for="pd in picId300" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId303" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li> -->
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
+          </li>
+        </ul>
+      </div>
+       <div class="List">
+        <ul v-for="List in list_six" :key="List.id" class="List_ul">
+          <!-- <router-link :to="{name:'Detail',query:{listId:List.goods_id}}" target="_blank" tag="a"> -->
+          <router-link
+            :to="{name:'Detail',query:{listId:List.goods_id}}"
+            target="_blank" tag="a">
+            <li>
+              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <div class="List_div">{{List.goods_name}}</div>
+              <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
+            </li>
+          </router-link>
+        </ul>
+      </div>
+      <div class="advList">
+        <ul>
+          <!-- position_id (300,303) -->
+          <!-- <li v-for="pd in picId300" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li>
+          <li v-for="pd in picId303" :key="pd.id">
+            <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
+          </li> -->
+          <li>
+            <p>暂无广告</p>
+          </li>
+          <li>
+            <p>暂无广告</p>
+          </li>
+        </ul>
+      </div>
+      <div class="Right" v-if="sele"  >
+        <li v-for="(cat,index) in Category" :key="index" :class="{cur:iscur===index}"
+          @click="iscur=index,selected(cat.cate_nam,index)">{{cat.cate_name}}
+        </li>
+        <li @click="goTop()" style="background:#F15453;color:#fff;"><i class="el-icon-caret-top"></i>回到顶部</li>
       </div>
     </div>
   </div>
@@ -238,16 +383,6 @@
         Iscur: 0,
         LF: false,
         baseUrl: config.baseUrl,
-        wpList: [{
-            name: 'SLHC'
-          },
-          {
-            name: '猜你喜欢'
-          },
-          {
-            name: '顶部'
-          }
-        ],
         notice: [{
           name: '仪商公告'
         }, {
@@ -281,6 +416,14 @@
         picId302: '',
         picId300: '',
         picId303: '',
+        NumData:'',
+        lists:[],
+        list_one:'',
+        list_two:'',
+        list_three:'',
+        list_four:'',
+        list_five:'',
+        list_six:''
       }
     },
     beforeDestroy() {
@@ -291,6 +434,74 @@
       // console.log('haihao y')
     },
     created() {
+      //List-one
+      this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: "get",
+          params:{
+            goods_name:'荣'
+          }
+        }).then(res => {
+          this.list_one = res.data.data.items
+          console.log(res)
+        });
+        //List-two
+      this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: "get",
+          params:{
+            goods_name:'华硕'
+          }
+        }).then(res => {
+          this.list_two = res.data.data.items
+          // console.log(this.data_list)
+        });
+        //List-three
+      this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: "get",
+          params:{
+            goods_name:'服装'
+          }
+        }).then(res => {
+          this.list_three = res.data.data.items
+          // console.log(this.data_list)
+        });
+        //List-four
+      this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: "get",
+          params:{
+            goods_name:'医疗器械'
+          }
+        }).then(res => {
+          this.list_four = res.data.data.items
+          // console.log(this.data_list)
+        });
+        //List-five
+      this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: "get",
+          params:{
+            goods_name:'专用仪器'
+          }
+        }).then(res => {
+          this.list_five = res.data.data.items
+          // console.log(this.data_list)
+        });
+        //List-six
+      this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: "get",
+          params:{
+            goods_name:'科学仪器'
+          }
+        }).then(res => {
+          this.list_six = res.data.data.items
+          // console.log(this.data_list)
+        });
+
+
       //广告位列表
       //id=9
       let that = this
@@ -357,7 +568,7 @@
         method: 'get',
       }).then(res => {
         this.Category = res.data.data
-        // console.log(this.Category)
+        console.log(this.Category)
       })
       //签到状态查看
       if (localStorage.getItem('userId')) {
@@ -379,7 +590,6 @@
       }
       // console.log(this.getDay(0))
       let _this = this
-      this.keywords()
       this.M_L()
       this.$ajax({
         url: config.baseUrl + '/home/cart',
@@ -388,7 +598,26 @@
           member_id: localStorage.getItem('userId')
         }
       }).then(res => {
-        this.carData = res.data.data.items.data
+        this.carData = res.data.data.items
+        // console.log(res.data.data.items)
+        let GList = {}
+        res.data.data.items.map((item, index) => {
+            GList = {}
+            GList.cart_id = item.cart_id
+            GList.shop_id = item.shop_id
+            GList.shop_name = item.shop_name
+            GList.carts_list = item.carts_list
+            GList.shop_all_weight = item.shop_all_weight
+            this.lists.push(GList)
+            // this.NumData = this.lists.length
+          })
+          let www =  []
+          this.lists.map(item=>{
+            item.carts_list.map(citem=>{
+              www.push(citem)
+            })
+          })
+          this.NumData = www.length
         var goodsinfos = {}
         // goodsinfos.push(addToShopCar)
         // this.$store.commit("addToShopCar", goodsinfos);
@@ -412,6 +641,10 @@
       })
     },
     methods: {
+      // getValue(cdata){
+      //   console.log(cdata)
+      //   this.pdata = cdata
+      // },
       advClick(adv) {
         // console.log(adv)
       },
@@ -506,6 +739,11 @@
       noticeMove(name, index) {
         this.Iscur = index
       },
+      goTop(){
+         $("body,html").animate({
+            scrollTop: 0
+          }, 100)
+      },
       selected(name, index) {
         this.iscur = index
         this.active = index;
@@ -531,15 +769,6 @@
             scrollTop: 0
           }, 100)
         }
-      },
-      keywords() {
-        this.$ajax({
-          url: config.baseUrl + '/home/goods',
-          method: "get",
-        }).then(res => {
-          this.data_list = res.data.data.items
-          // console.log(this.data_list)
-        });
       },
       M_L() {
         this.$ajax({
@@ -1025,7 +1254,7 @@
               cursor: pointer;
               height: 40px;
               line-height: 40px;
-              width: 60px;
+              width: 120px;
               text-align: center;
 
               a {

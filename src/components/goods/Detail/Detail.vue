@@ -198,7 +198,7 @@
                           <ul class="tm-m-photos-thumb">
                             <li><span>{{red.consult_content}}</span></li>
                           </ul>
-                          <p><span>商家回复：{{red.consult_reply}}好用的不得了</span></p>
+                          <p><span>商家回复：{{red.consult_reply}}</span></p>
                         </div>
                       </div>
                     </td>

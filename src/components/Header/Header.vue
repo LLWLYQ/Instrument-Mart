@@ -85,7 +85,7 @@ export default {
       }
     }).then(res=>{
       this.Cs = res.data.data.company_status
-      console.log(res.data.data)
+      // console.log(res.data.data)
     })
   }
 }

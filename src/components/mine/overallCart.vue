@@ -12,7 +12,8 @@
           </div>
         </div>
         <p class="sc-bottom">
-          <router-link to="/cart"><span>结算</span></router-link>
+          <router-link to="/cart"><span v-if="lists != ''">结算</span></router-link>
+          <router-link to=""><span v-if="lists == ''">暂无商品</span></router-link>
         </p>
       </div>
     </div>
@@ -25,7 +26,8 @@
     data() {
       return {
         lists:[],
-        baseUrl:config.baseUrl
+        baseUrl:config.baseUrl,
+        listsNum:0
       }
     },
     methods: {
@@ -62,7 +64,9 @@
             })
           })
           _this.lists = GList
-           console.log(_this.lists)
+          //  console.log(_this.lists)
+           this.listsNum  = _this.lists.length
+          //  this.$emit('cdata',this.listsNum)
         })
     }
   }
@@ -71,7 +75,6 @@
 
 <style lang="scss" scoped>
   @import '../../style/common';
-
   .sc-Box {
     background: #fff;
     width: 300px;
@@ -113,7 +116,19 @@
       // border:1px solid #222;
       overflow: hidden;
       overflow-y: scroll;
-
+      .Num{
+        display: block;
+            width: 15px;
+            height: 15px;
+            position: fixed;
+            top: -20px;
+            left: 95px;
+            line-height: 15px;
+            text-align: center;
+            background: #db2726;
+            color: #fff;
+            border-radius: 50%;
+      }
       .sc-box_center-List {
         li {
           height: 80px;

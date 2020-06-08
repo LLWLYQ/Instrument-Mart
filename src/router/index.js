@@ -500,7 +500,8 @@ export default new Router({
       name:'Enterprise_real_name',
       component:Enterprise_real_name,
       meta:{
-        title:''
+        title:'',
+        keepAlive: true
       }
     },
     {
