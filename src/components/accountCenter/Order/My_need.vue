@@ -8,6 +8,7 @@
             <p>添加时间：{{LoDa.draw_addtime | formatDate}}</p>
             <p>开始时间：{{LoDa.draw_start_time | formatDate}}</p>
             <p>结束时间：{{LoDa.draw_end_time | formatDate}}</p>
+            <p>活动开始时间：{{LoDa.draw_end_triem | formatDate}</p>
           </li>
         </ul>
       </div>

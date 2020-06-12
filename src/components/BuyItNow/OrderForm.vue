@@ -110,7 +110,7 @@
                 ￥{{(item2.last_price/100)*item2.quantity}}</li>
             </ul>
             <li
-              style="width:100%; min-height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold; margin-top:20px;">
+              style="width:100% !important; min-height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold; margin-top:20px;">
               <h4 style="font-size:14px; text-align:left;">店铺优惠券</h4>
               <p style="text-align:left; margin-bottom:20px;">
                 <template>
@@ -496,7 +496,7 @@
 
   .center_tr {
     min-height: 180px;
-    width: 1188;
+    // width: 1188px;
     border-bottom: 1px dotted rgb(128, 178, 255);
     margin-bottom: 15px;
     padding: 17px 0 0 0;

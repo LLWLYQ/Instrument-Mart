@@ -87,11 +87,9 @@ export default {
       margin-right: 25px;
     }
   }
-</style>
-<style lang="">
   .el-input__inner{
     padding: 0 !important;
-    text-indent: 15px !important;
+    text-indent: 0px !important;
     border-radius: 0 !important;
   }
   .el-input-number__decrease{
@@ -103,6 +101,9 @@ export default {
   .el-input-number .el-input__inner{
     padding: 0 !important;
   }
+</style>
+<style lang="scss">
+  
   /* .el-input-number{
     width: 80px;
   } */

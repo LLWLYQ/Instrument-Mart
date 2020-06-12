@@ -548,12 +548,9 @@
       }
     }
   }
-
-</style>
-<style lang="scss">
-  .el-input__inner {
+ .el-input__inner {
     padding: 0 !important;
-    text-indent: 15px !important;
+    text-indent: 0px !important;
     border-radius: 0 !important;
   }
 
@@ -565,9 +562,9 @@
     width: 20px !important;
   }
 
-  .el-input-number .el-input__inner {
-    padding: 0 !important;
-  }
+</style>
+<style lang="scss">
+ 
 
   #ELB:hover {
     background-color: red;

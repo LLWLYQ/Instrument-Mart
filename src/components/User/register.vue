@@ -43,8 +43,7 @@ export default {
     };
   },
   created() {
-    this.$emit('public_header', false);
-    this.$emit('public_footer', false);
+    
     let that = this;
     document.onkeypress = function(e) {
       var keycode = document.all ? event.keyCode : e.which;

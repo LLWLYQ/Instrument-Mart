@@ -19,6 +19,8 @@ import Account_setting from '@/components/accountCenter/Order/Account_setting' /
 import Have_to_buy_goods from '@/components/accountCenter/Order/Have_to_buy_goods'  //已买商品
 import My_need from '@/components/accountCenter/Order/My_need' //我的需求
 import Enquiry from '@/components/accountCenter/Order/Enquiry'//我要询价
+import Orderdetail from '@/components/accountCenter/Order/Orderdetail/Orderdetail'//订单详情
+Orderdetail
 import Shipping_address from '@/components/accountCenter/Order/Shipping_address' //收货地址
 import Discount_coupon from '@/components/accountCenter/Order/Discount_coupon' //优惠券
 import Favorite from '@/components/accountCenter/Order/Favorite'  //我的收藏
@@ -40,6 +42,9 @@ import Alternate from '@/components/BuyItNow/Alternate' //支付页面
 import TuningUpThePayment from '@/components/BuyItNow/OrderInfromation/TuningUpThePayment' //支付页面
 import LoginForm from '@/components/LoginForm/LoginForm' //登录窗口
 import Header from '@/components/Header/Header'//头部
+import HeaderCOPY from '@/components/Header/HeaderCOPY'//头部
+import coupon from '@/components/Header/coupon'//优惠券
+
 import Foot from '@/components/Foot/Foot'//底部
 import BottomNavigationBar from '@/components/Foot/BottomNavigationBar'
 import Security_settings from '@/components/Security_settings/Security_settings'//安全设置
@@ -252,6 +257,15 @@ export default new Router({
       }
     },
     {
+      path:'/Orderdetail',
+      name:'Orderdetail',
+      component:Orderdetail,
+      meta:{
+        // keepAlive: true,
+        requiresAuth: true
+      }
+    },
+    {
       path: '/Center',
       name: 'Center',
       component: Center,
@@ -296,6 +310,7 @@ export default new Router({
             requiresAuth: true
           }
         },
+        
         {
           path:'/Shipping_address',
           name:'Shipping_address',
@@ -409,7 +424,8 @@ export default new Router({
       name:'MemberRegistration',
       component:MemberRegistration,
       meta:{
-        title:'仪商城'
+        title:'仪商城',
+        // keepAlive: true
       }
     },
     {
@@ -469,6 +485,23 @@ export default new Router({
         title:'',
       }
     },
+    {
+      path:'/HeaderCOPY',
+      name:'HeaderCOPY',
+      component:HeaderCOPY,
+      meta:{
+        title:'',
+      }
+    },
+    {
+      path:'/coupon',
+      name:'coupon',
+      component:coupon,
+      meta:{
+        title:'',
+      }
+    },
+    
     {
       path:'/Foot',
       name:'Foot',

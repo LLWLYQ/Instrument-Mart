@@ -742,8 +742,17 @@ ul{
         z-index: 999;
         background-color: #111111;
       }
+      .el-input__inner{
+      padding: 0 !important;
+      text-indent: 15px !important;
+      border-radius: 0 !important;
+    }
+    .el-select-dropdown__item{
+    padding:0 15px !important;
+  }
 </style>
 <style lang="scss">
+
   .distpicker-address-wrapper{
     select{
       width: 100px;

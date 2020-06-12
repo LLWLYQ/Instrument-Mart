@@ -1,6 +1,5 @@
 <template>
   <div class="Center">
-    <!-- <div class="content_container"> -->
       <div class="Center_left">
         <div class="order">
           <el-row class="tac">
@@ -24,7 +23,7 @@
                 <el-menu-item index="/Discount_coupon" >领优惠券</el-menu-item>
                 <el-menu-item index="/Favorite" >我的收藏</el-menu-item>
                 <el-menu-item index="/Integral" >我的积分</el-menu-item>
-                <el-menu-item index="/Sales_returns" >退换货物</el-menu-item>
+                <!-- <el-menu-item index="/Sales_returns" >退换货物</el-menu-item> -->
                 <el-menu-item index="/Complaint" >评价管理</el-menu-item>
                 <!-- <el-menu-item index="/Invoice" >发票设置</el-menu-item> -->
             </el-submenu>
@@ -35,7 +34,9 @@
         </div>
       </div>
     <!-- </div> -->
+    <div style="clear:both;"></div>
   </div>
+  
 </template>
 <script>
 import {Account_setting, Have_to_buy_goods, My_need, Enquiry, Shipping_address, Discount_coupon, Favorite, Integral, Sales_returns, Complaint, Invoice, Center_home_page} from './Order' //yinruindex.js wenjian yiciiyinruduoge zizujian
@@ -70,8 +71,9 @@ export default {
   .Center{
     width: 1190px;
     margin: 0 auto;
-    height: 2000px;
-    overflow: hidden;
+    // min-height: 1000px;
+    height: auto;
+    // overflow: hidden;
     .cur{
       background-color: #222;
       color:#fff;
@@ -80,7 +82,7 @@ export default {
     .Center_left{
       float: left;
       width: 100px;
-      height: 1000px;
+      height: auto;
       margin-top: 50px;
       .user-info{
         margin-top: 50px;

@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="List">
-          <el-table :data="ListData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%;">
+          <el-table :data="ListData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%;" :row-class-name="tableRowClassName">
             <el-table-column>
               <template slot-scope="scope" style="width:230px;float:left;">
                 <ul>
@@ -82,6 +82,13 @@
       }
     },
     methods: {
+      tableRowClassName({row, rowIndex}) {
+        // console.log(row)
+                if (row.status== 0 || 1 || 2 ||3 ||4 ||5||6||7||8||9||10||11||12||13||14||15||16) {
+                  return 'heiya-row';
+                }
+                return '';
+            },
       // 初始页currentPage、初始每页数据数pagesize和数据data
       handleSizeChange: function (size) {
         this.pagesize = size;
@@ -225,7 +232,7 @@
 
 <style lang="scss" scoped>
   @import '../../../../style/common';
-
+  
   .Center {
     background: #fff;
     width: 1190px;
@@ -295,6 +302,7 @@
     }
 
     .List {
+      
       // padding-left: 5px;
       width: 1190px;
       ul {
@@ -425,33 +433,37 @@
     color: #fff;
   }
 
-  .el-table__row {
-    float: left;
-    padding: 0;
-    width: 238px;
-  }
+  .heiya-row{
+        float: left !important;
+        padding: 0 !important;
+        width: 238px !important;
+      }
+  .heiya-row .cell{
+        padding: 0 !important;
+        width: 238px !important;
+      }
 
-  .el-table .cell {
-    padding: 0;
-    width: 238px;
-  }
-
-  .el-table td {
-    border: none;
-    padding: 0;
-  }
-
-  .el-table th {
-    padding: 0;
-  }
-
-  // .el-table__header {
-  //   display: none;
+  // .el-table .cell {
+  //   padding: 0;
+  //   width: 238px;
   // }
-  .el-table__body-wrapper .el-table__row{
-    border:none;
-  }
-  .el-table__body-wrapper, .el-table__body-wrapper .el-table__row{
-    border:none;
-  }
+
+  // .el-table td {
+  //   border: none;
+  //   padding: 0;
+  // }
+
+  // .el-table th {
+  //   padding: 0;
+  // }
+
+  // // .el-table__header {
+  // //   display: none;
+  // // }
+  // .el-table__body-wrapper .el-table__row{
+  //   border:none;
+  // }
+  // .el-table__body-wrapper, .el-table__body-wrapper .el-table__row{
+  //   border:none;
+  // }
 </style>

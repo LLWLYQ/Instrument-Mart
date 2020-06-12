@@ -91,6 +91,7 @@ export default {
   width: 100%;
   margin-top: 30px;
   margin-left: 100px;
+  height: 1000px;
   .menber-shop{
      overflow: hidden;
      li{

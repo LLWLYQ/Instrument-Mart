@@ -1,5 +1,5 @@
 <template>
-  <div class="Enquiry">
+  <div class="coupon">
     <div class="content">
       <div class="discount_coupon">
         <h1>优惠券列表</h1>
@@ -37,7 +37,7 @@
   </div>
 </template>
 <script type="text/javascript">
-import config  from '../../../config/config'
+import config  from '../../config/config'
 export default {
   data() {
     return {
@@ -51,6 +51,7 @@ export default {
   },
   methods: {
     DcListClick(LD){
+      console.log(LD.id)
       this.$ajax({
         url:config.baseUrl + '/home/coupon_receive',
         method:'post',
@@ -63,7 +64,7 @@ export default {
         if(res.data.code == 20000){
           alert('领取成功')
         }else{
-          lert('没有次数')
+          alert('没有次数')
         }
       })
     },
@@ -124,11 +125,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../style/common';
+@import '../../style/common';
 .Enquiry{
   width: 990px;
   margin-left: 100px;
-  height: 1000px;
   
 }
 .discount_coupon{

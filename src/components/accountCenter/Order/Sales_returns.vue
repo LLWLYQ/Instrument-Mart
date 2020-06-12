@@ -14,6 +14,10 @@
     }
   }
 </script>
-<style lang="scss" rel="stylesheet">
-
+<style lang="scss" scped>
+  // .Sales_returns{
+  //   height: 1000px;
+  //   width: 990px;
+  //   margin-left: 100px;
+  // }
 </style>

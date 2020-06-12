@@ -490,10 +490,7 @@ export default {
     }
   },
   created(){
-    this.$emit('public_header', false);
-    this.$emit('public_footer', false);
-    //如果在这里加刷新页面页面将会一直刷新
-    // window.location.reload();
+  
   }
 };
 </script>
@@ -630,9 +627,14 @@ export default {
   .el-form-item__content{
     margin-bottom: 0px ;
   }
+  
 </style>
 <style lang="scss">
-  
+  .el-input__inner{
+    padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
+  }
   .telName{
     position: absolute;
     top:30%;
@@ -643,9 +645,5 @@ export default {
     top:30%;
     left: 40%;
   }
-  .el-input__inner{
-    padding: 0 !important;
-    text-indent: 15px !important;
-    border-radius: 0 !important;
-  }
+  
 </style>

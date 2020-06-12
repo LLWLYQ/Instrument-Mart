@@ -686,23 +686,25 @@ ul{
       //   z-index: 999;
       //   background-color: #111111;
       // }
-
-</style>
-<style lang="scss">
-.el-form-item__content{
+.el-input__inner{
+    padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
+  }
+  .el-form-item__content{
   position: static !important;
 }
 .el-form-item__error{
     position: static !important;
   }
 .Dotification{
-      position: absolute;
-      left:45%;
-      margin-top: 200px;
+      position: absolute !important;
+      left:45% !important;
+      margin-top: 200px !important;
     }
   .distpicker-address-wrapper{
     select{
-      width: 100px;
+      width: 100px !important;
     }
   }
   .el-select-dropdown__list{
@@ -710,8 +712,14 @@ ul{
   }
   .el-table__body-wrapper{
     .el-table__row{
-      border:1px solid #ccc;
+      border:1px solid #ccc !important;
     }
-      border:1px solid #ccc;
+      border:1px solid #ccc !important;
   }
+  .el-select-dropdown__item{
+    padding:0 15px !important;
+  }
+</style>
+<style lang="scss">
+
 </style>

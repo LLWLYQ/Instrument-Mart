@@ -439,7 +439,7 @@
           url: config.baseUrl + '/home/goods',
           method: "get",
           params:{
-            goods_name:'荣'
+            pcatid:119
           }
         }).then(res => {
           this.list_one = res.data.data.items
@@ -450,7 +450,7 @@
           url: config.baseUrl + '/home/goods',
           method: "get",
           params:{
-            goods_name:'华硕'
+            pcatid:128
           }
         }).then(res => {
           this.list_two = res.data.data.items
@@ -461,7 +461,7 @@
           url: config.baseUrl + '/home/goods',
           method: "get",
           params:{
-            goods_name:'服装'
+            pcatid:133
           }
         }).then(res => {
           this.list_three = res.data.data.items
@@ -472,7 +472,7 @@
           url: config.baseUrl + '/home/goods',
           method: "get",
           params:{
-            goods_name:'医疗器械'
+            pcatid:137
           }
         }).then(res => {
           this.list_four = res.data.data.items
@@ -483,7 +483,7 @@
           url: config.baseUrl + '/home/goods',
           method: "get",
           params:{
-            goods_name:'专用仪器'
+            pcatid:138
           }
         }).then(res => {
           this.list_five = res.data.data.items
@@ -586,7 +586,7 @@
           } else {
             this.sinIn = true
           }
-        })
+        })                                                        
       }
       // console.log(this.getDay(0))
       let _this = this
@@ -595,7 +595,7 @@
         url: config.baseUrl + '/home/cart',
         method: 'get',
         params: {
-          member_id: localStorage.getItem('userId')
+          member_id: localStorage.getItem('userId'),
         }
       }).then(res => {
         this.carData = res.data.data.items
@@ -617,7 +617,7 @@
               www.push(citem)
             })
           })
-          this.NumData = www.length
+        this.NumData = www.length
         var goodsinfos = {}
         // goodsinfos.push(addToShopCar)
         // this.$store.commit("addToShopCar", goodsinfos);

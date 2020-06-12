@@ -37,15 +37,21 @@ export default {
       border-bottom: 2px solid #333;
   }
 }
-</style>
-<style lang="scss">
 .el-table__row {
-    float: none;
-    padding: 0;
-    width: 180px;
+    float: none !important;
+    padding: 0 !important;
+    width: 180px !important;
   }
   .el-table .cell, .el-table__row{
-    padding: 0;
-    width: 180px ;
+    padding: 0 !important;
+    width: 180px !important;
   }
+  .el-input__inner{
+    padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
+  }
+</style>
+<style lang="scss">
+
 </style>

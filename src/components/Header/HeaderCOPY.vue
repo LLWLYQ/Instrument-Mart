@@ -1,5 +1,5 @@
 <template>
-  <div class="Header">
+  <div class="HeaderCOPY">
       <div class="LoginForm" v-if="LF">
         <i class="el-icon-circle-close" @click="closeLF()"></i>
         <LoginForm style="width:100%;height:100%;" v-on:closeLogin='closeLogin'></LoginForm>
@@ -108,9 +108,9 @@ export default {
     height:30px;
     background-color:#e3e4e5;
     border-bottom: 1px solid #ddd;
-    width:1230px;
+    width:990px;
     .top_left{
-      width:500px;
+      width:400px;
       float: left;
       color:red;
       :nth-child(n+2){
@@ -128,7 +128,7 @@ export default {
       }
     }
     .top_right{
-      width:700px;
+      width:500px;
       float: right;
       color:red;
       :nth-child(n+2){

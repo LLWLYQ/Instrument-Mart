@@ -332,6 +332,11 @@ import config from '../../config/config';
   .el-select-dropdown__item{
     padding:0 15px !important;
   }
+  .el-input__inner{
+    padding: 0 !important;
+    text-indent: 15px !important;
+    border-radius: 0 !important;
+  }
   .diu{
     width: 1210px;
     min-height: 600px;
