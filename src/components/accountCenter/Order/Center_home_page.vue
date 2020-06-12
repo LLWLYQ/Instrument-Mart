@@ -45,7 +45,7 @@
                   layout="total, sizes, prev, next, jumper" :total="tableData.length" style="margin-bottom:5px;">
                 </el-pagination>
                 <el-table ref="multipleTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  tooltip-effect="dark" style="width: 100%;" @selection-change="handleSelectionChange"
+                  tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;" @selection-change="handleSelectionChange"
                   :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
@@ -110,7 +110,7 @@
                     <template slot-scope="scope">
                       <div class="Orderdetail" style="width:98px;">
                         <router-link :to="{name:'Orderdetail',query:{OrderData:JSON.stringify(scope.row)}}" target="_blank" tag="a">
-                        <span style="font-size:12px;cursor: pointer;">订单详情</span>
+                        <span style="font-size:12px;cursor: pointer;color:#666;">订单详情</span>
                       </router-link>
                       </div>
                     </template>
@@ -122,7 +122,7 @@
                           @click="Delarr(scope.row,scope.$index)"></i></div>
                       <div>
                         <p class="evaluate-fa"><span class="evaluate" v-if="scope.row.status == 3">确认收货</span></p>
-                        <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p>
+                        <!-- <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p> -->
                       </div>
                       </div>
                     </template>
@@ -137,7 +137,7 @@
                   layout="total, sizes, prev, next, jumper" :total="arr2.length" style="margin-bottom:5px;">
                 </el-pagination>
                 <el-table ref="multipleTable" :data="arr2.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
+                  tooltip-effect="dark" style="width: 100%; border:1px solid #ccc;" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
                   <el-table-column label="宝贝" width="352" align="center" >
@@ -201,7 +201,7 @@
                     <template slot-scope="scope">
                       <div class="Orderdetail" style="width:98px;">
                         <router-link :to="{name:'Orderdetail',query:{OrderData:JSON.stringify(scope.row)}}" target="_blank" tag="a">
-                        <span style="font-size:12px;cursor: pointer;">订单详情</span>
+                        <span style="font-size:12px;cursor: pointer;color:#666;">订单详情</span>
                       </router-link>
                       </div>
                     </template>
@@ -213,7 +213,7 @@
                           @click="Delarr(scope.row,scope.$index)"></i></div>
                       <div>
                         <p class="evaluate-fa"><span class="evaluate" v-if="scope.row.status == 3">确认收货</span></p>
-                        <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p>
+                        <!-- <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p> -->
                       </div>
                       </div>
                     </template>
@@ -228,7 +228,7 @@
                   layout="total, sizes, prev, next, jumper" :total="arr3.length" style="margin-bottom:5px;">
                 </el-pagination>
                 <el-table ref="multipleTable" :data="arr3.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
+                  tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
                   <el-table-column label="宝贝" width="352" align="center" >
@@ -292,7 +292,7 @@
                     <template slot-scope="scope">
                       <div class="Orderdetail" style="width:98px;">
                         <router-link :to="{name:'Orderdetail',query:{OrderData:JSON.stringify(scope.row)}}" target="_blank" tag="a">
-                        <span style="font-size:12px;cursor: pointer;">订单详情</span>
+                        <span style="font-size:12px;cursor: pointer;color:#666;">订单详情</span>
                       </router-link>
                       </div>
                     </template>
@@ -304,7 +304,7 @@
                           @click="Delarr(scope.row,scope.$index)"></i></div>
                       <div>
                         <p class="evaluate-fa"><span class="evaluate" v-if="scope.row.status == 3">确认收货</span></p>
-                        <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p>
+                        <!-- <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p> -->
                       </div>
                       </div>
                     </template>
@@ -319,7 +319,7 @@
                   layout="total, sizes, prev, next, jumper" :total="arr4.length" style="margin-bottom:5px;">
                 </el-pagination>
                 <el-table ref="multipleTable" :data="arr4.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
+                  tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
                   <el-table-column label="宝贝" width="352" align="center" >
@@ -383,7 +383,7 @@
                     <template slot-scope="scope">
                       <div class="Orderdetail" style="width:98px;">
                         <router-link :to="{name:'Orderdetail',query:{OrderData:JSON.stringify(scope.row)}}" target="_blank" tag="a">
-                        <span style="font-size:12px;cursor: pointer;">订单详情</span>
+                        <span style="font-size:12px;cursor: pointer;color:#666;">订单详情</span>
                       </router-link>
                       </div>
                     </template>
@@ -395,7 +395,7 @@
                           @click="Delarr(scope.row,scope.$index)"></i></div>
                       <div>
                         <p class="evaluate-fa"><span class="evaluate" v-if="scope.row.status == 3">确认收货</span></p>
-                        <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p>
+                        <!-- <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p> -->
                       </div>
                       </div>
                     </template>
@@ -474,8 +474,8 @@
         }
       },
       //删除订单
-      Delarr(item, index) {
-        this.tableData.splice(index, 1)
+      Delarr(item,index) {
+        this.tableData[index].get_order_product = []
       },
       handleSizeChange: function (size) {
         this.pagesize = size;

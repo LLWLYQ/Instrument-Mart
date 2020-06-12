@@ -20,7 +20,7 @@ import Have_to_buy_goods from '@/components/accountCenter/Order/Have_to_buy_good
 import My_need from '@/components/accountCenter/Order/My_need' //我的需求
 import Enquiry from '@/components/accountCenter/Order/Enquiry'//我要询价
 import Orderdetail from '@/components/accountCenter/Order/Orderdetail/Orderdetail'//订单详情
-Orderdetail
+import SalesReturn from '@/components/accountCenter/Order/SalesReturn/SalesReturn'//退货
 import Shipping_address from '@/components/accountCenter/Order/Shipping_address' //收货地址
 import Discount_coupon from '@/components/accountCenter/Order/Discount_coupon' //优惠券
 import Favorite from '@/components/accountCenter/Order/Favorite'  //我的收藏
@@ -260,6 +260,15 @@ export default new Router({
       path:'/Orderdetail',
       name:'Orderdetail',
       component:Orderdetail,
+      meta:{
+        // keepAlive: true,
+        requiresAuth: true
+      }
+    },
+    {
+      path:'/SalesReturn',
+      name:'SalesReturn',
+      component:SalesReturn,
       meta:{
         // keepAlive: true,
         requiresAuth: true

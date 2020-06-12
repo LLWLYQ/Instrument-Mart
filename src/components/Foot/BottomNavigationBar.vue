@@ -124,7 +124,7 @@
 
     .Search_Goods {
       position: absolute;
-      left: 345px;
+      right: 0;
       top: 70px;
       overflow: hidden;
       width: 615px;

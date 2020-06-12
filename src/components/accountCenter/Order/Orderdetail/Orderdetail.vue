@@ -15,7 +15,7 @@
     </div>
     <div class="center">
       <div class="OrderDet">
-        <el-table :data="tableData" style="width: 100%;" :row-class-name="tableRowClassName">
+        <el-table :data="tableData" style="width: 100%;border:1px solid #ccc;" :row-class-name="tableRowClassName">
           <el-table-column label="商品" width="300" align="center">
             <template slot-scope="scope">
               <div v-for="item in scope.row.get_order_product" :key="item.id" >
@@ -43,6 +43,7 @@
           <el-table-column label="优惠" width="120" align="center">
             <template slot-scope="scope">
               <div v-for="item in scope.row.get_order_product" :key="item.id" style="height:100px;line-height:100px;margin-bottom:5px;">
+                暂无优惠
               </div>
             </template>
           </el-table-column>
@@ -57,7 +58,7 @@
             <template slot-scope="scope">
               <div v-for="item in scope.row.get_order_product" :key="item.id" style="height:100px;margin-bottom:5px;padding-top:30px;">
                 <p><span style="cursor: pointer;">退货</span></p>
-                <p><span style="cursor: pointer;">换货</span></p>
+                <!-- <p><span style="cursor: pointer;">换货</span></p> -->
               </div>
             </template>
           </el-table-column>
@@ -71,12 +72,14 @@
         </ul>
       </div>
     </div>
+    <Foot ></Foot>
   </div>
 </template>
 
 <script type="text/javascript">
   import HeaderCOPY from '../../../Header/HeaderCOPY'
   import HomeSerach from '../../../home_child/home_serach'
+  import Foot from '../../../Foot/Foot'
   import config from '../../../../config/config'
   export default {
     data() {
@@ -97,7 +100,8 @@
     },
     components: {
       'hc': HeaderCOPY,
-      HomeSerach
+      HomeSerach,
+      Foot
     },
     created() {
       this.tableData.push(this.OrderDataList)
@@ -115,11 +119,11 @@
 
   .Orderdetail {
     
+    // max-height: 1500px;
     // width: 990px;
     // margin: 0 auto;
     .mine {
       margin-bottom: 10px;
-
       .mine_top {
         width: 990px;
         margin: 0 auto;
@@ -149,7 +153,7 @@
           }
 
           .Search_Goods {
-            margin-left: 390px;
+            right: 0;
             position: absolute;
             top: 28px;
 
@@ -164,6 +168,7 @@
     .center {
       width: 990px;
       margin: 0 auto;
+      min-height: 1000px;
     }
   }
   .OrderBot{
