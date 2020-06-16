@@ -1,5 +1,5 @@
 <template>
-  <div class="SalesReturn">
+  <div class="Refund">
     <hc></hc>
     <div class="mine">
       <div class="mine_top">
@@ -14,18 +14,18 @@
       <div class="top">
         <p><span class="adrr">您的位置： 首页> 会员中心> 已买到的宝贝</span><span class="hot">服务热线：400-086-1718</span></p>
         <ul>
-          <li><span class="num">1</span><span>买家申请仅退款</span></li>
+          <li><span class="num">1</span><span>买家申请仅退货</span></li>
           <img src="//img.alicdn.com/tps/TB1ZnmQNpXXXXX3XXXXXXXXXXXX-63-114.png" alt="">
-          <li><span class="num">2</span><span>卖家处理退款申请</span></li>
+          <li><span class="num">2</span><span>卖家处理退货申请</span></li>
           <img src="//img.alicdn.com/tps/TB1CuunNpXXXXaZXVXXXXXXXXXX-63-114.png" alt="">
-          <li><span class="num">3</span><span>退款完毕</span></li>
+          <li><span class="num">3</span><span>退货完毕</span></li>
         </ul>
       </div>
       <div class="frame">
         <div class="frame-left">
           <div class="Return-of-the-goods">
             <div class="Return-of-the-goods-left">
-              <p>退款商品：</p>
+              <p>退货商品：</p>
             </div>
             <div class="Return-of-the-goods-right">
               <img :src="baseUrl+goodsData.files_path" alt="">
@@ -34,7 +34,7 @@
           </div>
           <div class="reason-for-return">
             <div class="reason-for-return-left">
-              <p>退款原因：</p>
+              <p>退货原因：</p>
             </div>
             <div class="reason-for-return-right">
               <el-radio v-model="radio" label="拍错不想要" ></el-radio>
@@ -46,7 +46,7 @@
           </div>
           <div class="refund-amount">
             <div class="refund-amount-left">
-              <p>退款金额：</p>
+              <p>退货金额：</p>
             </div>
             <div class="refund-amount-right">
               <input type="text" name="" :value="'￥'+goodsData.total" id="" readonly="readonly">
@@ -54,7 +54,7 @@
           </div>
           <div class="Refund-instructions">
             <div class="Refund-instructions-left">
-              <p>退款说明：</p>
+              <p>退货说明：</p>
             </div>
             <div class="Refund-instructions-right">
               <el-input type="textarea" :rows="6" placeholder="退款说明" v-model="textarea">

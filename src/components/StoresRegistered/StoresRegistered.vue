@@ -81,13 +81,6 @@
 import HomeSerach from '../home_child/home_serach'
 import overallCart from '../mine/overallCart'
 import config from '../../config/config';
-  // import {
-  //   fetchList,
-  //   fetchPv,
-  //   createShop,
-  //   updateArticle,
-  //   getCity
-  // } from './reg.js'
   export default {
     data() {
       return {

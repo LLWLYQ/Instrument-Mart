@@ -111,7 +111,7 @@
             </ul>
             <li
               style="width:100% !important; min-height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold; margin-top:20px;">
-              <h4 style="font-size:14px; text-align:left;">店铺优惠券</h4>
+              <h4 style="font-size:14px; text-align:left;margin: 30px 0 0 0;">店铺优惠券</h4>
               <p style="text-align:left; margin-bottom:20px;">
                 <template>
                   <el-select v-model="item.shop_coupon_id" placeholder="请选择优惠券" @change="CouponTwo()">
@@ -184,6 +184,7 @@
         orderData: [],
         TotalMoney: JSON.parse(this.$route.query.totalMoney),
         OrderDataList:JSON.parse(this.$route.query.OrderDataList),
+        AllOrderDataList:JSON.parse(this.$route.query.AllOrderDataList),
         AddressList: true,
         province_id: '',
         city: '',
@@ -273,14 +274,20 @@
       'OrderInfromation': OrderInfromation
     },
     created() {
-    
-      
+      // console.log(this.AllOrderDataList)
       let result = []
       let optres = []
       var goods = []
       var option = {}
       let GList = {}
-
+      let OrDL = []
+      this.OrderDataList.map(item=>{
+         item.carts_list.map(citem=>{
+           OrDL.push(citem)
+         })
+      })
+      // GList.carts_list = OrDL
+      // console.log(GList.carts_list)
       //查询购物车数据
       this.$ajax({
         url: config.baseUrl + '/home/cart',
@@ -303,17 +310,17 @@
           GList.phone = ''
           GList.address = ''
           GList.invoice = item.invoice
-          GList.carts_list = item.carts_list
+          GList.carts_list = OrDL
           GList.shipping_money = item.shipping_money
-
+          console.log(GList)
           let total_pricesTwo = item.carts_list.map(itemTwo => {
             return itemTwo.last_price * itemTwo.quantity;
           })
           this.shop_total = eval(total_pricesTwo.join("+")); //店铺总价
           this.orderData.push(GList)
-          // console.log(this.orderData)
+          
         })
-
+        console.log(this.orderData)
         let newdata = {
 
           member_id: localStorage.getItem('userId'),

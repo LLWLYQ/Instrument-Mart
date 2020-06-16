@@ -56,8 +56,8 @@
           </el-table-column>
           <el-table-column label="退换货" width="128" align="center">
             <template slot-scope="scope">
-              <div v-for="item in scope.row.get_order_product" :key="item.id" style="height:100px;margin-bottom:5px;padding-top:30px;">
-                <p><span style="cursor: pointer;">退货</span></p>
+              <div v-for="item in scope.row.get_order_product" :key="item.id" style="height:100px;margin-bottom:5px;line-height:100px;">
+                <p><span style="cursor: pointer;" @click="sales(item,scope.row)">退货</span><span style="cursor: pointer;margin-left:5px;" @click="Refund(item,scope.row)">退款</span></p>
                 <!-- <p><span style="cursor: pointer;">换货</span></p> -->
               </div>
             </template>
@@ -91,6 +91,24 @@
       }
     },
     methods: {
+      Refund(item,row){
+        this.$router.push({
+          path:'/SalesReturn',
+          query:{
+            goods:JSON.stringify(item),
+            orderData:JSON.stringify(row)
+          }
+        })
+      },
+      sales(item,row){
+        this.$router.push({
+          path:'/Refund',
+          query:{
+            goods:JSON.stringify(item),
+            orderData:JSON.stringify(row)
+          }
+        })
+      },
       tableRowClassName(row,rowIndex) {
         // console.log(row)
         if (row.status== 0 || 1 || 2 ||3 ||4 ||5||6||7||8||9||10||11||12||13||14||15||16)  {
@@ -104,8 +122,9 @@
       Foot
     },
     created() {
+      console.log(this.OrderDataList)
       this.tableData.push(this.OrderDataList)
-      console.log(this.tableData)
+      // console.log(this.tableData)
       this.tableData.map(item=>{
         this.total = item.total
       })

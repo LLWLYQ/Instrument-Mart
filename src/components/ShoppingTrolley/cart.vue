@@ -159,19 +159,20 @@
         // this.OrderList = this.lists
         let arr = []
         let carListArr = []
-        this.lists.map(listItem=>{
-          listItem.carts_list.map(carItem=>{
+        this.lists.map(listItem => {
+          listItem.carts_list.map(carItem => {
             carListArr.push(carItem)
           })
         })
+        // console.log(this.lists)
         arr = carListArr.filter(item => {
-            return item.checked
-          })
+          return item.checked
+        })
         this.OrderList.map(citem => {
-            // console.log(citem)
-            citem.carts_list = arr
-          })
-          // console.log(this.OrderList)
+          // console.log(citem)
+          citem.carts_list = arr
+        })
+        // console.log(this.OrderList)
       },
       //商家全选
       _checkAll(val, k) {
@@ -187,35 +188,32 @@
           // }
         });
         //购物车转订单页面
-         let arr = []
-          let carListArr = []
-          this.lists.map(listItem=>{
-            listItem.carts_list.map(carItem=>{
-              carListArr.push(carItem)
-            })
+        let arr = []
+        let carListArr = []
+        this.lists.map(listItem => {
+          listItem.carts_list.map(carItem => {
+            carListArr.push(carItem)
           })
-          arr = carListArr.filter(item => {
-              return item.checked
-            })
-          this.OrderList.map(citem => {
-              // console.log(citem)
-              citem.carts_list = arr
-            })
-          // console.log(this.OrderList)
-          let sunval = 0
-        this.OrderList.map(Nm=>{
-          Nm.carts_list.map(Cl=>{
-              this.lastTaotalPrice = 0
-              sunval += Cl.last_price * Cl.quantity
-              this.lastTaotalPrice = sunval       
+        })
+        arr = carListArr.filter(item => {
+          return item.checked
+        })
+        this.OrderList.map(citem => {
+          // console.log(citem)
+          citem.carts_list = arr
+        })
+        // console.log(this.OrderList)
+        let sunval = 0
+        this.OrderList.map(Nm => {
+          Nm.carts_list.map(Cl => {
+            this.lastTaotalPrice = 0
+            sunval += Cl.last_price * Cl.quantity
+            this.lastTaotalPrice = sunval
           })
-          if(Nm.carts_list.length == 0){
+          if (Nm.carts_list.length == 0) {
             this.lastTaotalPrice = 0
           }
         })
-
-
-
         if (this.lists.every(item => item.checked)) {
           this.checkedAll = true;
         } else {
@@ -224,26 +222,23 @@
       },
       //商品选择框
       handleCheck(item, val, k, lists, index) {
-        
         let arr = []
         let carListArr = []
-        this.lists.map(listItem=>{
-          listItem.carts_list.map(carItem=>{
+        this.lists.map(listItem => {
+          listItem.carts_list.map(carItem => {
             carListArr.push(carItem)
           })
         })
         arr = carListArr.filter(item => {
-            return item.checked
-          })
+          return item.checked
+        })
         // console.log(arr)
         this.OrderList.map(citem => {
           // console.log(citem)
-            citem.carts_list = []
-            citem.carts_list = arr
-          })
-        // console.log(this.OrderList)
-
-
+          citem.carts_list = []
+          citem.carts_list = arr
+        })
+        // console.log(this.lists)
         if (item.checked) {
           let total = item.last_price * item.quantity;
         }
@@ -275,6 +270,7 @@
           name: 'OrderForm',
           query: {
             OrderDataList: JSON.stringify(this.OrderList),
+            AllOrderDataList:JSON.stringify(this.lists),
             totalMoney: JSON.stringify(this.lastTaotalPrice)
           }
         })
@@ -317,6 +313,7 @@
         }).catch(() => {});
       },
       handelChange(lists, val, item) {
+        // console.log(lists, val, item)
         if (item.checked) {
           let total = item.last_price * item.quantity;
           this.lastTaotalPrice = total
@@ -355,6 +352,7 @@
             member_id: localStorage.getItem('userId')
           }
         }).then(res => {
+          console.log(res)
           let numData = []
           res.data.data.items.map((item, index) => {
             GList = {}
@@ -749,7 +747,8 @@
       }
     }
   }
- .el-input__inner {
+
+  .el-input__inner {
     padding: 0 !important;
     text-indent: 0px !important;
     border-radius: 0 !important;
@@ -763,11 +762,8 @@
     width: 20px !important;
   }
 
- 
 </style>
 <style lang="scss">
- 
-
   #ELB:hover {
     background-color: red;
     border: 2px solid red;
