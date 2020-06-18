@@ -6,7 +6,7 @@
         <HomeSerach></HomeSerach>
       </div>
       <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
-        <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>2</span></i><span>我的购物车</span></p></router-link>
+        <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>{{NumData}}</span></i><span>我的购物车</span></p></router-link>
         <transition name="overcat">
           <div class="overBox" v-show="Scboxshow">
             <overallCart></overallCart>
@@ -106,6 +106,8 @@
       return {
         Scboxshow: false,
         swiperClose: false,
+        NumData:'',
+        lists:[],
         picId9: '',
         picId400: '',
         picId302: '',
@@ -130,6 +132,34 @@
       overallCart,
     },
     created() {
+      this.$ajax({
+        url: config.baseUrl + '/home/cart',
+        method: 'get',
+        params: {
+          member_id: localStorage.getItem('userId')
+        }
+      }).then(res => {
+        this.carData = res.data.data.items
+        // console.log(res.data.data.items)
+        let GList = {}
+        res.data.data.items.map((item, index) => {
+            GList = {}
+            GList.cart_id = item.cart_id
+            GList.shop_id = item.shop_id
+            GList.shop_name = item.shop_name
+            GList.carts_list = item.carts_list
+            GList.shop_all_weight = item.shop_all_weight
+            this.lists.push(GList)
+            // this.NumData = this.lists.length
+          })
+          let www =  []
+          this.lists.map(item=>{
+            item.carts_list.map(citem=>{
+              www.push(citem)
+            })
+          })
+          this.NumData = www.length
+      })
       let that = this
       this.$ajax({
         url: config.baseUrl + '/home/ad',

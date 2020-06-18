@@ -13,7 +13,7 @@
             v-for="(TI,index) in tebImg" :key="index"
             @mouseover="tabChange(index)" -->
             <li>
-              <img src="../../../../assets/imges/sp_5.jpg" alt="">
+              <img :src="baseUrl + orderData.files_path" alt="">
             </li>
           </ul>
         </div>
@@ -23,13 +23,13 @@
           <ol class="ui-form-bd">
             <li class="ui-form-row">
               <label class="ui-form-label">
-                <h3 data-spm-anchor-id="0.0.0.i1.4c0a11937kszMI">菊花枸杞决明子茶养肝茶包清肝茶去肝火排肝毒明目护眼茶护肝排毒</h3>
+                <h3 data-spm-anchor-id="0.0.0.i1.4c0a11937kszMI">{{orderData.name}}</h3>
               </label>
             </li>
             <li class="ui-form-row superstar-price">
               <label class="ui-form-label">价格</label>
               <div class="ui-form-right"> <strong
-                  style=" font-size: 27px;vertical-align: top;font-weight: 700;color: #c00;">228.00</strong>
+                  style=" font-size: 27px;vertical-align: top;font-weight: 700;color: #c00;">{{orderData.price/100}}</strong>
                 <span></span>
                 元
               </div>
@@ -46,7 +46,7 @@
                       </el-rate>
                     </i></em>
                   <span>分</span></em>
-                <span>累计评价<span class="superstar-ratetotal">3421</span> )</span>
+                <span>累计评价<span class="superstar-ratetotal">0</span> )</span>
               </div>
             </li>
           </ol>
@@ -126,10 +126,12 @@
   export default {
     data() {
       return {
+        baseUrl:config.baseUrl,
         activeName: 'second',
         isSelect: 0,
         baseUrl: config.baseUrl,
         detailID: this.$route.query.listId,
+        orderData: JSON.parse(this.$route.query.orderData),
         tebImg: '',
         iscur: 0,
         Infos: '',

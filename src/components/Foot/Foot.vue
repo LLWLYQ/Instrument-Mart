@@ -170,6 +170,7 @@ export default {
         float: left;
         width: 206px;
         li{
+          height: 25px;
           a{
             width: 100%;
             color:#fff;

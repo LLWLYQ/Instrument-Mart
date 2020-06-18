@@ -5,14 +5,14 @@
       <div class="Search_Goods">
         <HomeSerach></HomeSerach>
       </div>
-      <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
+      <!-- <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
         <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>2</span></i><span>我的购物车</span></p></router-link>
         <transition name="overcat">
           <div class="overBox" v-show="Scboxshow">
             <overallCart></overallCart>
           </div>
         </transition>
-      </div>
+      </div> -->
       <h1 v-show="successfully">申请入驻</h1>
       <h1 v-show="Zz">Waiting</h1>
     </div>
@@ -304,12 +304,11 @@ import config from '../../config/config';
           data:this.listQuery
         }).then(response => {
           this.options = response.data.data
-          console.log(this.options)
+          // console.log(this.options)
         })
       }
     }
   }
-
 </script>
 <style>
  
@@ -373,7 +372,7 @@ import config from '../../config/config';
 
     .Search_Goods {
       position: absolute;
-      left: 345px;
+      right:0;
       top: 70px;
       overflow: hidden;
       width: 615px;

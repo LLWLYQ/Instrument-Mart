@@ -142,17 +142,19 @@
         <div style="clear:both;"></div>
       </div>
       <div class="advList">
-        <ul>
+        <ul v-if="picId400.length != 0">
           <!-- position_id (400,302 ) -->
-          <li v-for="pd in picId400" :key="pd.id">
+          <li v-for="pd in picId400" :key="pd.id" >
             <router-link to="/">
               <img :src="baseUrl + pd.get_files.files_path" alt="">
             </router-link>
           </li>
-          <li v-for="pd in picId302" :key="pd.id">
+          <li v-for="pd in picId302" :key="pd.id" >
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
-          <li>
+        </ul>
+        <ul v-if="picId400.length == 0">
+          <li >
             <p>暂无广告</p>
           </li>
           <li>
@@ -170,7 +172,7 @@
             :to="{name:'Detail',query:{listId:List.goods_id}}"
             target="_blank" tag="a">
             <li>
-              <img :src="baseUrl+List.files_path" alt="" class="List_li">
+              <img :src="baseUrl + List.files_path" alt="" class="List_li">
               <div class="List_div">{{List.goods_name}}</div>
               <div class="List_div1" style="color:red;">￥{{List.sales_price/100}}</div>
             </li>
@@ -178,14 +180,16 @@
         </ul>
       </div>
       <div class="advList">
-        <ul>
+        <ul v-if="picId300.length != 0">
           <!-- position_id (300,303) -->
-          <!-- <li v-for="pd in picId300" :key="pd.id">
+          <li v-for="pd in picId300" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
           <li v-for="pd in picId303" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
-          </li> -->
+          </li>
+        </ul>
+        <ul v-if="picId300.length == 0">
           <li>
             <p>暂无广告</p>
           </li>
@@ -210,14 +214,16 @@
         </ul>
       </div>
       <div class="advList">
-        <ul>
+        <ul v-if="picId304.length != 0">
           <!-- position_id (300,303) -->
-          <!-- <li v-for="pd in picId300" :key="pd.id">
+          <li v-for="pd in picId304" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
-          <li v-for="pd in picId303" :key="pd.id">
+          <li v-for="pd in picId305" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
-          </li> -->
+          </li>
+        </ul>
+        <ul v-if="picId304.length == 0">
           <li>
             <p>暂无广告</p>
           </li>
@@ -241,14 +247,16 @@
         </ul>
       </div>
       <div class="advList">
-        <ul>
+       <ul v-if="picId306.length != 0">
           <!-- position_id (300,303) -->
-          <!-- <li v-for="pd in picId300" :key="pd.id">
+          <li v-for="pd in picId306" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
-          <li v-for="pd in picId303" :key="pd.id">
+          <li v-for="pd in picId307" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
-          </li> -->
+          </li>
+        </ul>
+        <ul v-if="picId306.length == 0">
           <li>
             <p>暂无广告</p>
           </li>
@@ -272,14 +280,16 @@
         </ul>
       </div>
       <div class="advList">
-        <ul>
+       <ul v-if="picId300.length != 0">
           <!-- position_id (300,303) -->
-          <!-- <li v-for="pd in picId300" :key="pd.id">
+          <li v-for="pd in picId300" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
           <li v-for="pd in picId303" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
-          </li> -->
+          </li>
+        </ul>
+        <ul v-if="picId300.length == 0">
           <li>
             <p>暂无广告</p>
           </li>
@@ -303,14 +313,16 @@
         </ul>
       </div>
       <div class="advList">
-        <ul>
+        <ul v-if="picId304.length != 0">
           <!-- position_id (300,303) -->
-          <!-- <li v-for="pd in picId300" :key="pd.id">
+          <li v-for="pd in picId304" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
-          <li v-for="pd in picId303" :key="pd.id">
+          <li v-for="pd in picId305" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
-          </li> -->
+          </li>
+        </ul>
+        <ul v-if="picId304.length == 0">
           <li>
             <p>暂无广告</p>
           </li>
@@ -334,14 +346,16 @@
         </ul>
       </div>
       <div class="advList">
-        <ul>
+       <ul v-if="picId306.length != 0">
           <!-- position_id (300,303) -->
-          <!-- <li v-for="pd in picId300" :key="pd.id">
+          <li v-for="pd in picId306" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
           </li>
-          <li v-for="pd in picId303" :key="pd.id">
+          <li v-for="pd in picId307" :key="pd.id">
             <router-link to="/"><img :src="baseUrl + pd.get_files.files_path" alt=""></router-link>
-          </li> -->
+          </li>
+        </ul>
+        <ul v-if="picId306.length == 0">
           <li>
             <p>暂无广告</p>
           </li>
@@ -382,7 +396,7 @@
         iscur: 0,
         Iscur: 0,
         LF: false,
-        baseUrl: config.baseUrl,
+        // baseUrl: config.baseUrl,
         notice: [{
           name: '仪商公告'
         }, {
@@ -416,6 +430,10 @@
         picId302: '',
         picId300: '',
         picId303: '',
+        picId304: '',
+        picId305: '',
+        picId306: '',
+        picId307: '',
         NumData:'',
         lists:[],
         list_one:'',
@@ -443,7 +461,7 @@
           }
         }).then(res => {
           this.list_one = res.data.data.items
-          console.log(res)
+          console.log(this.list_one)
         });
         //List-two
       this.$ajax({
@@ -461,7 +479,7 @@
           url: config.baseUrl + '/home/goods',
           method: "get",
           params:{
-            pcatid:133
+            pcatid:133,
           }
         }).then(res => {
           this.list_three = res.data.data.items
@@ -513,6 +531,7 @@
         }
       }).then(res => {
         that.picId9 = res.data.data
+        console.log(that.picId9)
       })
       //id=400
       // let that = this
@@ -524,6 +543,7 @@
         }
       }).then(res => {
         that.picId400 = res.data.data
+        console.log(that.picId400)
       })
 
       //id=302
@@ -536,7 +556,7 @@
         }
       }).then(res => {
         that.picId302 = res.data.data
-        // console.log(this.picId9)
+        console.log(this.picId302)
       })
 
       //id=300
@@ -560,6 +580,46 @@
         }
       }).then(res => {
         that.picId303 = res.data.data
+        // console.log(this.picId9)
+      })
+      this.$ajax({
+        url: config.baseUrl + '/home/ad',
+        method: 'get',
+        params: {
+          pid: 304
+        }
+      }).then(res => {
+        that.picId304 = res.data.data
+        // console.log(this.picId9)
+      })
+      this.$ajax({
+        url: config.baseUrl + '/home/ad',
+        method: 'get',
+        params: {
+          pid: 305
+        }
+      }).then(res => {
+        that.picId305 = res.data.data
+        // console.log(this.picId9)
+      })
+      this.$ajax({
+        url: config.baseUrl + '/home/ad',
+        method: 'get',
+        params: {
+          pid: 306
+        }
+      }).then(res => {
+        that.picId306 = res.data.data
+        // console.log(this.picId9)
+      })
+      this.$ajax({
+        url: config.baseUrl + '/home/ad',
+        method: 'get',
+        params: {
+          pid: 307
+        }
+      }).then(res => {
+        that.picId307 = res.data.data
         // console.log(this.picId9)
       })
       //产品分类列表
@@ -632,12 +692,8 @@
         params: {}
       }).then(res => {
         _this.Brand_List = res.data.data.items
-        // console.log(_this.Brand_List)
-        // let arr = []
-        // arr.push(_this.Brand_List)
-        // this.arr_xiangzhansh = lvjuren 
-        // console,log()
-        // console.log(_this.Brand_List)
+        console.log(_this.Brand_List)
+      
       })
     },
     methods: {
@@ -807,7 +863,7 @@
             delay: 2000, // 自动切换的时间间隔（单位ms），
           },
         })
-      }, 300)
+      }, 1000)
       var that = this;
       this.timer = setInterval(() => {
         that.date = new Date(); //修改数据date
@@ -816,10 +872,8 @@
       window.addEventListener('scroll', this.handleScroll)
     },
   }
-
 </script>
 //局部样式
-
 <style lang="scss" scoped>
   @import "../../style/base";
 

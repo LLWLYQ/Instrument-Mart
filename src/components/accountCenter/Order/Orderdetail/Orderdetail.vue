@@ -29,7 +29,7 @@
           <el-table-column label="单价" width="200" align="center">
             <template slot-scope="scope">
               <div v-for="item in scope.row.get_order_product" :key="item.id" style="height:100px;line-height:100px;margin-bottom:5px;">
-                <p>{{item.price}}</p>
+                <p>{{item.price/100}}</p>
               </div>
             </template>
           </el-table-column>
@@ -66,9 +66,9 @@
       </div>
       <div class="OrderBot">
         <ul>
-          <li><span class="OB-left"><a >商品总价：</a></span><span class="OB-right">￥{{total}}</span></li>
+          <li><span class="OB-left"><a >商品总价：</a></span><span class="OB-right">￥{{total/100}}</span></li>
           <li><span class="OB-left"><a >运费(快递)：</a></span><span class="OB-right">￥0.00</span></li>
-          <li><span class="OB-left"><a class="ing">实付款：</a></span> <span class="OB-right end">￥{{total}}</span></li>
+          <li><span class="OB-left"><a class="ing">实付款：</a></span> <span class="OB-right end">￥{{total/100}}</span></li>
         </ul>
       </div>
     </div>

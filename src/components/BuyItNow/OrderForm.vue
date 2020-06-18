@@ -706,9 +706,12 @@
         float: left;
         line-height: 70px;
         margin-left: 15px;
+        position: relative;
 
         img {
           margin-left: 0px;
+          position: absolute;
+          left: 25px;
         }
 
         .el-radio {
@@ -794,8 +797,8 @@
   // }
 </style>
 <style lang="">
-  .el-radio__label {
+  /* .el-radio__label {
     display: none;
-  }
+  } */
 
 </style>

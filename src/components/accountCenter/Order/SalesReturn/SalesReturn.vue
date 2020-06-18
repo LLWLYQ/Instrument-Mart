@@ -49,7 +49,7 @@
               <p>退款金额：</p>
             </div>
             <div class="refund-amount-right">
-              <input type="text" name="" :value="'￥'+goodsData.total" id="" readonly="readonly">
+              <input type="text" name="" :value="'￥'+goodsData.total/100" id="" readonly="readonly">
             </div>
           </div>
           <div class="Refund-instructions">

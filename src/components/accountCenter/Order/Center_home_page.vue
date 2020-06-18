@@ -9,9 +9,9 @@
           <div class="message">
             <ul>
               <li>{{userName}}</li>
-              <li>仪商值</li>
-              <li>账户设置<i class="el-icon-caret-right"></i></li>
-              <li>我的收货地址</li>
+              <!-- <li>仪商值</li> -->
+              <li><router-link to="/Account_setting">账户设置<i class="el-icon-caret-right"></i></router-link></li>
+              <li><router-link to="/Shipping_address">我的收货地址</router-link></li>
             </ul>
           </div>
         </div>
@@ -19,8 +19,8 @@
       <div class="Integral">
         <div class="integral">
           <ul>
-            <li><i class="el-icon-star-off"
-                style="font-size:25px;"></i>&nbsp;&nbsp;:&nbsp;&nbsp;积分&nbsp;&nbsp;:&nbsp;&nbsp;123456</li>
+            <li>
+              <i class="el-icon-star-on" style="font-size:25px;color:#ffcc00;"></i>&nbsp;&nbsp;:&nbsp;&nbsp;积分&nbsp;&nbsp;:&nbsp;&nbsp;{{IntegralSum}}</li>
             <li>我的信息&nbsp;&nbsp;:&nbsp;&nbsp;<i class="el-icon-chat-dot-round" style="font-size:25px;"></i></li>
           </ul>
         </div>
@@ -40,12 +40,12 @@
           <el-tabs v-model="activeName" @tab-click="handleClick" :stretch='true'>
             <el-tab-pane label="全部订单" name="second" style="width:100%;">
               <div class="tableList">
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                  :current-page="currentPage" :page-sizes="[5]" :page-size="pagesize"
-                  layout="total, sizes, prev, next, jumper" :total="tableData.length" style="margin-bottom:5px;">
+                <el-pagination  @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                  :current-page="page" :page-size="limit" :page-sizes="pageSizes" 
+                  layout="total, sizes, prev, next, jumper" :total="totalCount" style="margin-bottom:5px;">
                 </el-pagination>
-                <el-table ref="multipleTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                  tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;" @selection-change="handleSelectionChange"
+                <el-table ref="multipleTable" :data="tableData"
+                  tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;"  
                   :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
@@ -73,7 +73,7 @@
                         <p v-for="item in scope.row.get_order_product" :key="item.id"
                           style="height:120px;line-height:150px;">
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{item.price}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{item.price/100}}</span>
                         </p>
                       </div>
                     </template>
@@ -100,7 +100,7 @@
                       <div style="width:108px;">
                         <p >
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{scope.row.total}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{scope.row.total/100}}</span>
                         </p>
                         <p>(含运费)</p>
                       </div>
@@ -133,10 +133,10 @@
             <el-tab-pane label="代付款" name="first" style="width:100%;">
               <div class="tableList">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                  :current-page="currentPage" :page-sizes="[5]" :page-size="pagesize"
+                  :current-page="page" :page-size="limit"
                   layout="total, sizes, prev, next, jumper" :total="arr2.length" style="margin-bottom:5px;">
                 </el-pagination>
-                <el-table ref="multipleTable" :data="arr2.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                <el-table ref="multipleTable" :data="arr2"
                   tooltip-effect="dark" style="width: 100%; border:1px solid #ccc;" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
@@ -164,7 +164,7 @@
                         <p v-for="item in scope.row.get_order_product" :key="item.id"
                           style="height:120px;line-height:150px;">
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{item.price}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{item.price/100}}</span>
                         </p>
                       </div>
                     </template>
@@ -191,7 +191,7 @@
                       <div style="width:108px;">
                         <p >
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{scope.row.total}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{scope.row.total/100}}</span>
                         </p>
                         <p>(含运费)</p>
                       </div>
@@ -224,10 +224,10 @@
             <el-tab-pane label="待收货" name="giao" style="width:100%;">
               <div class="tableList">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                  :current-page="currentPage" :page-sizes="[5]" :page-size="pagesize"
+                  :current-page="page"  :page-size="limit"
                   layout="total, sizes, prev, next, jumper" :total="arr3.length" style="margin-bottom:5px;">
                 </el-pagination>
-                <el-table ref="multipleTable" :data="arr3.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                <el-table ref="multipleTable" :data="arr3"
                   tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
@@ -255,7 +255,7 @@
                         <p v-for="item in scope.row.get_order_product" :key="item.id"
                           style="height:120px;line-height:150px;">
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{item.price}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{item.price/100}}</span>
                         </p>
                       </div>
                     </template>
@@ -282,7 +282,7 @@
                       <div style="width:108px;">
                         <p >
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{scope.row.total}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{scope.row.total/100}}</span>
                         </p>
                         <p>(含运费)</p>
                       </div>
@@ -315,10 +315,10 @@
             <el-tab-pane label="待评价" name="third" style="width:100%;">
               <div class="tableList">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                  :current-page="currentPage" :page-sizes="[5]" :page-size="pagesize"
+                  :current-page="page" :page-size="limit"
                   layout="total, sizes, prev, next, jumper" :total="arr4.length" style="margin-bottom:5px;">
                 </el-pagination>
-                <el-table ref="multipleTable" :data="arr4.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                <el-table ref="multipleTable" :data="arr4"
                   tooltip-effect="dark" style="width: 100%;border:1px solid #ccc;" @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
                   <el-table-column type="selection" width="44" style="border:1px solid #ccc;">
                   </el-table-column>
@@ -346,7 +346,7 @@
                         <p v-for="item in scope.row.get_order_product" :key="item.id"
                           style="height:120px;line-height:150px;">
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{item.price}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{item.price/100}}</span>
                         </p>
                       </div>
                     </template>
@@ -373,7 +373,7 @@
                       <div style="width:108px;">
                         <p >
                           <span style="color: rgb(255, 0, 54);">￥</span>
-                          <span style="color: rgb(255, 0, 54);">{{scope.row.total}}</span>
+                          <span style="color: rgb(255, 0, 54);">{{scope.row.total/100}}</span>
                         </p>
                         <p>(含运费)</p>
                       </div>
@@ -394,8 +394,8 @@
                         <div><i class="el-icon-delete-solid" style="font-size:20px;cursor: pointer;"
                           @click="Delarr(scope.row,scope.$index)"></i></div>
                       <div>
-                        <p class="evaluate-fa"><span class="evaluate" v-if="scope.row.status == 3">确认收货</span></p>
-                        <!-- <p><span style="font-size:12px;cursor: pointer;">再次购买</span></p> -->
+                        <p class="evaluate-fa" v-for="item in scope.row.get_order_product" :key="item.id"><span class="evaluate"  @click="evaluate(item)">评价</span></p>
+                        <!-- <p style="height:30px;"><span style="font-size:12px;cursor: pointer;padding:10px 20px;border:1px solid #ccc;"></span></p> -->
                       </div>
                       </div>
                     </template>
@@ -451,6 +451,7 @@
     data() {
       return {
         activeName: 'second',
+        IntegralSum:0,
         userName: localStorage.getItem('userName'),
         // orderList: '',
         tableData: [],
@@ -460,13 +461,40 @@
         arr4: [],
         total: '0',
         // currentPage: 0,
-        currentPage: 1, //初始页
-        pagesize: 5,
+        page: 1, //初始页
+        totalCount:1,
+        pageSizes:[10],
+        limit:10,
         baseUrl: config.baseUrl,
         SumNum: 0
       }
     },
     methods: {
+      //评价
+      evaluate(row){
+        this.$router.push({
+          path:'/comments',
+          query:{
+            // goods:JSON.stringify(item),
+            orderData:JSON.stringify(row)
+          }
+        })
+      },
+      handleSizeChange(val) {
+            // 改变每页显示的条数 
+            this.limit=val
+            // 点击每页显示的条数时，显示第一页
+            this.getData(val,1)
+            // 注意：在改变每页显示的条数时，要将页码显示到第一页
+            this.page=1  
+        },
+          // 显示第几页
+        handleCurrentChange(val) {
+            // 改变默认的页数
+            this.page=val
+            // 切换页码时，要获取每页显示的条数
+            this.getData(this.limit,(val)*(this.limit))
+        },
       tableRowClassName(row,rowIndex) {
         // console.log(row)
         if (row.status== 0 || 1 || 2 ||3 ||4 ||5||6||7||8||9||10||11||12||13||14||15||16)  {
@@ -477,14 +505,14 @@
       Delarr(item,index) {
         this.tableData[index].get_order_product = []
       },
-      handleSizeChange: function (size) {
-        this.pagesize = size;
-        // console.log(this.pagesize)  //每页下拉显示数据
-      },
-      handleCurrentChange: function (currentPage) {
-        this.currentPage = currentPage;
-        // console.log(this.currentPage)  //点击第几页
-      },
+      // handleSizeChange: function (size) {
+      //   this.pagesize = size;
+      //   // console.log(this.pagesize)  //每页下拉显示数据
+      // },
+      // handleCurrentChange: function (currentPage) {
+      //   this.currentPage = currentPage;
+      //   // console.log(this.currentPage)  //点击第几页
+      // },
       handleClick(tab, event) {},
       toggleSelection(rows) {
         if (rows) {
@@ -497,43 +525,71 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
+      },
+      getData(n1,n2){
+        this.$ajax({
+          url: config.baseUrl + '/home/order',
+          method: 'get',
+          params: {
+            member_id: localStorage.getItem("userId"),
+            // sort:'+id',
+            // 每页显示的条数
+            // limit:n1,
+            // 显示第几页
+            page:this.page,
+          }
+        }).then(res => {
+          console.log(res)
+          // tableRowClassName
+          this.tableData = res.data.data.items.data
+          // this.total = this.tableData.total
+          this.totalCount = res.data.data.total
+          // console.log(this.totalCount)
+          let arr = []
+          this.arr2 = this.tableData.filter(item => {
+            return item.order_status_id == 1
+          })
+          this.arr3 = this.tableData.filter(item => {
+            return item.order_status_id == 3
+          })
+          this.arr4 = this.tableData.filter(item => {
+            return item.order_status_id == 13
+            // console.log('return item.order_status ==3')
+          })
+          // console.log(this.tableData)
+        })
       }
     },
     components: {
 
     },
     created() {
-      // this.$emit('public_footer', true);
+      this.getData(this.limit,this.page) 
       this.$ajax({
-        url: config.baseUrl + '/home/order',
-        method: 'get',
-        params: {
-          member_id: localStorage.getItem("userId")
+        url:config.baseUrl + '/home/score',
+        method:'get',
+        params:{
+          member_id:localStorage.getItem('userId')
         }
-      }).then(res => {
-        // tableRowClassName
-        this.tableData = res.data.data.items.data
-        console.log(this.tableData)
-        let arr = []
-        this.arr2 = this.tableData.filter(item => {
-          return item.order_status_id == 1
+      }).then(res=>{
+        // console.log(res)
+        this.scoreData = res.data.data.items.data
+        this.scoreData.map(item=>{
+          this.IntegralSum += item.scrore_value
+          // console.log(this.IntegralSum)
         })
-        this.arr3 = this.tableData.filter(item => {
-          return item.order_status_id == 3
-        })
-        this.arr4 = this.tableData.filter(item => {
-          return item.order_status_id == 13
-          // console.log('return item.order_status ==3')
-        })
-        // console.log(this.tableData)
       })
+      // this.$emit('public_footer', true);
+      
       this.$ajax({
         url: config.baseUrl + '/home/score',
         method: 'get',
         params: {
           member_id: localStorage.getItem('userId')
         }
-      }).then(res => {})
+      }).then(res => {
+        console.log(res)
+      })
     }
   }
 
@@ -582,7 +638,7 @@
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        margin: 20px 0 0 50px;
+        margin: 15px 0 0 50px;
         float: left;
         border: 1px solid #ccc;
       }
@@ -597,6 +653,10 @@
 
           li {
             margin-bottom: 10px;
+            cursor: pointer;
+            a{
+              color:#000;
+            }
           }
         }
       }
