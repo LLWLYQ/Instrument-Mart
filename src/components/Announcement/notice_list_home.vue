@@ -3,7 +3,7 @@
       <div class="mine">
         <ul>
           <li v-for="not in noticData" :key="not.id" >
-            <router-link :to="{name:'Have_to_buy_goods', query: {notId:not.notice_id}}">
+            <router-link :to="{name:'BottomNavigationBar', query: {notId:not.notice_id}}">
               <p><i class="el-icon-zoom-in" style="margin-right: 5px;"></i>{{not.notice_title}}</p>
             </router-link>
           </li>

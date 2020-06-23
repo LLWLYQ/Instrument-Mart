@@ -97,13 +97,14 @@
   @import '../../../style/common';
 
   .Complaint {
-    margin-left: 100px;
     width: 1090px;
-    height: 1000px;
+    margin-left: 220px;
+    padding: 20px;
+    background: #fff;
 
     .comment {
       width: 100%;
-      height: 5000px;
+      min-height: 1000px;
       overflow: hidden;
 
       h1 {

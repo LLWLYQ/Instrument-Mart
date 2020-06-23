@@ -53,6 +53,10 @@
       <el-form-item label="联系方式" prop="contact_number">
         <el-input v-model="ruleForm.contact_number"></el-input>
       </el-form-item>
+      <el-form-item label="企业信息" prop="company_info">
+        <el-input type="textarea" :rows="20" placeholder="请输入内容" v-model="ruleForm.company_info">
+        </el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')" style="padding:15px 25px;">立即实名</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -85,7 +89,8 @@ import config from '../../config/config';
           bank_name:'',
           bank_num:'',
           contacts:'',
-          contact_number:''
+          contact_number:'',
+          company_info:''
         },
         imageUrl: '',
         imageUrl1: '',
@@ -146,6 +151,17 @@ import config from '../../config/config';
               min: 6,
               max: 20,
               message: '长度在 6 到 20 个字符',
+              trigger: 'blur'
+            }],
+            company_info: [{
+              required: true,
+              message: '请输入企业信息',
+              trigger: 'blur'
+            },
+            {
+              min: 6,
+              max: 2000,
+              message: '长度在 6 到 2000 个字符',
               trigger: 'blur'
             }],
         }

@@ -4,7 +4,7 @@
       <div class="Account">
         <div class="head_portrait">
           <div class="img">
-            <img src="../../../assets/imges/timg.jpg" alt="">
+            <img :src="baseUrl + dataList.avatar_url" alt="">
           </div>
           <div class="message">
             <ul>
@@ -20,16 +20,16 @@
         <div class="integral">
           <ul>
             <li>
-              <i class="el-icon-star-on" style="font-size:25px;color:#ffcc00;"></i>&nbsp;&nbsp;:&nbsp;&nbsp;积分&nbsp;&nbsp;:&nbsp;&nbsp;{{IntegralSum}}</li>
-            <li>我的信息&nbsp;&nbsp;:&nbsp;&nbsp;<i class="el-icon-chat-dot-round" style="font-size:25px;"></i></li>
+             <router-link to="/Integral" style="color:#222;"><i class="el-icon-star-on" style="font-size:25px;color:#ffcc00;"></i>&nbsp;&nbsp;:&nbsp;&nbsp;积分&nbsp;&nbsp;:&nbsp;&nbsp;{{IntegralSum}}</router-link></li>
+            <li style="cursor:pointer;"><router-link to="/Have_to_buy_goods">我的信息&nbsp;&nbsp;:&nbsp;&nbsp;<i class="el-icon-chat-dot-round" style="font-size:25px;"></i></router-link></li>
           </ul>
         </div>
         <div class="right_image">
           <ul>
             <li>
-              <img src="../../../assets/imges/timg.jpg" alt="">
+              <img :src="baseUrl + dataList.avatar_url" alt="">
             </li>
-            <li>打我领星星</li>
+            <!-- <li>打我领星星</li> -->
           </ul>
         </div>
       </div>
@@ -395,6 +395,7 @@
                           @click="Delarr(scope.row,scope.$index)"></i></div>
                       <div>
                         <p class="evaluate-fa" v-for="item in scope.row.get_order_product" :key="item.id"><span class="evaluate"  @click="evaluate(item)">评价</span></p>
+                        <p class="evaluate-fa" v-for="item in scope.row.get_order_product" :key="item.id"><span class="evaluate"  @click="ConfirmReceipt(item)">确认收货</span></p>
                         <!-- <p style="height:30px;"><span style="font-size:12px;cursor: pointer;padding:10px 20px;border:1px solid #ccc;"></span></p> -->
                       </div>
                       </div>
@@ -466,10 +467,23 @@
         pageSizes:[10],
         limit:10,
         baseUrl: config.baseUrl,
-        SumNum: 0
+        SumNum: 0,
+        dataList:''
       }
     },
     methods: {
+      //确认收货
+      ConfirmReceipt(item){
+        this.$ajax({
+          url:config.baseUrl + '/home/order/member/confirg',
+          method:"post",
+          data:{
+            order_id:item.order_id
+          }
+        }).then(res=>{
+          console.log(res)
+        })
+      },
       //评价
       evaluate(row){
         this.$router.push({
@@ -564,6 +578,15 @@
 
     },
     created() {
+       this.$ajax({
+        url:config.baseUrl + '/home/user/info',
+        method:'post',
+        data:{
+          member_id:localStorage.getItem("userId")
+        }
+      }).then(res=>{
+        this.dataList = res.data.data
+      })
       this.getData(this.limit,this.page) 
       this.$ajax({
         url:config.baseUrl + '/home/score',
@@ -599,12 +622,15 @@
   @import '../../../style/common';
 
   .Center_home_page {
-    width: 1090px;
-    margin-left: 100px;
+    width: 1130px;
+    margin-left: 220px;
+    padding:20px;
+    background: #fff;
     // height: 2500px;
     position: relative;
     .evaluate-fa {
-      margin: 10px 0;
+      height: 30px;
+      margin:10px 0 15px 0;
     }
 
     .evaluate {
@@ -622,10 +648,12 @@
   }
 
   .Account_of_integral {
+    
     height: 200px;
     width: 180;
 
     .Account {
+      box-shadow: 0 1px 6px #999;
       height: 190px;
       width: 520px;
       border: 1px solid #ccc;
@@ -637,7 +665,7 @@
       img {
         width: 150px;
         height: 150px;
-        border-radius: 50%;
+        // border-radius: 50%;
         margin: 15px 0 0 50px;
         float: left;
         border: 1px solid #ccc;
@@ -664,12 +692,12 @@
   }
 
   .Integral {
-
+    box-shadow: 0 1px 6px #999;
     height: 190px;
     width: 520px;
     border: 1px solid #ccc;
     float: left;
-    margin-left: 50px;
+    margin-left: 45px;
 
     .integral {
       ul {
@@ -688,14 +716,14 @@
       float: left;
       width: 300px;
       height: 200px;
-      padding: 10px 0 0 50px;
+      padding: 15px 0 0 50px;
 
       li {
         text-align: center;
 
         img {
-          width: 130px;
-          height: 130px;
+          width: 150px;
+          height: 150px;
         }
       }
 

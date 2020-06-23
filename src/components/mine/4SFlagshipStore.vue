@@ -6,7 +6,9 @@
         <HomeSerach></HomeSerach>
       </div>
       <div class="Shopping_Cart" @mouseover="scover()" @mouseleave="scleave()">
-        <router-link to="/cart" target="_blank" tag="a"><p><i class="el-icon-shopping-cart-2"><span>{{NumData}}</span></i><span>我的购物车</span></p></router-link>
+        <router-link to="/cart" target="_blank" tag="a">
+          <p><i class="el-icon-shopping-cart-2"><span>{{NumData}}</span></i><span>我的购物车</span></p>
+        </router-link>
         <transition name="overcat">
           <div class="overBox" v-show="Scboxshow">
             <overallCart></overallCart>
@@ -35,40 +37,43 @@
       </div>
       <div style="clear:both;"></div>
       <div class="supplier">
-        <h1>推荐店铺 <router-link to="">更多>></router-link></h1>
+        <h1>推荐店铺 <router-link to="">更多>></router-link>
+        </h1>
         <div class="supplier-List">
-          <ul>
-            <router-link to="" v-for="ar in Arr" :key="ar.id">
-              <li>
-                <img src="../../assets/imges/sp_5.jpg" alt="">
+          <ul v-for="ar in shopData" :key="ar.id">
+            <router-link :to="{name:'ShopHome',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
+              <li v-for="(arImg,index) in ar.files" :key="index">
+                <img :src="baseUrl+arImg.files_path" alt="">
               </li>
-              <p>北京大华电子官方旗舰店</p>
+              <p>{{ar.shop_name}}</p>
             </router-link>
           </ul>
         </div>
       </div>
       <div class="provider">
-        <h1>仪商通VIP品牌供应商推荐<router-link to="">更多>></router-link></h1>
+        <h1>仪商通VIP品牌供应商推荐<router-link to="">更多>></router-link>
+        </h1>
         <div class="provider-List">
-          <ul>
-            <router-link to="" v-for="ar in Arr" :key="ar.id">
-              <li>
-                <img src="../../assets/imges/sp_5.jpg" alt="">
+          <ul v-for="ar in shopData" :key="ar.id">
+            <router-link :to="{name:'ShopHome',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
+              <li v-for="(arImg,index) in ar.files" :key="index">
+                <img :src="baseUrl+arImg.files_path" alt="">
               </li>
-              <p>北京大华电子官方旗舰店</p>
+              <p>{{ar.shop_name}}</p>
             </router-link>
           </ul>
         </div>
       </div>
       <div class="recommend-products">
-        <h1>推荐产品<router-link to="">更多>></router-link></h1>
+        <h1>推荐产品<router-link to="">更多>></router-link>
+        </h1>
         <div class="rp-List">
           <ul>
-            <router-link to="" v-for="ar in Arr" :key="ar.id">
+            <router-link to="" v-for="(sl,index) in shopList" :key="index">
               <li>
-                <img src="../../assets/imges/sp_5.jpg" alt="">
+                <img :src="baseUrl + sl.files_path" alt="">
               </li>
-              <p><span class="price">￥159.00</span><span class="name">ITECH/艾德克斯 可编程电子负载 IT8512</span></p>
+              <p><span class="price">{{sl.sales_price}}</span><span class="name">{{sl.goods_name}}</span></p>
             </router-link>
           </ul>
         </div>
@@ -87,12 +92,16 @@
       return {
         Scboxshow: false,
         swiperClose: false,
-        NumData:'',
-        lists:[],
+        NumData: '',
+        lists: [],
         picId9: '',
         picId400: '',
         picId302: '',
-        Arr:[0,1,2,3,4,5,6,7,8,9]
+        Arr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        shopData: '',
+        baseUrl: config.baseUrl,
+        shopID: "",
+        shopList: ''
       }
     },
     methods: {
@@ -116,6 +125,29 @@
     },
     created() {
       this.$ajax({
+        url: config.baseUrl + '/home/shop',
+        method: 'get',
+        params: {
+          recommend: 1
+        }
+      }).then(res => {
+        this.shopData = res.data.data.items.data
+        this.shopData.map(item => {
+          this.shopID = item.shop_id
+        })
+        this.$ajax({
+          url: config.baseUrl + '/home/goods',
+          method: 'get',
+          params: {
+            shopid: 8
+          }
+        }).then(res => {
+          this.shopList = res.data.data.item
+          console.log(this.shopList)
+        })
+        // console.log(this.shopID )
+      })
+      this.$ajax({
         url: config.baseUrl + '/home/cart',
         method: 'get',
         params: {
@@ -126,22 +158,22 @@
         // console.log(res.data.data.items)
         let GList = {}
         res.data.data.items.map((item, index) => {
-            GList = {}
-            GList.cart_id = item.cart_id
-            GList.shop_id = item.shop_id
-            GList.shop_name = item.shop_name
-            GList.carts_list = item.carts_list
-            GList.shop_all_weight = item.shop_all_weight
-            this.lists.push(GList)
-            // this.NumData = this.lists.length
+          GList = {}
+          GList.cart_id = item.cart_id
+          GList.shop_id = item.shop_id
+          GList.shop_name = item.shop_name
+          GList.carts_list = item.carts_list
+          GList.shop_all_weight = item.shop_all_weight
+          this.lists.push(GList)
+          // this.NumData = this.lists.length
+        })
+        let www = []
+        this.lists.map(item => {
+          item.carts_list.map(citem => {
+            www.push(citem)
           })
-          let www =  []
-          this.lists.map(item=>{
-            item.carts_list.map(citem=>{
-              www.push(citem)
-            })
-          })
-          this.NumData = www.length
+        })
+        this.NumData = www.length
       })
       let that = this
       this.$ajax({
@@ -422,165 +454,195 @@
       }
     }
   }
-  .supplier{
+
+  .supplier {
     margin-top: 10px;
     overflow: hidden;
-    h1{
+
+    h1 {
       height: 50px;
       line-height: 50px;
       font-size: 16px;
-      border-bottom:5px solid #ccc;
+      border-bottom: 5px solid #ccc;
       margin-bottom: 10px;
-      a{
+
+      a {
         float: right;
-        color:#222;
+        color: #222;
       }
-      a:hover{
-        color:#e94c15;
+
+      a:hover {
+        color: #e94c15;
         text-decoration: underline;
       }
     }
-    .supplier-List{
-      a{
+
+    .supplier-List {
+      a {
         width: 234px;
         height: 150px;
         float: left;
         margin: 0 10px 10px 0px;
-        border:1px solid #ccc;
+        border: 1px solid #ccc;
         box-shadow: 0 1px 6px #999;
-        li{
+
+        li {
           width: 180px;
           height: 55px;
           margin: 0 auto;
           margin-top: 40px;
-          img{
-            width: 100%;
-            height: 100%;            
-          }
-        }
-        p{
-          color:#222;
-          margin-top: 20px;
-          width: 180px;
-          margin: 10px auto 0 auto;
-          text-align: center;
-        }
-      }
-    }
-    .supplier-List a:nth-child(5n+5){
-      margin: 0 0 10px 0;
-    }
-  }
-  .provider{
-    overflow: hidden;
-    margin-top: 15px;
-    h1{
-      height: 50px;
-      line-height: 50px;
-      font-size: 16px;
-      border-bottom:5px solid #ccc;
-      margin-bottom: 10px;
-      a{
-        float: right;
-        color:#222;
-      }
-      a:hover{
-        color:#e94c15;
-        text-decoration: underline;
-      }
-    }
-    .provider-List{
-      a{
-        width: 234px;
-        height: 150px;
-        float: left;
-        margin: 0 10px 10px 0px;
-        border:1px solid #ccc;
-        box-shadow: 0 1px 6px #999;
-        li{
-          width: 180px;
-          height: 55px;
-          margin: 0 auto;
-          margin-top: 40px;
-          img{
-            width: 100%;
-            height: 100%;            
-          }
-        }
-        p{
-          color:#222;
-          margin-top: 20px;
-          width: 180px;
-          margin: 10px auto 0 auto;
-          text-align: center;
-        }
-      }
-    }
-    .provider-List a:nth-child(5n+5){
-      margin: 0 0 10px 0;
-    }
-  }
-  .recommend-products{
-    margin-top: 15px;
-    h1{
-      height: 50px;
-      line-height: 50px;
-      font-size: 16px;
-      border-bottom:5px solid #ccc;
-      margin-bottom: 10px;
-      a{
-        float: right;
-        color:#222;
-      }
-      a:hover{
-        color:#e94c15;
-        text-decoration: underline;
-      }
-    }
-    .rp-List{
-      a{
-        width: 234px;
-        height: 150px;
-        float: left;
-        margin: 0 10px 10px 0px;
-        border:1px solid #ccc;
-        box-shadow: 0 1px 6px #999;
-        background: #f5f5f5;
-        li{
-          width: 130px;
-          height: 100px;
-          margin: 0 auto;
-          margin-top: 10px;
-          img{
+
+          img {
             width: 100%;
             height: 100%;
           }
         }
-        p{
-          margin-top: 10px;
-          color:#222;
+
+        p {
+          color: #222;
+          margin-top: 20px;
+          width: 180px;
+          margin: 10px auto 0 auto;
           text-align: center;
-          .price{
-            color:#FF0036;
+        }
+      }
+    }
+
+    .supplier-List a:nth-child(5n+5) {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  .provider {
+    overflow: hidden;
+    margin-top: 15px;
+
+    h1 {
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      border-bottom: 5px solid #ccc;
+      margin-bottom: 10px;
+
+      a {
+        float: right;
+        color: #222;
+      }
+
+      a:hover {
+        color: #e94c15;
+        text-decoration: underline;
+      }
+    }
+
+    .provider-List {
+      a {
+        width: 234px;
+        height: 150px;
+        float: left;
+        margin: 0 10px 10px 0px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 6px #999;
+
+        li {
+          width: 180px;
+          height: 55px;
+          margin: 0 auto;
+          margin-top: 40px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        p {
+          color: #222;
+          margin-top: 20px;
+          width: 180px;
+          margin: 10px auto 0 auto;
+          text-align: center;
+        }
+      }
+    }
+
+    .provider-List a:nth-child(5n+5) {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  .recommend-products {
+    margin-top: 15px;
+
+    h1 {
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      border-bottom: 5px solid #ccc;
+      margin-bottom: 10px;
+
+      a {
+        float: right;
+        color: #222;
+      }
+
+      a:hover {
+        color: #e94c15;
+        text-decoration: underline;
+      }
+    }
+
+    .rp-List {
+      a {
+        width: 234px;
+        height: 150px;
+        float: left;
+        margin: 0 10px 10px 0px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 6px #999;
+        background: #f5f5f5;
+
+        li {
+          width: 130px;
+          height: 100px;
+          margin: 0 auto;
+          margin-top: 10px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        p {
+          margin-top: 10px;
+          color: #222;
+          text-align: center;
+
+          .price {
+            color: #FF0036;
             float: left;
             margin-left: 40px;
           }
-          .name{
-            display:block;
+
+          .name {
+            display: block;
             width: 100px;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            white-space:nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             float: left;
             margin-left: 10px;
           }
         }
       }
     }
-    .rp-List a:nth-child(5n+5){
+
+    .rp-List a:nth-child(5n+5) {
       margin: 0 0 10px 0;
     }
   }
+
 </style>
 <style lang="scss">
   #ELB:hover {

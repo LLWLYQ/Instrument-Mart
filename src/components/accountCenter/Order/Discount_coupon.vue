@@ -27,43 +27,23 @@ export default {
     }
   },
     filters: {
-      formatDate (value) {
-        let date = new Date(value);
-        let y = date.getFullYear();
-        let MM = date.getMonth() + 1;
-        MM = MM < 10 ? ('0' + MM) : MM;
-        let d = date.getDate();
-        d = d < 10 ? ('0' + d) : d;
-        let h = date.getHours();
-        h = h < 10 ? ('0' + h) : h;
-        let m = date.getMinutes();
-        m = m < 10 ? ('0' + m) : m;
-        let s = date.getSeconds();
-        s = s < 10 ? ('0' + s) : s;
-        return y + '年' + MM + '月' + d + '日' + h + ':' + m + ':' + s;
-      }
+     formatDate: function(value) {//10位时间戳转换
+      let date = new Date(parseInt(value) * 1000);
+      let y = date.getFullYear();
+      let m = date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      let h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      let minute = date.getMinutes();
+      let second = date.getSeconds();
+      minute = minute < 10 ? "0" + minute : minute;
+      second = second < 10 ? "0" + second : second;
+      return y + "年" + m + "月" + d + "日 " + h + ":" + minute + ":"+second; }
     },
   methods: {
-    DelClick(LD,index){
-      this.$ajax({
-        url: config.baseUrl + '/home/shop_coupon_receive/'+ LD.receive_id,
-        method:'DELETE',
-      }).then(res=>{
-        if(res.data.code == 20000){
-          this.shopData.splice(index,1)
-        }
-      })
-    },
-    DelClickDC(LD,index){
-      this.$ajax({
-        url: config.baseUrl + '/home/coupon_receive/'+ LD.receive_id,
-        method:'DELETE',
-      }).then(res=>{
-        if(res.data.code == 20000){
-          this.memberData.splice(index,1)
-        }
-      })
-    }
+   
   },
   components: {
 
@@ -77,6 +57,7 @@ export default {
       }
     }).then(res=>{
       this.shopData = res.data.data.items.data
+      console.log(res)
     })
   }
 }
@@ -86,11 +67,14 @@ export default {
 @import '../../../style/common';
 .content{
   width: 1090px;
+    margin-left: 220px;
+    padding: 20px;
+    background: #fff;
 }
 .discount_coupon{
   width: 100%;
-  margin-top: 30px;
-  margin-left: 100px;
+  // margin-top: 30px;
+  // margin-left: 100px;
   height: 1000px;
   .menber-shop{
      overflow: hidden;

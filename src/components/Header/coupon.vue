@@ -70,7 +70,7 @@ export default {
     },
     DcListClickDC(LD){
       this.$ajax({
-        url:config.baseUrl + '/home/coupon_receive',
+        url:config.baseUrl + '/home/shop_coupon_receive',
         method:'post',
         data:{
           coupon_id:LD.id,

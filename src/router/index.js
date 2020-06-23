@@ -4,7 +4,8 @@ import StoresRegistered from '@/components/StoresRegistered/StoresRegistered' //
 import Home from '@/components/mine/home'
 import ceshisss from '@/components/mine/ceshisss'
 import Tcog from '@/components/mine/TCOG/Tcog'
-import FlagshipStore from '@/components/mine/4SFlagshipStore'
+import SFlagshipStore from '@/components/mine/4SFlagshipStore'
+
 import overallCart from '@/components/mine/overallCart'
 import PublicSearchBar from '@/components/mine/PublicSearchBar'
 import home_serach from '@/components/home_child/home_serach'
@@ -138,15 +139,14 @@ export default new Router({
       }
     },
     {
-      path: '/FlagshipStore',
-      name: 'FlagshipStore',
-      component: FlagshipStore,
+      path: '/SFlagshipStore',
+      name: 'SFlagshipStore',
+      component: SFlagshipStore,
       meta:{
         title:"仪商城",
         keepAlive: true
       }
     },
-    
     {
       path: '/overallCart',
       name: 'overallCart',

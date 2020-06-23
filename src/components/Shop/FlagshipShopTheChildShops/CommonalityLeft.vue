@@ -5,7 +5,7 @@
         <h1>店铺信息</h1>
       </div>
       <div class="shop-left-body">
-
+        {{sData.shop_info}}
       </div>
     </div>
     <div class="shop-product-hot">
@@ -28,10 +28,14 @@
 </template>
 
 <script type="text/javascript">
+ import config from '../../../config/config'
 export default {
+  props:{
+    sData:Object
+  },
   data() {
     return {
-
+      shopData:''
     }
   },
   methods: {
@@ -39,6 +43,22 @@ export default {
   },
   components: {
 
+  },
+  created(){
+   
+  },
+  mounted(){
+     let self = this
+      self.$ajax({
+        url: config.baseUrl + '/seller/shop/'+ self.sData.shop_id,
+        method: 'get',
+        // params:{
+        
+        // }
+      }).then(res => {
+        self.shopData = res.data.data
+        console.log(self.shopDat)
+      })
   }
 }
 </script>
@@ -49,7 +69,7 @@ export default {
   float: left;
   width: 270px;
   height: 1600px;
-  background:yellow;
+  // background:yellow;
   .shop-info{
     margin-bottom: 5px;
     .shop-left-header{
@@ -74,7 +94,9 @@ export default {
       box-sizing: border-box;
       width: 100%;
       height: 291px;
-      background: greenyellow;
+      overflow: hidden;
+      text-indent: 15px;
+      // background: greenyellow;
     }
   }
   .shop-product-hot{
@@ -103,7 +125,7 @@ export default {
         box-sizing: border-box;
         width: 100%;
         height: 845px;
-        background: pink;
+        // background: pink;
       }
   }
   .shop-record{
@@ -132,7 +154,7 @@ export default {
         box-sizing: border-box;
         width: 100%;
         height: 320px;
-        background: orange;
+        // background: orange;
       }
   }
 }

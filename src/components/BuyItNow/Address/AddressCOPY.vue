@@ -94,8 +94,8 @@
                       <el-input v-model="ruleFormFic.Invitation_codeFic"></el-input>
                     </el-form-item>
                   </el-form>
-                  <el-button type="danger" style="margin-left:100px;" @click="ModifSave('ruleForm2')" class="Btn">确认修改</el-button>
-                  <el-button type="danger" style="margin-left:30px;" @click="CancelModi()" class="CloBtn">取消</el-button>
+                  <el-button type="danger" style="margin-left:100px;cursor: pointer;" @click="ModifSave('ruleForm2')" class="Btn">确认修改</el-button>
+                  <el-button type="danger" style="margin-left:30px;cursor: pointer;" @click="CancelModi()" class="CloBtn">取消</el-button>
                 </div>
             </div>
             <div class="over"></div>
@@ -551,6 +551,7 @@ export default {
     .el-form-item {
       height: 70px;
       width: 410px;
+      
     }
   }
   .mine .el-form-item:nth-child(3){
@@ -686,14 +687,15 @@ ul{
       //   z-index: 999;
       //   background-color: #111111;
       // }
+     
 .el-input__inner{
     padding: 0 !important;
     text-indent: 15px !important;
     border-radius: 0 !important;
   }
   .el-form-item__content{
-  position: static !important;
-}
+      position: static !important;
+    }
 .el-form-item__error{
     position: static !important;
   }
@@ -721,5 +723,7 @@ ul{
   }
 </style>
 <style lang="scss">
-
+ .el-form-item__content::after, .el-form-item__content::before{
+        content:none !important;
+      }
 </style>

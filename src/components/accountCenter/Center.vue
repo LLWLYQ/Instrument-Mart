@@ -1,6 +1,7 @@
 <template>
   <div class="Center">
-    <div class="Center_left">
+    <div class="Center-mine">
+      <div class="Center_left">
       <div class="order">
         <el-row class="tac">
           <el-col :span="12">
@@ -10,7 +11,7 @@
                 <span style="font-size:14px;font-weight: 700;width:100px;">会员中心</span>
                 <el-menu-item index="/Center_home_page">中心首页</el-menu-item>
                 <el-menu-item index="/Account_setting">账户设置</el-menu-item>
-                <el-menu-item index="/Have_to_buy_goods">仪商公告</el-menu-item>
+                <el-menu-item index="/Have_to_buy_goods">站内消息</el-menu-item>
                 <!-- <el-menu-item index="/My_need">我的需求</el-menu-item> -->
                 <!-- <el-menu-item index="/Enquiry">我要询价</el-menu-item> -->
                 <el-menu-item index="/Shipping_address">收货地址</el-menu-item>
@@ -29,6 +30,8 @@
     </div>
     <!-- </div> -->
     <div style="clear:both;"></div>
+    </div>
+    <div style="width:100%;height:50px;background:#f5f5f5;"></div>
   </div>
 
 </template>
@@ -78,10 +81,14 @@
   @import "../../style/common";
 
   .Center {
-    width: 1190px;
-    margin: 0 auto;
-    // min-height: 1000px;
-    height: auto;
+    width: 100%;
+    background: #f5f5f5;
+    .Center-mine{
+      width: 1230px;
+      margin: 0 auto ;
+      // min-height: 1000px;
+      height: auto;
+    }
 
     // overflow: hidden;
     .cur {
@@ -92,10 +99,11 @@
     // height: 1800px;
     .Center_left {
       float: left;
-      width: 100px;
+      width: 200px;
       height: auto;
       margin-top: 50px;
-
+      background: #f5f5f5;
+      
       .user-info {
         margin-top: 50px;
         width: 150px;
@@ -113,8 +121,19 @@
       }
 
       .order {
+       
+        width: 200px;
+        .el-row{
+          
+          width: 200px;
+        }
+       .el-col{
+         width: 200px;
+         
+       }
         .el-menu {
-          width: 100px;
+          width: 200px;
+           padding:20px 0 50px 10px;
         }
 
         .el-menu-item {

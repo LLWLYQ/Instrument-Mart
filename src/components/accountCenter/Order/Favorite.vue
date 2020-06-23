@@ -1,6 +1,6 @@
 <template>
   <div class="Favorite">
-    <div class="content_container">
+    <div class="giao">
       <div class="tabs">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="收藏的商品" name="second">
@@ -32,7 +32,7 @@ export default {
     return {
       activeName: 'second',
       collectData:'',
-      baseUrl:'http://shop.yishangm.com',
+      baseUrl:config.baseUrl,
       userId:localStorage.getItem('userId')
     }
   },
@@ -79,7 +79,13 @@ export default {
 <style lang="scss" scoped>
 @import '../../../style/common';
   .Favorite{
-    margin-left: 100px;
+    width: 1090px;
+    margin-left: 220px;
+    padding: 20px;
+    background: #fff;
+  }
+  .giao{
+    min-height: 1000px;
   }
   .tabs{
     margin: -10px 0 0 20px;

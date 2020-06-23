@@ -77,7 +77,7 @@
             <li>数量</li>
             <li>小计</li>
           </ul>
-          <ul v-for="(item,index) in OrderDataList" :key="index" class="center_tr" >
+          <ul v-for="(item,index) in orderData" :key="index" class="center_tr">
             <li
               style="width:100%; height:40px; line-height:40px; border-bottom:1px solid; font-size:14px; font-weight:bold;">
               <router-link :to="{name:'Detail',query:{listId:item.id}}" target="_blank" tag="a"
@@ -85,8 +85,8 @@
                 店铺：<span style="font-size:12px; color:#999;">{{item.shop_name}}</span>
               </router-link>
             </li>
-            <ul v-for="(item2,index2) in item.carts_list" :key="index2" style="width:100%; min-height:100px;display:inline-block;margin-top:5px;
-      vertical-align:middle;">
+            <ul v-for="(item2,index2) in item.carts_list" :key="index2"
+              style="width:100%; min-height:100px;display:inline-block;margin-top:5px;vertical-align:middle;">
               <li
                 style="font-size:10px; font-weight:100; width:260px; height:100px; line-height:100px; margin-left:10px; ">
                 <img :src="baseUrl+item2.files_path" alt=""
@@ -183,8 +183,8 @@
         },
         orderData: [],
         TotalMoney: JSON.parse(this.$route.query.totalMoney),
-        OrderDataList:JSON.parse(this.$route.query.OrderDataList),
-        AllOrderDataList:JSON.parse(this.$route.query.AllOrderDataList),
+        OrderDataList: JSON.parse(this.$route.query.OrderDataList),
+        AllOrderDataList: JSON.parse(this.$route.query.AllOrderDataList),
         AddressList: true,
         province_id: '',
         city: '',
@@ -212,8 +212,8 @@
         base_fee: 0,
         step_fee: 0,
         total_weight: 0,
-        shop_total:0
-        
+        shop_total: 0,
+        selectdata:[]
       }
     },
     methods: {
@@ -274,32 +274,54 @@
       'OrderInfromation': OrderInfromation
     },
     created() {
-      // console.log(this.AllOrderDataList)
+      console.log(this.AllOrderDataList)
+      let arr = []
+      arr = this.AllOrderDataList.filter(item => {
+          return item.checked == true || item.checked == false
+        })
+      let sel = {}
+      arr.map(item=>{
+        sel = {}
+        sel.goods_id = []
+        // console.log(item.shop_id)
+        item.carts_list.map(citem=>{
+          if(citem.checked == true){
+            sel.goods_id.push(citem.goods_id)
+            sel.shop_id = item.shop_id
+          }
+        })
+        this.selectdata.push(sel)
+      })
+      
+      this.OrderDataList = arr
+      console.log(this.selectdata)
+      
       let result = []
       let optres = []
       var goods = []
       var option = {}
       let GList = {}
       let OrDL = []
-      this.OrderDataList.map(item=>{
-         item.carts_list.map(citem=>{
-           OrDL.push(citem)
-         })
-      })
+      
       // GList.carts_list = OrDL
       // console.log(GList.carts_list)
       //查询购物车数据
+
       this.$ajax({
         url: config.baseUrl + '/home/cart',
         method: 'get',
         params: {
-          member_id: localStorage.getItem('userId')
+          member_id: localStorage.getItem('userId'),
+          selectdata:this.selectdata
+        },
+        paramsSerializer: (params) => {
+          return Qs.stringify(params)  
         }
       }).then(res => {
         //console.log(res.data.data.items.data)
-        // console.log(res.data.data.items)
+        console.log(res)
         res.data.data.items.map((item, index) => {
-          
+
           this.goodsNumber = index + 1
           GList = {}
           GList.shop_name = item.shop_name
@@ -310,7 +332,7 @@
           GList.phone = ''
           GList.address = ''
           GList.invoice = item.invoice
-          GList.carts_list = OrDL
+          GList.carts_list = item.carts_list
           GList.shipping_money = item.shipping_money
           console.log(GList)
           let total_pricesTwo = item.carts_list.map(itemTwo => {
@@ -318,7 +340,7 @@
           })
           this.shop_total = eval(total_pricesTwo.join("+")); //店铺总价
           this.orderData.push(GList)
-          
+
         })
         console.log(this.orderData)
         let newdata = {
@@ -327,6 +349,9 @@
           address_id: this.adrID,
           payment_type: this.ZFB,
           shipping_method: 1,
+          coupon_id:'',
+          coupon_receive_id:'',
+          code:'',
           goods: this.orderData,
         }
         this.DataList = newdata //提交订单数据
@@ -476,7 +501,7 @@
         margin-top: 10px;
 
         li {
-          
+
           // width: 32px;
           height: 32px;
           border-radius: 50%;
@@ -515,7 +540,7 @@
   }
 
   .center_tr li:nth-child(1) {
-    width:100%;
+    width: 100%;
     margin: 0 !important;
 
     img {
@@ -792,9 +817,11 @@
       padding: 10px 60px;
     }
   }
+
   // .sku ul:nth-child(3){
   //   display:none !important;
   // }
+
 </style>
 <style lang="">
   /* .el-radio__label {

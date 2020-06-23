@@ -26,8 +26,10 @@ export default {
 <style lang="scss" scoped>
 @import '../../../style/common';
 .Shipping_address{
-  margin-left: 120px;
-  margin-top: -10px;
+  width: 1090px;
+    margin-left: 220px;
+    padding: 20px;
+    background: #fff;
   p{
     font-size: 16px;
       font-weight: 700;

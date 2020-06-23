@@ -1,28 +1,27 @@
 <template>
   <div class="Have_to_buy_goods">
-    <div class="content_container">
       <div class="List" v-if="ListData">
-        <p class="List_title">公告列表</p>
+        <p class="List_title">消息列表</p>
         <div class="Mine">
+          <p class="out" v-if="diudiu">暂无消息</p>
           <ul>
-            <li v-for="not in NoticData" :key="not.id" >
+            <li v-for="(not,index) in NoticData" :key="index" >
               <a>
-                <p @click="ListClisk(not)"><i class="el-icon-zoom-in"></i>{{not.notice_title}}</p>
+                <p v-if="not.del_status == 0"><span @click="ListClisk(not)" class="spClik"><i class="el-icon-zoom-in" style="margin-right:10px;"></i>{{not.message_title}}</span><span class="del" style="float:right;"><i class="el-icon-delete-solid" style="font-size:20px;" @click="messDel(not,index)"></i> </span></p>
               </a>
             </li>
           </ul>
         </div>
       </div>
       <div class="Detail" v-if="DetailData">
-        <p class="Detail_title">公告详情 <span @click="unfold()">返回列表</span><i @click="unfold()" class="el-icon-s-unfold"></i></p>
+        <p class="Detail_title">消息详情 <span @click="unfold()">返回列表</span><i @click="unfold()" class="el-icon-s-unfold"></i></p>
         <div class="mine">
           <ul>
-            <li>{{noticData.notice_title}}</li>
-            <li><p v-html="noticData.notice_content"></p></li>
+            <li>{{noticData.message_title}}</li>
+            <li><p v-html="noticData.message_body"></p></li>
           </ul>
         </div>
       </div>
-    </div>
   </div>
 </template>
 <script type="text/javascript">
@@ -36,16 +35,32 @@ export default {
       ListData:true,
       notID:this.$route.query.notId,
       noticData:'',
-      NoticData:''
+      NoticData:'',
+      diudiu:false
     }
   },
   methods: {
-    ListClisk(not){
+    messDel(not,index){
+      // console.log(not.message_id)
       this.$ajax({
-        url:'http://shop.yishangm.com/home/noticetwo/'+not.notice_id,
+        url:config.baseUrl + '/home/message/' + not.message_id,
+        method:'DELETE',
+      }).then(res=>{
+        console.log(res)
+        if(res.data.code == 20000){
+          this.wohu()
+        }
+      })
+    },
+    ListClisk(not){
+      console.log(not)
+      this.$ajax({
+        url:config.baseUrl +'/home/message/'+not.message_id,
         method:'get'
         }).then(res=>{
           this.noticData = res.data.data
+          
+          console.log(this.noticData)
           if(res.data.code == 20000){
             this.ListData = false
             this.DetailData = true
@@ -55,6 +70,24 @@ export default {
     unfold(){
       this.ListData = true
       this.DetailData = false
+    },
+    wohu(){
+      this.$ajax({
+      url:config.baseUrl + '/home/message',
+      method:'get',
+      params:{
+        member_id:localStorage.getItem('userId')
+      }
+    }).then(res=>{
+      let arr = res.data.data.items.data
+          this.NoticData = arr.filter(item => {
+            return item.del_status == 0
+          })
+      // this.NoticData = 
+      if(this.NoticData.length == 0){
+        this.diudiu = true
+      }
+    })
     }
   },
   components: {
@@ -65,13 +98,7 @@ export default {
 
   },
   created(){
-     this.$ajax({
-      url:config.baseUrl + '/home/noticetwo',
-      method:'get',
-    }).then(res=>{
-      this.NoticData = res.data.data.items.data
-      // console.log(this.NoticData)
-    })
+     this.wohu()
   }
 }
 </script>
@@ -79,8 +106,12 @@ export default {
 <style lang="scss" scoped>
 @import '../../../style/common';
 .Have_to_buy_goods{
-  margin-left: 100px;
+    width: 1090px;
+    margin-left: 220px;
+    padding:10px 20px;
+    background: #fff;
   .List{
+    min-height: 1000px;
     .List_title{
       font-size: 14px;
       width: 100%;
@@ -94,11 +125,22 @@ export default {
   }
 }
  .Mine{
+   .out{
+     height: 50px;
+     line-height: 50px;
+     width: 100%;
+     text-align: center;
+   }
     width: 100%;
-    height: 190px;
-    background: #f5f5f5;
-    padding:0 15px;
+    // height: 190px;
+    // background: #f5f5f5;
+    padding:0 5px;
     // margin-top: 230px;
+    .spClik{
+      display: block;
+      float: left;
+      width: 95%;
+    }
     ul{
       li{
         margin-bottom: 5px;
@@ -115,6 +157,7 @@ export default {
           a{
             i{
               margin-right: 5px;
+              display: block;
               color:#e94c15;
             }
           }
@@ -131,6 +174,7 @@ export default {
     }
   }
   .Detail{
+    min-height: 1000px;
   .mine{
     margin-top: 10px;
     width: 990px;

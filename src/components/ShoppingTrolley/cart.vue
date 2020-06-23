@@ -270,7 +270,7 @@
           name: 'OrderForm',
           query: {
             OrderDataList: JSON.stringify(this.OrderList),
-            AllOrderDataList:JSON.stringify(this.lists),
+            AllOrderDataList: JSON.stringify(this.lists),
             totalMoney: JSON.stringify(this.lastTaotalPrice)
           }
         })

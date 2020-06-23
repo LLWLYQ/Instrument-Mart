@@ -294,9 +294,11 @@ import config from '../../../config/config'
   @import '../../../style/common';
 
   .Account_setting {
-
-    width: 990px;
-    margin-left: 100px;
+    
+    width: 1090px;
+    margin-left: 220px;
+    padding: 20px;
+    background: #fff;
   }
 
   .el-form-item {

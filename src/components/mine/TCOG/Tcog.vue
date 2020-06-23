@@ -33,7 +33,7 @@
           <router-link to='/PublicSearchBar'><i class="el-icon-s-platform"></i> 品牌供应商</router-link>
         </li>
         <li>
-          <router-link to='/FlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
+          <router-link to='/SFlagshipStore'><i class="el-icon-s-flag"></i> 4S旗舰店</router-link>
         </li>
         <li>
           <router-link to='/GeneralShop'><i class="el-icon-s-promotion"></i> 供求与招标</router-link>

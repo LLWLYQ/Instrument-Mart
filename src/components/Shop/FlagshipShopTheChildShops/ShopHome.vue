@@ -1,7 +1,7 @@
 <template>
   <div class="ShopHome">
     <div class="sh-left">
-      <CommonalityLeft></CommonalityLeft>
+      <CommonalityLeft :sData="shopData"></CommonalityLeft>
     </div>
     <div class="sh-right">
       <div class="company-profile">
@@ -10,13 +10,12 @@
           <a>更多>></a>
         </div>
         <div class="cp-mine">
-          <div class="cp-mine-left">
-            <img src="https://www.yishangm.com//upload/2018/05/18/20180518100228612.jpg" alt="">
+          <!-- {{shopData.files_two}} -->
+          <div class="cp-mine-left" v-if="shopData">
+            <img :src="baseUrl + shopData.files_two.files_path" alt="">
           </div>
-          <div class="cp-mine-right">
-            浙江大立科技股份有限公司是于1984年成立的浙江省测试技术研究所改制而成的股份制高新技术企业，公司股票于2008年2月18日在深圳证券交易所挂牌上市（股票代码002214），是红外和安防系统国内A股首家上市公司。
-            公司专业从事非制冷焦平面探测器、红外热像仪、红外热成像系统的研发、生产和销售。经过多年稳健的发展，从研究所成长为具有较强自主研发和技术创新能力且经营业绩稳定增长的上市公司。
-            公司座落于美丽的中国杭州，拥有功能齐全、设备完善的产业化基地以及技术研发中心，公司的技术人员占员工总数35%以上，从根本上保证了技
+          <div class="cp-mine-right" v-if="shopData">
+            {{shopData.get_company.company_info}}
           </div>
         </div>
       </div>
@@ -25,7 +24,29 @@
           <h1>供应商品</h1>
         </div>
         <div class="sog-mine">
-
+          <ul>
+            <li v-for="(item,index) in goodsData" :key="index">
+              <div class="LD-img">
+                <router-link :to="{name:'Detail',query:{listId:item.goods_id}}" target="_blank" tag="a">
+                  <img :src="baseUrl + item.files_path" alt="">
+                </router-link>
+              </div>
+              <p class="list-price"><b>￥</b><span>{{item.sales_price/100}}</span></p>
+              <p class="list-title">
+                <router-link :to="{name:'Detail',query:{listId:item.goods_id}}" target="_blank" tag="a">
+                  {{item.goods_name}}
+                </router-link>
+              </p>
+              <p class="list-shop">
+                <router-link to="" target="_blank" tag="a">
+                  {{item.get_shop.shop_name}}
+                </router-link>
+              </p>
+              <p class="car">
+                <span><i class="el-icon-goods"></i>加入购物车</span>
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
       <!-- <div class="shop-foot">
@@ -53,10 +74,14 @@
 </template>
 <script type="text/javascript">
   import CommonalityLeft from './CommonalityLeft'
+  import config from '../../../config/config'
   export default {
     data() {
       return {
-
+        shopData: '',
+        shopID: this.$route.query.shopID,
+        baseUrl: config.baseUrl,
+        goodsData: ''
       }
     },
     methods: {
@@ -64,6 +89,30 @@
     },
     components: {
       CommonalityLeft
+    },
+    created() {
+      let self = this
+      self.$ajax({
+        url: config.baseUrl + '/seller/shop/8',
+        method: 'get',
+        // params:{
+
+        // }
+      }).then(res => {
+
+        self.shopData = res.data.data
+        console.log(this.shopData)
+      })
+      self.$ajax({
+        url: config.baseUrl + '/home/goods',
+        method: "get",
+        params: {
+          shopid: self.shopData.id
+        }
+      }).then(res => {
+        this.goodsData = res.data.data.items
+        // console.log(this.goodsData)
+      })
     }
   }
 
@@ -165,7 +214,126 @@
         margin-top: 10px;
         height: 900px;
         width: 100%;
-        background: black;
+
+        // background: black;
+        ul {
+          li {
+            margin: 10px 10px 10px 10px;
+            width: 210px;
+            padding: 7px 7px 0 7px;
+            height: 370px;
+            float: left;
+            border: 1px solid #ccc;
+
+            // box-shadow: 0 1px 6px #999;
+            a {
+              margin: auto;
+              display: block;
+
+              img {
+                width: 196px;
+                height: 210px;
+              }
+            }
+
+            .list-price {
+              width: 202;
+              height: 30px;
+              line-height: 30px;
+              margin: 0 0 5px;
+              letter-spacing: normal;
+              white-space: nowrap;
+
+              span {
+                float: left;
+                font-family: arial;
+                font-weight: 400;
+                font-size: 20px;
+                color: #ff0036;
+              }
+
+              b {
+                margin-left: 5px;
+                float: left;
+                font-size: 14px;
+                font-weight: 700;
+                color: #ff0036;
+              }
+            }
+
+            .list-title {
+              height: 40px;
+              line-height: 20px;
+              display: block;
+              margin-bottom: 3px;
+              font-size: 12px;
+              position: relative;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+
+              a {
+                margin-left: 8px;
+                color: #666;
+                font-family: \5FAE\8F6F\96C5\9ED1;
+                line-height: 14px;
+                cursor: pointer;
+              }
+            }
+
+            .list-title a:hover {
+              text-decoration: underline;
+              color: #ff0036;
+            }
+
+            .list-shop {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              margin-top: 10px;
+              display: block;
+              margin-bottom: 3px;
+              font-size: 12px;
+              position: relative;
+
+              a {
+                margin-left: 8px;
+                color: #999;
+                font-family: \5FAE\8F6F\96C5\9ED1;
+                line-height: 14px;
+                cursor: pointer;
+                font-size: 12px;
+              }
+            }
+
+            .list-shop a:hover {
+              text-decoration: underline;
+              color: #ff0036;
+            }
+
+            .car {
+              margin: 10px 0 0 5px;
+
+              span {
+                cursor: pointer;
+
+                i {
+                  font-size: 25px;
+                  margin-right: 5px;
+                }
+              }
+
+              span:hover {
+                color: #ff0036;
+              }
+            }
+          }
+
+          li:hover {
+            border: 4px solid #ff0036;
+            padding: 4px 4px 0 4px;
+          }
+        }
       }
     }
 
