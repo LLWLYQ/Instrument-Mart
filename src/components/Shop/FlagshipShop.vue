@@ -74,6 +74,7 @@ export default {
   },
   methods: {
     menuClik(menu){
+      console.log(menu)
       this.menutitle = menu.title
     },
     handleSelect(key, keyPath) {

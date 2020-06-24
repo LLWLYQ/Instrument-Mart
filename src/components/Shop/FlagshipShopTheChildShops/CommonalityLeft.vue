@@ -13,7 +13,26 @@
         <h1>商家推荐</h1>
       </div>
       <div class="shop-left-body">
-
+        <ul>
+          <li v-for="(item,index) in goodsData.slice(0,5)" :key="index">
+             <div class="LD-img">
+                <router-link :to="{name:'Detail',query:{listId:item.goods_id}}" target="_blank" tag="a">
+                  <img :src="baseUrl + item.files_path" alt="">
+                </router-link>
+              </div>
+              <p class="list-price"><b>￥</b><span>{{item.sales_price/100}}</span></p>
+              <p class="list-title">
+                <router-link :to="{name:'Detail',query:{listId:item.goods_id}}" target="_blank" tag="a">
+                  {{item.goods_name}}
+                </router-link>
+              </p>
+              <p class="list-shop">
+                <router-link to="" target="_blank" tag="a">
+                  {{item.get_shop.shop_name}}
+                </router-link>
+              </p>
+          </li>
+        </ul>
       </div>
     </div>
     <!-- <div class="shop-record">
@@ -31,11 +50,11 @@
  import config from '../../../config/config'
 export default {
   props:{
-    sData:Object
+    sData:{}
   },
   data() {
     return {
-      shopData:''
+      goodsData:''
     }
   },
   methods: {
@@ -45,19 +64,19 @@ export default {
 
   },
   created(){
-   
+
   },
   mounted(){
      let self = this
-      self.$ajax({
-        url: config.baseUrl + '/seller/shop/'+ self.sData.shop_id,
-        method: 'get',
-        // params:{
-        
-        // }
+     self.$ajax({
+        url: config.baseUrl + '/home/goods',
+        method: "get",
+        params: {
+          shopid: self.sData.shop_id,
+        }
       }).then(res => {
-        self.shopData = res.data.data
-        console.log(self.shopDat)
+        this.goodsData = res.data.data.items
+        // console.log(this.goodsData)
       })
   }
 }
@@ -68,7 +87,7 @@ export default {
 .CommonalityLeft{
   float: left;
   width: 270px;
-  height: 1600px;
+  height: 1800px;
   // background:yellow;
   .shop-info{
     margin-bottom: 5px;
@@ -96,6 +115,7 @@ export default {
       height: 291px;
       overflow: hidden;
       text-indent: 15px;
+      
       // background: greenyellow;
     }
   }
@@ -120,11 +140,130 @@ export default {
       }
     }
     .shop-left-body{
-        padding: 20px 10px;
+        padding: 20px 20px;
         border: 1px solid #e3e2e2;
         box-sizing: border-box;
         width: 100%;
-        height: 845px;
+        height: 1400px;
+        // text-align: center;
+        ul {
+          li {
+            margin: 10px 10px 10px 10px;
+            width: 210px;
+            padding: 7px 7px 0 7px;
+            height: 255px;
+            float: left;
+            border: 1px solid #ccc;
+
+            // box-shadow: 0 1px 6px #999;
+            a {
+              margin: auto;
+              display: block;
+
+              img {
+                width: 196px;
+                height: 150px;
+              }
+            }
+
+            .list-price {
+              width: 202;
+              height: 30px;
+              line-height: 30px;
+              margin: 0 0 5px;
+              letter-spacing: normal;
+              white-space: nowrap;
+
+              span {
+                float: left;
+                font-family: arial;
+                font-weight: 400;
+                font-size: 20px;
+                color: #ff0036;
+              }
+
+              b {
+                margin-left: 5px;
+                float: left;
+                font-size: 14px;
+                font-weight: 700;
+                color: #ff0036;
+              }
+            }
+
+            .list-title {
+              height: 20px;
+              line-height: 20px;
+              display: block;
+              margin-bottom: 3px;
+              font-size: 12px;
+              position: relative;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+
+              a {
+                margin-left: 8px;
+                color: #666;
+                font-family: \5FAE\8F6F\96C5\9ED1;
+                line-height: 14px;
+                cursor: pointer;
+              }
+            }
+
+            .list-title a:hover {
+              text-decoration: underline;
+              color: #ff0036;
+            }
+
+            .list-shop {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              margin-top: 10px;
+              display: block;
+              margin-bottom: 3px;
+              font-size: 12px;
+              position: relative;
+
+              a {
+                margin-left: 8px;
+                color: #999;
+                font-family: \5FAE\8F6F\96C5\9ED1;
+                line-height: 14px;
+                cursor: pointer;
+                font-size: 12px;
+              }
+            }
+
+            .list-shop a:hover {
+              text-decoration: underline;
+              color: #ff0036;
+            }
+
+            .car {
+              margin: 10px 0 0 5px;
+
+              span {
+                cursor: pointer;
+
+                i {
+                  font-size: 25px;
+                  margin-right: 5px;
+                }
+              }
+
+              span:hover {
+                color: #ff0036;
+              }
+            }
+          }
+
+          // li:hover {
+          //   border: 4px solid #ff0036;
+          //   padding: 4px 4px 0 4px;
+          // }
+        }
         // background: pink;
       }
   }
@@ -154,8 +293,10 @@ export default {
         box-sizing: border-box;
         width: 100%;
         height: 320px;
+        
         // background: orange;
       }
   }
 }
+
 </style>

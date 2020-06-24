@@ -132,6 +132,9 @@
         if (item.carts_list) {
           item.carts_list.forEach((citem) => {
             this.$set(citem, "checked", false)
+            // this.$get(citem,"checked",false){
+            //   console.log('checked,token,data')
+            // }
             // citem.checked = false;
           })
         }

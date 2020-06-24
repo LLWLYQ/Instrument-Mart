@@ -41,7 +41,7 @@
         </h1>
         <div class="supplier-List">
           <ul v-for="ar in shopData" :key="ar.id">
-            <router-link :to="{name:'ShopHome',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
+            <router-link :to="{name:'FlagshipShop',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
               <li v-for="(arImg,index) in ar.files" :key="index">
                 <img :src="baseUrl+arImg.files_path" alt="">
               </li>
@@ -55,7 +55,7 @@
         </h1>
         <div class="provider-List">
           <ul v-for="ar in shopData" :key="ar.id">
-            <router-link :to="{name:'ShopHome',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
+            <router-link :to="{name:'FlagshipShop',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
               <li v-for="(arImg,index) in ar.files" :key="index">
                 <img :src="baseUrl+arImg.files_path" alt="">
               </li>

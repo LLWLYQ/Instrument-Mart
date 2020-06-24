@@ -1,7 +1,7 @@
 <template>
   <div class="SupplyProducts">
     <div class="sh-left">
-      <CommonalityLeft></CommonalityLeft>
+      <!-- <CommonalityLeft></CommonalityLeft> -->
     </div>
     <div class="sh-right">
       <div class="supply-products">
@@ -47,7 +47,7 @@ export default {
   //   float: left;
   // }
   .sh-right{
-    width: 950px;
+    width: 1230px;
     margin-left: 10px;
     height: 1500px;
     // background-color:#000;
@@ -69,7 +69,7 @@ export default {
         // margin-top: 10px;
         width: 100%;
         height: 1200px;
-        background: pink;
+        // background: pink;
       }
     }
   }

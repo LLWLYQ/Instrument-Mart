@@ -25,7 +25,7 @@
         </div>
         <div class="sog-mine">
           <ul>
-            <li v-for="(item,index) in goodsData" :key="index">
+            <li v-for="(item,index) in goodsData.slice(0,12)" :key="index">
               <div class="LD-img">
                 <router-link :to="{name:'Detail',query:{listId:item.goods_id}}" target="_blank" tag="a">
                   <img :src="baseUrl + item.files_path" alt="">
@@ -81,7 +81,7 @@
         shopData: '',
         shopID: this.$route.query.shopID,
         baseUrl: config.baseUrl,
-        goodsData: ''
+        goodsData: '',
       }
     },
     methods: {
@@ -99,7 +99,7 @@
 
         // }
       }).then(res => {
-
+``
         self.shopData = res.data.data
         console.log(this.shopData)
       })
@@ -107,7 +107,7 @@
         url: config.baseUrl + '/home/goods',
         method: "get",
         params: {
-          shopid: self.shopData.id
+          shopid: self.shopData.id,
         }
       }).then(res => {
         this.goodsData = res.data.data.items
@@ -120,7 +120,6 @@
 
 <style lang="scss" scoped>
   @import '../../../style/common';
-
   .ShopHome {
     width: 1230px;
     // position: absolute;
@@ -159,6 +158,7 @@
         a {
           float: right;
           font-size: 14px;
+          cursor: pointer;
         }
       }
 
@@ -223,7 +223,7 @@
             padding: 7px 7px 0 7px;
             height: 370px;
             float: left;
-            border: 1px solid #ccc;
+            border: 1px solid #f5f5f5;
 
             // box-shadow: 0 1px 6px #999;
             a {

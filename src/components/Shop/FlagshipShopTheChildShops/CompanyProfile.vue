@@ -1,7 +1,7 @@
 <template>
   <div class="CompanyProfile">
     <div class="sh-left">
-      <CommonalityLeft></CommonalityLeft>
+      <!-- <CommonalityLeft></CommonalityLeft> -->
     </div>
     <div class="sh-right">
       <div class="company-profile">
@@ -9,7 +9,6 @@
           <h1>公司简介</h1>
         </div>
         <div class="cp-body">
-
         </div>
       </div>
       <div class="read">
@@ -17,26 +16,31 @@
           <h1>相关阅读</h1>
         </div>
         <div class="read-body">
-
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script type="text/javascript">
-import CommonalityLeft from './CommonalityLeft'
+// import CommonalityLeft from './CommonalityLeft'
 export default {
   data() {
     return {
-
     }
   },
   methods: {
-
+    // getName(){
+    //   this.$router.push({
+    //     name:"home",
+    //     params:{
+    //       name:this.shopData,
+    //       Number:this.shopData,
+    //     }
+    //   })
+    // }
   },
   components: {
-    CommonalityLeft
+    // CommonalityLeft
   }
 }
 </script>
@@ -55,7 +59,7 @@ export default {
   //   float: left;
   // }
   .sh-right{
-    width: 950px;
+    width: 100%;
     margin-left: 10px;
     height: 1500px;
     // background-color:#000;
@@ -76,7 +80,7 @@ export default {
       .cp-body{
         width: 100%;
         height: 820px;
-        background: pink;
+        // background: pink;
       }
     }
     .read{
@@ -96,7 +100,7 @@ export default {
       .read-body{
         width: 100%;
         height: 300px;
-        background: greenyellow;
+        // background: greenyellow;
       }
     }
   }
