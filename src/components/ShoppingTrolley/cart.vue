@@ -62,8 +62,7 @@
                     <span>无</span>
                   </p>
                 </li>
-                <li
-                  style="width:107px; height:50px;  text-align: center;line-height: 50px;font-weight:blod;font-size:12px;color:#ff0036;">
+                <li style="width:107px; height:50px;  text-align: center;line-height: 50px;font-weight:blod;font-size:12px;color:#ff0036;white-space: nowrap;overflow: hidden;">
                   ￥<strong
                     style="color:#ff0036;margin:-4px 0 0 2px;line-height:40px;font-size:16px;">{{(item.last_price/100)}}</strong>
                 </li>
@@ -72,7 +71,7 @@
                     @change="handelChange(lists,val,item)">
                   </el-input-number>
                 </li>
-                <li style="width:155px; height:50px;text-align: center; line-height: 50px;color:#ff0036; ">
+                <li style="width:155px; height:50px;text-align: center; line-height: 50px;color:#ff0036; white-space: nowrap;overflow: hidden;">
                   ￥<strong
                     style="color:#ff0036;margin:-4px 0 0 2px;line-height:40px;font-size:16px;">{{(item.last_price/100)*item.quantity}}</strong>
                 </li>

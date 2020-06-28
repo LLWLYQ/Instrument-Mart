@@ -52,7 +52,6 @@
           <el-option v-for="item in options3" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-
         <el-select v-model="ruleForm.shop_street" filterable placeholder="请选择">
           <el-option v-for="item in options4" :key="item.id" :label="item.name" :value="item.id">
           </el-option>

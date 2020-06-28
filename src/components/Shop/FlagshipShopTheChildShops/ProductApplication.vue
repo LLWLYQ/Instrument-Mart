@@ -19,7 +19,26 @@ export default {
     }
   },
   methods: {
-
+    // getIcon(){
+    //   this.$ajax({
+    //     url:baseUrl+"home/shop/ID",
+    //     method:"post",
+    //     data:{
+    //       menmber:localStorage.getItem("userId"),
+    //        userName:localStorage
+    //     }
+    //   }).then(res=>{
+    //     console.log(res.shop_address)
+    //     let Date =  new Date
+    //     let shopMessage = shop_address
+    //     shopMessage.map(item =>{
+    //       console.log(item)
+    //       item.shop_id = item.cpmmtrfill
+    //       let cath = item.dixueshitian
+    //     })
+    //     // console.log(Date)
+    //   })
+    // }
   },
   components: {
 

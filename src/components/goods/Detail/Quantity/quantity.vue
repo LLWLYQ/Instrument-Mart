@@ -36,11 +36,14 @@ export default {
         this.handleChange()
       }
     }
+  },
+  created(){
+    // console.log(this.num,this.goods_unit)
   }
 }
 </script>
 
-<style scope lang="scss">
+<style scoped lang="scss">
 @import '../../../../style/common';
   .quantity{
     margin-top: 10px;
@@ -87,20 +90,20 @@ export default {
       margin-right: 25px;
     }
   }
-  .el-input__inner{
+  .el-input__inner {
     padding: 0 !important;
     text-indent: 0px !important;
     border-radius: 0 !important;
   }
-  .el-input-number__decrease{
+
+  .el-input-number__decrease {
     width: 20px !important;
   }
-  .el-input-number__increase{
+
+  .el-input-number__increase {
     width: 20px !important;
   }
-  .el-input-number .el-input__inner{
-    padding: 0 !important;
-  }
+  
 </style>
 <style lang="scss">
   

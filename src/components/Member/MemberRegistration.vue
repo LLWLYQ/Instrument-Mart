@@ -627,14 +627,14 @@ export default {
   .el-form-item__content{
     margin-bottom: 0px ;
   }
-  
-</style>
-<style lang="scss">
-  .el-input__inner{
+.el-input__inner{
     padding: 0 !important;
     text-indent: 15px !important;
     border-radius: 0 !important;
   }
+</style>
+<style lang="scss">
+ 
   .telName{
     position: absolute;
     top:30%;

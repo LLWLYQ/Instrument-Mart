@@ -27,7 +27,8 @@
           </ul>
         </div>
         <div class="collect">
-          <p @click="collect()"><i class="el-icon-star-on"></i>收藏商品</p>
+          <p @click="collect()" class="close" v-if="!Cos"><i class="el-icon-star-on"></i>收藏商品</p>
+          <p class="suc" v-if="Cos"><i class="el-icon-star-on"></i>商品已收藏</p>
         </div>
         <div class="collect_succ" v-if="Collect">
           <h1><i class="el-icon-success"></i><span>成功加入收藏夹</span><i class="el-icon-error right" @click="close()"></i>
@@ -232,6 +233,7 @@
   export default {
     data() {
       return {
+        Cos:false,
         Collect: false,
         activeName: 'first',
         isSelect: 0,
@@ -542,29 +544,45 @@
       }
     },
     created() {
+      //查看是否收藏
+      this.$ajax({
+        url:config.baseUrl + '/home/collect/find',
+        method:'post',
+        data:{
+          goods_id:this.detailID,
+          member_id:localStorage.getItem('userId')
+        }
+      }).then(res=>{
+        if(res.data.code == 20000){
+          this.Cos = true
+        }else{
+          this.Cos = false
+        }
+        
+      })
       // this.tabChange()
       if (localStorage.getItem('userId')) { 
         //会员产品咨询列表 MenberConsulting
         this.$ajax({
-          url: config.baseUrl + '/home/consult',
-          method: 'get',
-          params: {
-            member_id: localStorage.getItem('userId')
+          url: config.baseUrl + '/home/goods/consult',
+          method: 'post',
+          data:{
+            goods_id: this.detailID
           }
         }).then(res => {
+          console.log(res)
           this.MenberConsulting = res.data.data.items.data
-          // console.log(this.MenberConsulting)
-          // this.yourNotFire = 'Noforu'
         })
       } else {
         //产品咨询列表 Consulting
         this.$ajax({
           url: config.baseUrl + '/home/goods/consult',
-          method: 'POST',
-          data: {
+          method: 'post',
+          data:{
             goods_id: this.detailID
           }
         }).then(res => {
+          console.log(res)
           this.MenberConsulting = res.data.data.items.data
         })
       }
@@ -638,6 +656,19 @@
 
 <style scope lang="scss">
   @import "../../../style/common.css";
+  .el-input__inner {
+    padding: 0 !important;
+    text-indent: 0px !important;
+    border-radius: 0 !important;
+  }
+
+  .el-input-number__decrease {
+    width: 20px !important;
+  }
+
+  .el-input-number__increase {
+    width: 20px !important;
+  }
   .el-radio-button__orig-radio:checked+.el-radio-button__inner {
     background: #fff !important;
     border: 2px solid #FF0036 !important;
@@ -699,19 +730,27 @@
     bottom: 0px;
     left: 20px;
 
-    p {
+    .close {
       font-size: 12px;
       height: 20px;
       line-height: 20px;
       color: #999;
       cursor: pointer;
-    }
-
-    i {
+      i {
       margin-right: 5px;
       font-size: 14px;
       color: #999;
     }
+    }
+    .suc{
+      color:rgb(255, 204, 0);
+      i {
+        margin-right: 5px;
+        font-size: 14px;
+        color: rgb(255, 204, 0);
+      }
+    }
+    
 
   }
 
