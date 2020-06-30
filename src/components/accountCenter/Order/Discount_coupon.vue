@@ -2,11 +2,23 @@
   <div class="Discount_coupon">
     <div class="content">
       <div class="discount_coupon">
-        <h1>优惠券列表</h1>
+        <h1>店铺优惠券</h1>
         <br>
-        <div class="ddd">
+         <div class="ddd">
           <ul class="dc-list">
             <li v-for="(LD,index) in shopData" :key="index">
+              <p><i class="el-icon-delete-solid" @click="DelClick(LD,index)"></i></p>
+              <p>{{LD.name}}</p>
+              <p>优惠{{LD.money}}</p>
+              <p>使用时间：{{LD.use_start_time | formatDate}}至{{LD.use_end_time | formatDate}}</p>
+            </li>
+          </ul>
+        </div> 
+        <h1>平台优惠券</h1>
+        <br>
+         <div class="ddd">
+          <ul class="dc-list">
+            <li v-for="(LD,index) in platformshopData" :key="index">
               <p><i class="el-icon-delete-solid" @click="DelClick(LD,index)"></i></p>
               <p>{{LD.name}}</p>
               <p>优惠{{LD.get_coupon.money}}</p>
@@ -23,6 +35,7 @@ import config  from '../../../config/config'
 export default {
   data() {
     return {
+      platformshopData:'',
       shopData:''
     }
   },
@@ -56,8 +69,18 @@ export default {
         member_id:localStorage.getItem('userId')
       }
     }).then(res=>{
-      this.shopData = res.data.data.items.data
+      this.platformshopData = res.data.data.items.data
       console.log(res)
+    })
+    this.$ajax({
+      url:config.baseUrl + '/home/shop_coupon',
+      method:'get',
+      params:{
+        shop_id:8
+      }
+    }).then(res=>{
+      this.shopData = res.data.data.items.data
+      console.log(this.shopData)
     })
   }
 }

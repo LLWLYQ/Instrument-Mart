@@ -57,7 +57,7 @@
           </div>
         </div>
         <div>
-          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" :goods_quantity="Infos.quantity"></quantity>
+          <quantity @AandS="Change($event)" :goods_unit="Infos.goods_unit" :goods_quantity="Infos.quantity" class="BK"></quantity>
           <!-- 商品规格 -->
           <div class="select" style="color:#000;" ref="sele">
             <!-- <el-form ref="form" :model="Go" label-width="40px" v-for="Go in goods_option" :key="Go.id">
@@ -491,6 +491,7 @@
       tabChange(index, TI) {
         this.imgurl = TI.files_path
         this.iscur = index
+        // this,buzhongjiushibuzhanga  = nalai nameuuoe
         // this.$refs.aaimg.style.display = 'none'
       },
       addToShopCar() {
@@ -654,27 +655,9 @@
 
 </script>
 
-<style scope lang="scss">
+<style scoped lang="scss">
   @import "../../../style/common.css";
-  .el-input__inner {
-    padding: 0 !important;
-    text-indent: 0px !important;
-    border-radius: 0 !important;
-  }
-
-  .el-input-number__decrease {
-    width: 20px !important;
-  }
-
-  .el-input-number__increase {
-    width: 20px !important;
-  }
-  .el-radio-button__orig-radio:checked+.el-radio-button__inner {
-    background: #fff !important;
-    border: 2px solid #FF0036 !important;
-    color: #222 !important;
-    box-shadow: none;
-  }
+  
 
   .collect_succ {
     width: 527px;
@@ -743,11 +726,11 @@
     }
     }
     .suc{
-      color:rgb(255, 204, 0);
+      color:#FF6100;
       i {
         margin-right: 5px;
         font-size: 14px;
-        color: rgb(255, 204, 0);
+        color: #FF6100;
       }
     }
     
@@ -1347,7 +1330,6 @@
       height: 100%;
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
-
       h1 {
         font-size: 20px;
       }
@@ -1471,5 +1453,31 @@
     position: absolute !important;
     left: 920px !important;
     top:50px !important;
+  }
+  .BK{
+    .el-input__inner {
+      padding: 0 !important;
+      text-indent: 0px !important;
+      border-radius: 0 !important;
+    }
+    .el-input-number__decrease {
+      width: 20px !important;
+    }
+
+    .el-input-number__increase {
+      width: 20px !important;
+    }
+    .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+      background: #fff !important;
+      border: 2px solid #FF0036 !important;
+      color: #222 !important;
+      box-shadow: none;
+    }
+    .el-input-number .el-input__inner{
+      -webkit-appearance: none !important;
+      padding-left: 0 !important;
+      padding-right:0 !important; 
+      text-align: center !important;
+    }
   }
 </style>

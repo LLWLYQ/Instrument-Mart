@@ -327,7 +327,7 @@ export default {
     },
     //修改收货地址
     Modification(adr,index){
-      
+      console.log(adr,index,'')
       this.MfId = adr.id
       this.popup1 = 1;
       //地址查看接口

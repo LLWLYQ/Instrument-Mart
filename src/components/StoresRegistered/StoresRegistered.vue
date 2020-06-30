@@ -324,7 +324,7 @@ import config from '../../config/config';
   }
   
 </style>
-<style lang="scss" scoped  >
+<style lang="scss" scoped>
 @import '../../style/common';
  .demo-ruleForm {
     width: 1230px;
