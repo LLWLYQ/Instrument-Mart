@@ -78,6 +78,7 @@ export default {
     LoginForm
   },
   created(){
+    if (localStorage.getItem('userId')) {
     this.$ajax({
       url:config.baseUrl + '/home/user/info',
       method:'post',
@@ -88,6 +89,7 @@ export default {
       this.Cs = res.data.data.company_status
       // console.log(res.data.data)
     })
+    }
   }
 }
 </script>

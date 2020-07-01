@@ -444,7 +444,6 @@
         let as = parseInt(this.Infos.market_price)
         let rs = 0
         rs = as + parseInt(e.target.dataset.price)
-
         // console.log(rs)
 
         this.Infos.market_price = rs

@@ -84,6 +84,8 @@
                 <el-button type="primary" style="width:100%;background:#999;border-color:#e94c15;height:40px;" v-if="checked == false">注册</el-button>
                 <p class="protocol"><el-checkbox v-model="checked"></el-checkbox><span>请您务必审慎阅读、充分理解协议中相关条款内容</span></p>
                 <p class="login" @click="gotoLogin">已有账号？立即登录</p>
+                <p class="daoba">
+                  <input type="text"></p></p>
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -155,6 +157,7 @@ export default {
     let checkindustry = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入所在行业'))
+        // callback(new Error('请输入正确的企鹅搜咋子'))
       }else {
         callback()
       }
@@ -259,7 +262,8 @@ export default {
       buttonText: '发送验证码',
       buttonText1:'发送验证码',
       isDisabled: false, // 是否禁止点击发送验证码按钮
-      flag: true
+      flag: true,
+      // up:falag,`
     }
   },
   methods: {
@@ -401,6 +405,7 @@ export default {
         method:'post',
         data:{
           mobile:this.ruleForm1.tel
+          // thi.er.     
         }
       }).then(res=>{
         
@@ -463,7 +468,7 @@ export default {
           code:this.ruleForm2.smscode,
           company_name:this.ruleForm2.company_name,
           company_contacts:this.ruleForm2.company_contacts,
-          company_industry:this.ruleForm2.industry
+          company_industry:this.ruleForm2.industry,
           // industry:this.ruleForm2.industry
         }
       }).then(res=>{

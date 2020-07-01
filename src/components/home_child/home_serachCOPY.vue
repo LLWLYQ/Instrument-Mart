@@ -120,11 +120,17 @@ export default {
 					}
 					this.wd = this.arr[this.listIndex].goods_name;
 				}else if(event.keyCode==13){
-          //如果你按的是enter，那么就跳转到百度搜索结果
+          // this.listIndex
+          let goods_id  = ''
+          this.arr.map(item=>{
+            goods_id = item.goods_cate_id
+            console.log(item)
+          })
+          // 如果你按的是enter，那么就跳转搜索结果
           let routerJump = this.$router.resolve({
             path:'/ProductCategoryListPage',
             query:{
-              ListClaId:this.arr[this.listIndex].goods_cate_id
+              ListClaId:goods_id
             }
           })
           window.open(routerJump.href,'_blank')
