@@ -54,7 +54,8 @@ export default {
   },
   data() {
     return {
-      goodsData:''
+      goodsData:'',
+      shopId:this.$route.query.Id
     }
   },
   methods: {
@@ -64,7 +65,7 @@ export default {
 
   },
   created(){
-
+    console.log(this.shopId)
   },
   mounted(){
      let self = this
@@ -72,7 +73,7 @@ export default {
         url: config.baseUrl + '/home/goods',
         method: "get",
         params: {
-          shopid: self.sData.shop_id,
+          shopid: localStorage.getItem('ShopId'),
         }
       }).then(res => {
         this.goodsData = res.data.data.items

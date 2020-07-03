@@ -41,11 +41,11 @@
         </h1>
         <div class="supplier-List">
           <ul v-for="ar in shopData" :key="ar.id">
-            <router-link :to="{name:'FlagshipShop',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
-              <li v-for="(arImg,index) in ar.files" :key="index">
+            <router-link   :to="{name:'ShopHome',query:{shopID:ar.shop_id}}" target="_blank" tag="a">
+              <li v-for="(arImg,index) in ar.files" :key="index" @click="ComeIn(ar.shop_id)">
                 <img :src="baseUrl+arImg.files_path" alt="">
+                <p>{{ar.shop_name}}</p>
               </li>
-              <p>{{ar.shop_name}}</p>
             </router-link>
           </ul>
         </div>
@@ -55,11 +55,11 @@
         </h1>
         <div class="provider-List">
           <ul v-for="ar in shopData" :key="ar.id">
-            <router-link :to="{name:'FlagshipShop',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
-              <li v-for="(arImg,index) in ar.files" :key="index">
+            <router-link  :to="{name:'ShopHome',query:{shopID:ar.shop_id}}" target="_blank" tag="a" >
+              <li v-for="(arImg,index) in ar.files" :key="index" @click="ComeIn(ar.shop_id)">
                 <img :src="baseUrl+arImg.files_path" alt="">
+                <p>{{ar.shop_name}}</p>
               </li>
-              <p>{{ar.shop_name}}</p>
             </router-link>
           </ul>
         </div>
@@ -105,6 +105,10 @@
       }
     },
     methods: {
+      ComeIn(id){
+        console.log(id)
+        localStorage.setItem("ShopId",id)
+      },
       scover() {
         this.Scboxshow = true;
       },
@@ -125,6 +129,16 @@
     },
     created() {
       this.$ajax({
+        url:config.baseUrl + '/home/shop',
+        method:'get',
+        params:{
+          member_id:localStorage.getItem('usreId'),
+          shop_id:8,
+        }
+      }).then(res=>{
+        console.log(res)
+      }),
+      this.$ajax({
         url: config.baseUrl + '/home/shop',
         method: 'get',
         params: {
@@ -139,7 +153,7 @@
           url: config.baseUrl + '/home/goods',
           method: 'get',
           params: {
-            shopid: 8
+            shopid: localStorage.getItem('ShopId')
           }
         }).then(res => {
           this.shopList = res.data.data.item
@@ -487,14 +501,15 @@
         box-shadow: 0 1px 6px #999;
 
         li {
-          width: 180px;
-          height: 55px;
+          width: 234px;
+          height: 150px;
+          padding:30px 27px;
           margin: 0 auto;
-          margin-top: 40px;
+          // margin-top: 40px;
 
           img {
             width: 100%;
-            height: 100%;
+            height: 55PX;
           }
         }
 

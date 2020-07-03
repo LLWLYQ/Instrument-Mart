@@ -91,15 +91,15 @@
       CommonalityLeft
     },
     created() {
+      
       let self = this
       self.$ajax({
-        url: config.baseUrl + '/seller/shop/8',
+        url: config.baseUrl + '/seller/shop/' +  this.shopID,
         method: 'get',
         // params:{
 
         // }
       }).then(res => {
-``
         self.shopData = res.data.data
         console.log(this.shopData)
       })

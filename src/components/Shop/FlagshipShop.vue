@@ -2,8 +2,8 @@
   <div class="FlagshipShop">
     <div class="center">
       <div class="fs-header">
-        <img src="https://www.yishangm.com//upload/2018/09/13/20180913110716847.jpg" alt="">
-        <p>大立红外热像仪旗舰店</p>
+        <img :src="baseUrl + goodsData.files_path" alt="">
+        <p>{{goodsData.shop}}</p>
         <div class="ss">
           <img src="https://www.yishangm.com//views/yimall/skin/default/images/seller_4s/images/4S-logo.png" alt="" class="ss">
         </div>
@@ -12,7 +12,7 @@
         <img src="https://www.yishangm.com//views/yimall/skin/default/images/seller_4s/images/banner.png" alt="">
       </div>
       <div class="router-set">
-        <p>位置：首页 > 4S旗舰店 > 大立红外热像仪旗舰店 > {{menutitle}}></p>
+        <p>位置：首页 > 4S旗舰店 > {{goodsData.shop}} > {{menutitle}}></p>
       </div>
       <div class="shop-nav">
         <el-col :span="7">
@@ -34,9 +34,12 @@
   </div>
 </template>
 <script type="text/javascript">
+import config from '../../config/config'
 export default {
   data() {
     return {
+      baseUrl:config.baseUrl,
+      goodsData:'',
       activeIndex: '1',
       activeIndex2: '1',
       openeds:["1"],
@@ -74,8 +77,17 @@ export default {
   },
   methods: {
     menuClik(menu){
-      console.log(menu)
+      console.log(menu.path)
+      // localStorage.setItem("usershoName",menu.path)
+      // let pathName = menu.path.substring(1,menu.path.length-1)
+      // this.$router.push({
+      //   name:pathName,
+      //   params:{
+      //     Id:8
+      //   }
+      // })
       this.menutitle = menu.title
+      // locationbar.setItem('UserName,',menu.path)
     },
     handleSelect(key, keyPath) {
       // console.log(key, keyPath);
@@ -91,8 +103,20 @@ export default {
 
   },
   created() {
-    // console.log(this.openeds)
-    // this.menuClik()
+    // let self = this
+     this.$ajax({
+        url: config.baseUrl + '/home/goods',
+        method: "get",
+        params: {
+          shopid: localStorage.getItem('ShopId'),
+        }
+      }).then(res => {
+        console.log(res)
+        res.data.data.items.map(item=>{
+          this.goodsData = item
+          console.log(this.goodsData)
+        })
+      })
   },
 }
 </script>
