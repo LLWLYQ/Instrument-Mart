@@ -75,7 +75,8 @@
               </li>
               <p><span class="price">{{sl.sales_price}}</span><span class="name">{{sl.goods_name}}</span></p>
             </router-link>
-          </ul>
+          </ul> 
+          <ul class=""></ul>
         </div>
       </div>
     </div>
@@ -106,7 +107,6 @@
     },
     methods: {
       ComeIn(id){
-        console.log(id)
         localStorage.setItem("ShopId",id)
       },
       scover() {
@@ -142,7 +142,7 @@
         url: config.baseUrl + '/home/shop',
         method: 'get',
         params: {
-          recommend: 1
+          recommend: 1,
         }
       }).then(res => {
         this.shopData = res.data.data.items.data
@@ -155,9 +155,9 @@
           params: {
             shopid: localStorage.getItem('ShopId')
           }
-        }).then(res => {
+        }).then(res => {  
           this.shopList = res.data.data.item
-          console.log(this.shopList)
+          // console.log(this.shopList)
         })
         // console.log(this.shopID )
       })
