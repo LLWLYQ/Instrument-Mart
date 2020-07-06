@@ -364,7 +364,7 @@
             GList.carts_list = item.carts_list
             GList.shop_all_weight = item.shop_all_weight
             _this.lists.push(GList)
-            // console.log(_this.lists)
+            console.log(_this.lists)
           })
         })
       },

@@ -56,7 +56,6 @@
             <a href="">更多>></a>
           </div>
           <div class="mauf-body">
-
           </div>
         </div>
         <div class="product-application">
@@ -85,7 +84,6 @@
       }
     },
     methods: {
-
     },
     components: {
       CommonalityLeft
@@ -94,7 +92,7 @@
       
       let self = this
       self.$ajax({
-        url: config.baseUrl + '/seller/shop/' +  this.shopID,
+        url: config.baseUrl + '/seller/shop/' +  this.shopID,                                                                                 
         method: 'get',
         // params:{
 

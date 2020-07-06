@@ -185,6 +185,8 @@
         TotalMoney: JSON.parse(this.$route.query.totalMoney),
         OrderDataList: JSON.parse(this.$route.query.OrderDataList),
         AllOrderDataList: JSON.parse(this.$route.query.AllOrderDataList),
+        OdData:JSON.parse(this.$route.query.OdData),
+        LjDetotalMoney:JSON.parse(this.$route.query.LjDetotalMoney),
         AddressList: true,
         province_id: '',
         city: '',
@@ -274,7 +276,9 @@
       'OrderInfromation': OrderInfromation
     },
     created() {
-      console.log(this.AllOrderDataList)
+      this.orderData = this.OdData
+      this.TotalMoney = this.LjDetotalMoney
+      console.log(this.LjDetotalMoney,this.OdData)
       let arr = []
       arr = this.AllOrderDataList.filter(item => {
           return item.checked == true || item.checked == false

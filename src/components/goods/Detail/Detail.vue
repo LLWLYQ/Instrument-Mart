@@ -283,6 +283,7 @@
     ]),
     methods: {
       BuyNow(){
+        console.log(this.OrderList, this.Infos.sales_price)
         if(this.option == ''){
           this.$refs.sele.style.border = '1px solid #FF0036'
         }else{
@@ -290,8 +291,8 @@
           let routeData = this.$router.resolve({
             name: 'OrderForm',
             query: {
-              orderData: JSON.stringify(this.OrderList),
-              totalMoney: JSON.stringify(this.Infos.sales_price*this.num)/100
+              OdData: JSON.stringify(this.OrderList),
+              LjDetotalMoney: JSON.stringify(this.Infos.sales_price*this.num)
             }
           })
           window.open(routeData.href, '_blank');
@@ -301,8 +302,8 @@
           let routeData = this.$router.resolve({
             name: 'OrderForm',
             query: {
-              orderData: JSON.stringify(this.OrderList),
-              totalMoney: JSON.stringify(this.Infos.sales_price*this.num)/100
+              OdData: JSON.stringify(this.OrderList),
+              LjDetotalMoney: JSON.stringify(this.Infos.sales_price*this.num)
             }
           })
           window.open(routeData.href, '_blank');
@@ -592,10 +593,10 @@
         methods: 'post',
       }).then(res => {
         this.Infos = res.data.data.result
-        this.giao = res.data.data.id
+        this.giao = res.data.data.goods_cate_id
         this.title = this.Infos.goods_name
         this.goods_option = this.Infos.goods_option
-
+        console.log(this.Infos)
         this.$nextTick(function () {
           //console.log(this.$el.textContent) // => '已更新'
 
@@ -611,19 +612,16 @@
         this.name = this.Infos.goods_name
         this.price = this.Infos.sales_price
         // console.log(this.goods_option)
-        // this.OrderList = [{
-        //   // goods_option_value: 
-        //   // goods_option_value:this.
-        //   count:this.num,
-        //   id:this.giao ,
-        //   img:this.Infos.goods_img_path,
-        //   member_id:localStorage.getItem('userId'),
-        //   option: this.option,
-        //   price: this.Infos.sales_price,
-        //   productName:this.Infos.goods_name,
-        //   shop:this.Infos.get_shop.shop_id
-        // }]
-        // console.log(this.Infos)
+        this.OrderList = [{
+          // goods_option_value: 
+          // goods_option_value:this.
+          count:this.num,
+          // carts_list:,
+          shop_id:this.Infos.get_shop.shop_id,
+          shop_all_weight:this.Infos.goods_weight,
+          shop_name:this.Infos.get_shop.shop_name
+        }]
+        console.log(this.OrderList)
         // console.log(this.title)
         this.$ajax({
           url: config.baseUrl + '/home/comment',
